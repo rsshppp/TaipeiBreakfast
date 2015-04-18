@@ -43,6 +43,8 @@ dependencies {
     //testCompile group: 'junit', name: 'junit', version: '4.+'
     
     //tomcat 共用
+    compile 'org.apache.commons:commons-lang3:3.3.1'
+    compile 'org.apache.struts:struts2-dojo-plugin:2.3.4'
    
     //Spring
     compile 'commons-logging:commons-logging:1.2'
@@ -64,11 +66,15 @@ dependencies {
     
     //Hibernate
     compile 'org.hibernate:hibernate-core:4.3.8.Final'
+    compile 'org.hibernate:hibernate-c3p0:4.2.0.Final'
+    compile 'org.hibernate:hibernate-ehcache:4.2.0.Final'
     
     //資料庫用
     
     //log類
     
     //工具類
+    compile 'org.jdom:jdom2:2.0.5'
+    compile 'com.googlecode.json-simple:json-simple:1.1.1'
    
 }

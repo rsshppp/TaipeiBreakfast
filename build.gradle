@@ -48,17 +48,17 @@ dependencies {
    
     //Spring
     compile 'commons-logging:commons-logging:1.2'
-    compile 'org.springframework:spring-aop:4.1.16.RELEASE'
-    compile 'org.springframework:spring-beans:4.1.16.RELEASE'
-    compile 'org.springframework:spring-context:4.1.16.RELEASE'
-    compile 'org.springframework:spring-context-support:4.1.16.RELEASE'
-    compile 'org.springframework:spring-core:4.1.16.RELEASE'
-    compile 'org.springframework:spring-expression:4.1.16.RELEASE'
-    compile 'org.springframework:spring-jdbc:4.1.16.RELEASE'
+    compile 'org.springframework:spring-aop:4.1.6.RELEASE'
+    compile 'org.springframework:spring-beans:4.1.6.RELEASE'
+    compile 'org.springframework:spring-context:4.1.6.RELEASE'
+    compile 'org.springframework:spring-context-support:4.1.6.RELEASE'
+    compile 'org.springframework:spring-core:4.1.6.RELEASE'
+    compile 'org.springframework:spring-expression:4.1.6.RELEASE'
+    compile 'org.springframework:spring-jdbc:4.1.6.RELEASE'
     compile 'org.springframework:spring-orm:4.1.6.RELEASE'
-    compile 'org.springframework:spring-tx:4.1.16.RELEASE'
-    compile 'org.springframework:spring-web:4.1.16.RELEASE'
-    compile 'org.springframework:spring-webmvc:4.1.16.RELEASE'
+    compile 'org.springframework:spring-tx:4.1.6.RELEASE'
+    compile 'org.springframework:spring-web:4.1.6.RELEASE'
+    compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
     
     //Struts2
     compile 'org.apache.struts:struts2-core:2.3.20'

@@ -72,7 +72,7 @@ dependencies {
     //鞈�澈�
  
     //log憿�
- 	//UTF-8(?)
+ 	//UTF-8
  
     //撌亙憿�
     compile 'org.jdom:jdom2:2.0.5'

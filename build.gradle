@@ -4,26 +4,26 @@ apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'eclipse-wtp'
  
-sourceCompatibility = 1.8   // 設置 JDK 版本
-webAppDirName = 'WebContent'    // 設置 WebApp 根目錄
-sourceSets.main.java.srcDir 'src'   // 設置 Java 源碼所在目錄
+sourceCompatibility = 1.8   // 閮剔蔭 JDK ��
+webAppDirName = 'WebContent'    // 閮剔蔭 WebApp �����
+sourceSets.main.java.srcDir 'src'   // 閮剔蔭 Java 皞Ⅳ�������
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
 
-// 設置 maven 庫地址
+// 閮剔蔭 maven 摨怠��
 repositories {  
-    mavenCentral() // 中央庫
-    // maven { url 'http://maven.oschina.net/content/groups/public/' } // 自定義庫地址
+    mavenCentral() // 銝剖亢摨�
+    // maven { url 'http://maven.oschina.net/content/groups/public/' } // �摰儔摨怠��
 }
  
-// 設置依賴
+// 閮剔蔭靘陷
 dependencies {
-    providedCompile 'javax.servlet:javax.servlet-api:3.0.1' // 編譯期
-    providedRuntime 'javax.servlet:jstl:1.2'    // 運行時
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1' // 蝺刻陌���
+    providedRuntime 'javax.servlet:jstl:1.2'    // �����
     //testCompile group: 'junit', name: 'junit', version: '4.+'
 }
  
-// 設置 Project Facets
+// 閮剔蔭 Project Facets
 eclipse {
     wtp {
         facet {
@@ -38,11 +38,11 @@ eclipse {
 }
 
 dependencies {
-    providedCompile 'javax.servlet:javax.servlet-api:3.0.1' // 編譯期
-    providedRuntime 'javax.servlet:jstl:1.2'    // 運行時
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1' // 蝺刻陌���
+    providedRuntime 'javax.servlet:jstl:1.2'    // �����
     //testCompile group: 'junit', name: 'junit', version: '4.+'
  
-    //tomcat 共用
+    //tomcat ��
     compile 'org.apache.commons:commons-lang3:3.3.2'
  
     //Spring
@@ -69,11 +69,12 @@ dependencies {
     compile 'org.hibernate:hibernate-c3p0:4.3.8.Final'
     compile 'org.hibernate:hibernate-ehcache:4.3.8.Final'
  
-    //資料庫用
+    //鞈�澈�
  
-    //log類
+    //log憿�
+ 	//UTF-8
  
-    //工具類
+    //撌亙憿�
     compile 'org.jdom:jdom2:2.0.5'
     compile 'com.googlecode.json-simple:json-simple:1.1.1'
 }

@@ -1,104 +1,139 @@
-package model.Bean;
+package model.bean;
 
-public class MemberBean {
-	private int MemberID;
-	private String MemberAcc;
-	private String MemberPwd;
-	private String MemberLastName;
-	private String MemberFirstName;
-	private String MemberPhone;
-	private String MemberTel;
-	private String MemberEmail;
-	private String MemberAddr;
-	private byte[] MemberImage;
-	private String MemberImageName;
-	private byte[] MemberStatus;
-	private byte MemberSuspend;
-	private int DiscountID;
+import java.io.Serializable;
+
+public class Member implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
+	private Integer memberID ;
+	private String memberAcc;
+	private String memberPwd;
+	private String memberLastName;
+	private String memberFirstName;
+	private String memberPhone;
+	private String memberTel;
+	private String memberEmail;
+	private String memberAddr;
+	private Byte[] memberImage;
+	private String memberImageName;
+	private Byte[] memberStatus;
+	private Byte[] memberSuspend;
+	private Integer DiscountID;
 	
-	public int getMemberID() {
-		return MemberID;
+	public Member() {
+	
 	}
-	public void setMemberID(int memberID) {
-		MemberID = memberID;
+
+	public Integer getMemberID() {
+		return memberID;
 	}
+
+	public void setMemberID(Integer memberID) {
+		this.memberID = memberID;
+	}
+
 	public String getMemberAcc() {
-		return MemberAcc;
+		return memberAcc;
 	}
+
 	public void setMemberAcc(String memberAcc) {
-		MemberAcc = memberAcc;
+		this.memberAcc = memberAcc;
 	}
+
 	public String getMemberPwd() {
-		return MemberPwd;
+		return memberPwd;
 	}
+
 	public void setMemberPwd(String memberPwd) {
-		MemberPwd = memberPwd;
+		this.memberPwd = memberPwd;
 	}
+
 	public String getMemberLastName() {
-		return MemberLastName;
+		return memberLastName;
 	}
+
 	public void setMemberLastName(String memberLastName) {
-		MemberLastName = memberLastName;
+		this.memberLastName = memberLastName;
 	}
+
 	public String getMemberFirstName() {
-		return MemberFirstName;
+		return memberFirstName;
 	}
+
 	public void setMemberFirstName(String memberFirstName) {
-		MemberFirstName = memberFirstName;
+		this.memberFirstName = memberFirstName;
 	}
+
 	public String getMemberPhone() {
-		return MemberPhone;
+		return memberPhone;
 	}
+
 	public void setMemberPhone(String memberPhone) {
-		MemberPhone = memberPhone;
+		this.memberPhone = memberPhone;
 	}
+
 	public String getMemberTel() {
-		return MemberTel;
+		return memberTel;
 	}
+
 	public void setMemberTel(String memberTel) {
-		MemberTel = memberTel;
+		this.memberTel = memberTel;
 	}
+
 	public String getMemberEmail() {
-		return MemberEmail;
+		return memberEmail;
 	}
+
 	public void setMemberEmail(String memberEmail) {
-		MemberEmail = memberEmail;
+		this.memberEmail = memberEmail;
 	}
+
 	public String getMemberAddr() {
-		return MemberAddr;
+		return memberAddr;
 	}
+
 	public void setMemberAddr(String memberAddr) {
-		MemberAddr = memberAddr;
+		this.memberAddr = memberAddr;
 	}
-	public byte[] getMemberImage() {
-		return MemberImage;
+
+	public Byte[] getMemberImage() {
+		return memberImage;
 	}
-	public void setMemberImage(byte[] memberImage) {
-		MemberImage = memberImage;
+
+	public void setMemberImage(Byte[] memberImage) {
+		this.memberImage = memberImage;
 	}
+
 	public String getMemberImageName() {
-		return MemberImageName;
+		return memberImageName;
 	}
+
 	public void setMemberImageName(String memberImageName) {
-		MemberImageName = memberImageName;
+		this.memberImageName = memberImageName;
 	}
-	public byte[] getMemberStatus() {
-		return MemberStatus;
+
+	public Byte[] getMemberStatus() {
+		return memberStatus;
 	}
-	public void setMemberStatus(byte[] memberStatus) {
-		MemberStatus = memberStatus;
+
+	public void setMemberStatus(Byte[] memberStatus) {
+		this.memberStatus = memberStatus;
 	}
-	public byte getMemberSuspend() {
-		return MemberSuspend;
+
+	public Byte[] getMemberSuspend() {
+		return memberSuspend;
 	}
-	public void setMemberSuspend(byte memberSuspend) {
-		MemberSuspend = memberSuspend;
+
+	public void setMemberSuspend(Byte[] memberSuspend) {
+		this.memberSuspend = memberSuspend;
 	}
-	public int getDiscountID() {
+
+	public Integer getDiscountID() {
 		return DiscountID;
 	}
-	public void setDiscountID(int discountID) {
+
+	public void setDiscountID(Integer discountID) {
 		DiscountID = discountID;
 	}
-	
 }

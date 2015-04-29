@@ -1,42 +1,59 @@
-package model.Bean;
+package model.bean;
 
-public class OrderDetailBean {
-	private int OrderDetailID;
-	private int MealID;
-	private int Count;
-	private float Price;
-		//ä¸‹è¨‚å–®æ™‚çš„å•†å“åƒ¹æ ¼,é¿å…å› ç‰©åƒ¹è®Šå‹•è€Œå‡ºéŒ¯
-	private int OrderSumID;
+import java.io.Serializable;
+import java.sql.Date;
+
+public class OrderDetail implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
+	private Integer orderDetailID;
+	private Integer mealId;
+	private Integer count;
+	private Float price;	//¤U­q³æ®Éªº°Ó«~»ù®æ,Á×§K¦]ª«»ùÅÜ°Ê¦Ó¥X¿ù
+	private Integer orderSumID;
 	
-	public int getOrderDetailID() {
-		return OrderDetailID;
+	public OrderDetail() {
+		
 	}
-	public void setOrderDetailID(int orderDetailID) {
-		OrderDetailID = orderDetailID;
+
+	public Integer getOrderDetailID() {
+		return orderDetailID;
 	}
-	public int getMealID() {
-		return MealID;
+
+	public void setOrderDetailID(Integer orderDetailID) {
+		this.orderDetailID = orderDetailID;
 	}
-	public void setMealID(int mealID) {
-		MealID = mealID;
+
+	public Integer getMealId() {
+		return mealId;
 	}
-	public int getCount() {
-		return Count;
+
+	public void setMealId(Integer mealId) {
+		this.mealId = mealId;
 	}
-	public void setCount(int count) {
-		Count = count;
+
+	public Integer getCount() {
+		return count;
 	}
-	public float getPrice() {
-		return Price;
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
-	public void setPrice(float price) {
-		Price = price;
+
+	public Float getPrice() {
+		return price;
 	}
-	public int getOrderSumID() {
-		return OrderSumID;
+
+	public void setPrice(Float price) {
+		this.price = price;
 	}
-	public void setOrderSumID(int orderSumID) {
-		OrderSumID = orderSumID;
+
+	public Integer getOrderSumID() {
+		return orderSumID;
 	}
-	
+
+	public void setOrderSumID(Integer orderSumID) {
+		this.orderSumID = orderSumID;
+	}
 }

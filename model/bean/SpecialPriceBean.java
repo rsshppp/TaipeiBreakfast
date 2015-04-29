@@ -3,6 +3,7 @@ package model.bean;
 import java.io.Serializable;
 import java.sql.Date;
 
+//優惠價格表
 public class SpecialPriceBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;

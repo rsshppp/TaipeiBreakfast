@@ -2,7 +2,7 @@ package model.bean;
 
 import java.io.Serializable;
 
-public class Member implements Serializable{
+public class MemberBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public class Member implements Serializable{
 	private Byte[] memberSuspend;
 	private Integer DiscountID;
 	
-	public Member() {
+	public MemberBean() {
 	
 	}
 

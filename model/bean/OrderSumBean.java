@@ -3,6 +3,7 @@ package model.bean;
 import java.io.Serializable;
 import java.sql.Date;
 
+//總訂單表
 public class OrderSumBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;

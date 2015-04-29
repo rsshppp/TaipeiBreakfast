@@ -1,19 +1,19 @@
 package model.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
 
-public class OrderDetail implements Serializable{
+//è¨‚å–®æ˜ç´°è¡¨
+public class OrderDetailBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	private Integer orderDetailID;
 	private Integer mealId;
 	private Integer count;
-	private Float price;	//¤U­q³æ®Éªº°Ó«~»ù®æ,Á×§K¦]ª«»ùÅÜ°Ê¦Ó¥X¿ù
+	private Float price;	//ä¸‹è¨‚å–®æ™‚çš„å•†å“åƒ¹æ ¼,é¿å…å› ç‰©åƒ¹è®Šå‹•è€Œå‡ºéŒ¯
 	private Integer orderSumID;
 	
-	public OrderDetail() {
+	public OrderDetailBean() {
 		
 	}
 

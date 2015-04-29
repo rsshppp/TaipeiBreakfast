@@ -2,6 +2,7 @@ package model.bean;
 
 import java.io.Serializable;
 
+//訂單狀態表
 public class OrderCondBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;

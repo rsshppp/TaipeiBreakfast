@@ -1,7 +1,10 @@
 package model.bean;
 
+import java.io.Serializable;
+
 //餐點狀態表-Gary
-public class AdvertisementBean {
+public class AdvertisementBean implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Integer advertisementID;
 	private String context;
 	private Byte image;

@@ -1,10 +1,13 @@
 package model.bean;
 
+import java.io.Serializable;
+
 //餐點狀態表-Gary
-public class MealKindListBean {
+public class MealKindListBean implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Integer mealKindID;
 	private String mealKindName;
-	private Byte defaultImage;
+	private Byte[] defaultImage;
 	
 	public Integer getMealKindID() {
 		return mealKindID;
@@ -18,10 +21,10 @@ public class MealKindListBean {
 	public void setMealKindName(String mealKindName) {
 		this.mealKindName = mealKindName;
 	}
-	public Byte getDefaultImage() {
+	public Byte[] getDefaultImage() {
 		return defaultImage;
 	}
-	public void setDefaultImage(Byte defaultImage) {
+	public void setDefaultImage(Byte[] defaultImage) {
 		this.defaultImage = defaultImage;
 	}
 }

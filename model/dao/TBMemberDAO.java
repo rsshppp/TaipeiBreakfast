@@ -2,8 +2,8 @@ package model.dao;
 
 import java.util.List;
 
-import model.Bean.MemberBean;
-import model.Bean.ShopBean;
+import model.bean.MemberBean;
+import model.bean.ShopBean;
 
 public interface TBMemberDAO {
 	public abstract MemberBean insertMember(MemberBean bean);
@@ -11,6 +11,5 @@ public interface TBMemberDAO {
 	public abstract MemberBean selectMember(MemberBean bean);
 	public abstract List<MemberBean> selectMember();
 	public abstract MemberBean deleteMember(int MemberID);
-	public abstract List<ShopBean> select店鋪(String keyword,int shopArea,int shopID);
-	public abstract List<String> select最新訂單();
+	public abstract List<ShopBean> selectShop(String keyword,int shopArea,int shopID);
 }

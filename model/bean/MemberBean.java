@@ -1,6 +1,7 @@
 package model.bean;
 
 import java.io.Serializable;
+
 //會員表
 public class MemberBean implements Serializable{
 

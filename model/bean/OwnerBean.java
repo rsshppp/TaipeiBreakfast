@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class OwnerBean implements Serializable{
 	
     private static final long serialVersionUID = 1L;
-
+	
     private Integer ownID;
     private String ownAcc;
     private String ownPwd;
@@ -90,7 +90,7 @@ public class OwnerBean implements Serializable{
 		this.ownSuspend = ownSuspend;
 	}
 	
-//    public static void main(String[] args){   //for test
+//    public static void main(String[] args){   //for test test
 //    	OwnerBean bean=new OwnerBean();
 //    	bean.setOwnID(12);
 //    	System.out.println(bean);

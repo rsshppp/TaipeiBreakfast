@@ -10,7 +10,7 @@ public class OrderDetailBean implements Serializable{
 	private Integer orderDetailID;
 	private Integer mealId;
 	private Integer count;
-	private Float price;	//下訂單時的商品價格,避免因物價變動而出錯
+	private Double price;	//下訂單時的商品價格,避免因物價變動而出錯
 	private Integer orderSumID;
 	
 	public OrderDetailBean() {
@@ -41,11 +41,11 @@ public class OrderDetailBean implements Serializable{
 		this.count = count;
 	}
 
-	public Float getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Float price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

@@ -2,7 +2,6 @@ package model.bean;
 
 import java.io.Serializable;
 
-public class OrderDetail implements Serializable{
 //訂單明細表
 public class OrderDetailBean implements Serializable{
 

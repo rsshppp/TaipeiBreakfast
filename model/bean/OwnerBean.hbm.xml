@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015/4/29 ?U?? 05:04:31 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="model.bean.OwnerBean" table="Owner">
+        <id name="OwnID" type="integer">
+            <column name="OwnID" />
+            <generator class="assigned" />
+        </id>
+        <property name="OwnAcc" type="string">
+            <column name="OWNACC" />
+        </property>
+        <property name="OwnPwd" type="string">
+            <column name="OWNPWD" />
+        </property>
+        <property name="OwnEmail" type="string">
+            <column name="OWNEMAIL" />
+        </property>
+        <property name="OwnLastName" type="string">
+            <column name="OWNLASTNAME" />
+        </property>
+        <property name="OwnFirstName" type="string">
+            <column name="OWNFIRSTNAME" />
+        </property>
+        <property name="OwnStatus" type="boolean">
+            <column name="OWNSTATUS" />
+        </property>
+        <property name="OwnSuspend" type="boolean">
+            <column name="OWNSUSPEND" />
+        </property>
+    </class>
+</hibernate-mapping>

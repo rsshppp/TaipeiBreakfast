@@ -9,25 +9,25 @@
             <generator class="assigned" />
         </id>
         <property name="OwnAcc" type="string">
-            <column name="OWNACC" />
+            <column name="OwnAcc" />
         </property>
         <property name="OwnPwd" type="string">
-            <column name="OWNPWD" />
+            <column name="OwnPwd" />
         </property>
         <property name="OwnEmail" type="string">
-            <column name="OWNEMAIL" />
+            <column name="OwnEmail" />
         </property>
         <property name="OwnLastName" type="string">
-            <column name="OWNLASTNAME" />
+            <column name="OwnLastName" />
         </property>
         <property name="OwnFirstName" type="string">
-            <column name="OWNFIRSTNAME" />
+            <column name="OwnFirstName" />
         </property>
         <property name="OwnStatus" type="boolean">
-            <column name="OWNSTATUS" />
+            <column name="OwnStatus" />
         </property>
         <property name="OwnSuspend" type="boolean">
-            <column name="OWNSUSPEND" />
+            <column name="OwnSuspend" />
         </property>
     </class>
 </hibernate-mapping>

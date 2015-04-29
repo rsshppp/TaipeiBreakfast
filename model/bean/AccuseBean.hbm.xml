@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="model.bean.AccuseBean" table="Accuse">
+        <id name="accuseID" type="java.lang.Integer">
+            <column name="accuseID" />
+            <generator class="assigned" />
+        </id>
+        <property name="memberID" type="java.lang.Integer">
+            <column name="memberID" />
+        </property>
+        <property name="accuseSub" type="java.lang.String">
+            <column name="accuseSub" />
+        </property>
+        <property name="accuseContent" type="java.lang.String">
+            <column name="accuseContent" />
+        </property>
+        <property name="accuseStatusID" type="java.lang.Integer">
+            <column name="accuseStatusID" />
+        </property>
+        <property name="accuseTime" type="java.util.Date">
+            <column name="accuseTime" />
+        </property>
+    </class>
+</hibernate-mapping>

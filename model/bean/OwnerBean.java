@@ -1,7 +1,13 @@
-package model.bean;
+﻿package model.bean;
 
-public class OwnerBean {
-	private Integer ownID;
+import java.io.Serializable;
+
+//賣方表
+public class OwnerBean implements Serializable{
+	
+    private static final long serialVersionUID = 1L;
+
+    private Integer ownID;
     private String ownAcc;
     private String ownPwd;
     private String ownEmail;

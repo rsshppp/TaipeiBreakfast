@@ -1,7 +1,7 @@
 package model.bean;
 
 import java.io.Serializable;
-//會員表-Noah
+//會員表
 public class Member implements Serializable{
 
 	private static final long serialVersionUID = 1L;

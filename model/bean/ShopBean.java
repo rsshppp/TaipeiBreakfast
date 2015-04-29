@@ -18,8 +18,8 @@ public class ShopBean implements Serializable{
 	private Date lastOrderNight;
 	private Integer ownID;
 	private Byte[] logoImage;
-	private Byte[] shopSuspend;
-	private Byte[] shopStatusID;
+	private Boolean shopSuspend;
+	private Integer shopStatusID;
 	private Date beginBusinessTime;
 	private Date endBusinessTime;
 	private String businessTimeNote;
@@ -108,19 +108,21 @@ public class ShopBean implements Serializable{
 		this.logoImage = logoImage;
 	}
 
-	public Byte[] getShopSuspend() {
+	
+
+	public Boolean getShopSuspend() {
 		return shopSuspend;
 	}
 
-	public void setShopSuspend(Byte[] shopSuspend) {
+	public void setShopSuspend(Boolean shopSuspend) {
 		this.shopSuspend = shopSuspend;
 	}
 
-	public Byte[] getShopStatusID() {
+	public Integer getShopStatusID() {
 		return shopStatusID;
 	}
 
-	public void setShopStatusID(Byte[] shopStatusID) {
+	public void setShopStatusID(Integer shopStatusID) {
 		this.shopStatusID = shopStatusID;
 	}
 

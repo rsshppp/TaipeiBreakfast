@@ -13,8 +13,8 @@ public class OwnerBean implements Serializable{
     private String ownEmail;
     private String ownLastName;
     private String ownFirstName;
-    private Byte[] ownStatusID;
-    private Byte[] ownSuspend;
+    private Integer ownStatusID;
+    private Boolean ownSuspend;
     
     public OwnerBean() {
 		
@@ -74,21 +74,23 @@ public class OwnerBean implements Serializable{
 		this.ownFirstName = ownFirstName;
 	}
 
-	public Byte[] getOwnStatusID() {
+	public Integer getOwnStatusID() {
 		return ownStatusID;
 	}
 
-	public void setOwnStatusID(Byte[] ownStatusID) {
+	public void setOwnStatusID(Integer ownStatusID) {
 		this.ownStatusID = ownStatusID;
 	}
 
-	public Byte[] getOwnSuspend() {
+	public Boolean getOwnSuspend() {
 		return ownSuspend;
 	}
 
-	public void setOwnSuspend(Byte[] ownSuspend) {
+	public void setOwnSuspend(Boolean ownSuspend) {
 		this.ownSuspend = ownSuspend;
 	}
+
+	
 	
 //    public static void main(String[] args){   //for test test
 //    	OwnerBean bean=new OwnerBean();

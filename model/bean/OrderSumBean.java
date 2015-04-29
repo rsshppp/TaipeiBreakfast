@@ -11,7 +11,7 @@ public class OrderSumBean implements Serializable{
 	private Integer orderSumID;
 	private Integer shopID;
 	private Integer memberID;
-	private Float totalPrice;
+	private Double totalPrice;
 	private Date orderTime;
 	private Date expectTime;
 	private String memo;
@@ -47,11 +47,11 @@ public class OrderSumBean implements Serializable{
 		this.memberID = memberID;
 	}
 
-	public Float getTotalPrice() {
+	public Double getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(Float totalPrice) {
+	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
@@ -102,4 +102,6 @@ public class OrderSumBean implements Serializable{
 	public void setOrderCondID(Integer orderCondID) {
 		this.orderCondID = orderCondID;
 	}
+
+	
 }

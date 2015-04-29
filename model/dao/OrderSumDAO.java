@@ -1,11 +1,14 @@
-package model.dao;
+﻿package model.dao;
 
+import java.util.List;
+import model.bean.OrderSumBean;
+import model.bean.ShopBean;
 
 import java.sql.Date;
 
 public interface OrderSumDAO {
-	
-	
+	//透過ShopBean的ShopID查詢所有"總訂單"，接續查詢個別總訂單的訂單明細
+	public List<OrderSumBean> queryOrderSum(ShopBean bean);
 	
 	//新增一筆訂單需要取得店鋪ID、會員ID、總價格、訂單取餐時間
 	public abstract boolean insertOrderSum(Integer shopID, Integer memberID, Double totalPrice,Date expectTime, String memo);

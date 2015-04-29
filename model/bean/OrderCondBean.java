@@ -29,6 +29,4 @@ public class OrderCondBean implements Serializable{
 	public void setOrderCond(String orderCond) {
 		this.orderCond = orderCond;
 	}
-
-	
 }

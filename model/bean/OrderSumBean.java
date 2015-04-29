@@ -102,6 +102,4 @@ public class OrderSumBean implements Serializable{
 	public void setOrderCondID(Integer orderCondID) {
 		this.orderCondID = orderCondID;
 	}
-	
-	
 }

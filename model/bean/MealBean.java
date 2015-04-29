@@ -1,7 +1,10 @@
 package model.bean;
 
+import java.io.Serializable;
+
 //餐點表-Gary
-public class MealBean {
+public class MealBean implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Integer mealID;
 	private String mealName;
 	private Double price;

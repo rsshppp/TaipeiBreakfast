@@ -1,7 +1,10 @@
 package model.bean;
 
+import java.io.Serializable;
+
 //廣告狀態表-Gary
-public class AdvertisementStatusBean {
+public class AdvertisementStatusBean implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Integer advertisementStatusID;
 	private String advertisementStatus;
 	

@@ -3,6 +3,7 @@ package model.bean;
 import java.io.Serializable;
 import java.sql.Date;
 
+//總訂單表
 public class OrderSumBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -101,6 +102,4 @@ public class OrderSumBean implements Serializable{
 	public void setOrderCondID(Integer orderCondID) {
 		this.orderCondID = orderCondID;
 	}
-	
-	
 }

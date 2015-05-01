@@ -37,10 +37,10 @@
         <property name="memberImageName" type="java.lang.String">
             <column name="memberImageName" />
         </property>
-        <property name="memberStatus" type="java.lang.Byte">
+        <property name="memberStatus" type="java.lang.Boolean">
             <column name="memberStatus" />
         </property>
-        <property name="memberSuspend" type="java.lang.Byte">
+        <property name="memberSuspend" type="java.lang.Boolean">
             <column name="memberSuspend" />
         </property>
         <property name="DiscountID" type="java.lang.String">

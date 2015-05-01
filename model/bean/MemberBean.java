@@ -18,8 +18,8 @@ public class MemberBean implements Serializable{
 	private String memberAddr;
 	private Byte[] memberImage;
 	private String memberImageName;
-	private Byte[] memberStatus;
-	private Byte[] memberSuspend;
+	private Boolean memberStatus;
+	private Boolean memberSuspend;
 	private Integer DiscountID;
 	
 	public MemberBean() {
@@ -114,19 +114,19 @@ public class MemberBean implements Serializable{
 		this.memberImageName = memberImageName;
 	}
 
-	public Byte[] getMemberStatus() {
+	public Boolean getMemberStatus() {
 		return memberStatus;
 	}
 
-	public void setMemberStatus(Byte[] memberStatus) {
+	public void setMemberStatus(Boolean memberStatus) {
 		this.memberStatus = memberStatus;
 	}
 
-	public Byte[] getMemberSuspend() {
+	public Boolean getMemberSuspend() {
 		return memberSuspend;
 	}
 
-	public void setMemberSuspend(Byte[] memberSuspend) {
+	public void setMemberSuspend(Boolean memberSuspend) {
 		this.memberSuspend = memberSuspend;
 	}
 

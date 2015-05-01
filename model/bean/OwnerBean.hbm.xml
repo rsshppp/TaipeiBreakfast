@@ -4,29 +4,29 @@
 <!-- Generated 2015/4/29 ?U?? 05:04:31 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="model.bean.OwnerBean" table="Owner">
-        <id name="OwnID" type="integer">
+        <id name="OwnID" type="java.lang.Integer">
             <column name="OwnID" />
             <generator class="assigned" />
         </id>
-        <property name="OwnAcc" type="string">
+        <property name="OwnAcc" type="java.lang.String">
             <column name="OwnAcc" />
         </property>
-        <property name="OwnPwd" type="string">
+        <property name="OwnPwd" type="java.lang.String">
             <column name="OwnPwd" />
         </property>
-        <property name="OwnEmail" type="string">
+        <property name="OwnEmail" type="java.lang.String">
             <column name="OwnEmail" />
         </property>
-        <property name="OwnLastName" type="string">
+        <property name="OwnLastName" type="java.lang.String">
             <column name="OwnLastName" />
         </property>
-        <property name="OwnFirstName" type="string">
+        <property name="OwnFirstName" type="java.lang.String">
             <column name="OwnFirstName" />
         </property>
-        <property name="OwnStatus" type="boolean">
+        <property name="OwnStatus" type="java.lang.boolean">
             <column name="OwnStatus" />
         </property>
-        <property name="OwnSuspend" type="boolean">
+        <property name="OwnSuspend" type="java.lang.boolean">
             <column name="OwnSuspend" />
         </property>
     </class>

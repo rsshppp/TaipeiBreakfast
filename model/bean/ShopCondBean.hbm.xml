@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015/4/29 ?U?? 05:04:31 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="model.bean.ShopBean" table="Shop">
+        <id name="shopCondID" type="java.lang.Integer">
+            <column name="shopCondID" />
+            <generator class="assigned" />
+        </id>
+        <property name="shopCond" type="java.lang.String">
+            <column name="shopCond" />
+        </property>
+    </class>
+</hibernate-mapping>

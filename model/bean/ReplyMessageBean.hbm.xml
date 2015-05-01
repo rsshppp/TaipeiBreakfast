@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015/4/29 ?U?? 05:04:31 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="model.bean.ReplyMessageBean" table="ReplyMessage">
+        <id name="replyMessageID" type="java.lang.Integer">
+            <column name="replyMessageID" />
+            <generator class="assigned" />
+        </id>
+        <property name="messageID" type="java.lang.Integer">
+            <column name="messageID" />
+        </property>
+        <property name="memberID" type="java.lang.Integer">
+            <column name="memberID" />
+        </property>
+        <property name="replyMessage" type="java.lang.String">
+            <column name="replyMessage" />
+        </property>
+        <property name="replyDate" type="java.util.Date">
+            <column name="replyDate" />
+        </property>
+        <property name="ipAddress" type="java.lang.String">
+            <column name="ipAddress" />
+        </property>
+    </class>
+</hibernate-mapping>

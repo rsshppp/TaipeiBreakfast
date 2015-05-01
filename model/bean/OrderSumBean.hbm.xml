@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="model.bean.OrderSumBean" table="OrderSum">
+        <id name="orderSumID" type="java.lang.Integer">
+            <column name="orderSumID" />
+            <generator class="assigned" />
+        </id>
+        <property name="shopID" type="java.lang.Integer">
+            <column name="shopID" />
+        </property>
+        <property name="memberID" type="java.lang.Integer">
+            <column name="memberID" />
+        </property>
+        <property name="totalPrice" type="java.lang.Double">
+            <column name="totalPrice" />
+        </property>
+        <property name="orderTime" type="java.util.Date">
+            <column name="orderTime" />
+        </property>
+        <property name="expectTime" type="java.util.Date">
+            <column name="expectTime" />
+        </property>
+        <property name="memo" type="java.lang.String">
+            <column name="memo" />
+        </property>
+        <property name="starsForOwn" type="java.lang.Integer">
+            <column name="starsForOwn" />
+        </property>
+        <property name="evaluateForShop" type="java.lang.String">
+            <column name="evaluateForShop" />
+        </property>
+        <property name="orderCondID" type="java.lang.Integer">
+            <column name="orderCondID" />
+        </property>
+    </class>
+</hibernate-mapping>

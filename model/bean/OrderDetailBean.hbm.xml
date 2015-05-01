@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="model.bean.OrderDetailBean" table="OrderDetail">
+        <id name="orderDetailID" type="java.lang.Integer">
+            <column name="orderDetailID" />
+            <generator class="assigned" />
+        </id>
+        <property name="mealId" type="java.lang.Integer">
+            <column name="mealId" />
+        </property>
+        <property name="count" type="java.lang.Integer">
+            <column name="count" />
+        </property>
+        <property name="price" type="java.lang.Double">
+            <column name="price" />
+        </property>
+        <property name="orderSumID" type="java.lang.Integer">
+            <column name="orderSumID" />
+        </property>
+    </class>
+</hibernate-mapping>

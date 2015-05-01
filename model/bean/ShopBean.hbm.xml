@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015/4/29 ?U?? 05:04:31 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="model.bean.ShopBean" table="Shop">
+        <id name="shopID" type="java.lang.Integer">
+            <column name="shopID" />
+            <generator class="assigned" />
+        </id>
+        <property name="shopName" type="java.lang.String">
+            <column name="shopName" />
+        </property>
+        <property name="shopPhone" type="java.lang.String">
+            <column name="shopPhone" />
+        </property>
+        <property name="shopCity" type="java.lang.String">
+            <column name="shopCity" />
+        </property>
+        <property name="shopArea" type="java.lang.String">
+            <column name="shopArea" />
+        </property>
+        <property name="shopAddr" type="java.lang.String">
+            <column name="shopAddr" />
+        </property>
+        <property name="lastOrderNoon" type="java.util.Date">
+            <column name="lastOrderNoon" />
+        </property>
+        <property name="lastOrderNight" type="java.util.Date">
+            <column name="lastOrderNight" />
+        </property>
+        <property name="ownID" type="java.lang.Integer">
+            <column name="ownID" />
+        </property>
+        <property name="logoImage" type="java.lang.Byte">
+            <column name="logoImage" />
+        </property>
+        <property name="shopSuspend" type="java.lang.Boolean">
+            <column name="shopSuspend" />
+        </property>
+        <property name="shopStatusID" type="java.lang.Integer">
+            <column name="shopStatusID" />
+        </property>
+        <property name="beginBusinessTime" type="java.util.Date">
+            <column name="beginBusinessTime" />
+        </property>
+        <property name="endBusinessTime" type="java.util.Date">
+            <column name="endBusinessTime" />
+        </property>
+        <property name="businessTimeNote" type="java.lang.String">
+            <column name="businessTimeNote" />
+        </property>
+    </class>
+</hibernate-mapping>

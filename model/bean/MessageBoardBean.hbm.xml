@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="model.bean.MessageBoardBean" table="MessageBoard">
+        <id name="messageID" type="java.lang.Integer">
+            <column name="messageID" />
+            <generator class="assigned" />
+        </id>
+        <property name="memberID" type="java.lang.Integer">
+            <column name="memberID" />
+        </property>
+        <property name="context" type="java.lang.String">
+            <column name="context" />
+        </property>
+        <property name="messageDate" type="java.util.Date">
+            <column name="messageDate" />
+        </property>
+        <property name="ipAddress" type="java.lang.String">
+            <column name="ipAddress" />
+        </property>
+    </class>
+</hibernate-mapping>

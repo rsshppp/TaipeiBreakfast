@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="model.bean.DaysOffBean" table="DaysOff">
+        <id name="daysOffID" type="java.lang.Integer">
+            <column name="daysOffID" />
+            <generator class="assigned" />
+        </id>
+        <property name="shopID" type="java.lang.Integer">
+            <column name="shopID" />
+        </property>
+        <property name="daysOff" type="java.util.Date">
+            <column name="daysOff" />
+        </property>
+    </class>
+</hibernate-mapping>

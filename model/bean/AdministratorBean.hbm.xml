@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="model.bean.AdministratorBean" table="Administrator">
+        <id name="administratorID" type="java.lang.Integer">
+            <column name="administratorID" />
+            <generator class="assigned" />
+        </id>
+        <property name="administratorAcc" type="java.lang.String">
+            <column name="administratorAcc" />
+        </property>
+        <property name="administratorPwd" type="java.lang.String">
+            <column name="administratorPwd" />
+        </property>
+        <property name="administratorPermissionID" type="java.lang.Integer">
+            <column name="administratorPermissionID" />
+        </property>
+    </class>
+</hibernate-mapping>

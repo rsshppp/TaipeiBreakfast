@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="model.bean.AdministratorPermissionBean" table="AdministratorPermission">
+        <id name="administratorPermissionID" type="java.lang.Integer">
+            <column name="administratorPermissionID" />
+            <generator class="assigned" />
+        </id>
+        <property name="administratorPermissionStatus" type="java.lang.String">
+            <column name="administratorPermissionStatus" />
+        </property>
+    </class>
+</hibernate-mapping>

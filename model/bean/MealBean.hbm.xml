@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="model.bean.MealBean" table="Meal">
+        <id name="mealID" type="java.lang.Integer">
+            <column name="mealID" />
+            <generator class="assigned" />
+        </id>
+        <property name="mealName" type="java.lang.String">
+            <column name="mealName" />
+        </property>
+        <property name="price" type="java.lang.Double">
+            <column name="price" />
+        </property>
+        <property name="shopID" type="java.lang.Integer">
+            <column name="shopID" />
+        </property>
+        <property name="mealImage" type="java.lang.Byte">
+            <column name="mealImage" />
+        </property>
+        <property name="mealStatus" type="java.lang.Boolean">
+            <column name="mealStatus" />
+        </property>
+        <property name="mealKindID" type="java.lang.Integer">
+            <column name="mealKindID" />
+        </property>
+    </class>
+</hibernate-mapping>

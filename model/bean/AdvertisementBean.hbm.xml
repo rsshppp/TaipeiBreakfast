@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="model.bean.AdvertisementBean" table="Advertisement">
+        <id name="advertisementID" type="java.lang.Integer">
+            <column name="advertisementID" />
+            <generator class="assigned" />
+        </id>
+        <property name="context" type="java.lang.String">
+            <column name="context" />
+        </property>
+        <property name="image" type="java.lang.Byte">
+            <column name="image" />
+        </property>
+        <property name="days" type="java.lang.Integer">
+            <column name="days" />
+        </property>
+        <property name="passed" type="java.lang.Boolean">
+            <column name="passed" />
+        </property>
+        <property name="advertisementStatusID" type="java.lang.Integer">
+            <column name="advertisementStatusID" />
+        </property>
+        <property name="shopID" type="java.lang.Integer">
+            <column name="shopID" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="model.bean.MemberBean" table="Member">
+        <id name="memberID" type="java.lang.Integer">
+            <column name="memberID" />
+            <generator class="assigned" />
+        </id>
+        <property name="memberAcc" type="java.lang.String">
+            <column name="memberAcc" />
+        </property>
+        <property name="memberPwd" type="java.lang.String">
+            <column name="memberPwd" />
+        </property>
+        <property name="memberLastName" type="java.lang.String">
+            <column name="memberLastName" />
+        </property>
+        <property name="memberFirstName" type="java.lang.String">
+            <column name="memberFirstName" />
+        </property>
+        <property name="memberPhone" type="java.lang.String">
+            <column name="memberPhone" />
+        </property>
+        <property name="memberTel" type="java.lang.String">
+            <column name="memberTel" />
+        </property>
+        <property name="memberEmail" type="java.lang.String">
+            <column name="memberEmail" />
+        </property>
+        <property name="memberAddr" type="java.lang.String">
+            <column name="memberAddr" />
+        </property>
+        <property name="memberImage" type="java.lang.Byte">
+            <column name="memberImage" />
+        </property>
+        <property name="memberImageName" type="java.lang.String">
+            <column name="memberImageName" />
+        </property>
+        <property name="memberStatus" type="java.lang.Byte">
+            <column name="memberStatus" />
+        </property>
+        <property name="memberSuspend" type="java.lang.Byte">
+            <column name="memberSuspend" />
+        </property>
+        <property name="DiscountID" type="java.lang.String">
+            <column name="DiscountID" />
+        </property>
+    </class>
+</hibernate-mapping>

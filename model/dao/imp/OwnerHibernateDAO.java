@@ -57,7 +57,7 @@ public class OwnerHibernateDAO implements OwnerDAO {
 	
 	
 	public OwnerBean update(OwnerBean ownerBean){
-		OwnerBean bean=(OwnerBean)session.get(OwnerBean.class, ownerBean.getOwnID());
+		OwnerBean bean=this.select(ownerBean.getOwnAcc());
 		if(bean!=null){
 			bean.setOwnAcc(ownerBean.getOwnAcc());
 			bean.setOwnEmail(ownerBean.getOwnEmail());
@@ -72,9 +72,37 @@ public class OwnerHibernateDAO implements OwnerDAO {
 		return null;
 	}
 	
+	public OwnerBean updateName(String ownLastName,String ownFirstName,String ownAcc){
+		OwnerBean bean=this.select(ownAcc);
+		if(bean!=null){
+			bean.setOwnLastName(ownLastName);
+			bean.setOwnFirstName(ownFirstName);
+			return bean;
+		}
+		return null;
+	}
 	
-	public boolean delete(Integer ownID){
-		OwnerBean bean=(OwnerBean)session.get(OwnerBean.class,ownID);
+	public OwnerBean updateEmail(String ownEmail,String ownAcc){
+		OwnerBean bean=this.select(ownAcc);
+		if(bean!=null){
+			bean.setOwnEmail(ownEmail);
+			return bean;
+		}
+		return null;
+	}
+	
+	public OwnerBean updatePwd(String ownPwd,String ownAcc){
+		OwnerBean bean=this.select(ownAcc);
+		if(bean!=null){
+			bean.setOwnPwd(ownPwd);
+			return bean;
+		}
+		return null;
+	}
+	
+	
+	public boolean delete(String ownAcc){
+		OwnerBean bean=this.select(ownAcc);
 		if(bean!=null){
 			bean.setOwnStatus(false);
 			return true;
@@ -99,7 +127,7 @@ public class OwnerHibernateDAO implements OwnerDAO {
 //			List<ShopBean> list=dao.getShops(4);      //getshops
 //			System.out.println(list);
 			
-//			OwnerBean bean=new OwnerBean();           //insert
+//			OwnerBean bean=new OwnerBean();            //insert
 //			bean.setOwnAcc("pig");
 //			bean.setOwnEmail("pig@gmail.com");
 //			bean.setOwnFirstName("Mary");
@@ -110,10 +138,10 @@ public class OwnerHibernateDAO implements OwnerDAO {
 //			OwnerBean bean2=dao.insert(bean);
 //			System.out.println(bean2);
 			
-//			OwnerBean bean=new OwnerBean();           //update
+//			OwnerBean bean=new OwnerBean();              //update多項欄位資料
 //			bean.setOwnID(7);
 //			bean.setOwnAcc("pig");
-//			bean.setOwnEmail("change@gmail.com");
+//			bean.setOwnEmail("change2@gmail.com");
 //			bean.setOwnFirstName("Mary");
 //			bean.setOwnLastName("BBox");
 //			bean.setOwnPwd("456789");
@@ -122,8 +150,18 @@ public class OwnerHibernateDAO implements OwnerDAO {
 //			OwnerBean bean2=dao.update(bean);
 //			System.out.println(bean2);
 			
-//            boolean b=dao.delete(7);
-//            System.out.println("delete status:"+b);
+//			OwnerBean bean=dao.updateName("王", "大同", "pig");//update Name相關欄位資料
+//			System.out.println(bean);
+			
+//			OwnerBean bean=dao.updateEmail("change3@gmail.com", "pig"); //update單一(Email欄位資料)
+//			System.out.println(bean);
+			
+//			OwnerBean bean=dao.updatePwd("11111", "pig");    //update單一(密碼欄位資料)
+//			System.out.println(bean);
+							
+			
+//          boolean b=dao.delete("pig");
+//          System.out.println("delete status:"+b);
 			
 			session.getTransaction().commit();
 		}finally{

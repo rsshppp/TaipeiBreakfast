@@ -1,7 +1,8 @@
 package model.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Time;
+
 
 //店鋪表
 public class ShopBean implements Serializable{
@@ -14,14 +15,14 @@ public class ShopBean implements Serializable{
 	private String shopCity;
 	private String shopArea;
 	private String shopAddr;
-	private Date lastOrderNoon;
-	private Date lastOrderNight;
+	private Time lastOrderNoon;
+	private Time lastOrderNight;
 	private Integer ownID;
 	private Byte[] logoImage;
 	private Boolean shopSuspend;
 	private Integer shopCondID;
-	private Date beginBusinessTime;
-	private Date endBusinessTime;
+	private Time beginBusinessTime;
+	private Time endBusinessTime;
 	private String businessTimeNote;
 	
 	public ShopBean() {
@@ -86,21 +87,27 @@ public class ShopBean implements Serializable{
 		this.shopAddr = shopAddr;
 	}
 
-	public Date getLastOrderNoon() {
+	
+
+	public Time getLastOrderNoon() {
 		return lastOrderNoon;
 	}
 
-	public void setLastOrderNoon(Date lastOrderNoon) {
+
+	public void setLastOrderNoon(Time lastOrderNoon) {
 		this.lastOrderNoon = lastOrderNoon;
 	}
 
-	public Date getLastOrderNight() {
+
+	public Time getLastOrderNight() {
 		return lastOrderNight;
 	}
 
-	public void setLastOrderNight(Date lastOrderNight) {
+
+	public void setLastOrderNight(Time lastOrderNight) {
 		this.lastOrderNight = lastOrderNight;
 	}
+
 
 	public Integer getOwnID() {
 		return ownID;
@@ -116,9 +123,7 @@ public class ShopBean implements Serializable{
 
 	public void setLogoImage(Byte[] logoImage) {
 		this.logoImage = logoImage;
-	}
-
-	
+	}	
 
 	public Boolean getShopSuspend() {
 		return shopSuspend;
@@ -136,21 +141,26 @@ public class ShopBean implements Serializable{
 		this.shopCondID = shopCondID;
 	}
 
-	public Date getBeginBusinessTime() {
+
+	public Time getBeginBusinessTime() {
 		return beginBusinessTime;
 	}
 
-	public void setBeginBusinessTime(Date beginBusinessTime) {
+
+	public void setBeginBusinessTime(Time beginBusinessTime) {
 		this.beginBusinessTime = beginBusinessTime;
 	}
 
-	public Date getEndBusinessTime() {
+
+	public Time getEndBusinessTime() {
 		return endBusinessTime;
 	}
 
-	public void setEndBusinessTime(Date endBusinessTime) {
+
+	public void setEndBusinessTime(Time endBusinessTime) {
 		this.endBusinessTime = endBusinessTime;
 	}
+
 
 	public String getBusinessTimeNote() {
 		return businessTimeNote;

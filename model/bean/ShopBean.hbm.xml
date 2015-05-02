@@ -23,10 +23,10 @@
         <property name="ShopAddr" type="string">
             <column name="ShopAddr" />
         </property>
-        <property name="LastOrderNoon" type="date">
+        <property name="LastOrderNoon" type="time">
             <column name="LastOrderNoon" />
         </property>
-        <property name="LastOrderNight" type="date">
+        <property name="LastOrderNight" type="time">
             <column name="LastOrderNight" />
         </property>
         <property name="OwnID" type="integer">
@@ -41,10 +41,10 @@
         <property name="ShopCondID" type="integer">
             <column name="ShopCondID" />
         </property>
-        <property name="BeginBusinessTime" type="date">
+        <property name="BeginBusinessTime" type="time">
             <column name="BeginBusinessTime" />
         </property>
-        <property name="EndBusinessTime" type="date">
+        <property name="EndBusinessTime" type="time">
             <column name="EndBusinessTime" />
         </property>
         <property name="BusinessTimeNote" type="string">

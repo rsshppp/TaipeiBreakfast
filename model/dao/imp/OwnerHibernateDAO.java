@@ -10,6 +10,7 @@ import model.bean.ShopBean;
 import model.dao.OwnerDAO;
 import model.misc.HibernateUtil;
                                                        //未整合Spring版本
+                                                       //配合TaipeiBreakfast_20150502版本
 public class OwnerHibernateDAO implements OwnerDAO {
 	
     private Session session;
@@ -89,13 +90,13 @@ public class OwnerHibernateDAO implements OwnerDAO {
 			session.beginTransaction();
 			OwnerDAO dao=new OwnerHibernateDAO(session);
 			
-//			OwnerBean bean=dao.select("cweng777");    //select
+//			OwnerBean bean=dao.select("Laya");    //select
 //			System.out.println(bean);
 			
 //			List<OwnerBean> list=dao.selectAll();    //selectAll
 //			System.out.println(list);
 			
-//			List<ShopBean> list=dao.getShops(2);      //getshops
+//			List<ShopBean> list=dao.getShops(4);      //getshops
 //			System.out.println(list);
 			
 //			OwnerBean bean=new OwnerBean();           //insert
@@ -110,18 +111,18 @@ public class OwnerHibernateDAO implements OwnerDAO {
 //			System.out.println(bean2);
 			
 //			OwnerBean bean=new OwnerBean();           //update
-//			bean.setOwnID(2);
-//			bean.setOwnAcc("Alex");
+//			bean.setOwnID(7);
+//			bean.setOwnAcc("pig");
 //			bean.setOwnEmail("change@gmail.com");
-//			bean.setOwnFirstName("john");
-//			bean.setOwnLastName("mr");
-//			bean.setOwnPwd("123");
+//			bean.setOwnFirstName("Mary");
+//			bean.setOwnLastName("BBox");
+//			bean.setOwnPwd("456789");
 //			bean.setOwnStatus(true);
 //			bean.setOwnSuspend(false);
 //			OwnerBean bean2=dao.update(bean);
 //			System.out.println(bean2);
 			
-//            boolean b=dao.delete(1);
+//            boolean b=dao.delete(7);
 //            System.out.println("delete status:"+b);
 			
 			session.getTransaction().commit();

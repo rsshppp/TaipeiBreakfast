@@ -19,7 +19,7 @@ public class ShopBean implements Serializable{
 	private Integer ownID;
 	private Byte[] logoImage;
 	private Boolean shopSuspend;
-	private Integer shopStatusID;
+	private Integer shopCondID;
 	private Date beginBusinessTime;
 	private Date endBusinessTime;
 	private String businessTimeNote;
@@ -27,6 +27,16 @@ public class ShopBean implements Serializable{
 	public ShopBean() {
 		
 	}
+
+	
+	@Override
+	public String toString() {
+		return "["+shopID+","+shopName+","+shopPhone+","+shopCity+","+shopArea+","+
+				shopAddr+","+lastOrderNoon+","+lastOrderNight+","+ownID+","+logoImage
+				+","+shopSuspend+","+shopCondID+","+beginBusinessTime+","+endBusinessTime
+				+","+businessTimeNote+"]";
+	}
+
 
 	public Integer getShopID() {
 		return shopID;
@@ -118,12 +128,12 @@ public class ShopBean implements Serializable{
 		this.shopSuspend = shopSuspend;
 	}
 
-	public Integer getShopStatusID() {
-		return shopStatusID;
+	public Integer getShopCondID() {
+		return shopCondID;
 	}
 
-	public void setShopStatusID(Integer shopStatusID) {
-		this.shopStatusID = shopStatusID;
+	public void setShopCondID(Integer shopCondID) {
+		this.shopCondID = shopCondID;
 	}
 
 	public Date getBeginBusinessTime() {

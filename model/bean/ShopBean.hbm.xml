@@ -1,54 +1,54 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015/4/29 ?U?? 05:04:31 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2015/4/29 ?U?? 08:28:29 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="model.bean.ShopBean" table="Shop">
-        <id name="shopID" type="java.lang.Integer">
-            <column name="shopID" />
-            <generator class="assigned" />
+        <id name="shopID" type="integer">
+            <column name="ShopID" />
+            <generator class="native" />
         </id>
-        <property name="shopName" type="java.lang.String">
-            <column name="shopName" />
+        <property name="ShopName" type="string">
+            <column name="ShopName" />
         </property>
-        <property name="shopPhone" type="java.lang.String">
-            <column name="shopPhone" />
+        <property name="ShopPhone" type="string">
+            <column name="ShopPhone" />
         </property>
-        <property name="shopCity" type="java.lang.String">
-            <column name="shopCity" />
+        <property name="ShopCity" type="string">
+            <column name="ShopCity" />
         </property>
-        <property name="shopArea" type="java.lang.String">
-            <column name="shopArea" />
+        <property name="ShopArea" type="string">
+            <column name="ShopArea" />
         </property>
-        <property name="shopAddr" type="java.lang.String">
-            <column name="shopAddr" />
+        <property name="ShopAddr" type="string">
+            <column name="ShopAddr" />
         </property>
-        <property name="lastOrderNoon" type="java.util.Date">
-            <column name="lastOrderNoon" />
+        <property name="LastOrderNoon" type="date">
+            <column name="LastOrderNoon" />
         </property>
-        <property name="lastOrderNight" type="java.util.Date">
-            <column name="lastOrderNight" />
+        <property name="LastOrderNight" type="date">
+            <column name="LastOrderNight" />
         </property>
-        <property name="ownID" type="java.lang.Integer">
-            <column name="ownID" />
+        <property name="OwnID" type="integer">
+            <column name="OwnID" />
         </property>
-        <property name="logoImage" type="java.lang.Byte">
-            <column name="logoImage" />
+        <property name="LogoImage" type="binary">
+            <column name="LogoImage" />
         </property>
-        <property name="shopSuspend" type="java.lang.Boolean">
-            <column name="shopSuspend" />
+        <property name="ShopSuspend" type="boolean">
+            <column name="ShopSuspend" />
         </property>
-        <property name="shopStatusID" type="java.lang.Integer">
-            <column name="shopStatusID" />
+        <property name="ShopCondID" type="integer">
+            <column name="ShopCondID" />
         </property>
-        <property name="beginBusinessTime" type="java.util.Date">
-            <column name="beginBusinessTime" />
+        <property name="BeginBusinessTime" type="date">
+            <column name="BeginBusinessTime" />
         </property>
-        <property name="endBusinessTime" type="java.util.Date">
-            <column name="endBusinessTime" />
+        <property name="EndBusinessTime" type="date">
+            <column name="EndBusinessTime" />
         </property>
-        <property name="businessTimeNote" type="java.lang.String">
-            <column name="businessTimeNote" />
+        <property name="BusinessTimeNote" type="string">
+            <column name="BusinessTimeNote" />
         </property>
     </class>
 </hibernate-mapping>

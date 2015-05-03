@@ -110,7 +110,19 @@ public class OwnerHibernateDAO implements OwnerDAO {
 		return false;
 	}
 	
-	
+	public boolean suspendOrCancel(String ownAcc){
+		OwnerBean bean=this.select(ownAcc);
+		if(bean!=null){
+			if(bean.getOwnSuspend()==false){
+				bean.setOwnSuspend(true);
+			}else{
+				bean.setOwnSuspend(false);
+			}
+			
+			return true;
+		}
+		return false;
+	}
 	
 	public static void main(String[] args) {         //測試用
 	    try {
@@ -171,8 +183,11 @@ public class OwnerHibernateDAO implements OwnerDAO {
 //			System.out.println(bean);	
 							
 			
-//          boolean b=dao.delete("pig");
+//          boolean b=dao.delete("pig");                 //賣方刪帳號時所用的方法
 //          System.out.println("delete status:"+b);
+			
+//          boolean b=dao.suspendOrCancel("pig");       //為後台管理停權所使用,可以停權,也可以取消停權
+//          System.out.println("停權設定是否成功:"+b);
 			
 			session.getTransaction().commit();
 		}finally{

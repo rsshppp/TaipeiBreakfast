@@ -34,5 +34,8 @@ public interface OwnerDAO {    //更多細節請看其實作類別(model.dao.imp
 
 	//賣方刪帳號時所用的方法,但實作是update改賣方的ownStatus而已
 	public abstract boolean delete(String ownAcc);
+	
+	//為後台管理停權所使用,可以停權,也可以取消停權
+	public abstract boolean suspendOrCancel(String ownAcc);
 
 }

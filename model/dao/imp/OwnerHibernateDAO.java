@@ -10,7 +10,7 @@ import model.bean.ShopBean;
 import model.dao.OwnerDAO;
 import model.misc.HibernateUtil;
                                                        //未整合Spring版本
-                                                       //配合TaipeiBreakfast_20150502版本
+                                                       //配合資料庫TaipeiBreakfast_20150502版本
 public class OwnerHibernateDAO implements OwnerDAO {
 	
     private Session session;
@@ -59,13 +59,10 @@ public class OwnerHibernateDAO implements OwnerDAO {
 	public OwnerBean update(OwnerBean ownerBean){
 		OwnerBean bean=this.select(ownerBean.getOwnAcc());
 		if(bean!=null){
-			bean.setOwnAcc(ownerBean.getOwnAcc());
 			bean.setOwnEmail(ownerBean.getOwnEmail());
 			bean.setOwnFirstName(bean.getOwnFirstName());
 			bean.setOwnLastName(bean.getOwnLastName());
 			bean.setOwnPwd(bean.getOwnPwd());
-			bean.setOwnStatus(bean.getOwnStatus());
-			bean.setOwnSuspend(bean.getOwnSuspend());
 			return bean;
 		}
 		
@@ -159,15 +156,12 @@ public class OwnerHibernateDAO implements OwnerDAO {
 //			}
 			
 			
-//			OwnerBean bean=new OwnerBean();              //update多項欄位資料
-//			bean.setOwnID(7);
-//			bean.setOwnAcc("pig");
+//			OwnerBean bean=new OwnerBean();              //update多項欄位資料,                      
+//			bean.setOwnAcc("pig");                       //OwnStatus,OwnSuspend值由其他方法更新
 //			bean.setOwnEmail("change2@gmail.com");
 //			bean.setOwnFirstName("Mary");
 //			bean.setOwnLastName("BBox");
 //			bean.setOwnPwd("456789");
-//			bean.setOwnStatus(true);
-//			bean.setOwnSuspend(false);
 //			OwnerBean bean2=dao.update(bean);
 //			System.out.println(bean2);
 			

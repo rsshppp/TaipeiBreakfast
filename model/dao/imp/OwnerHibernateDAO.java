@@ -46,13 +46,13 @@ public class OwnerHibernateDAO implements OwnerDAO {
 	}
 	
 	
-	public OwnerBean insert(OwnerBean ownerBean){
+	public boolean insert(OwnerBean ownerBean){
 		OwnerBean bean=this.select(ownerBean.getOwnAcc());
 		if(bean==null){
 			session.save(ownerBean);
-			return ownerBean;
+			return true;
 		}
-		return null;
+		return false;
 	}
 	
 	
@@ -133,10 +133,19 @@ public class OwnerHibernateDAO implements OwnerDAO {
 //			bean.setOwnFirstName("Mary");
 //			bean.setOwnLastName("BBox");
 //			bean.setOwnPwd("456789");
-//			bean.setOwnStatus(true);
-//			bean.setOwnSuspend(false);
-//			OwnerBean bean2=dao.insert(bean);
-//			System.out.println(bean2);
+//			//bean.setOwnStatus(true); //已有預設
+//			//bean.setOwnSuspend(false);//已有預設
+//			if(dao.insert(bean)){
+//				session.getTransaction().commit();
+//				session=HibernateUtil.getSessionFactory().getCurrentSession();
+//				session.beginTransaction();
+//				dao=new OwnerHibernateDAO(session);
+//				OwnerBean bean2=dao.select(bean.getOwnAcc());
+//				System.out.println(bean2);
+//			}else{
+//				System.out.println("insert失敗");
+//			}
+			
 			
 //			OwnerBean bean=new OwnerBean();              //update多項欄位資料
 //			bean.setOwnID(7);
@@ -153,11 +162,13 @@ public class OwnerHibernateDAO implements OwnerDAO {
 //			OwnerBean bean=dao.updateName("王", "大同", "pig");//update Name相關欄位資料
 //			System.out.println(bean);
 			
+			
 //			OwnerBean bean=dao.updateEmail("change3@gmail.com", "pig"); //update單一(Email欄位資料)
 //			System.out.println(bean);
 			
+			
 //			OwnerBean bean=dao.updatePwd("11111", "pig");    //update單一(密碼欄位資料)
-//			System.out.println(bean);
+//			System.out.println(bean);	
 							
 			
 //          boolean b=dao.delete("pig");

@@ -16,8 +16,8 @@ public interface OwnerDAO {    //更多細節請看其實作類別(model.dao.imp
 	//利用賣方ID查該賣方所擁有全部店鋪資料
 	public abstract List<ShopBean> getShops(Integer ownID);
 
-	//新增一筆賣方資料
-	public abstract OwnerBean insert(OwnerBean ownerBean);
+	//新增一筆賣方資料                                   //使用boolean是因為sql系統有預設值,在commit前無法取得新的bean資料,經測試,insert要commit才入資料庫,update在update方法已更動資料庫
+	public abstract boolean insert(OwnerBean ownerBean);
 
 	//更改賣方多項欄位資料        <--用此已足夠,其他update是以防萬一時用(於前端設計完若沒用到可考慮刪掉)
 	public abstract OwnerBean update(OwnerBean ownerBean);

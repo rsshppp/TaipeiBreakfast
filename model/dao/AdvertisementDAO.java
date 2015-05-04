@@ -14,5 +14,5 @@ public interface AdvertisementDAO {
 	//新增廣告
 	public boolean insert(AdvertisementBean bean);
 	//依【ID】來更新【狀態ID】
-	public boolean updateStatus(int adID,int asID);
+	public boolean updateStatus(int advertisementID,int advertisementStatusID);
 }

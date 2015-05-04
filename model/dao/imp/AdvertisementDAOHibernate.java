@@ -1,9 +1,12 @@
 package model.dao.imp;
 
+import java.util.Iterator;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 import model.bean.AdvertisementBean;
 import model.dao.AdvertisementDAO;
@@ -26,26 +29,34 @@ public class AdvertisementDAOHibernate implements AdvertisementDAO {
 
 	@Override
 	public List<AdvertisementBean> selectShopAd(int shopID) {
-		// TODO Auto-generated method stub
-		return null;
+		Criteria criteria =this.getSession().createCriteria(AdvertisementBean.class);
+		criteria.add(Restrictions.eq("shopID", shopID));
+		List<AdvertisementBean> list=criteria.list();
+		return list;
 	}
 	
 	@Override
 	public List<AdvertisementBean> selectAll() {
-		// TODO Auto-generated method stub
+		Criteria criteria =this.getSession().createCriteria(AdvertisementBean.class);
+		List<AdvertisementBean> list=criteria.list();
 		return null;
 	}
 
 	@Override
 	public boolean insert(AdvertisementBean bean) {
-		// TODO Auto-generated method stub
-		return false;
+		this.getSession().save(bean);
+		return true;
 	}
 
 	@Override
-	public boolean updateStatus(int adID, int asID) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateStatus(int advertisementID, int advertisementStatusID) {
+		AdvertisementBean bean=(AdvertisementBean)this.getSession().get(AdvertisementBean.class, advertisementID);
+		if(bean!=null){
+			bean.setAdvertisementStatusID(advertisementStatusID);
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }

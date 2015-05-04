@@ -7,7 +7,7 @@ public class MemberBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer memberID ;
+	private Integer memberID;
 	private String memberAcc;
 	private String memberPwd;
 	private String memberLastName;
@@ -20,7 +20,7 @@ public class MemberBean implements Serializable{
 	private String memberImageName;
 	private Boolean memberStatus;
 	private Boolean memberSuspend;
-	private Integer DiscountID;
+	private Integer specialPriceID;
 	
 	public MemberBean() {
 	
@@ -130,11 +130,11 @@ public class MemberBean implements Serializable{
 		this.memberSuspend = memberSuspend;
 	}
 
-	public Integer getDiscountID() {
-		return DiscountID;
+	public Integer getSpecialPriceID() {
+		return specialPriceID;
 	}
 
-	public void setDiscountID(Integer discountID) {
-		DiscountID = discountID;
+	public void setSpecialPriceID(Integer specialPriceID) {
+		this.specialPriceID = specialPriceID;
 	}
 }

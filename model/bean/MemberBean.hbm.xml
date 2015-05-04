@@ -43,8 +43,8 @@
         <property name="memberSuspend" type="java.lang.Boolean">
             <column name="memberSuspend" />
         </property>
-        <property name="DiscountID" type="java.lang.String">
-            <column name="DiscountID" />
+        <property name="specialPriceID" type="java.lang.String">
+            <column name="specialPriceID" />
         </property>
     </class>
 </hibernate-mapping>

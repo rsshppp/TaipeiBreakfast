@@ -27,4 +27,10 @@ public class MealKindListBean implements Serializable{
 	public void setDefaultImage(Byte[] defaultImage) {
 		this.defaultImage = defaultImage;
 	}
+	@Override
+	public String toString() {
+		String bean="mealKindID="+mealKindID+"，mealKindName="+mealKindName;
+		return bean;
+	}
+	
 }

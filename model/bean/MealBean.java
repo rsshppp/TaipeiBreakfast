@@ -9,10 +9,16 @@ public class MealBean implements Serializable{
 	private String mealName;
 	private Double price;
 	private Integer shopID;
-	private Byte mealImage;
+	private Byte[] mealImage;
 	private Boolean mealStatus;
 	private Integer mealKindID;
 	
+	
+	@Override
+	public String toString() {
+		
+		return "mealID="+mealID+"，mealName="+mealName+"，price="+price+"，shopID="+shopID+"，mealImage="+mealImage+"，mealStatus="+mealStatus+"，mealKindID="+mealKindID;
+	}
 	public Integer getMealID() {
 		return mealID;
 	}
@@ -37,10 +43,10 @@ public class MealBean implements Serializable{
 	public void setShopID(Integer shopID) {
 		this.shopID = shopID;
 	}
-	public Byte getMealImage() {
+	public Byte[] getMealImage() {
 		return mealImage;
 	}
-	public void setMealImage(Byte mealImage) {
+	public void setMealImage(Byte[] mealImage) {
 		this.mealImage = mealImage;
 	}
 	public Boolean getMealStatus() {

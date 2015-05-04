@@ -1,29 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015/4/29 ?U?? 02:33:31 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="model.bean.AdvertisementBean" table="Advertisement">
-        <id name="advertisementID" type="java.lang.Integer">
-            <column name="advertisementID" />
-            <generator class="assigned" />
+    <class name="model.bean.AdvertisementBean" table="ADVERTISEMENT">
+        <id name="shopID" type="java.lang.Integer">
+            <column name="SHOPID" />
+            <generator class="native" />
         </id>
-        <property name="context" type="java.lang.String">
-            <column name="context" />
+        <property name="advertisementID" type="java.lang.Integer">
+            <column name="ADVERTISEMENTID" />
         </property>
-        <property name="image" type="java.lang.Byte">
-            <column name="image" />
+        <property name="context" type="java.lang.String">
+            <column name="CONTEXT" />
+        </property>
+        <property name="image" type="Byte[]">
+            <column name="IMAGE" />
         </property>
         <property name="days" type="java.lang.Integer">
-            <column name="days" />
-        </property>
-        <property name="passed" type="java.lang.Boolean">
-            <column name="passed" />
+            <column name="DAYS" />
         </property>
         <property name="advertisementStatusID" type="java.lang.Integer">
-            <column name="advertisementStatusID" />
-        </property>
-        <property name="shopID" type="java.lang.Integer">
-            <column name="shopID" />
+            <column name="ADVERTISEMENTSTATUSID" />
         </property>
     </class>
 </hibernate-mapping>

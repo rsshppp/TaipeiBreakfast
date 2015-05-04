@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015/4/29 ?U?? 02:33:31 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="model.bean.AdvertisementStatusBean" table="AdvertisementStatus">
+    <class name="model.bean.AdvertisementStatusBean" table="ADVERTISEMENTSTATUS">
         <id name="advertisementStatusID" type="java.lang.Integer">
-            <column name="advertisementStatusID" />
-            <generator class="assigned" />
+            <column name="ADVERTISEMENTSTATUSID" />
+            <generator class="native" />
         </id>
         <property name="advertisementStatus" type="java.lang.String">
-            <column name="advertisementStatus" />
+            <column name="ADVERTISEMENTSTATUS" />
         </property>
     </class>
 </hibernate-mapping>

@@ -1,29 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015/4/29 ?U?? 02:33:31 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="model.bean.MealBean" table="Meal">
+    <class name="model.bean.MealBean" table="MEAL">
         <id name="mealID" type="java.lang.Integer">
-            <column name="mealID" />
-            <generator class="assigned" />
+            <column name="MEALID" />
+            <generator class="native" />
         </id>
         <property name="mealName" type="java.lang.String">
-            <column name="mealName" />
+            <column name="MEALNAME" />
         </property>
         <property name="price" type="java.lang.Double">
-            <column name="price" />
+            <column name="PRICE" />
         </property>
         <property name="shopID" type="java.lang.Integer">
-            <column name="shopID" />
+            <column name="SHOPID" />
         </property>
-        <property name="mealImage" type="java.lang.Byte">
-            <column name="mealImage" />
+        <property name="mealImage" type="Byte[]">
+            <column name="MEALIMAGE" />
         </property>
         <property name="mealStatus" type="java.lang.Boolean">
-            <column name="mealStatus" />
+            <column name="MEALSTATUS" />
         </property>
         <property name="mealKindID" type="java.lang.Integer">
-            <column name="mealKindID" />
+            <column name="MEALKINDID" />
         </property>
     </class>
 </hibernate-mapping>

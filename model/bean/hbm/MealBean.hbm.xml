@@ -23,6 +23,9 @@
         <property name="mealStatus" type="java.lang.Boolean">
             <column name="MEALSTATUS" />
         </property>
+        <property name="mealKindID" type="java.lang.Integer" insert="false" update="false">
+            <column name="MEALKINDID" />
+        </property>
         <many-to-one name="mealKindListBean" class="model.bean.MealKindListBean" access="property" fetch="join">
             <column name="MEALKINDID" />
         </many-to-one>

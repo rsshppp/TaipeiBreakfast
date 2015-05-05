@@ -7,6 +7,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import model.bean.MealBean;
 import model.bean.OrderDetailBean;
@@ -22,11 +24,34 @@ public class MealDAOHibernate implements MealDAO {
 	public Session getSession(){
 		return this.sessionFactory.getCurrentSession();
 	}
-	
+	public static void main(String[] args){
+		ConfigurableApplicationContext context=new ClassPathXmlApplicationContext("beans.config.xml");
+		SessionFactory sessionFactory=(SessionFactory)context.getBean("sessionFactory");
+		Session session=sessionFactory.getCurrentSession();
+		MealDAO dao=(MealDAO)context.getBean("mealDAO");
+		session.beginTransaction();
+		
+		Iterator<MealBean> list=dao.selectShopMeal(3).iterator();
+		while(list.hasNext()){
+			System.out.println(list.next());
+		}
+		
+		session.getTransaction().commit();
+		context.close();
+	}
 	@Override
 	public MealBean queryMealBean(OrderDetailBean bean) {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public List<MealBean> selectShopMeal(int shopID, int mealKindID) {
+		Criteria criteria=this.getSession().createCriteria(MealBean.class);
+		criteria.add(Restrictions.eq("shopID", shopID));
+		criteria.add(Restrictions.eq("mealKindID", mealKindID));
+		List<MealBean> list=criteria.list();
+		return list;
 	}
 
 	@Override
@@ -40,6 +65,13 @@ public class MealDAOHibernate implements MealDAO {
 		}else{
 			return null;
 		}
+	}
+	
+	
+	@Override
+	public MealBean selectOneMeal(int mealID) {
+		MealBean bean=(MealBean)this.getSession().get(MealBean.class, mealID);
+		return bean;
 	}
 
 	@Override
@@ -72,7 +104,7 @@ public class MealDAOHibernate implements MealDAO {
 		}else{
 			result.setMealName(bean.getMealName());
 			result.setPrice(bean.getPrice());
-			result.setMealKindID(bean.getMealKindID());
+			//result.setMealKindID(bean.getMealKindID());
 			result.setMealImage(bean.getMealImage());
 			
 			return true;

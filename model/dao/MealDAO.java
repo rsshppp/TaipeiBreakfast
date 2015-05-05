@@ -10,8 +10,12 @@ public interface MealDAO {
 	public MealBean queryMealBean(OrderDetailBean bean);
 	//依【店家ID】及【餐點名稱】搜尋詳細資料
 	public MealBean selectOneMeal(String mName,int shopID);
+	//依【餐點ID】搜尋詳細資料
+	public MealBean selectOneMeal(int MealID);
 	//依【店家ID】搜尋全部餐點
 	public List<MealBean> selectShopMeal(int shopID);
+	//依【店家ID】及【餐點種類】搜尋全部餐點
+	public List<MealBean> selectShopMeal(int shopID ,int mealKindID);
 	//增加餐點
 	public boolean insert(MealBean bean);
 	//依【ID】更新餐點內容

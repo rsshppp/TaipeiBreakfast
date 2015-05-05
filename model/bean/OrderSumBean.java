@@ -30,18 +30,18 @@ public class OrderSumBean implements Serializable {
 	private String evaluateForShop;
 	private Integer orderCondID;
 	// Table對應其他欄位
-	private Set<OrderDetailBean> OrderDetail;
+	private Set<OrderDetailBean> orderDetailBean;
 
 	public OrderSumBean() {
-		OrderDetail = new HashSet<OrderDetailBean>();
+		orderDetailBean = new HashSet<OrderDetailBean>();
 	}
 
 	public Set<OrderDetailBean> getOrderDetail() {
-		return OrderDetail;
+		return orderDetailBean;
 	}
 
-	public void setOrderDetail(Set<OrderDetailBean> orderDetail) {
-		OrderDetail = orderDetail;
+	public void setOrderDetail(Set<OrderDetailBean> orderDetailBean) {
+		this.orderDetailBean = orderDetailBean;
 	}
 
 	public Integer getOrderSumID() {
@@ -139,7 +139,7 @@ public class OrderSumBean implements Serializable {
 			while(orderDetails.hasNext()){
 				OrderDetailBean orderDetail = (OrderDetailBean) orderDetails.next();
 				System.out.println("orderDetail.getPrice="+orderDetail.getPrice());
-				MealBean meal = orderDetail.getMeal();
+				MealBean meal = orderDetail.getMealBean();
 				System.out.println("meal.getMealName="+meal.getMealName());
 			}
 		}

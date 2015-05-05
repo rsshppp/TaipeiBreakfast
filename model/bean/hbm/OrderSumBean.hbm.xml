@@ -34,5 +34,11 @@
         <property name="orderCondID" type="java.lang.Integer">
             <column name="orderCondID" />
         </property>
+        <set name="OrderDetail" table="ORDERDETAIL" inverse="false" lazy="true">
+            <key>
+                <column name="orderSumID" />
+            </key>
+            <one-to-many class="model.bean.OrderDetailBean" />
+        </set>
     </class>
 </hibernate-mapping>

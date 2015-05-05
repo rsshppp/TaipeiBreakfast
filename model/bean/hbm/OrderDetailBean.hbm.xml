@@ -7,7 +7,7 @@
             <column name="orderDetailID" />
             <generator class="assigned" />
         </id>
-        <property name="mealId" type="java.lang.Integer">
+        <property name="mealId" type="java.lang.Integer" insert="false" update="false">
             <column name="mealId" />
         </property>
         <property name="count" type="java.lang.Integer">
@@ -19,5 +19,8 @@
         <property name="orderSumID" type="java.lang.Integer">
             <column name="orderSumID" />
         </property>
+        <many-to-one name="mealBean" class="model.bean.MealBean" fetch="join" >
+			<column name="mealId"/>
+		</many-to-one>
     </class>
 </hibernate-mapping>

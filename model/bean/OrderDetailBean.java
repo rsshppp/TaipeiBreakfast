@@ -13,6 +13,8 @@ public class OrderDetailBean implements Serializable{
 	private Double price;	//下訂單時的商品價格,避免因物價變動而出錯
 	private Integer orderSumID;
 	
+	private MealBean mealBean;	//關聯 -廷
+	
 	public OrderDetailBean() {
 		
 	}
@@ -56,4 +58,13 @@ public class OrderDetailBean implements Serializable{
 	public void setOrderSumID(Integer orderSumID) {
 		this.orderSumID = orderSumID;
 	}
+
+	public MealBean getMealBean() {
+		return mealBean;
+	}
+
+	public void setMealBean(MealBean mealBean) {
+		this.mealBean = mealBean;
+	}
+	
 }

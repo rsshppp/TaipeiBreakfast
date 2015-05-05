@@ -4,12 +4,12 @@ import java.util.List;
 
 import model.bean.MemberBean;
 import model.bean.ShopBean;
-import model.dao.TBMemberDAO;
+import model.dao.MemberDAO;
 
 public class TBService{
 
-	private TBMemberDAO dao;
-	private TBService(TBMemberDAO dao){
+	private MemberDAO dao;
+	private TBService(MemberDAO dao){
 		this.dao=dao;
 	}
 	public MemberBean insertMember(MemberBean bean) {
@@ -23,7 +23,7 @@ public class TBService{
 	public List<MemberBean> selectMember(MemberBean bean) {
 		if(bean!=null){
 			List<MemberBean> result=null;
-			result.add(dao.selectMember(bean));
+			result.add(dao.selectMember(bean.getMemberID()));
 			return result;
 		}
 		return dao.selectMember();

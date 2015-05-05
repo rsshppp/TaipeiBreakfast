@@ -2,6 +2,7 @@ package model.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 //店鋪休假日表
 public class DaysOffBean implements Serializable{
@@ -10,7 +11,7 @@ public class DaysOffBean implements Serializable{
 	
 	private Integer daysOffID;
 	private Integer shopID;
-	private Date daysOff;
+	private Timestamp daysOff;	//java.sql.Date => java.sql.Timestamp
 	
 	public DaysOffBean() {
 		
@@ -32,11 +33,13 @@ public class DaysOffBean implements Serializable{
 		this.shopID = shopID;
 	}
 
-	public Date getDaysOff() {
+	public Timestamp getDaysOff() {
 		return daysOff;
 	}
 
-	public void setDaysOff(Date daysOff) {
+	public void setDaysOff(Timestamp daysOff) {
 		this.daysOff = daysOff;
 	}
+
+	
 }

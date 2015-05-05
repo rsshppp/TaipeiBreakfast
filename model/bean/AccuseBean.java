@@ -2,6 +2,7 @@ package model.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class AccuseBean implements Serializable{
 
@@ -12,7 +13,7 @@ public class AccuseBean implements Serializable{
 	private String accuseSub;
 	private String accuseContent;
 	private Integer accuseStatusID;
-	private Date accuseTime;
+	private Timestamp accuseTime;	//java.sql.Date => java.sql.Timestamp
 	
 	public AccuseBean() {
 		
@@ -58,11 +59,13 @@ public class AccuseBean implements Serializable{
 		this.accuseStatusID = accuseStatusID;
 	}
 
-	public Date getAccuseTime() {
+	public Timestamp getAccuseTime() {
 		return accuseTime;
 	}
 
-	public void setAccuseTime(Date accuseTime) {
+	public void setAccuseTime(Timestamp accuseTime) {
 		this.accuseTime = accuseTime;
 	}
+
+	
 }

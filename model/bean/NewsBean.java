@@ -2,6 +2,7 @@ package model.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 //最新消息表
 public class NewsBean implements Serializable{
@@ -11,7 +12,7 @@ public class NewsBean implements Serializable{
 	private Integer newsID;
 	private String title;
 	private String content;
-	private Date date;
+	private Timestamp date;	//java.sql.Date => Timestamp
 	private Byte[] image;
 	
 	public NewsBean() {
@@ -42,11 +43,11 @@ public class NewsBean implements Serializable{
 		this.content = content;
 	}
 
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 

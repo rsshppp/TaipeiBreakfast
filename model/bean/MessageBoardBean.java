@@ -2,6 +2,7 @@ package model.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 //留言板表
 public class MessageBoardBean implements Serializable{
@@ -11,7 +12,7 @@ public class MessageBoardBean implements Serializable{
 	private Integer messageID;
 	private Integer memberID;
 	private String context;
-	private Date messageDate;
+	private Timestamp messageDate;	//java.sql.Date => java.sql.Timestamp
 	private String ipAddress;
 	
 	public MessageBoardBean() {
@@ -42,11 +43,11 @@ public class MessageBoardBean implements Serializable{
 		this.context = context;
 	}
 
-	public Date getMessageDate() {
+	public Timestamp getMessageDate() {
 		return messageDate;
 	}
 
-	public void setMessageDate(Date messageDate) {
+	public void setMessageDate(Timestamp messageDate) {
 		this.messageDate = messageDate;
 	}
 

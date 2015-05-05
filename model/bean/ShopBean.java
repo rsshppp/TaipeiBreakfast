@@ -18,7 +18,7 @@ public class ShopBean implements Serializable{
 	private Time lastOrderNoon;
 	private Time lastOrderNight;
 	private Integer ownID;
-	private Byte[] logoImage;
+	private byte[] logoImage;
 	private Boolean shopSuspend;
 	private Integer shopCondID;
 	private Time beginBusinessTime;
@@ -117,11 +117,11 @@ public class ShopBean implements Serializable{
 		this.ownID = ownID;
 	}
 
-	public Byte[] getLogoImage() {
+	public byte[] getLogoImage() {
 		return logoImage;
 	}
 
-	public void setLogoImage(Byte[] logoImage) {
+	public void setLogoImage(byte[] logoImage) {
 		this.logoImage = logoImage;
 	}	
 

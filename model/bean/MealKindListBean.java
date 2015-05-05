@@ -7,7 +7,7 @@ public class MealKindListBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer mealKindID;
 	private String mealKindName;
-	private Byte[] defaultImage;
+	private byte[] defaultImage;
 	
 	public Integer getMealKindID() {
 		return mealKindID;
@@ -21,10 +21,10 @@ public class MealKindListBean implements Serializable{
 	public void setMealKindName(String mealKindName) {
 		this.mealKindName = mealKindName;
 	}
-	public Byte[] getDefaultImage() {
+	public byte[] getDefaultImage() {
 		return defaultImage;
 	}
-	public void setDefaultImage(Byte[] defaultImage) {
+	public void setDefaultImage(byte[] defaultImage) {
 		this.defaultImage = defaultImage;
 	}
 	@Override

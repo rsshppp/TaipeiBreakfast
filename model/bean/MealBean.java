@@ -9,9 +9,10 @@ public class MealBean implements Serializable{
 	private String mealName;
 	private Double price;
 	private Integer shopID;
-	private Byte[] mealImage;
+	private byte[] mealImage;
 	private Boolean mealStatus;
 	private Integer mealKindID;
+	private MealKindListBean mealKindListBean;
 	
 	
 	@Override
@@ -43,10 +44,10 @@ public class MealBean implements Serializable{
 	public void setShopID(Integer shopID) {
 		this.shopID = shopID;
 	}
-	public Byte[] getMealImage() {
+	public byte[] getMealImage() {
 		return mealImage;
 	}
-	public void setMealImage(Byte[] mealImage) {
+	public void setMealImage(byte[] mealImage) {
 		this.mealImage = mealImage;
 	}
 	public Boolean getMealStatus() {
@@ -61,4 +62,11 @@ public class MealBean implements Serializable{
 	public void setMealKindID(Integer mealKindID) {
 		this.mealKindID = mealKindID;
 	}
+	public MealKindListBean getMealKindListBean() {
+		return mealKindListBean;
+	}
+	public void setMealKindListBean(MealKindListBean mealKindListBean) {
+		this.mealKindListBean = mealKindListBean;
+	}
+	
 }

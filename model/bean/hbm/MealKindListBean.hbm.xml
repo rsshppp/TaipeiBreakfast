@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015/4/29 ?U?? 07:06:16 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2015/5/4 ?U?? 07:50:24 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="model.bean.MealKindListBean" table="MEALKINDLIST">
+    <class name="model.bean.MealKindListBean" table="MEALKINDLISTBEAN">
         <id name="mealKindID" type="java.lang.Integer">
             <column name="MEALKINDID" />
-            <generator class="native" />
+            <generator class="assigned" />
         </id>
         <property name="mealKindName" type="java.lang.String">
             <column name="MEALKINDNAME" />
         </property>
-        <property name="defaultImage" type="Byte[]">
+        <property name="defaultImage" type="binary">
             <column name="DEFAULTIMAGE" />
         </property>
     </class>

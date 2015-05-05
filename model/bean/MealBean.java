@@ -11,14 +11,13 @@ public class MealBean implements Serializable{
 	private Integer shopID;
 	private byte[] mealImage;
 	private Boolean mealStatus;
-	private Integer mealKindID;
 	private MealKindListBean mealKindListBean;
 	
 	
 	@Override
 	public String toString() {
 		
-		return "mealID="+mealID+"，mealName="+mealName+"，price="+price+"，shopID="+shopID+"，mealImage="+mealImage+"，mealStatus="+mealStatus+"，mealKindID="+mealKindID;
+		return "mealID="+mealID+"，mealName="+mealName+"，price="+price+"，shopID="+shopID+"，mealImage="+mealImage+"，mealStatus="+mealStatus+mealKindListBean;
 	}
 	public Integer getMealID() {
 		return mealID;
@@ -55,12 +54,6 @@ public class MealBean implements Serializable{
 	}
 	public void setMealStatus(Boolean mealStatus) {
 		this.mealStatus = mealStatus;
-	}
-	public Integer getMealKindID() {
-		return mealKindID;
-	}
-	public void setMealKindID(Integer mealKindID) {
-		this.mealKindID = mealKindID;
 	}
 	public MealKindListBean getMealKindListBean() {
 		return mealKindListBean;

@@ -1,16 +1,14 @@
 package model.dao.imp;
 
-import java.sql.Date;
 import java.util.List;
 
-import org.hibernate.Criteria;
+import model.bean.OrderSumBean;
+import model.bean.ShopBean;
+import model.dao.OrderSumDAO;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
-import model.bean.OrderSum;
-import model.bean.Shop;
-import model.dao.OrderSumDAO;
 
 public class OrderSumDAOHibernate implements OrderSumDAO {
 	private SessionFactory sessionFactory;
@@ -23,27 +21,13 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	}
 
 	@Override
-	public List<OrderSum> queryOrderSum(Shop bean) {
-		List<OrderSum> result = null;
+	public List<OrderSumBean> queryOrderSum(ShopBean bean) {
+		List<OrderSumBean> result = null;
 		Session session = sessionFactory.openSession();
-		Query query = session.createQuery("from OrderSum as OrderSum where OrderSum.ShopID=:ShopID");
-		query.setString("ShopID", new Integer(bean.getShopID()).toString());
+		Query query = session.createQuery("from OrderSumBean as OrderSumBean where OrderSumBean.shopID=:shopID");
+		query.setString("shopID", new Integer(bean.getShopID()).toString());
 		result = query.list(); 
 		return result;
-	}
-
-	@Override
-	public boolean insertOrderSum(Integer shopID, Integer memberID,
-			Double totalPrice, Date expectTime, String memo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean updateOrderSum(Integer orderSumID, Integer starsForOwn,
-			String evaluateForShop) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -56,6 +40,28 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	public boolean deleteOrderSum(Integer orderSumID) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public boolean insertOrderSum(OrderSumBean bean) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean updateOrderSum(OrderSumBean bean) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public List<OrderSumBean> selectAllOrderSum(Integer memberID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID,
+			Integer orderCondID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

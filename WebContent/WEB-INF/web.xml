@@ -10,7 +10,7 @@
   <display-name>Proj_Test</display-name>
   
   <error-page>
-  	<exception-type>java.lang.NullException</exception-type>
+  	<exception-type>Exception</exception-type>
   	<location>/errors/error.jsp</location>
   </error-page>
   <error-page>

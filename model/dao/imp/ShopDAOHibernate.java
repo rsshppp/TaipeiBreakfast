@@ -19,8 +19,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
                                                    //by宗鈺
+                                                   //沒做關連
                                                    //圖片部分未完成!!!
-                                                   //未整合Spring版本
                                                    //配合資料庫TaipeiBreakfast_20150504版本
 public class ShopDAOHibernate implements ShopDAO {   
 	

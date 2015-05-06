@@ -7,51 +7,30 @@ import java.util.List;
 
 import model.bean.OwnerBean;
 import model.bean.ShopBean;
-import model.dao.OwnerDAO;
 import model.dao.ShopDAO;
 import model.misc.HibernateUtil;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
                                                    //by宗鈺
-                                                   //沒做關連
                                                    //圖片部分未完成!!!
+                                                   //未整合Spring版本
                                                    //配合資料庫TaipeiBreakfast_20150504版本
-public class ShopDAOHibernate implements ShopDAO {   
+public class ShopDAOHibernate implements ShopDAO {                           
+	private Session session;
 	
-	private SessionFactory sessionFactory;
-	
-	
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-	public Session getSession() {
-		return this.sessionFactory.getCurrentSession();
+	public ShopDAOHibernate(Session session){
+		this.session=session;
 	}
 	
-	//(-.-)*杜
-	@Override
-	public List<ShopBean> selectKeyword(String keyword) {
-			//用 keyword 模糊查詢 shopName,shopCity,shopArea
-			return null;
-	}
-	public List<ShopBean> selectArea(String shopArea){
-			return null;
-	}
 	
-	//宗鈺
 	public ShopBean select(Integer shopID){
-		return (ShopBean)this.getSession().get(ShopBean.class,shopID);
+		return (ShopBean)session.get(ShopBean.class,shopID);
 	}
 	
 	public ShopBean selectByPhone(String shopPhone){
-		Query query=this.getSession().createQuery("from ShopBean where shopPhone=:phone");
+		Query query=session.createQuery("from ShopBean where shopPhone=:phone");
 		query.setString("phone", shopPhone);
 		Iterator list=query.list().iterator();
 		if(list.hasNext()){
@@ -62,13 +41,13 @@ public class ShopDAOHibernate implements ShopDAO {
 	}
 	
 	public List<ShopBean> selectAll(){
-		Query query=this.getSession().createQuery("from ShopBean");
+		Query query=session.createQuery("from ShopBean");
 		return (List<ShopBean>) query.list();
 	}
 	
 	
 	public List<ShopBean> getShops(Integer ownID){
-		Query query=this.getSession().createQuery("from ShopBean where ownID=:ownID");
+		Query query=session.createQuery("from ShopBean where ownID=:ownID");
 		query.setInteger("ownID", ownID);
 		return (List<ShopBean>) query.list();
 	}
@@ -76,14 +55,14 @@ public class ShopDAOHibernate implements ShopDAO {
 	
 	public boolean insert(ShopBean shopBean){
 		ShopBean bean=null;
-		Query query=this.getSession().createQuery("from ShopBean where shopPhone=:phone");
+		Query query=session.createQuery("from ShopBean where shopPhone=:phone");
 		query.setString("phone", shopBean.getShopPhone());
 		Iterator list=query.list().iterator();
 		if(list.hasNext()){
 			bean=(ShopBean)list.next();
 		}
 		if(bean==null){
-			this.getSession().save(shopBean);
+			session.save(shopBean);
 			return true;
 		}
 		return false;
@@ -91,7 +70,7 @@ public class ShopDAOHibernate implements ShopDAO {
 	
 	
 	public ShopBean update(ShopBean shopBean){
-		ShopBean bean=(ShopBean)this.getSession().get(ShopBean.class,shopBean.getShopID());
+		ShopBean bean=(ShopBean)session.get(ShopBean.class,shopBean.getShopID());
 		if(bean!=null){
 			bean.setShopName(shopBean.getShopName());
 			bean.setShopPhone(shopBean.getShopPhone());
@@ -113,7 +92,7 @@ public class ShopDAOHibernate implements ShopDAO {
 	
 	
 	public boolean changeShopCondID(Integer shopCondID,Integer shopID){
-		ShopBean bean=(ShopBean)this.getSession().get(ShopBean.class,shopID);
+		ShopBean bean=(ShopBean)session.get(ShopBean.class,shopID);
 		if(bean!=null){
 			bean.setShopCondID(shopCondID);
 			return true;
@@ -123,7 +102,7 @@ public class ShopDAOHibernate implements ShopDAO {
 	
 	
 	public boolean suspendOrCancel(Integer shopID){
-		ShopBean bean=(ShopBean)this.getSession().get(ShopBean.class,shopID);
+		ShopBean bean=(ShopBean)session.get(ShopBean.class,shopID);
 		if(bean!=null){
 			if(bean.getShopSuspend()==false){
 				bean.setShopSuspend(true);
@@ -138,13 +117,10 @@ public class ShopDAOHibernate implements ShopDAO {
 	
 	
 	public static void main(String[] args) throws ParseException {      //測試用
-		
-		   ApplicationContext context=new ClassPathXmlApplicationContext("beans.config.xml");
-		   SessionFactory sessionFactory=(SessionFactory)context.getBean("sessionFactory");
-		   Session session=sessionFactory.getCurrentSession();
-		   session.beginTransaction();
-		
-		   ShopDAO dao=(ShopDAOHibernate)context.getBean("shopDAOHibernate");
+		try {
+			Session session=HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			ShopDAO dao=new ShopDAOHibernate(session);
 			                    
 			
 //			ShopBean bean=dao.select(3);                       //select
@@ -181,9 +157,9 @@ public class ShopDAOHibernate implements ShopDAO {
 //			bean.setBusinessTimeNote("星期二公休");
 //			if(dao.insert(bean)){
 //				session.getTransaction().commit();
-//				session=sessionFactory.getCurrentSession();
+//				session=HibernateUtil.getSessionFactory().getCurrentSession();
 //				session.beginTransaction();
-//				dao=(ShopDAOHibernate)context.getBean("shopDAOHibernate");
+//				dao=new ShopDAOHibernate(session);
 //				ShopBean bean2=dao.selectByPhone(bean.getShopPhone());
 //				System.out.println(bean2);
 //			}else{
@@ -223,9 +199,13 @@ public class ShopDAOHibernate implements ShopDAO {
 //			boolean b=dao.suspendOrCancel(12);       //為後台管理停權所使用,可以停權,也可以取消停權    //假設session裡的shopID為12
 //          System.out.println("停權設定是否成功:"+b);
 			
-		    session.getTransaction().commit();
-		    sessionFactory.close();
-		    ((ConfigurableApplicationContext)context).close();
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			HibernateUtil.closeAllResources();
+		}
 
 	}
 

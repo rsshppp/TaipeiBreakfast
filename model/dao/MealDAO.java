@@ -21,6 +21,6 @@ public interface MealDAO {
 	//依【ID】更新餐點內容
 	public boolean update(MealBean bean);
 	//依【ID】更新餐點狀態
-	public boolean updateMealStatus(int mealID, boolean mealStatus);
+	public boolean updateMealStatus(MealBean bean);
 	
 }

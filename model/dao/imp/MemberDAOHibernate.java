@@ -17,14 +17,12 @@ import model.dao.MemberDAO;
 import model.misc.HibernateUtil;
 
 public class MemberDAOHibernate implements MemberDAO {
-
-//(-.-)*杜
+//杜
 	private static Session getSession(){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		return session;
 	}
 	
-//(-.-)*杜
 	@Override
 	public MemberBean insertMember(MemberBean bean) {
 
@@ -40,6 +38,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		result.setMemberAddr(bean.getMemberAddr());
 		result.setMemberImage(bean.getMemberImage());
 		result.setMemberImageName(bean.getMemberImageName());
+		result.setMemberStatus(bean.getMemberStatus());
 		result.setMemberSuspend(bean.getMemberSuspend());
 		result.setSpecialPriceID(bean.getSpecialPriceID());
 		
@@ -58,8 +57,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		}
 		return result;
 	}
-	
-	//(-.-)*杜
+
 	@Override
 	public MemberBean updateMember(MemberBean bean) {
 		MemberBean result = null;
@@ -73,6 +71,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		Iterator upprod = criteria.list().iterator();
 		MemberBean upper = (MemberBean) upprod.next();
 		upper.setMemberAcc(bean.getMemberAcc());
+		upper.setMemberPwd(bean.getMemberPwd());
 		upper.setMemberLastName(bean.getMemberLastName());
 		upper.setMemberFirstName(bean.getMemberFirstName());
 		upper.setMemberPhone(bean.getMemberPhone());
@@ -81,6 +80,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		upper.setMemberAddr(bean.getMemberAddr());
 		upper.setMemberImage(bean.getMemberImage());
 		upper.setMemberImageName(bean.getMemberImageName());
+		upper.setMemberStatus(bean.getMemberStatus());
 		upper.setMemberSuspend(bean.getMemberSuspend());
 		upper.setSpecialPriceID(bean.getSpecialPriceID());
 		session.saveOrUpdate(upper);
@@ -93,17 +93,11 @@ public class MemberDAOHibernate implements MemberDAO {
 		return result;
 	}
 
-	//(-.-)*杜
 	@Override
 	public MemberBean selectMember(int MemberID) {
-		MemberBean result=(MemberBean)getSession().get(MemberBean.class, MemberID);
-		if(result.getMemberStatus()==true){                 
-			return result;
-		}		
-		return null;
+		return (MemberBean)getSession().get(MemberBean.class, MemberID);
 	}
 
-	//(-.-)*杜
 	@Override
 	public List<MemberBean> selectMember() {
 		Query query = getSession().createQuery("from MemberBean");
@@ -114,70 +108,16 @@ public class MemberDAOHibernate implements MemberDAO {
 		return result;
 	}
 
-	//(-.-)*杜
 	@Override
-	public boolean changePassword(int MemberID,String memberPwd) {
-		Boolean result = false;
-		Session session = getSession();
-		Transaction tx = session.beginTransaction();
-		Criteria criteria = session.createCriteria(MemberBean.class);
-		criteria.add(Restrictions.eq("MemberID", MemberID));
-		Iterator upprod = criteria.list().iterator();
-		MemberBean upper = (MemberBean) upprod.next();
-		upper.setMemberPwd(memberPwd);
-		session.saveOrUpdate(upper);
-		result = true;
-		tx.commit();
-		if (session != null) {
-			session.close();
-		}
-		return result;
-	}
-
-	//(-.-)*杜
-	@Override
-	public Boolean deleteMember(int MemberID) {
-		Boolean result = false;
-		Session session = getSession();
-		Transaction tx = session.beginTransaction();
-		Criteria criteria = session.createCriteria(MemberBean.class);
-		criteria.add(Restrictions.eq("MemberID", MemberID));
-		Iterator upprod = criteria.list().iterator();
-		MemberBean upper = (MemberBean) upprod.next();
+	public MemberBean deleteMember(int MemberID) {
 		//update MemberStatus
-		if(upper!=null){
-		upper.setMemberStatus(false);
-		session.saveOrUpdate(upper);
-		result = true;
-		tx.commit();
-		}
-		if (session != null) {
-			session.close();
-		}
-		return result;
+		return null;
 	}
 
-	//(-.-)*杜
 	@Override
-	public Boolean rebornMember(int MemberID) {
-		Boolean result = false;
-		Session session = getSession();
-		Transaction tx = session.beginTransaction();
-		Criteria criteria = session.createCriteria(MemberBean.class);
-		criteria.add(Restrictions.eq("MemberID", MemberID));
-		Iterator upprod = criteria.list().iterator();
-		MemberBean upper = (MemberBean) upprod.next();
-		//update MemberStatus 後台 & 測試 用
-		if(upper!=null){
-		upper.setMemberStatus(true);
-		session.saveOrUpdate(upper);
-		result = true;
-		tx.commit();
-		}
-		if (session != null) {
-			session.close();
-		}
-		return result;
+	public List<ShopBean> selectShop(String keyword, int shopArea, int shopID) {
+		//店鋪ID,店鋪所在城市,店鋪所在區域
+		return null;
 	}
 
 	@Override

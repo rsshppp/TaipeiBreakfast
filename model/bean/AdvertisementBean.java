@@ -7,20 +7,11 @@ public class AdvertisementBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer advertisementID;
 	private String context;
-	private byte[] image;
+	private Byte[] image;
 	private Integer days;
 	private Integer advertisementStatusID;
-	private AdvertisementStatusBean advertisementStatusBean; 
 	private Integer shopID;
-	private ShopBean shopBean;
 	
-	
-	@Override
-	public String toString() {
-		
-		return "advertisementID="+advertisementID+"，context="+context+"，image="+image+"，days="+days
-				+"，shopID="+shopID+"，"+advertisementStatusBean;
-	}
 	public Integer getAdvertisementID() {
 		return advertisementID;
 	}
@@ -33,10 +24,10 @@ public class AdvertisementBean implements Serializable{
 	public void setContext(String context) {
 		this.context = context;
 	}
-	public byte[] getImage() {
+	public Byte[] getImage() {
 		return image;
 	}
-	public void setImage(byte[] image) {
+	public void setImage(Byte[] image) {
 		this.image = image;
 	}
 	public Integer getDays() {
@@ -51,24 +42,10 @@ public class AdvertisementBean implements Serializable{
 	public void setAdvertisementStatusID(Integer advertisementStatusID) {
 		this.advertisementStatusID = advertisementStatusID;
 	}
-	public AdvertisementStatusBean getAdvertisementStatusBean() {
-		return advertisementStatusBean;
-	}
-	public void setAdvertisementStatusBean(
-			AdvertisementStatusBean advertisementStatusBean) {
-		this.advertisementStatusBean = advertisementStatusBean;
-	}
 	public Integer getShopID() {
 		return shopID;
 	}
 	public void setShopID(Integer shopID) {
 		this.shopID = shopID;
 	}
-	public ShopBean getShopBean() {
-		return shopBean;
-	}
-	public void setShopBean(ShopBean shopBean) {
-		this.shopBean = shopBean;
-	}
-	
 }

@@ -2,68 +2,60 @@ package model.dao.imp;
 
 import java.util.Iterator;              
 import java.util.List;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.dao.OwnerDAO;
 import model.misc.HibernateUtil;
                                                        //by宗鈺
                                                        //沒做關連
+                                                       //未整合Spring版本
                                                        //配合資料庫TaipeiBreakfast_20150504版本
 public class OwnerDAOHibernate implements OwnerDAO {
 	
-	private SessionFactory sessionFactory;
+    private Session session;
 	
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-	public Session getSession() {
-		return this.sessionFactory.getCurrentSession();
+	public OwnerDAOHibernate(Session session){
+		this.session=session;
 	}
 	
-	public OwnerBean select(String ownerAccount){        //此方法含濾掉status為false之賣家,後台管理用時只需show status為true之賣家
-		Query query=this.getSession().createQuery("from OwnerBean where ownAcc=:account");
-		query.setString("account", ownerAccount);
-		Iterator list=query.list().iterator();
-		while(list.hasNext()){
-			OwnerBean bean=(OwnerBean)list.next();
-			if(bean.getOwnStatus()==true){                 //此處過濾
-				return bean;
-			}		
-		}
-		return null;
-	}
 	
-//	public OwnerBean select(String ownerAccount){
-//		Query query=this.getSession().createQuery("from OwnerBean where ownAcc=:account");
+//	public OwnerBean select(String ownerAccount){        //此方法含濾掉status為false之賣家,因為後台管理用時要show全部賣家
+	                                                     //過濾功能留給service處理
+//		Query query=session.createQuery("from OwnerBean where ownAcc=:account");
 //		query.setString("account", ownerAccount);
 //		Iterator list=query.list().iterator();
 //		if(list.hasNext()){
 //			OwnerBean bean=(OwnerBean)list.next();
-//			return bean;
+//			if(bean.getOwnStatus()==true){                 //此處過濾
+//				return bean;
+//			}		
 //		}
 //		return null;
 //	}
 	
+	public OwnerBean select(String ownerAccount){
+		Query query=session.createQuery("from OwnerBean where ownAcc=:account");
+		query.setString("account", ownerAccount);
+		Iterator list=query.list().iterator();
+		if(list.hasNext()){
+			OwnerBean bean=(OwnerBean)list.next();
+			return bean;
+		}
+		return null;
+	}
+	
 	public List<OwnerBean> selectAll(){
-		Query query=this.getSession().createQuery("from OwnerBean where ownStatus=:status");
-		query.setBoolean("status", true);
+		Query query=session.createQuery("from OwnerBean");
 		return (List<OwnerBean>) query.list();
 	}
 	
 	
 	
 	public List<ShopBean> getShops(Integer ownID){
-		Query query=this.getSession().createQuery("from ShopBean where ownID=:ownID");
+		Query query=session.createQuery("from ShopBean where ownID=:ownID");
 		query.setInteger("ownID", ownID);
 		return (List<ShopBean>) query.list();
 	}
@@ -71,9 +63,8 @@ public class OwnerDAOHibernate implements OwnerDAO {
 	
 	public boolean insert(OwnerBean ownerBean){
 		OwnerBean bean=this.select(ownerBean.getOwnAcc());
-//		System.out.println(bean);
 		if(bean==null){
-			this.getSession().save(ownerBean);
+			session.save(ownerBean);
 			return true;
 		}
 		return false;
@@ -146,14 +137,10 @@ public class OwnerDAOHibernate implements OwnerDAO {
 	}
 	
 	public static void main(String[] args) {         //測試用
-	    
-	    	ApplicationContext context=new ClassPathXmlApplicationContext("beans.config.xml");
-			SessionFactory sessionFactory=(SessionFactory)context.getBean("sessionFactory");
-			Session session=sessionFactory.getCurrentSession();
+	    try {
+			Session session=HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
-			
-			OwnerDAO dao=(OwnerDAOHibernate)context.getBean("ownerDAOHibernate");
-			
+			OwnerDAO dao=new OwnerDAOHibernate(session);
 			
 //			OwnerBean bean=dao.select("Laya");    //select
 //			System.out.println(bean);
@@ -174,9 +161,9 @@ public class OwnerDAOHibernate implements OwnerDAO {
 //			//bean.setOwnSuspend(false);//已有預設
 //			if(dao.insert(bean)){
 //				session.getTransaction().commit();
-//				session=sessionFactory.getCurrentSession();
+//				session=HibernateUtil.getSessionFactory().getCurrentSession();
 //				session.beginTransaction();
-//				dao=(OwnerDAOHibernate)context.getBean("ownerDAOHibernate");
+//				dao=new OwnerDAOHibernate(session);
 //				OwnerBean bean2=dao.select(bean.getOwnAcc());
 //				System.out.println(bean2);
 //			}else{
@@ -212,7 +199,9 @@ public class OwnerDAOHibernate implements OwnerDAO {
 //          System.out.println("停權設定是否成功:"+b);
 			
 			session.getTransaction().commit();
-			sessionFactory.close();
-			((ConfigurableApplicationContext)context).close();
+		}finally{
+			HibernateUtil.closeAllResources();
+		}
 	}
+
 }

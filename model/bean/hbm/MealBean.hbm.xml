@@ -6,7 +6,7 @@
     <class name="model.bean.MealBean" table="MEAL">
         <id name="mealID" type="java.lang.Integer">
             <column name="MEALID" />
-            <generator class="native" />
+            <generator class="assigned" />
         </id>
         <property name="mealName" type="java.lang.String">
             <column name="MEALNAME" />

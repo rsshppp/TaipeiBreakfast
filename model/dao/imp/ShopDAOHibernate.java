@@ -11,7 +11,6 @@ import model.dao.OwnerDAO;
 import model.dao.ShopDAO;
 import model.misc.HibernateUtil;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -21,7 +20,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-                                                   //by宗鈺
+
                                                    //沒做關連
                                                    //圖片部分未完成!!!
                                                    //配合資料庫TaipeiBreakfast_20150504版本
@@ -105,11 +104,11 @@ public class ShopDAOHibernate implements ShopDAO {
 	}
 
 	
-	//宗鈺
+	//--宗鈺
 	public ShopBean select(Integer shopID){
 		return (ShopBean)this.getSession().get(ShopBean.class,shopID);
 	}
-	
+	//--宗鈺
 	public ShopBean selectByPhone(String shopPhone){
 		Query query=this.getSession().createQuery("from ShopBean where shopPhone=:phone");
 		query.setString("phone", shopPhone);
@@ -120,20 +119,20 @@ public class ShopDAOHibernate implements ShopDAO {
 		}
 		return null;
 	}
-	
+	//--宗鈺
 	public List<ShopBean> selectAll(){
 		Query query=this.getSession().createQuery("from ShopBean");
 		return (List<ShopBean>) query.list();
 	}
 	
-	
+	//--宗鈺
 	public List<ShopBean> getShops(Integer ownID){
 		Query query=this.getSession().createQuery("from ShopBean where ownID=:ownID");
 		query.setInteger("ownID", ownID);
 		return (List<ShopBean>) query.list();
 	}
 	
-	
+	//--宗鈺
 	public boolean insert(ShopBean shopBean){
 		ShopBean bean=null;
 		Query query=this.getSession().createQuery("from ShopBean where shopPhone=:phone");
@@ -149,7 +148,7 @@ public class ShopDAOHibernate implements ShopDAO {
 		return false;
 	}
 	
-	
+	//--宗鈺
 	public ShopBean update(ShopBean shopBean){
 		ShopBean bean=(ShopBean)this.getSession().get(ShopBean.class,shopBean.getShopID());
 		if(bean!=null){
@@ -171,7 +170,7 @@ public class ShopDAOHibernate implements ShopDAO {
 		return null;
 	}
 	
-	
+	//--宗鈺
 	public boolean changeShopCondID(Integer shopCondID,Integer shopID){
 		ShopBean bean=(ShopBean)this.getSession().get(ShopBean.class,shopID);
 		if(bean!=null){
@@ -181,7 +180,7 @@ public class ShopDAOHibernate implements ShopDAO {
 		 return false;
 	}
 	
-	
+	//--宗鈺
 	public boolean suspendOrCancel(Integer shopID){
 		ShopBean bean=(ShopBean)this.getSession().get(ShopBean.class,shopID);
 		if(bean!=null){
@@ -196,6 +195,7 @@ public class ShopDAOHibernate implements ShopDAO {
 		return false;
 	}
 	
+	//-chunting
 	@Override
 	public boolean updateBusinessTime(ShopBean bean) {
 		Query query =this.getSession().createQuery(

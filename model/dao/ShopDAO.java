@@ -5,7 +5,8 @@ import java.util.List;
 import model.bean.ShopBean;
 
 public interface ShopDAO {    //更多細節請看其實作類別(model.dao.imp.ShopHibernateDAO)//by宗鈺
-
+	//Gary
+	public abstract ShopBean select(Integer shopID);
 	//(-.-)*杜
 	public abstract List<ShopBean> selectShop(String keyword,int shopArea,int shopID);
 	

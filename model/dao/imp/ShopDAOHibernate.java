@@ -1,29 +1,36 @@
 package model.dao.imp;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
+import model.bean.OwnerBean;
 import model.bean.ShopBean;
+import model.dao.OwnerDAO;
 import model.dao.ShopDAO;
+import model.misc.HibernateUtil;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
                                                    //by宗鈺
+                                                   //沒做關連
                                                    //圖片部分未完成!!!
-                                                   //未整合Spring版本
                                                    //配合資料庫TaipeiBreakfast_20150504版本
 public class ShopDAOHibernate implements ShopDAO {   
 	
 	private SessionFactory sessionFactory;
+	
+	
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+
 	public Session getSession() {
 		return this.sessionFactory.getCurrentSession();
 	}
@@ -34,33 +41,13 @@ public class ShopDAOHibernate implements ShopDAO {
 			//用 keyword 模糊查詢 shopName,shopCity,shopArea
 			return null;
 	}
-	@Override
 	public List<ShopBean> selectArea(String shopArea){
 			return null;
 	}
-	@Override
-	public List<ShopBean> allowNeedsShop() {
-		Query query=this.getSession().createQuery("from ShopBean where ShopCondID=:status");
-		query.setBoolean("status", false);
-		Iterator list=query.list().iterator();
-		return (List<ShopBean>) query.list();
-	}
-	@Override
-	public boolean allowShop(int ShopID) {
-		ShopBean bean=(ShopBean)getSession().get(ShopBean.class,ShopID);
-		if(bean!=null){
-			if(bean.getShopCondID()==0){
-				bean.setShopCondID(1);
-				return true;
-			}
-		}
-		return false;
-	}
-
 	
 	//宗鈺
 	public ShopBean select(Integer shopID){
-		return (ShopBean)getSession().get(ShopBean.class,shopID);
+		return (ShopBean)this.getSession().get(ShopBean.class,shopID);
 	}
 	
 	public ShopBean selectByPhone(String shopPhone){
@@ -101,6 +88,7 @@ public class ShopDAOHibernate implements ShopDAO {
 		}
 		return false;
 	}
+	
 	
 	public ShopBean update(ShopBean shopBean){
 		ShopBean bean=(ShopBean)this.getSession().get(ShopBean.class,shopBean.getShopID());
@@ -240,5 +228,5 @@ public class ShopDAOHibernate implements ShopDAO {
 		    ((ConfigurableApplicationContext)context).close();
 
 	}
-	
+
 }

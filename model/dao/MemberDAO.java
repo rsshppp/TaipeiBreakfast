@@ -14,7 +14,6 @@ public interface MemberDAO {
 	public abstract Boolean deleteMember(int MemberID);
 	public abstract Boolean rebornMember(int MemberID);
 //--*
-	public abstract List<ShopBean> selectShop(String keyword,int shopArea,int shopID);
 	//會員查詢現存優惠 - Noah
 	public abstract MemberBean selectSpecialPrice(Integer memberID);
 	

@@ -5,7 +5,7 @@
     <class name="model.bean.OrderSumBean" table="OrderSum">
         <id name="orderSumID" type="java.lang.Integer">
             <column name="orderSumID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="shopID" type="java.lang.Integer">
             <column name="shopID" />

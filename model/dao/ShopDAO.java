@@ -40,5 +40,8 @@ public interface ShopDAO {
 
 	//為後台管理停權所使用,可以停權,也可以取消停權
 	public abstract boolean suspendOrCancel(Integer shopID);
-
+	
+	//更改某間店家營業時間	-chunting
+	public boolean updateBusinessTime(ShopBean bean);
+	
 }

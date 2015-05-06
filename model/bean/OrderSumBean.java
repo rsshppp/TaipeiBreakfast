@@ -8,10 +8,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import model.dao.OrderSumDAO;
 import model.dao.imp.OrderSumDAOHibernate;
 import model.misc.HibernateUtil;
 
 import org.hibernate.SessionFactory;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 //總訂單表
@@ -29,8 +32,15 @@ public class OrderSumBean implements Serializable {
 	private Integer starsForOwn;
 	private String evaluateForShop;
 	private Integer orderCondID;
-	// Table對應其他欄位
-	private Set<OrderDetailBean> orderDetailBean;
+	
+	private Set<OrderDetailBean> orderDetailBean;// Table對應其他表格
+
+	@Override
+	public String toString() {
+		return "orderSumID:"+orderSumID+", shopID:"+shopID+", memberID:"+memberID+", totalPrice:"+totalPrice
+				+", orderTime:"+orderTime+", expectTime:"+expectTime+", memo:"+memo+", starsForOwn:"+starsForOwn
+				+", evaluateForShop:"+evaluateForShop+", orderCondID:"+orderCondID;
+	}
 
 	public OrderSumBean() {
 		orderDetailBean = new HashSet<OrderDetailBean>();
@@ -122,28 +132,6 @@ public class OrderSumBean implements Serializable {
 
 	public void setOrderCondID(Integer orderCondID) {
 		this.orderCondID = orderCondID;
-	}
-
-	public static void main(String[] args) {
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		OrderSumDAOHibernate dao = new OrderSumDAOHibernate();
-		dao.setSessionFactory(sessionFactory);
-		ShopBean bean = new ShopBean();
-		bean.setShopID(3);
-		List<OrderSumBean> orderSums = dao.queryOrderSum(bean);
-		Iterator list = orderSums.iterator();
-		while(list.hasNext()){
-			OrderSumBean orderSum = (OrderSumBean) list.next();
-			System.out.println("orderSumDetail.TotalPrice="+orderSum.getTotalPrice());
-			Iterator orderDetails = orderSum.getOrderDetail().iterator();
-			while(orderDetails.hasNext()){
-				OrderDetailBean orderDetail = (OrderDetailBean) orderDetails.next();
-				System.out.println("orderDetail.getPrice="+orderDetail.getPrice());
-				MealBean meal = orderDetail.getMealBean();
-				System.out.println("meal.getMealName="+meal.getMealName());
-			}
-		}
-		sessionFactory.close();
 	}
 	
 }

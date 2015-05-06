@@ -2,61 +2,91 @@ package model.dao.imp;
 
 import java.util.List;
 
-import model.bean.OrderSumBean;
-import model.bean.ShopBean;
-import model.dao.OrderSumDAO;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public class OrderSumDAOHibernate implements OrderSumDAO {
-	private SessionFactory sessionFactory;
+import model.bean.OrderSumBean;
+import model.bean.ShopBean;
+import model.dao.OrderSumDAO;
 
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
+public class OrderSumDAOHibernate implements OrderSumDAO {
+	
+	public OrderSumDAOHibernate() {
+		
 	}
-	public void setSessionFactory(SessionFactory sessionFactory) {
+	
+	private SessionFactory sessionFactory;
+	public OrderSumDAOHibernate(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
+	
+	public Session getSession() {
+		return this.sessionFactory.getCurrentSession();
+	}
+	
 	@Override
 	public List<OrderSumBean> queryOrderSum(ShopBean bean) {
-		List<OrderSumBean> result = null;
-		Session session = sessionFactory.openSession();
-		Query query = session.createQuery("from OrderSumBean as OrderSumBean where OrderSumBean.shopID=:shopID");
-		query.setString("shopID", new Integer(bean.getShopID()).toString());
-		result = query.list(); 
-		return result;
+		
+		
+		return null;
+	}
+	//新增訂單 - Noah 幫俊廷 handle
+	@Override
+	public boolean insertOrderSum(OrderSumBean bean) {
+		
+		if(bean != null){
+			this.getSession().save(bean);
+			return true;
+		}
+		return false;
+	}
+	//會員進行評價 - Noah
+	@Override
+	public boolean updateOrderSum(OrderSumBean bean) {
+
+		String hql = "UPDATE OrderSumBean as OrderSumBean SET starsforOwn = :StarsforOwn, evaluateforShop = :evaluateforShop" + 
+	             	 " WHERE OrderSumBean.orderSumID = :OrderSumID";
+		Query query = this.getSession().createQuery(hql);
+		query.setParameter("StarsforOwn", bean.getStarsForOwn());
+		query.setParameter("evaluateforShop", bean.getEvaluateForShop());
+		query.setParameter("OrderSumID", bean.getOrderSumID());
+		int result = query.executeUpdate();
+		//System.out.println("Rows affected: " + result);
+	
+		if(result != 0){
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public boolean changeOrderCond(Integer orderSumID) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public boolean deleteOrderSum(Integer orderSumID) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
-
-	@Override
-	public boolean insertOrderSum(OrderSumBean bean) {
-		return false;
-	}
-	@Override
-	public boolean updateOrderSum(OrderSumBean bean) {
-		return false;
-	}
+	//會員查詢訂單 - Noah
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderSumBean> selectAllOrderSum(Integer memberID) {
-		return null;
+		
+		Query query =
+				this.getSession().createQuery("from OrderSumBean where memberID = " + memberID);
+		return (List<OrderSumBean>) query.list();
 	}
+	//會員依訂單狀態查詢訂單 - Noah
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID,Integer orderCondID) {
-		return null;
+	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID, Integer orderCondID) {
+		Query query =
+				this.getSession().createQuery("from OrderSumBean where memberID = " + memberID + "and orderCondID = " + orderCondID);
+		return (List<OrderSumBean>) query.list();
 	}
 
 }

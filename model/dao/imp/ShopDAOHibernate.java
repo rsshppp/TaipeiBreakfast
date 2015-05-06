@@ -6,10 +6,14 @@ import java.util.List;
 
 import model.bean.ShopBean;
 import model.dao.ShopDAO;
+import model.misc.HibernateUtil;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -31,29 +35,66 @@ public class ShopDAOHibernate implements ShopDAO {
 	//(-.-)*杜
 	@Override
 	public List<ShopBean> selectKeyword(String keyword) {
-			//用 keyword 模糊查詢 shopName,shopCity,shopArea
-			return null;
+		//用 keyword 模糊查詢 shopName,shopCity,shopArea
+		Query query=getSession().createQuery("from ShopBean where shopName like:st or shopCity like:st or shopArea like:st");
+		query.setString("st", "%"+keyword+"%");
+		Iterator list=query.list().iterator();
+		return (List<ShopBean>) query.list();
 	}
 	@Override
 	public List<ShopBean> selectArea(String shopArea){
-			return null;
+		Query query=getSession().createQuery("from ShopBean where shopArea =: status");
+		query.setString("status", "%"+shopArea+"%");
+		Iterator list=query.list().iterator();
+		return (List<ShopBean>) query.list();
 	}
 	@Override
 	public List<ShopBean> allowNeedsShop() {
 		Query query=this.getSession().createQuery("from ShopBean where ShopCondID=:status");
-		query.setBoolean("status", false);
+		query.setInteger("status", 1);
 		Iterator list=query.list().iterator();
 		return (List<ShopBean>) query.list();
 	}
 	@Override
 	public boolean allowShop(int ShopID) {
-		ShopBean bean=(ShopBean)getSession().get(ShopBean.class,ShopID);
-		if(bean!=null){
-			if(bean.getShopCondID()==0){
-				bean.setShopCondID(1);
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		Criteria criteria = session.createCriteria(ShopBean.class);
+		criteria.add(Restrictions.eq("shopID", ShopID));
+		Iterator users = criteria.list().iterator();
+		while (users.hasNext()) {
+			ShopBean bean = (ShopBean) users.next();
+			System.out.println(bean);
+			if(bean.getShopCondID()==1){
+				bean.setShopCondID(2);
 				return true;
 			}
+			System.out.println(bean);
+			session.saveOrUpdate(bean);
 		}
+		tx.commit();
+		session.close();
+		return false;
+	}
+	
+	public boolean notAllowShop(int ShopID) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		Criteria criteria = session.createCriteria(ShopBean.class);
+		criteria.add(Restrictions.eq("shopID", ShopID));
+		Iterator users = criteria.list().iterator();
+		while (users.hasNext()) {
+			ShopBean bean = (ShopBean) users.next();
+			System.out.println(bean);
+			if(bean.getShopCondID()==1){
+				bean.setShopCondID(3);
+				return true;
+			}
+			System.out.println(bean);
+			session.saveOrUpdate(bean);
+		}
+		tx.commit();
+		session.close();
 		return false;
 	}
 

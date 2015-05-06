@@ -11,7 +11,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import model.bean.MealBean;
-import model.bean.MealKindListBean;
 import model.bean.OrderDetailBean;
 import model.dao.MealDAO;
 //建立-Gary
@@ -25,7 +24,21 @@ public class MealDAOHibernate implements MealDAO {
 	public Session getSession(){
 		return this.sessionFactory.getCurrentSession();
 	}
-	
+	public static void main(String[] args){
+		ConfigurableApplicationContext context=new ClassPathXmlApplicationContext("beans.config.xml");
+		SessionFactory sessionFactory=(SessionFactory)context.getBean("sessionFactory");
+		Session session=sessionFactory.getCurrentSession();
+		MealDAO dao=(MealDAO)context.getBean("mealDAO");
+		session.beginTransaction();
+		
+		Iterator<MealBean> list=dao.selectShopMeal(3).iterator();
+		while(list.hasNext()){
+			System.out.println(list.next());
+		}
+		
+		session.getTransaction().commit();
+		context.close();
+	}
 	@Override
 	public MealBean queryMealBean(OrderDetailBean bean) {
 		return null;
@@ -86,14 +99,12 @@ public class MealDAOHibernate implements MealDAO {
 	@Override
 	public boolean update(MealBean bean) {
 		MealBean result=(MealBean)this.getSession().get(MealBean.class, bean.getMealID());
-		System.out.println("MBH:"+result);
 		if(result==null){
 			return false;
 		}else{
 			result.setMealName(bean.getMealName());
 			result.setPrice(bean.getPrice());
 			//result.setMealKindID(bean.getMealKindID());
-			result.setMealKindListBean(bean.getMealKindListBean());
 			result.setMealImage(bean.getMealImage());
 			
 			return true;
@@ -101,12 +112,12 @@ public class MealDAOHibernate implements MealDAO {
 	}
 
 	@Override
-	public boolean updateMealStatus(int mealID,boolean mealStatus) {
-		MealBean result=(MealBean)this.getSession().get(MealBean.class, mealID);
+	public boolean updateMealStatus(MealBean bean) {
+		MealBean result=(MealBean)this.getSession().get(MealBean.class, bean.getMealID());
 		if(result==null){
 			return false;
 		}else{
-			result.setMealStatus(mealStatus);
+			result.setMealStatus(bean.getMealStatus());
 			return true;
 		}
 	}

@@ -3,16 +3,13 @@ package model.dao.imp;
 import java.util.Iterator;
 import java.util.List;
 
-import model.bean.AdvertisementBean;
-import model.bean.AdvertisementStatusBean;
-import model.dao.AdvertisementDAO;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import model.bean.AdvertisementBean;
+import model.dao.AdvertisementDAO;
 //建立-Gary
 public class AdvertisementDAOHibernate implements AdvertisementDAO {
 	private SessionFactory sessionFactory;
@@ -23,22 +20,6 @@ public class AdvertisementDAOHibernate implements AdvertisementDAO {
 	
 	public Session getSession(){
 		return this.sessionFactory.getCurrentSession();
-	}
-	
-	public static void main(String[] args){
-		ConfigurableApplicationContext context=new ClassPathXmlApplicationContext("beans.config.xml");
-		SessionFactory sessionFactory=(SessionFactory)context.getBean("sessionFactory");
-		Session session=sessionFactory.getCurrentSession();
-		AdvertisementDAO dao=(AdvertisementDAO)context.getBean("advertisementDAO");
-		session.beginTransaction();
-		
-		Iterator<AdvertisementBean> list=dao.selectAll().iterator();
-		while(list.hasNext()){
-			System.out.println(list.next());
-		}
-		
-		session.getTransaction().commit();
-		context.close();
 	}
 	@Override
 	public AdvertisementBean selectOne(int adID) {
@@ -58,7 +39,7 @@ public class AdvertisementDAOHibernate implements AdvertisementDAO {
 	public List<AdvertisementBean> selectAll() {
 		Criteria criteria =this.getSession().createCriteria(AdvertisementBean.class);
 		List<AdvertisementBean> list=criteria.list();
-		return list;
+		return null;
 	}
 
 	@Override
@@ -68,10 +49,10 @@ public class AdvertisementDAOHibernate implements AdvertisementDAO {
 	}
 
 	@Override
-	public boolean updateStatus(int advertisementID, AdvertisementStatusBean aStatusBean) {
+	public boolean updateStatus(int advertisementID, int advertisementStatusID) {
 		AdvertisementBean bean=(AdvertisementBean)this.getSession().get(AdvertisementBean.class, advertisementID);
 		if(bean!=null){
-			bean.setAdvertisementStatusBean(aStatusBean);
+			bean.setAdvertisementStatusID(advertisementStatusID);
 			return true;
 		}else{
 			return false;

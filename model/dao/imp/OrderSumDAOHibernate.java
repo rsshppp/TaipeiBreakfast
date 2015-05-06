@@ -1,4 +1,4 @@
-package model.dao.imp;
+﻿package model.dao.imp;
 
 import java.util.List;
 
@@ -24,12 +24,15 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	public Session getSession() {
 		return this.sessionFactory.getCurrentSession();
 	}
-	
+	//店鋪查詢所有訂單 - 俊廷
 	@Override
 	public List<OrderSumBean> queryOrderSum(ShopBean bean) {
-		
-		
-		return null;
+		List<OrderSumBean> result = null;
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("from OrderSumBean as OrderSumBean where OrderSumBean.shopID=:shopID");
+		query.setString("shopID", new Integer(bean.getShopID()).toString());
+		result = query.list(); 
+		return result;
 	}
 	//新增訂單 - Noah 幫俊廷 handle
 	@Override

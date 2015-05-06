@@ -25,10 +25,10 @@ public interface ShopDAO {    //更多細節請看其實作類別(model.dao.imp.
 	public abstract boolean insert(ShopBean shopBean);
 
 	//更改店鋪多項欄位資料
-	public abstract ShopBean update(Integer shopCondID,Integer shopID);
+	public abstract ShopBean update(ShopBean shopBean);
 
 	//更改店鋪狀態ID
-	public abstract boolean changeShopCondID(ShopBean shopBean);
+	public abstract boolean changeShopCondID(Integer shopCondID,Integer shopID);
 
 	//為後台管理停權所使用,可以停權,也可以取消停權
 	public abstract boolean suspendOrCancel(Integer shopID);

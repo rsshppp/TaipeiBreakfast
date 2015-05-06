@@ -44,23 +44,18 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 
 	@Override
 	public boolean insertOrderSum(OrderSumBean bean) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
 	public boolean updateOrderSum(OrderSumBean bean) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
 	public List<OrderSumBean> selectAllOrderSum(Integer memberID) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID,
-			Integer orderCondID) {
-		// TODO Auto-generated method stub
+	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID,Integer orderCondID) {
 		return null;
 	}
 

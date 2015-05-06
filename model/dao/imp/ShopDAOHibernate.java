@@ -14,8 +14,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
                                                    //by宗鈺
+                                                   //沒做關連
                                                    //圖片部分未完成!!!
-                                                   //未整合Spring版本
                                                    //配合資料庫TaipeiBreakfast_20150504版本
 public class ShopDAOHibernate implements ShopDAO {                           
 	private Session session;

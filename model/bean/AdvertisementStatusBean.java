@@ -8,6 +8,11 @@ public class AdvertisementStatusBean implements Serializable{
 	private Integer advertisementStatusID;
 	private String advertisementStatus;
 	
+	
+	@Override
+	public String toString() {
+		return "advertisementStatusID="+advertisementStatusID+"，advertisementStatus="+advertisementStatus;
+	}
 	public Integer getAdvertisementStatusID() {
 		return advertisementStatusID;
 	}

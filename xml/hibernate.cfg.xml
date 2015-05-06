@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+  <property name="hibernate.current_session_context_class">thread</property>
+  <mapping class="model.bean.AdvertisementBean" resource="model/bean/hbm/AdvertisementBean.hbm.xml"/>
+  <mapping class="model.bean.AdvertisementStatusBean" resource="model/bean/hbm/AdvertisementStatusBean.hbm.xml"/>
+  <mapping class="model.bean.MealBean" resource="model/bean/hbm/MealBean.hbm.xml"/>
+  <mapping class="model.bean.MealKindListBean" resource="model/bean/hbm/MealKindListBean.hbm.xml"/>
+  <mapping class="model.bean.ShopBean" resource="model/bean/hbm/ShopBean.hbm.xml"/>
+ </session-factory>
+</hibernate-configuration>

@@ -1,27 +1,33 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015/4/29 ?U?? 02:33:31 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2015/5/6 ?W?? 09:44:51 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="model.bean.AdvertisementBean" table="ADVERTISEMENT">
-        <id name="shopID" type="java.lang.Integer">
-            <column name="SHOPID" />
+        <id name="advertisementID" type="java.lang.Integer">
+            <column name="ADVERTISEMENTID" />
             <generator class="native" />
         </id>
-        <property name="advertisementID" type="java.lang.Integer">
-            <column name="ADVERTISEMENTID" />
+        <property name="shopID" type="java.lang.Integer" update="false" insert="false">
+            <column name="SHOPID" />
         </property>
         <property name="context" type="java.lang.String">
             <column name="CONTEXT" />
         </property>
-        <property name="image" type="Byte[]">
+        <property name="image" type="binary">
             <column name="IMAGE" />
         </property>
         <property name="days" type="java.lang.Integer">
             <column name="DAYS" />
         </property>
-        <property name="advertisementStatusID" type="java.lang.Integer">
+        <property name="advertisementStatusID" type="java.lang.Integer" update="false" insert="false">
             <column name="ADVERTISEMENTSTATUSID" />
         </property>
+        <many-to-one name="advertisementStatusBean" class="model.bean.AdvertisementStatusBean" access="property" fetch="join">
+            <column name="ADVERTISEMENTSTATUSID" />
+        </many-to-one>
+        <many-to-one name="shopBean" class="model.bean.ShopBean" access="property" fetch="join">
+            <column name="SHOPID" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

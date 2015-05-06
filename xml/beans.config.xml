@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
+		<property name="url" value="jdbc:sqlserver://localhost:1433;database=TaipeiBreakFast"></property>
+		<property name="username" value="sa"></property>
+		<property name="password" value="passw0rd"></property>
+	</bean>
+	<bean id="sessionFactory" destroy-method="destroy"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation"
+			value="classpath:hibernate.cfg.xml">
+		</property>
+	</bean>
+	<bean id="mealKindListDAO"
+		class="model.dao.imp.MealKindListDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="mealDAO" class="model.dao.imp.MealDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="advertisementStatusDAO"
+		class="model.dao.imp.AdvertisementStatusDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="advertisementDAO"
+		class="model.dao.imp.AdvertisementDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="mealService" class="model.service.MealService">
+		<property name="mkdao" ref="mealKindListDAO"></property>
+		<property name="dao" ref="mealDAO"></property>
+	</bean>
+	<bean id="mealKindListService"
+		class="model.service.MealKindListService">
+		<property name="dao" ref="mealKindListDAO"></property>
+	</bean>
+	<bean id="shopDAO" class="model.dao.imp.ShopDAOHibernate">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
+	<bean id="advertisementService"
+		class="model.service.AdvertisementService">
+		<property name="dao" ref="advertisementDAO"></property>
+		<property name="aStatusdao" ref="advertisementStatusDAO"></property>
+		<property name="shopdao" ref="shopDAO"></property>
+	</bean>
+	<bean id="advertisementStatusService"
+		class="model.service.AdvertisementStatusService">
+		<property name="dao" ref="advertisementStatusDAO"></property>
+	</bean>
+</beans>

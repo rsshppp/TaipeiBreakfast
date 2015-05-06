@@ -11,6 +11,8 @@ public interface ShopDAO {
 	//(-.-)*杜
 	public abstract List<ShopBean> selectKeyword(String keyword);
 	public abstract List<ShopBean> selectArea(String shopArea);
+	public abstract List<ShopBean> allowNeedsShop();
+	public abstract boolean allowShop(int ShopID);
 
 	//Gary
 	//用店鋪編號得到"該筆"店鋪所有資料

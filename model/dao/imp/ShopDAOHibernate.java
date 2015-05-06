@@ -1,36 +1,70 @@
 package model.dao.imp;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
-import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.dao.ShopDAO;
-import model.misc.HibernateUtil;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
                                                    //by宗鈺
                                                    //圖片部分未完成!!!
                                                    //未整合Spring版本
                                                    //配合資料庫TaipeiBreakfast_20150504版本
-public class ShopDAOHibernate implements ShopDAO {                           
-	private Session session;
+public class ShopDAOHibernate implements ShopDAO {   
 	
-	public ShopDAOHibernate(Session session){
-		this.session=session;
+	private SessionFactory sessionFactory;
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	public Session getSession() {
+		return this.sessionFactory.getCurrentSession();
 	}
 	
+	//(-.-)*杜
+	@Override
+	public List<ShopBean> selectKeyword(String keyword) {
+			//用 keyword 模糊查詢 shopName,shopCity,shopArea
+			return null;
+	}
+	@Override
+	public List<ShopBean> selectArea(String shopArea){
+			return null;
+	}
+	@Override
+	public List<ShopBean> allowNeedsShop() {
+		Query query=this.getSession().createQuery("from ShopBean where ShopCondID=:status");
+		query.setBoolean("status", false);
+		Iterator list=query.list().iterator();
+		return (List<ShopBean>) query.list();
+	}
+	@Override
+	public boolean allowShop(int ShopID) {
+		ShopBean bean=(ShopBean)getSession().get(ShopBean.class,ShopID);
+		if(bean!=null){
+			if(bean.getShopCondID()==0){
+				bean.setShopCondID(1);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	
+	//宗鈺
 	public ShopBean select(Integer shopID){
-		return (ShopBean)session.get(ShopBean.class,shopID);
+		return (ShopBean)getSession().get(ShopBean.class,shopID);
 	}
 	
 	public ShopBean selectByPhone(String shopPhone){
-		Query query=session.createQuery("from ShopBean where shopPhone=:phone");
+		Query query=this.getSession().createQuery("from ShopBean where shopPhone=:phone");
 		query.setString("phone", shopPhone);
 		Iterator list=query.list().iterator();
 		if(list.hasNext()){
@@ -41,13 +75,13 @@ public class ShopDAOHibernate implements ShopDAO {
 	}
 	
 	public List<ShopBean> selectAll(){
-		Query query=session.createQuery("from ShopBean");
+		Query query=this.getSession().createQuery("from ShopBean");
 		return (List<ShopBean>) query.list();
 	}
 	
 	
 	public List<ShopBean> getShops(Integer ownID){
-		Query query=session.createQuery("from ShopBean where ownID=:ownID");
+		Query query=this.getSession().createQuery("from ShopBean where ownID=:ownID");
 		query.setInteger("ownID", ownID);
 		return (List<ShopBean>) query.list();
 	}
@@ -55,22 +89,21 @@ public class ShopDAOHibernate implements ShopDAO {
 	
 	public boolean insert(ShopBean shopBean){
 		ShopBean bean=null;
-		Query query=session.createQuery("from ShopBean where shopPhone=:phone");
+		Query query=this.getSession().createQuery("from ShopBean where shopPhone=:phone");
 		query.setString("phone", shopBean.getShopPhone());
 		Iterator list=query.list().iterator();
 		if(list.hasNext()){
 			bean=(ShopBean)list.next();
 		}
 		if(bean==null){
-			session.save(shopBean);
+			this.getSession().save(shopBean);
 			return true;
 		}
 		return false;
 	}
 	
-	
 	public ShopBean update(ShopBean shopBean){
-		ShopBean bean=(ShopBean)session.get(ShopBean.class,shopBean.getShopID());
+		ShopBean bean=(ShopBean)this.getSession().get(ShopBean.class,shopBean.getShopID());
 		if(bean!=null){
 			bean.setShopName(shopBean.getShopName());
 			bean.setShopPhone(shopBean.getShopPhone());
@@ -92,7 +125,7 @@ public class ShopDAOHibernate implements ShopDAO {
 	
 	
 	public boolean changeShopCondID(Integer shopCondID,Integer shopID){
-		ShopBean bean=(ShopBean)session.get(ShopBean.class,shopID);
+		ShopBean bean=(ShopBean)this.getSession().get(ShopBean.class,shopID);
 		if(bean!=null){
 			bean.setShopCondID(shopCondID);
 			return true;
@@ -102,7 +135,7 @@ public class ShopDAOHibernate implements ShopDAO {
 	
 	
 	public boolean suspendOrCancel(Integer shopID){
-		ShopBean bean=(ShopBean)session.get(ShopBean.class,shopID);
+		ShopBean bean=(ShopBean)this.getSession().get(ShopBean.class,shopID);
 		if(bean!=null){
 			if(bean.getShopSuspend()==false){
 				bean.setShopSuspend(true);
@@ -117,10 +150,13 @@ public class ShopDAOHibernate implements ShopDAO {
 	
 	
 	public static void main(String[] args) throws ParseException {      //測試用
-		try {
-			Session session=HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
-			ShopDAO dao=new ShopDAOHibernate(session);
+		
+		   ApplicationContext context=new ClassPathXmlApplicationContext("beans.config.xml");
+		   SessionFactory sessionFactory=(SessionFactory)context.getBean("sessionFactory");
+		   Session session=sessionFactory.getCurrentSession();
+		   session.beginTransaction();
+		
+		   ShopDAO dao=(ShopDAOHibernate)context.getBean("shopDAOHibernate");
 			                    
 			
 //			ShopBean bean=dao.select(3);                       //select
@@ -157,9 +193,9 @@ public class ShopDAOHibernate implements ShopDAO {
 //			bean.setBusinessTimeNote("星期二公休");
 //			if(dao.insert(bean)){
 //				session.getTransaction().commit();
-//				session=HibernateUtil.getSessionFactory().getCurrentSession();
+//				session=sessionFactory.getCurrentSession();
 //				session.beginTransaction();
-//				dao=new ShopDAOHibernate(session);
+//				dao=(ShopDAOHibernate)context.getBean("shopDAOHibernate");
 //				ShopBean bean2=dao.selectByPhone(bean.getShopPhone());
 //				System.out.println(bean2);
 //			}else{
@@ -199,14 +235,10 @@ public class ShopDAOHibernate implements ShopDAO {
 //			boolean b=dao.suspendOrCancel(12);       //為後台管理停權所使用,可以停權,也可以取消停權    //假設session裡的shopID為12
 //          System.out.println("停權設定是否成功:"+b);
 			
-			session.getTransaction().commit();
-		} catch (HibernateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			HibernateUtil.closeAllResources();
-		}
+		    session.getTransaction().commit();
+		    sessionFactory.close();
+		    ((ConfigurableApplicationContext)context).close();
 
 	}
-
+	
 }

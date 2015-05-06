@@ -1,10 +1,13 @@
 package model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.bean.MemberBean;
+import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.dao.MemberDAO;
+import model.dao.OwnerDAO;
 import model.dao.ShopDAO;
 
 public class TBService{
@@ -12,12 +15,6 @@ public class TBService{
 	//(-.-)*杜
 	private MemberDAO member;
 	private ShopDAO shop;
-	private TBService(MemberDAO dao){
-		this.member=dao;
-	}
-	private TBService(ShopDAO dao){
-		this.shop=dao;
-	}
 
 	//(-.-)*杜
 	public MemberBean insertMember(MemberBean bean) {
@@ -31,12 +28,17 @@ public class TBService{
 
 	//(-.-)*杜
 	public List<MemberBean> selectMember(MemberBean bean) {
-		if(bean!=null){
-			List<MemberBean> result=null;
-			result.add(member.selectMember(bean.getMemberID()));
-			return result;
+		List<MemberBean> result=null;
+		if(bean!=null && bean.getMemberID()!=0){
+			MemberBean a=member.selectMember(bean.getMemberID());
+			if(a!=null){
+			result = new ArrayList<MemberBean>();
+			result.add(a);
+			}
+		}else{
+			result= member.selectMember();
 		}
-		return member.selectMember();
+		return result;
 	}
 
 	//(-.-)*杜
@@ -80,7 +82,8 @@ public class TBService{
 		// select keyword from shopName,shopCity,shopArea
 		if(keyword!=null){
 			result=shop.selectKeyword(keyword);
-		}else if(shopID!=0){
+		}
+		if(shopID!=0){
 			// Ajax 用 shopArea 找出 list 後選出 shopID
 			result.add(shop.select(shopID));
 		}
@@ -91,11 +94,23 @@ public class TBService{
 	}
 
 	//(-.-)*杜
-	public String select最新訂單() {
+	public String selectNews() {
 		//shopID,orderTime
 		
 		//orderDetailID,mealId,count,price
 		
 		return null;
 	}
+
+	//(-.-)*杜
+	public List<ShopBean> selectAllowShop(){
+		List<ShopBean> a = shop.allowNeedsShop();
+		return a;
+	}
+
+	//(-.-)*杜
+	public boolean allowShop(int ShopID){
+		return shop.allowShop(ShopID);
+	}
+	
 }

@@ -41,9 +41,29 @@ public class ShopDAOHibernate implements ShopDAO {
 			//用 keyword 模糊查詢 shopName,shopCity,shopArea
 			return null;
 	}
+	@Override
 	public List<ShopBean> selectArea(String shopArea){
 			return null;
 	}
+	@Override
+	public List<ShopBean> allowNeedsShop() {
+		Query query=this.getSession().createQuery("from ShopBean where ShopCondID=:status");
+		query.setBoolean("status", false);
+		Iterator list=query.list().iterator();
+		return (List<ShopBean>) query.list();
+	}
+	@Override
+	public boolean allowShop(int ShopID) {
+		ShopBean bean=(ShopBean)getSession().get(ShopBean.class,ShopID);
+		if(bean!=null){
+			if(bean.getShopCondID()==0){
+				bean.setShopCondID(1);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	
 	//宗鈺
 	public ShopBean select(Integer shopID){

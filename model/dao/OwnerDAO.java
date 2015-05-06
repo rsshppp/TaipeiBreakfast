@@ -7,7 +7,7 @@ import model.bean.ShopBean;
 
 public interface OwnerDAO {    //by宗鈺
 
-	//用賣方帳號得到"該筆"賣方所有資料, 之後可business service可用此方法         //login可用此方法
+	//用賣方帳號得到"該筆"賣方所有資料, 之後可business service可用此方法         //login可用此方法  //已過濾掉status為false之賣家
 	public abstract OwnerBean select(String ownerAccount);
 
 	//查"所有"賣方資料

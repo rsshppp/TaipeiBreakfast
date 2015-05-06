@@ -73,7 +73,6 @@ public class MemberDAOHibernate implements MemberDAO {
 		Iterator upprod = criteria.list().iterator();
 		MemberBean upper = (MemberBean) upprod.next();
 		upper.setMemberAcc(bean.getMemberAcc());
-		upper.setMemberPwd(bean.getMemberPwd());
 		upper.setMemberLastName(bean.getMemberLastName());
 		upper.setMemberFirstName(bean.getMemberFirstName());
 		upper.setMemberPhone(bean.getMemberPhone());
@@ -111,6 +110,26 @@ public class MemberDAOHibernate implements MemberDAO {
 		List<MemberBean> result=null;
 		if(query!=null){
 			result = (List<MemberBean>) query.list();
+		}
+		return result;
+	}
+
+	//(-.-)*杜
+	@Override
+	public boolean changePassword(int MemberID,String memberPwd) {
+		Boolean result = false;
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		Criteria criteria = session.createCriteria(MemberBean.class);
+		criteria.add(Restrictions.eq("MemberID", MemberID));
+		Iterator upprod = criteria.list().iterator();
+		MemberBean upper = (MemberBean) upprod.next();
+		upper.setMemberPwd(memberPwd);
+		session.saveOrUpdate(upper);
+		result = true;
+		tx.commit();
+		if (session != null) {
+			session.close();
 		}
 		return result;
 	}
@@ -159,13 +178,6 @@ public class MemberDAOHibernate implements MemberDAO {
 			session.close();
 		}
 		return result;
-	}
-
-	//(-.-)*杜
-	@Override
-	public List<ShopBean> selectShop(String keyword, int shopArea, int shopID) {
-		//店鋪ID,店鋪所在城市,店鋪所在區域
-		return null;
 	}
 
 	@Override

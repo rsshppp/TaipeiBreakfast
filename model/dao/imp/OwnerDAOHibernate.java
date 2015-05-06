@@ -22,33 +22,33 @@ public class OwnerDAOHibernate implements OwnerDAO {
 	}
 	
 	
-//	public OwnerBean select(String ownerAccount){        //此方法含濾掉status為false之賣家,因為後台管理用時要show全部賣家
-	                                                     //過濾功能留給service處理
+	public OwnerBean select(String ownerAccount){        //此方法含濾掉status為false之賣家,後台管理用時只需show status為true之賣家
+		Query query=session.createQuery("from OwnerBean where ownAcc=:account");
+		query.setString("account", ownerAccount);
+		Iterator list=query.list().iterator();
+		while(list.hasNext()){
+			OwnerBean bean=(OwnerBean)list.next();
+			if(bean.getOwnStatus()==true){                 //此處過濾
+				return bean;
+			}		
+		}
+		return null;
+	}
+	
+//	public OwnerBean select(String ownerAccount){
 //		Query query=session.createQuery("from OwnerBean where ownAcc=:account");
 //		query.setString("account", ownerAccount);
 //		Iterator list=query.list().iterator();
 //		if(list.hasNext()){
 //			OwnerBean bean=(OwnerBean)list.next();
-//			if(bean.getOwnStatus()==true){                 //此處過濾
-//				return bean;
-//			}		
+//			return bean;
 //		}
 //		return null;
 //	}
 	
-	public OwnerBean select(String ownerAccount){
-		Query query=session.createQuery("from OwnerBean where ownAcc=:account");
-		query.setString("account", ownerAccount);
-		Iterator list=query.list().iterator();
-		if(list.hasNext()){
-			OwnerBean bean=(OwnerBean)list.next();
-			return bean;
-		}
-		return null;
-	}
-	
 	public List<OwnerBean> selectAll(){
-		Query query=session.createQuery("from OwnerBean");
+		Query query=session.createQuery("from OwnerBean where ownStatus=:status");
+		query.setBoolean("status", true);
 		return (List<OwnerBean>) query.list();
 	}
 	
@@ -63,6 +63,7 @@ public class OwnerDAOHibernate implements OwnerDAO {
 	
 	public boolean insert(OwnerBean ownerBean){
 		OwnerBean bean=this.select(ownerBean.getOwnAcc());
+//		System.out.println(bean);
 		if(bean==null){
 			session.save(ownerBean);
 			return true;

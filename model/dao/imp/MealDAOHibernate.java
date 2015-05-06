@@ -93,7 +93,7 @@ public class MealDAOHibernate implements MealDAO {
 			result.setMealName(bean.getMealName());
 			result.setPrice(bean.getPrice());
 			//result.setMealKindID(bean.getMealKindID());
-			result.setMealKindListBean(bean.getMealKindListBean());
+			result.setMealKindID(bean.getMealKindID());
 			result.setMealImage(bean.getMealImage());
 			
 			return true;

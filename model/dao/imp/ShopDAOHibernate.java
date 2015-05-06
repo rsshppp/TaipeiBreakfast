@@ -25,10 +25,14 @@ public class ShopDAOHibernate implements ShopDAO {
 	
 	//(-.-)*杜
 	@Override
-	public List<ShopBean> selectShop(String keyword, int shopArea, int shopID) {
+	public List<ShopBean> selectKeyword(String keyword) {
+		//用 keyword 模糊查詢 shopName,shopCity,shopArea
 		return null;
 	}
-
+	public List<ShopBean> selectArea(String shopArea){
+		return null;
+	}
+	
 	public ShopBean select(Integer shopID){
 		return (ShopBean)session.get(ShopBean.class,shopID);
 	}

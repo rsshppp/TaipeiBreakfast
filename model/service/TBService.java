@@ -74,10 +74,18 @@ public class TBService{
 	}
 	
 	//(-.-)*杜
-	public List<ShopBean> selectShop(String keyword, int shopArea, int shopID) {
+	public List<ShopBean> selectShop(String keyword, String shopArea, int shopID) {
 		//店鋪ID,店鋪所在城市,店鋪所在區域
+		List<ShopBean> result=null;
+		// select keyword from shopName,shopCity,shopArea
+
+		// select shopArea 傳回 list
+		shop.selectArea(shopArea);
 		
-		return null;
+		// Ajax 用 shopArea 找出 list 後選出 shopID
+		shop.select(shopID);
+		
+		return result;
 	}
 
 	//(-.-)*杜

@@ -19,16 +19,29 @@ import org.hibernate.Session;
                                                    //配合資料庫TaipeiBreakfast_20150504版本
 public class ShopDAOHibernate implements ShopDAO {                           
 	private Session session;
-	
 	public ShopDAOHibernate(Session session){
 		this.session=session;
 	}
 	
+	//(-.-)*杜
+	@Override
+	public List<ShopBean> selectKeyword(String keyword) {
+		//用 keyword 模糊查詢 shopName,shopCity,shopArea
+		return null;
+	}
+	public List<ShopBean> selectArea(String shopArea){
+		return null;
+	}
 	
 	public ShopBean select(Integer shopID){
 		return (ShopBean)session.get(ShopBean.class,shopID);
 	}
-	
+
+	@Override
+	public ShopBean select(String shopName) {
+		return null;
+	}
+
 	public ShopBean selectByPhone(String shopPhone){
 		Query query=session.createQuery("from ShopBean where shopPhone=:phone");
 		query.setString("phone", shopPhone);
@@ -68,7 +81,8 @@ public class ShopDAOHibernate implements ShopDAO {
 		return false;
 	}
 	
-	
+
+	@Override
 	public ShopBean update(ShopBean shopBean){
 		ShopBean bean=(ShopBean)session.get(ShopBean.class,shopBean.getShopID());
 		if(bean!=null){
@@ -90,7 +104,8 @@ public class ShopDAOHibernate implements ShopDAO {
 		return null;
 	}
 	
-	
+
+	@Override
 	public boolean changeShopCondID(Integer shopCondID,Integer shopID){
 		ShopBean bean=(ShopBean)session.get(ShopBean.class,shopID);
 		if(bean!=null){
@@ -201,12 +216,10 @@ public class ShopDAOHibernate implements ShopDAO {
 			
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			HibernateUtil.closeSessionFactory();
 		}
 
 	}
-
 }

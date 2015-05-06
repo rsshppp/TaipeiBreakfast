@@ -10,6 +10,7 @@ public interface MemberDAO {
 	public abstract MemberBean insertMember(MemberBean bean);
 	public abstract MemberBean updateMember(MemberBean bean);
 	public abstract MemberBean selectMember(int MemberID);
+	public abstract boolean changePassword(int MemberID,String memberPwd);
 	public abstract List<MemberBean> selectMember();
 	public abstract Boolean deleteMember(int MemberID);
 	public abstract Boolean rebornMember(int MemberID);

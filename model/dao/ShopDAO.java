@@ -6,11 +6,10 @@ import model.bean.ShopBean;
 
 public interface ShopDAO {    //by宗鈺
 
-	//Gary
-	public abstract ShopBean select(Integer shopID);
 	//(-.-)*杜
 	public abstract List<ShopBean> selectKeyword(String keyword);
 	public abstract List<ShopBean> selectArea(String shopArea);
+	
 	//用店鋪名字得到"該筆"店鋪所有資料
 	public abstract ShopBean select(Integer shopID);
 	

@@ -4,14 +4,17 @@ import java.util.List;
 
 import model.bean.ShopBean;
 
-public interface ShopDAO {    //更多細節請看其實作類別(model.dao.imp.ShopHibernateDAO)
+public interface ShopDAO {    //更多細節請看其實作類別(model.dao.imp.ShopHibernateDAO)//by宗鈺
 
 	//(-.-)*杜
 	public abstract List<ShopBean> selectShop(String keyword,int shopArea,int shopID);
 	
 	//用店鋪名字得到"該筆"店鋪所有資料
 	public abstract ShopBean select(String shopName);
-
+	
+	//很擔心拿不到shopID(shopID依賴session得到),"以防萬一"用此方法從資料庫獲取店鋪資料
+	public abstract ShopBean selectByPhone(String shopPhone);
+		
 	//查"所有"店鋪資料
 	public abstract List<ShopBean> selectAll();
 
@@ -22,12 +25,12 @@ public interface ShopDAO {    //更多細節請看其實作類別(model.dao.imp.
 	public abstract boolean insert(ShopBean shopBean);
 
 	//更改店鋪多項欄位資料
-	public abstract ShopBean update(ShopBean shopBean);
+	public abstract ShopBean update(Integer shopCondID,Integer shopID);
 
 	//更改店鋪狀態ID
 	public abstract boolean changeShopCondID(ShopBean shopBean);
 
 	//為後台管理停權所使用,可以停權,也可以取消停權
-	public abstract boolean suspendOrCancel(String shopName);
+	public abstract boolean suspendOrCancel(Integer shopID);
 
 }

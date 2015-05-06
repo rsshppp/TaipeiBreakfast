@@ -35,6 +35,17 @@ public class ShopDAOHibernate implements ShopDAO {
 		return this.sessionFactory.getCurrentSession();
 	}
 	
+	//(-.-)*杜
+	@Override
+	public List<ShopBean> selectKeyword(String keyword) {
+			//用 keyword 模糊查詢 shopName,shopCity,shopArea
+			return null;
+	}
+	public List<ShopBean> selectArea(String shopArea){
+			return null;
+	}
+	
+	//宗鈺
 	public ShopBean select(Integer shopID){
 		return (ShopBean)this.getSession().get(ShopBean.class,shopID);
 	}

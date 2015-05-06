@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 5 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -7,14 +7,12 @@
 <title>Taipei Breakfast - 台北早餐通</title>
 </head>
 <body>
-<center>
-<h1>ERROR</h1>
-<div>
+<div style="text-align: center; margin: 0px auto;">
+	<h1>ERROR</h1>
 	<a href="../index.html">
 		<img src="../image/err.jpg" ><br>
 		回首頁
 	</a>
 </div>
-</center>
 </body>
 </html>

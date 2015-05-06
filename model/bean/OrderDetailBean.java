@@ -14,55 +14,40 @@ public class OrderDetailBean implements Serializable{
 	private Integer orderSumID;
 	
 	private MealBean mealBean;	//關聯 -廷
-	
-	public OrderDetailBean() {
-		
-	}
 
 	public Integer getOrderDetailID() {
 		return orderDetailID;
 	}
-
 	public void setOrderDetailID(Integer orderDetailID) {
 		this.orderDetailID = orderDetailID;
 	}
-
 	public Integer getMealId() {
 		return mealId;
 	}
-
 	public void setMealId(Integer mealId) {
 		this.mealId = mealId;
 	}
-
 	public Integer getCount() {
 		return count;
 	}
-
 	public void setCount(Integer count) {
 		this.count = count;
 	}
-
 	public Double getPrice() {
 		return price;
 	}
-
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-
 	public Integer getOrderSumID() {
 		return orderSumID;
 	}
-
 	public void setOrderSumID(Integer orderSumID) {
 		this.orderSumID = orderSumID;
 	}
-
 	public MealBean getMealBean() {
 		return mealBean;
 	}
-
 	public void setMealBean(MealBean mealBean) {
 		this.mealBean = mealBean;
 	}

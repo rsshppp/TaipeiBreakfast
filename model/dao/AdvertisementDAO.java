@@ -3,6 +3,7 @@ package model.dao;
 import java.util.List;
 
 import model.bean.AdvertisementBean;
+import model.bean.AdvertisementStatusBean;
 //建立-Gary
 public interface AdvertisementDAO {
 	//依【ID】查詢廣告
@@ -13,6 +14,6 @@ public interface AdvertisementDAO {
 	public List<AdvertisementBean> selectAll();
 	//新增廣告
 	public boolean insert(AdvertisementBean bean);
-	//依【ID】來更新【狀態ID】
-	public boolean updateStatus(int advertisementID,int advertisementStatusID);
+	//依【ID】來更新【狀態】
+	public boolean updateStatus(int advertisementID,AdvertisementStatusBean aStatusBean);
 }

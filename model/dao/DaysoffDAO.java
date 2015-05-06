@@ -1,11 +1,14 @@
 package model.dao;
 
-import model.bean.DaysOffBean;
+import java.sql.Date;
+import java.util.List;
+
+import model.bean.DaysoffBean;
 import model.bean.ShopBean;
 
 public interface DaysoffDAO {
-	public boolean insertDaysOff(DaysOffBean bean);
-	public boolean updateDaysOff(DaysOffBean bean);
-	public boolean deleteDaysOff(DaysOffBean bean);
-	public boolean queryDaysOff(ShopBean bean);
+	public boolean insertDaysoff(DaysoffBean bean);
+	public boolean updateDaysoff(DaysoffBean bean);
+	public boolean deleteDaysoff(DaysoffBean bean);
+	public List<DaysoffBean> queryDaysoff(ShopBean bean);
 }

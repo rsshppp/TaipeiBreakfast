@@ -5,24 +5,29 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 //店鋪休假日表
-public class DaysOffBean implements Serializable{
+public class DaysoffBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer daysOffID;
+	private Integer daysoffID;
 	private Integer shopID;
-	private Timestamp daysOff;	//java.sql.Date => java.sql.Timestamp
+	private Date  daysoff;	
 	
-	public DaysOffBean() {
+	public DaysoffBean() {
 		
 	}
-
-	public Integer getDaysOffID() {
-		return daysOffID;
+	
+	@Override
+	public String toString() {
+		return "daysoffID:"+daysoffID+", shopID:"+shopID+", daysoff:"+daysoff;
 	}
 
-	public void setDaysOffID(Integer daysOffID) {
-		this.daysOffID = daysOffID;
+	public Integer getDaysoffID() {
+		return daysoffID;
+	}
+
+	public void setDaysoffID(Integer daysoffID) {
+		this.daysoffID = daysoffID;
 	}
 
 	public Integer getShopID() {
@@ -33,13 +38,12 @@ public class DaysOffBean implements Serializable{
 		this.shopID = shopID;
 	}
 
-	public Timestamp getDaysOff() {
-		return daysOff;
+	public Date getDaysoff() {
+		return daysoff;
 	}
 
-	public void setDaysOff(Timestamp daysOff) {
-		this.daysOff = daysOff;
+	public void setDaysoff(Date daysoff) {
+		this.daysoff = daysoff;
 	}
-
 	
 }

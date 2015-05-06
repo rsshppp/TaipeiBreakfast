@@ -14,6 +14,15 @@ public class OrderDetailBean implements Serializable{
 	private Integer orderSumID;
 	
 	private MealBean mealBean;	//關聯 -廷
+	@Override
+	public String toString() {
+		return "orderDetailID:"+orderDetailID+", mealId:"+mealId+", count:"+count+", price:"
+					+price+", orderSumID:"+orderSumID;
+	}
+
+	public OrderDetailBean() {
+		
+	}
 
 	public Integer getOrderDetailID() {
 		return orderDetailID;

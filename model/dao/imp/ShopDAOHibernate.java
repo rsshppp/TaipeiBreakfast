@@ -189,6 +189,19 @@ public class ShopDAOHibernate implements ShopDAO {
 		return false;
 	}
 	
+	@Override
+	public boolean updateBusinessTime(ShopBean bean) {
+		Query query =this.getSession().createQuery(
+				"UPDATE ShopBean as ShopBean set beginBusinessTime =:beginBusinessTime, endBusinessTime =:endBusinessTime where ShopBean.shopID=:shopID");
+		query.setTime("beginBusinessTime", bean.getBeginBusinessTime());
+		query.setTime("endBusinessTime", bean.getEndBusinessTime());
+		query.setParameter("shopID", bean.getShopID());
+		int i =query.executeUpdate();
+		if(i==1){
+			return true;
+		}
+		return false;
+	}
 	
 	public static void main(String[] args) throws ParseException {      //測試用
 		
@@ -282,4 +295,7 @@ public class ShopDAOHibernate implements ShopDAO {
 
 	}
 	
+
+	
+
 }

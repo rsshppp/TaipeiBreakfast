@@ -2,16 +2,16 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 <hibernate-mapping>
-    <class name="model.bean.DaysOffBean" table="DaysOff">
-        <id name="daysOffID" type="java.lang.Integer">
-            <column name="daysOffID" />
-            <generator class="assigned" />
+    <class name="model.bean.DaysoffBean" table="Daysoff">
+        <id name="daysoffID" type="java.lang.Integer">
+            <column name="daysoffID" />
+            <generator class="native" />
         </id>
         <property name="shopID" type="java.lang.Integer">
             <column name="shopID" />
         </property>
-        <property name="daysOff" type="java.util.Date">
-            <column name="daysOff" />
+        <property name="daysoff" type="java.sql.Date">
+            <column name="daysoff" />
         </property>
     </class>
 </hibernate-mapping>

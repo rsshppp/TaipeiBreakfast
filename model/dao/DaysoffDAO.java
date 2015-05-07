@@ -1,6 +1,5 @@
 package model.dao;
 
-import java.sql.Date;
 import java.util.List;
 
 import model.bean.DaysoffBean;

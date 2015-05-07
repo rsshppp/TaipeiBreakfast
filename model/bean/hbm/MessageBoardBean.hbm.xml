@@ -5,19 +5,22 @@
     <class name="model.bean.MessageBoardBean" table="MessageBoard">
         <id name="messageID" type="java.lang.Integer">
             <column name="messageID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
-        <property name="memberID" type="java.lang.Integer">
+        <property name="memberID" type="java.lang.Integer" insert="false" update="false">
             <column name="memberID" />
         </property>
         <property name="context" type="java.lang.String">
             <column name="context" />
         </property>
-        <property name="messageDate" type="java.util.Date">
+        <property name="messageDate" type="java.sql.Timestamp">
             <column name="messageDate" />
         </property>
         <property name="ipAddress" type="java.lang.String">
             <column name="ipAddress" />
         </property>
+        <many-to-one name="memberBean" class="model.bean.MemberBean" fetch="join">
+            <column name="memberID" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

@@ -7,6 +7,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import model.bean.MealBean;
 import model.bean.MealKindListBean;
@@ -31,6 +33,15 @@ public class MealDAOHibernate implements MealDAO {
 	}
 
 	@Override
+	public List<MealBean> selectShopMeal(int shopID, int mealKindID) {
+		Criteria criteria=this.getSession().createCriteria(MealBean.class);
+		criteria.add(Restrictions.eq("shopID", shopID));
+		criteria.add(Restrictions.eq("mealKindID", mealKindID));
+		List<MealBean> list=criteria.list();
+		return list;
+	}
+
+	@Override
 	public MealBean selectOneMeal(String mName, int shopID) {
 		Criteria criteria=this.getSession().createCriteria(MealBean.class);
 		criteria.add(Restrictions.eq("mealName", mName));
@@ -41,6 +52,12 @@ public class MealDAOHibernate implements MealDAO {
 		}else{
 			return null;
 		}
+	}
+
+	@Override
+	public MealBean selectOneMeal(int mealID) {
+		MealBean bean=(MealBean)this.getSession().get(MealBean.class, mealID);
+		return bean;
 	}
 
 	@Override
@@ -74,7 +91,7 @@ public class MealDAOHibernate implements MealDAO {
 		}else{
 			result.setMealName(bean.getMealName());
 			result.setPrice(bean.getPrice());
-			result.setMealKindID(bean.getMealKindID());
+			//result.setMealKindID(bean.getMealKindID());
 			result.setMealKindListBean(bean.getMealKindListBean());
 			result.setMealImage(bean.getMealImage());
 			

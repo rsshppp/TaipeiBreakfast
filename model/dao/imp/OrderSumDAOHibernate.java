@@ -13,6 +13,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.StaleStateException;
 
 public class OrderSumDAOHibernate implements OrderSumDAO {
+
+	public OrderSumDAOHibernate() {
+		
+	}
+
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -46,29 +51,53 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return false;
 	}
 
+	//新增訂單 - Noah 幫俊廷 handle
 	@Override
 	public boolean insertOrderSum(OrderSumBean bean) {
-		// TODO Auto-generated method stub
+		
+		if(bean != null){
+			this.getSession().save(bean);
+			return true;
+		}
 		return false;
 	}
 
+	//會員進行評價 - Noah
 	@Override
 	public boolean updateOrderSum(OrderSumBean bean) {
-		// TODO Auto-generated method stub
+
+		String hql = "UPDATE OrderSumBean as OrderSumBean SET starsforOwn = :StarsforOwn, evaluateforShop = :evaluateforShop" + 
+	             	 " WHERE OrderSumBean.orderSumID = :OrderSumID";
+		Query query = this.getSession().createQuery(hql);
+		query.setParameter("StarsforOwn", bean.getStarsForOwn());
+		query.setParameter("evaluateforShop", bean.getEvaluateForShop());
+		query.setParameter("OrderSumID", bean.getOrderSumID());
+		int result = query.executeUpdate();
+		//System.out.println("Rows affected: " + result);
+	
+		if(result != 0){
+			return true;
+		}
 		return false;
 	}
 
+	//會員查詢訂單 - Noah
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderSumBean> selectAllOrderSum(Integer memberID) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Query query =
+				this.getSession().createQuery("from OrderSumBean where memberID = " + memberID);
+		return (List<OrderSumBean>) query.list();
 	}
 
+	//會員依訂單狀態查詢訂單 - Noah
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID,
-			Integer orderCondID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID, Integer orderCondID) {
+		Query query =
+				this.getSession().createQuery("from OrderSumBean where memberID = " + memberID + "and orderCondID = " + orderCondID);
+		return (List<OrderSumBean>) query.list();
 	}
 
 	@Override

@@ -5,7 +5,7 @@
     <class name="model.bean.MemberBean" table="Member">
         <id name="memberID" type="java.lang.Integer">
             <column name="memberID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="memberAcc" type="java.lang.String">
             <column name="memberAcc" />
@@ -31,11 +31,8 @@
         <property name="memberAddr" type="java.lang.String">
             <column name="memberAddr" />
         </property>
-        <property name="memberImage" type="java.lang.Byte">
+        <property name="memberImage" type="Byte[]">
             <column name="memberImage" />
-        </property>
-        <property name="memberImageName" type="java.lang.String">
-            <column name="memberImageName" />
         </property>
         <property name="memberStatus" type="java.lang.Boolean">
             <column name="memberStatus" />
@@ -43,7 +40,7 @@
         <property name="memberSuspend" type="java.lang.Boolean">
             <column name="memberSuspend" />
         </property>
-        <property name="specialPriceID" type="java.lang.String">
+        <property name="specialPriceID" type="java.lang.Integer">
             <column name="specialPriceID" />
         </property>
     </class>

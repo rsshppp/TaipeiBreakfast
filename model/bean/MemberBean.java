@@ -17,7 +17,6 @@ public class MemberBean implements Serializable{
 	private String memberEmail;
 	private String memberAddr;
 	private Byte[] memberImage;
-	private String memberImageName;
 	private Boolean memberStatus;
 	private Boolean memberSuspend;
 	private Integer specialPriceID;
@@ -104,14 +103,6 @@ public class MemberBean implements Serializable{
 
 	public void setMemberImage(Byte[] memberImage) {
 		this.memberImage = memberImage;
-	}
-
-	public String getMemberImageName() {
-		return memberImageName;
-	}
-
-	public void setMemberImageName(String memberImageName) {
-		this.memberImageName = memberImageName;
 	}
 
 	public Boolean getMemberStatus() {

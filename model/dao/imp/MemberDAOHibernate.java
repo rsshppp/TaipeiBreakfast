@@ -1,4 +1,4 @@
-package model.dao.imp;
+﻿package model.dao.imp;
 
 import java.util.Iterator;
 import java.util.List;
@@ -180,19 +180,45 @@ public class MemberDAOHibernate implements MemberDAO {
 		return result;
 	}
 
+	//查詢會員優惠價格 - Noah
 	@Override
 	public MemberBean selectSpecialPrice(Integer memberID) {
-		return null;
+		return (MemberBean)
+				this.getSession().get(MemberBean.class, memberID);
 	}
-
+	//會員獲得優惠價格 - Noah
 	@Override
-	public MemberBean getSpecialPrice(Integer memberID, Integer specialPriceID) {
-		return null;
+	public boolean getSpecialPrice(Integer memberID, Integer specialPriceID) {
+		
+		String hql = "UPDATE MemberBean as MemberBean SET specialPriceID = :specialPriceID " + 
+            	  "WHERE MemberBean.memberID = :memberID";
+		Query query = this.getSession().createQuery(hql);
+		query.setParameter("specialPriceID", specialPriceID);
+		query.setParameter("memberID", memberID);
+		int result = query.executeUpdate();
+		//System.out.println("Rows affected: " + result);
+
+		if(result != 0){
+			return true;
+		}
+		return false;
 	}
-
+	//會員使用優惠價格 - Noah
 	@Override
-	public MemberBean useSpecialPrice(Integer memberID) {
-		return null;
+	public boolean useSpecialPrice(Integer memberID) {
+		
+		String hql = "UPDATE MemberBean as MemberBean SET specialPriceID = :specialPriceID " + 
+          	  "WHERE MemberBean.memberID = :memberID";
+		Query query = this.getSession().createQuery(hql);
+		query.setParameter("specialPriceID", null);
+		query.setParameter("memberID", memberID);
+		int result = query.executeUpdate();
+		//System.out.println("Rows affected: " + result);
+
+		if(result != 0){
+			return true;
+		}
+		return false;
 	}
 
 }

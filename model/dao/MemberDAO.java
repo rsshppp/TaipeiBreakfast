@@ -19,8 +19,8 @@ public interface MemberDAO {
 	public abstract MemberBean selectSpecialPrice(Integer memberID);
 	
 	//會員獲得優惠 - Noah
-	public abstract MemberBean getSpecialPrice(Integer memberID, Integer specialPriceID);
+	public abstract boolean getSpecialPrice(Integer memberID, Integer specialPriceID);
 	
 	//會員使用優惠 - Noah
-	public abstract MemberBean useSpecialPrice(Integer memberID);
+	public abstract boolean useSpecialPrice(Integer memberID);
 }

@@ -1,7 +1,6 @@
 package model.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 //留言板表
@@ -12,11 +11,18 @@ public class MessageBoardBean implements Serializable{
 	private Integer messageID;
 	private Integer memberID;
 	private String context;
-	private Timestamp messageDate;	//java.sql.Date => java.sql.Timestamp
+	private Timestamp messageDate;
 	private String ipAddress;
+	private MemberBean memberBean;
 	
 	public MessageBoardBean() {
 		
+	}
+	
+	@Override
+	public String toString() {
+		return "{ messageID:"+messageID+" , memberID:"+memberID+" , context:"
+				+context+" , messageDate:"+messageDate+" , ipAddress:"+ipAddress+" }";
 	}
 
 	public Integer getMessageID() {
@@ -58,4 +64,13 @@ public class MessageBoardBean implements Serializable{
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
 	}
+
+	public MemberBean getMemberBean() {
+		return memberBean;
+	}
+
+	public void setMemberBean(MemberBean memberBean) {
+		this.memberBean = memberBean;
+	}
+	
 }

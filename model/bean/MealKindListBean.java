@@ -29,7 +29,7 @@ public class MealKindListBean implements Serializable{
 	}
 	@Override
 	public String toString() {
-		String bean="mealKindID="+mealKindID+"，mealKindName="+mealKindName;
+		String bean="{ mealKindID:"+mealKindID+" , mealKindName:"+mealKindName+" }";
 		return bean;
 	}
 	

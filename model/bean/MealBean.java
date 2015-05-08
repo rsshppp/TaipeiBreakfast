@@ -18,7 +18,7 @@ public class MealBean implements Serializable{
 	@Override
 	public String toString() {
 		
-		return "mealID="+mealID+"，mealName="+mealName+"，price="+price+"，shopID="+shopID+"，mealImage="+mealImage+"，mealStatus="+mealStatus+"mealKindID"+mealKindID+"，"+mealKindListBean;
+		return "{ mealID:"+mealID+" , mealName:"+mealName+" , price:"+price+" , shopID:"+shopID+" , mealImage:"+mealImage+" , mealStatus:"+mealStatus+" , mealKindID:"+mealKindID+" , mealKindListBean:"+mealKindListBean+" }";
 	}
 	public Integer getMealID() {
 		return mealID;

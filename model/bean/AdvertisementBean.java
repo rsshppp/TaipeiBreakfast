@@ -18,8 +18,8 @@ public class AdvertisementBean implements Serializable{
 	@Override
 	public String toString() {
 		
-		return "advertisementID="+advertisementID+"，context="+context+"，image="+image+"，days="+days
-				+"，shopID="+shopID+"，"+advertisementStatusBean;
+		return "{ advertisementID:"+advertisementID+" , context:"+context+" , image:"+image+" , days:"+days
+				+" , shopID:"+shopID+" , advertisementStatusBean:"+advertisementStatusBean+" }";
 	}
 	public Integer getAdvertisementID() {
 		return advertisementID;

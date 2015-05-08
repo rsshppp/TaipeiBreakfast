@@ -28,9 +28,9 @@ public class MealDAOHibernate implements MealDAO {
 	
 	@Override
 	public MealBean queryMealBean(OrderDetailBean bean) {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	@Override
 	public List<MealBean> selectShopMeal(int shopID, int mealKindID) {
@@ -53,7 +53,8 @@ public class MealDAOHibernate implements MealDAO {
 			return null;
 		}
 	}
-
+	
+	
 	@Override
 	public MealBean selectOneMeal(int mealID) {
 		MealBean bean=(MealBean)this.getSession().get(MealBean.class, mealID);

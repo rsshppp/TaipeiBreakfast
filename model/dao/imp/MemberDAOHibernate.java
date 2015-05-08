@@ -39,7 +39,6 @@ public class MemberDAOHibernate implements MemberDAO {
 		result.setMemberEmail(bean.getMemberEmail());
 		result.setMemberAddr(bean.getMemberAddr());
 		result.setMemberImage(bean.getMemberImage());
-		result.setMemberImageName(bean.getMemberImageName());
 		result.setMemberSuspend(bean.getMemberSuspend());
 		result.setSpecialPriceID(bean.getSpecialPriceID());
 		
@@ -80,7 +79,6 @@ public class MemberDAOHibernate implements MemberDAO {
 		upper.setMemberEmail(bean.getMemberEmail());
 		upper.setMemberAddr(bean.getMemberAddr());
 		upper.setMemberImage(bean.getMemberImage());
-		upper.setMemberImageName(bean.getMemberImageName());
 		upper.setMemberSuspend(bean.getMemberSuspend());
 		upper.setSpecialPriceID(bean.getSpecialPriceID());
 		session.saveOrUpdate(upper);

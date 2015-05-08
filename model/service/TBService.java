@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.bean.MemberBean;
-import model.bean.OwnerBean;
+import model.bean.OrderDetailBean;
+import model.bean.OrderSumBean;
 import model.bean.ShopBean;
 import model.dao.MemberDAO;
-import model.dao.OwnerDAO;
+import model.dao.OrderDetailDAO;
+import model.dao.OrderSumDAO;
 import model.dao.ShopDAO;
 
 public class TBService{
@@ -15,15 +17,23 @@ public class TBService{
 	//(-.-)*杜
 	private MemberDAO member;
 	private ShopDAO shop;
+	private OrderSumDAO ordersum;
+	private OrderDetailDAO orderdetail;
 
 	//(-.-)*杜
 	public MemberBean insertMember(MemberBean bean) {
-		return member.insertMember(bean);
+		if(bean!=null){
+			return member.insertMember(bean);
+		}
+		return null;
 	}
 
 	//(-.-)*杜
 	public MemberBean updateMember(MemberBean bean) {
-		return member.updateMember(bean);
+		if(bean!=null){
+			return member.updateMember(bean);
+		}
+		return null;
 	}
 
 	//(-.-)*杜
@@ -43,7 +53,10 @@ public class TBService{
 
 	//(-.-)*杜
 	public Boolean deleteMember(int MemberID) {
-		return member.deleteMember(MemberID);
+		if(MemberID!=0){
+			return member.deleteMember(MemberID);
+		}
+		return false;
 	}
 
 	//(-.-)*杜
@@ -94,12 +107,16 @@ public class TBService{
 	}
 
 	//(-.-)*杜
-	public String selectNews() {
-		//shopID,orderTime
-		
+	public List<OrderSumBean> selectOrdersByTime() {
+		//orderTime,orderSumID
+//		List<OrderSumBean> sumbeans=ordersum.queryOrderSumByTime();
+		return ordersum.queryOrderSumByTime();
+	}
+	
+	//(-.-)*杜
+	public List<OrderDetailBean> selectOrderDetail(Integer orderSumID) {
 		//orderDetailID,mealId,count,price
-		
-		return null;
+		return orderdetail.queryOrderDetails(orderSumID);
 	}
 
 	//(-.-)*杜

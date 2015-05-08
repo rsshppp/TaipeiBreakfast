@@ -62,9 +62,6 @@ public class MemberDAOHibernate implements MemberDAO {
 	@Override
 	public MemberBean updateMember(MemberBean bean) {
 		MemberBean result = null;
-		// MemberBean result = (MemberBean)
-		// MemberBean.getSession().get(MemberBean.class, bean.getId());
-
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
 		Criteria criteria = session.createCriteria(MemberBean.class);
@@ -79,14 +76,12 @@ public class MemberDAOHibernate implements MemberDAO {
 		upper.setMemberEmail(bean.getMemberEmail());
 		upper.setMemberAddr(bean.getMemberAddr());
 		upper.setMemberImage(bean.getMemberImage());
-		upper.setMemberSuspend(bean.getMemberSuspend());
 		upper.setSpecialPriceID(bean.getSpecialPriceID());
 		session.saveOrUpdate(upper);
 		result = upper;
 		tx.commit();
 		if (session != null) {
 			session.close();
-			// System.out.println("session.close");// fortest
 		}
 		return result;
 	}

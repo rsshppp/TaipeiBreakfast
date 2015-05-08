@@ -46,6 +46,8 @@ public class ShopDAOHibernate implements ShopDAO {
 		Iterator list=query.list().iterator();
 		return (List<ShopBean>) query.list();
 	}
+	
+	//(-.-)*杜
 	@Override
 	public List<ShopBean> selectArea(String shopArea){
 		Query query=getSession().createQuery("from ShopBean where shopArea =: status");
@@ -53,6 +55,8 @@ public class ShopDAOHibernate implements ShopDAO {
 		Iterator list=query.list().iterator();
 		return (List<ShopBean>) query.list();
 	}
+
+	//(-.-)*杜
 	@Override
 	public List<ShopBean> allowNeedsShop() {
 		Query query=this.getSession().createQuery("from ShopBean where ShopCondID=:status");
@@ -60,6 +64,8 @@ public class ShopDAOHibernate implements ShopDAO {
 		Iterator list=query.list().iterator();
 		return (List<ShopBean>) query.list();
 	}
+
+	//(-.-)*杜
 	@Override
 	public boolean allowShop(int ShopID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -81,7 +87,8 @@ public class ShopDAOHibernate implements ShopDAO {
 		session.close();
 		return false;
 	}
-	
+
+	//(-.-)*杜
 	public boolean notAllowShop(int ShopID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();

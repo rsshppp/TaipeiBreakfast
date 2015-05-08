@@ -1,4 +1,4 @@
-﻿import org.gradle.plugins.ide.eclipse.model.Facet
+import org.gradle.plugins.ide.eclipse.model.Facet
  
 apply plugin: 'java'
 apply plugin: 'war'
@@ -44,7 +44,7 @@ dependencies {
     compile 'org.apache.struts:struts2-spring-plugin:2.3.20'
     compile 'org.apache.struts:struts2-dojo-plugin:2.3.20'
     compile 'org.apache.struts:struts2-json-plugin:2.3.20'
-
+ 
     //Hibernate
     compile 'org.hibernate:hibernate-core:4.3.8.Final'
     compile 'org.hibernate:hibernate-c3p0:4.3.8.Final'

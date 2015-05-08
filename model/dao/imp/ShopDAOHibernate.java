@@ -216,7 +216,27 @@ public class ShopDAOHibernate implements ShopDAO {
 		}
 		return false;
 	}
+	//-chunting
+	@Override
+	public boolean updateBusinessTimeNote(ShopBean bean) {
+		Query query =this.getSession().createQuery("UPDATE ShopBean as ShopBean set businessTimeNote =:businessTimeNote where ShopBean.shopID=:shopID");
+		query.setString("businessTimeNote", bean.getBusinessTimeNote());
+		query.setParameter("shopID", bean.getShopID());
+		int i =query.executeUpdate();
+		if(i==1){
+			return true;
+		}
+		return false;
+	}
+	//-chunting
+	@Override
+	public List<ShopBean> queryShops(OwnerBean bean) {
+		Query query = this.getSession().createQuery("FROM ShopBean as ShopBean WHERE ShopBean.OwnID =:ownID");
+		query.setInteger("ownID", bean.getOwnID());
+		return query.list();
+	}
 	
+
 	public static void main(String[] args) throws ParseException {      //測試用
 		
 		   ApplicationContext context=new ClassPathXmlApplicationContext("beans.config.xml");
@@ -308,7 +328,6 @@ public class ShopDAOHibernate implements ShopDAO {
 		    ((ConfigurableApplicationContext)context).close();
 
 	}
-
 
 	
 

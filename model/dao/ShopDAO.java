@@ -2,6 +2,7 @@ package model.dao;
 
 import java.util.List;
 
+import model.bean.OwnerBean;
 import model.bean.ShopBean;
 
 
@@ -44,5 +45,12 @@ public interface ShopDAO {
 	
 	//更改某間店家營業時間	-chunting
 	public boolean updateBusinessTime(ShopBean bean);
+	
+	//更改某間店家營業註解 -chunting
+	public boolean updateBusinessTimeNote(ShopBean bean);
+	
+	//測試透過Owner查詢店鋪、店鋪的餐點
+	public List<ShopBean> queryShops(OwnerBean bean);
+	
 	
 }

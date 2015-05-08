@@ -2,6 +2,8 @@ package model.bean;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.HashSet;
+import java.util.Set;
 
 
 //店鋪表
@@ -25,11 +27,30 @@ public class ShopBean implements Serializable{
 	private Time endBusinessTime;
 	private String businessTimeNote;
 	
+	private Set<DaysoffBean> daysoffBeans;	//關聯-chunting
+	private Set<MealBean> mealBeans;	//關聯-chunting
+
 	public ShopBean() {
-		
+		daysoffBeans = new HashSet<DaysoffBean>();
+		mealBeans = new HashSet<MealBean>();
+	}
+	
+	public Set<MealBean> getMealBeans() {
+		return mealBeans;
 	}
 
-	
+	public void setMealBeans(Set<MealBean> mealBean) {
+		mealBeans = mealBean;
+	}
+
+	public Set<DaysoffBean> getDaysoffBeans() {
+		return daysoffBeans;
+	}
+
+	public void setDaysoffBeans(Set<DaysoffBean> daysoffBeans) {
+		this.daysoffBeans = daysoffBeans;
+	}
+
 	@Override
 	public String toString() {
 		return "["+shopID+","+shopName+","+shopPhone+","+shopCity+","+shopArea+","+

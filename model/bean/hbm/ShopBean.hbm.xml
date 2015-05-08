@@ -50,5 +50,17 @@
         <property name="BusinessTimeNote" type="string">
             <column name="BusinessTimeNote" />
         </property>
+        <set name="daysoffBeans" table="Daysoff" inverse="false" lazy="true">
+            <key>
+                <column name="shopID" />
+            </key>
+            <one-to-many class="model.bean.DaysoffBean" />
+        </set>
+        <set name="mealBeans" table="Meal" inverse="false" lazy="true">
+            <key>
+                <column name="shopID" />
+            </key>
+            <one-to-many class="model.bean.MealBean" />
+        </set>
     </class>
 </hibernate-mapping>

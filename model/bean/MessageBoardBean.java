@@ -1,6 +1,7 @@
 package model.bean;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 //留言板表
@@ -11,9 +12,8 @@ public class MessageBoardBean implements Serializable{
 	private Integer messageID;
 	private Integer memberID;
 	private String context;
-	private Timestamp messageDate;
+	private Timestamp messageDate;	//java.sql.Date => java.sql.Timestamp
 	private String ipAddress;
-	private MemberBean memberBean;
 	
 	public MessageBoardBean() {
 		

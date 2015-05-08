@@ -8,7 +8,7 @@
             <column name="MEALID" />
             <generator class="native" />
         </id>
-        <property name="mealName" type="java.lang.String">
+        <property name="mealName" type="java.lang.String" >
             <column name="MEALNAME" />
         </property>
         <property name="price" type="java.lang.Double">

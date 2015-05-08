@@ -21,8 +21,8 @@ public class MessageBoardBean implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "messageID="+messageID+"，memberID="+memberID+"，context="
-				+context+"，messageDate="+messageDate+"，ipAddress="+ipAddress;
+		return "{ messageID:"+messageID+" , memberID:"+memberID+" , context:"
+				+context+" , messageDate:"+messageDate+" , ipAddress:"+ipAddress+" }";
 	}
 
 	public Integer getMessageID() {

@@ -1,16 +1,19 @@
 package model.dao.imp;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import model.bean.OrderSumBean;
 import model.bean.ShopBean;
 import model.dao.OrderSumDAO;
+import model.misc.HibernateUtil;
 
-import org.hibernate.HibernateException;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.StaleStateException;
+import org.hibernate.criterion.Order;
 
 public class OrderSumDAOHibernate implements OrderSumDAO {
 
@@ -31,12 +34,8 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	@Override
 	public List<OrderSumBean> queryOrderSum(ShopBean bean) {
 		List<OrderSumBean> result = null;
-		return (List<OrderSumBean>) this
-				.getSession()
-				.createQuery(
-						"from OrderSumBean as OrderSumBean where OrderSumBean.shopID=:shopID")
-				.setString("shopID", new Integer(bean.getShopID()).toString())
-				.list();
+		return (List<OrderSumBean>) this.getSession().createQuery("from OrderSumBean as OrderSumBean where OrderSumBean.shopID=:shopID")
+				.setString("shopID", new Integer(bean.getShopID()).toString()).list();
 	}
 
 	@Override
@@ -47,11 +46,10 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 
 	@Override
 	public boolean deleteOrderSum(Integer orderSumID) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	//·s¼W­q³æ - Noah À°«T§Ê handle
+	//ï¿½sï¿½Wï¿½qï¿½ï¿½ - Noah ï¿½ï¿½ï¿½Tï¿½ï¿½ handle
 	@Override
 	public boolean insertOrderSum(OrderSumBean bean) {
 		
@@ -62,7 +60,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return false;
 	}
 
-	//·|­û¶i¦æµû»ù - Noah
+	//ï¿½|ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ - Noah
 	@Override
 	public boolean updateOrderSum(OrderSumBean bean) {
 
@@ -81,7 +79,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return false;
 	}
 
-	//·|­û¬d¸ß­q³æ - Noah
+	//ï¿½|ï¿½ï¿½ï¿½dï¿½ß­qï¿½ï¿½ - Noah
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderSumBean> selectAllOrderSum(Integer memberID) {
@@ -91,7 +89,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return (List<OrderSumBean>) query.list();
 	}
 
-	//·|­û¨Ì­q³æª¬ºA¬d¸ß­q³æ - Noah
+	//ï¿½|ï¿½ï¿½ï¿½Ì­qï¿½æª¬ï¿½Aï¿½dï¿½ß­qï¿½ï¿½ - Noah
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID, Integer orderCondID) {
@@ -116,4 +114,18 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		}
 		return false;
 	}
+
+	//(-.-)*æœ
+	@Override
+	public List<OrderSumBean> queryOrderSumByTime(int page) {
+		
+		Query query =getSession().createQuery("from OrderSumBean order by orderTime desc")
+								.setFirstResult(page * 10).setMaxResults(10);
+		List<OrderSumBean> result=null;
+		if(query!=null){
+			result = (List<OrderSumBean>) query.list();
+		}
+		return result;
+	}
+	
 }

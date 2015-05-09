@@ -31,5 +31,8 @@ public interface OrderSumDAO {
 
 	//店家更改訂單狀狀，例如：接受訂單 -廷
 	public abstract boolean updateOrderCond(OrderSumBean bean);
+
+	//傳入page值 , 每個page抓10筆資料  (-.-)*杜
+	public List<OrderSumBean> queryOrderSumByTime(int page);
 	
 }

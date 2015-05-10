@@ -39,7 +39,7 @@ public class OrderSumDAOHibernateUnitTest {
 				"beans.cfg.xml");
 		sessionFactory = (SessionFactory) context.getBean("sessionFactory");
 		dao = (OrderSumDAOHibernate) context
-				.getBean("OrderSumDAO");
+				.getBean("orderSumDAO");
 		sessionFactory.getCurrentSession().beginTransaction();
 	}
 

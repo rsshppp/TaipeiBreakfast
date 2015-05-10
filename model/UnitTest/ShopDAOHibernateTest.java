@@ -37,7 +37,7 @@ public class ShopDAOHibernateTest {
 		context = new ClassPathXmlApplicationContext("beans.cfg.xml");
 		sessionFactory = (SessionFactory) context.getBean("sessionFactory");
 		sessionFactory.getCurrentSession().beginTransaction();
-		dao = (ShopDAOHibernate) context.getBean("ShopDAO");
+		dao = (ShopDAOHibernate) context.getBean("shopDAO");
 	}
 
 	@After
@@ -65,17 +65,17 @@ public class ShopDAOHibernateTest {
 		
 	}
 	
-//	@Test
+	@Test
 	public void testUpdateBusinessTimeNote(){
 		//假設傳入營業筆記與ShopID而已,
 		ShopBean bean = new ShopBean();
 		bean.setShopID(3);
-		bean.setBusinessTimeNote("testUpdateBusinessTimeNote");
+		bean.setBusinessTimeNote("tests");
 		boolean b = dao.updateBusinessTimeNote(bean);
-		System.out.println("updateresult="+b);
+		System.out.println("testUpdateBusinessTimeNote="+b);
 	}
 	//測試查詢店鋪營業時間，查詢營業註解、查詢休假日
-//	@Test
+	@Test
 	public void testSelect(){
 		ShopBean bean =dao.select(3);
 		System.out.println(bean.getBusinessTimeNote());
@@ -90,7 +90,7 @@ public class ShopDAOHibernateTest {
 	@Test
 	public void getShops(){
 		OwnerBean obean = new OwnerBean();
-		obean.setOwnID(4);
+		obean.setOwnID(1);
 		List<ShopBean> beans = dao.queryShops(obean);
 		Iterator iterator=beans.iterator();
 		while(iterator.hasNext()){

@@ -51,7 +51,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return false;
 	}
 
-	//·s¼W­q³æ - Noah À°«T§Ê handle
+	//ï¿½sï¿½Wï¿½qï¿½ï¿½ - Noah ï¿½ï¿½ï¿½Tï¿½ï¿½ handle
 	@Override
 	public boolean insertOrderSum(OrderSumBean bean) {
 		
@@ -62,7 +62,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return false;
 	}
 
-	//·|­û¶i¦æµû»ù - Noah
+	//ï¿½|ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ - Noah
 	@Override
 	public boolean updateOrderSum(OrderSumBean bean) {
 
@@ -81,7 +81,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return false;
 	}
 
-	//·|­û¬d¸ß­q³æ - Noah
+	//ï¿½|ï¿½ï¿½ï¿½dï¿½ß­qï¿½ï¿½ - Noah
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderSumBean> selectAllOrderSum(Integer memberID) {
@@ -91,7 +91,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return (List<OrderSumBean>) query.list();
 	}
 
-	//·|­û¨Ì­q³æª¬ºA¬d¸ß­q³æ - Noah
+	//ï¿½|ï¿½ï¿½ï¿½Ì­qï¿½æª¬ï¿½Aï¿½dï¿½ß­qï¿½ï¿½ - Noah
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID, Integer orderCondID) {

@@ -8,19 +8,26 @@ public class SpecialPriceBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer SpecialPriceID;
+	private Integer specialPriceID;
 	private Integer mealID;
 	private Integer specialPrice;
 	//specialPrice 要改成用 Double
 	private Date startDate;
 	private Date endDate;
+	private MealBean mealBean;
 	
-
+	
+	
 	public Integer getSpecialPriceID() {
-		return SpecialPriceID;
+		return specialPriceID;
+	}
+	@Override
+	public String toString() {
+		return "SpecialPriceID:"+specialPriceID+"mealID:"+mealID+"specialPrice:"+specialPrice+
+				"startDate:"+startDate+"endDate:"+endDate;
 	}
 	public void setSpecialPriceID(Integer specialPriceID) {
-		SpecialPriceID = specialPriceID;
+		this.specialPriceID = specialPriceID;
 	}
 	public Integer getMealID() {
 		return mealID;
@@ -46,5 +53,10 @@ public class SpecialPriceBean implements Serializable{
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	
+	public MealBean getMealBean() {
+		return mealBean;
+	}
+	public void setMealBean(MealBean mealBean) {
+		this.mealBean = mealBean;
+	}
 }

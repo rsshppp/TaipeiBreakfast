@@ -3,22 +3,26 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2015/4/29 ?U?? 05:04:31 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="model.bean.SpecialPriceBean" table="SpecialPrice">
-        <id name="SpecialPriceID" type="java.lang.Integer">
-            <column name="SpecialPriceID" />
-            <generator class="assigned" />
-        </id>
-        <property name="mealID" type="java.lang.Integer">
-            <column name="mealID" />
-        </property>
-        <property name="specialPrice" type="java.lang.Integer">
-            <column name="specialPrice" />
-        </property>
-        <property name="startDate" type="java.util.Date">
-            <column name="startDate" />
-        </property>
-        <property name="endDate" type="java.util.Date">
-            <column name="endDate" />
-        </property>
-    </class>
+	<class name="model.bean.SpecialPriceBean" table="SpecialPrice" >
+		<id name="specialPriceID" type="java.lang.Integer">
+			<column name="SpecialPriceID" />
+			<generator class="native" />
+		</id>
+		<property name="mealID" type="java.lang.Integer" insert="false"
+			update="false">
+			<column name="mealID" />
+		</property>
+		<property name="specialPrice" type="java.lang.Integer">
+			<column name="specialPrice" />
+		</property>
+		<property name="startDate" type="java.sql.Date">
+			<column name="startDate" />
+		</property>
+		<property name="endDate" type="java.sql.Date">
+			<column name="endDate" />
+		</property>
+		<many-to-one name="mealBean" class="model.bean.MealBean" fetch="join" >
+			<column name="mealId"/>
+		</many-to-one>
+	</class>
 </hibernate-mapping>

@@ -14,7 +14,7 @@
         <property name="price" type="java.lang.Double">
             <column name="PRICE" />
         </property>
-        <property name="shopID" type="java.lang.Integer">
+        <property name="shopID" type="java.lang.Integer" insert="false" update="false">
             <column name="SHOPID" />
         </property>
         <property name="mealImage" type="binary">
@@ -28,6 +28,15 @@
         </property>
         <many-to-one name="mealKindListBean" class="model.bean.MealKindListBean" access="property" fetch="join">
             <column name="MEALKINDID" />
+        </many-to-one>
+        <set name="specialPriceBean" table="SPECIALPRICE" inverse="false" lazy="true">
+            <key>
+                <column name="MEALID" />
+            </key>
+            <one-to-many class="model.bean.SpecialPriceBean" />
+        </set>
+        <many-to-one name="shopBean" class="model.bean.ShopBean" fetch="join" >
+            <column name="SHOPID" />
         </many-to-one>
     </class>
 </hibernate-mapping>

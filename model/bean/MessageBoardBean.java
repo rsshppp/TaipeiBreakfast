@@ -15,6 +15,8 @@ public class MessageBoardBean implements Serializable{
 	private Timestamp messageDate;	//java.sql.Date => java.sql.Timestamp
 	private String ipAddress;
 	
+	private MemberBean memberBean;
+	
 	public MessageBoardBean() {
 		
 	}

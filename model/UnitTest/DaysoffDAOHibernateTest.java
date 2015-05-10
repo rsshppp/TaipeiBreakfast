@@ -37,7 +37,7 @@ public class DaysoffDAOHibernateTest {
 	public void setUp() throws Exception {
 		context = new ClassPathXmlApplicationContext("beans.cfg.xml");
 		sessionFactory = (SessionFactory) context.getBean("sessionFactory");
-		dao =  (DaysoffDAO) context.getBean("DaysoffDAO");
+		dao =  (DaysoffDAO) context.getBean("daysoffDAO");
 		sessionFactory.getCurrentSession().beginTransaction();
 	}
 
@@ -56,8 +56,9 @@ public class DaysoffDAOHibernateTest {
 		DaysoffBean dbean = new DaysoffBean();
 		dbean.setShopID(bean.getShopID());
 		dbean.setDaysoff(daysoff);
+		System.out.println("dbean="+dbean);
 		boolean b = dao.insertDaysoff(dbean);
-		System.out.println(b);
+		System.out.println("testInsertDaysoff="+b);
 	}
 
 	@Test
@@ -67,7 +68,7 @@ public class DaysoffDAOHibernateTest {
 		java.sql.Date date = java.sql.Date.valueOf("2015-05-06");
 		dbean.setDaysoff(date);
 		boolean b = dao.deleteDaysoff(dbean);
-		System.out.println(b);
+		System.out.println("testDeleteDaysoff="+b);
 		
 	}
 
@@ -78,7 +79,7 @@ public class DaysoffDAOHibernateTest {
 		Iterator iterator= dao.queryDaysoff(bean).iterator();
 		while(iterator.hasNext()){
 			DaysoffBean dbean = (DaysoffBean) iterator.next();
-			System.out.println(dbean);
+			System.out.println("testQueryDaysoff="+dbean);
 		}
 	}
 

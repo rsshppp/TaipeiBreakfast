@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import model.bean.OrderDetailBean;
+import model.bean.OrderSumBean;
 import model.dao.OrderDetailDAO;
 
 import org.hibernate.Query;
@@ -29,6 +30,11 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO {
 		query.setString("st", "%"+orderSumID+"%");
 		Iterator list=query.list().iterator();
 		return (List<OrderDetailBean>) query.list();
+	}
+	@Override
+	public List<OrderDetailBean> queryOrderDetails(OrderSumBean bean) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

@@ -31,14 +31,21 @@ public class TransactionHistoryRecordService {            //by宗鈺-查詢交�
 		this.orderDetailDAO = orderDetailDAO;
 	}
 	
-
+	public List<HistoryRecordBean> selectHistoryRecord1(Integer shopID, Integer orderCondID) {
+		if(shopID!=0 && orderCondID!=0){
+			return orderSumDAO.selectHistoryRecord(shopID, orderCondID);
+		}
+		return null;
+	}
+	
 	public List<HistoryRecordBean> selectHistoryRecord(Integer shopID, Integer orderCondID) {
 		List<HistoryRecordBean> list=new ArrayList();  //important to write here
-		Set<HistoryOrderDetailBean> orderDetailBeans=new HashSet<HistoryOrderDetailBean>(); //important to write here
+		
 		List<OrderSumBean> listOrderSumBean=orderSumDAO.selectOrderSumByShopID(shopID, orderCondID);
 		Iterator orderSums=listOrderSumBean.iterator();
 		//System.out.println(listOrderSumBean);
 		while(orderSums.hasNext()){
+			Set<HistoryOrderDetailBean> orderDetailBeans=new HashSet<HistoryOrderDetailBean>(); //important to write here
 			HistoryRecordBean historyRecordBean=new HistoryRecordBean();
 			OrderSumBean orderSumBean=(OrderSumBean)orderSums.next();
 			historyRecordBean.setOrderSumID(orderSumBean.getOrderSumID());
@@ -78,7 +85,8 @@ public class TransactionHistoryRecordService {            //by宗鈺-查詢交�
 		
 		TransactionHistoryRecordService service=(TransactionHistoryRecordService)context
 				.getBean("transactionHistoryRecordService");
-		List<HistoryRecordBean> list=service.selectHistoryRecord(3, 4);
+//		List<HistoryRecordBean> list=service.selectHistoryRecord(3, 4);
+		List<HistoryRecordBean> list=service.selectHistoryRecord1(3, 4);
 		System.out.println(list);
 		
 		

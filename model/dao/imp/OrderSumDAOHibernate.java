@@ -62,7 +62,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return false;
 	}
 
-	//�s�W�q�� - Noah ���T�� handle
+	//新增訂單 - Noah 幫俊廷 handle
 	@Override
 	public boolean insertOrderSum(OrderSumBean bean) {
 		
@@ -73,7 +73,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return false;
 	}
 
-	//�|���i����� - Noah
+	//會員進行評價 - Noah
 	@Override
 	public boolean updateOrderSum(OrderSumBean bean) {
 
@@ -92,7 +92,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return false;
 	}
 
-	//�|���d�߭q�� - Noah
+	//會員查詢訂單 - Noah
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderSumBean> selectAllOrderSum(Integer memberID) {
@@ -102,7 +102,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return (List<OrderSumBean>) query.list();
 	}
 
-	//�|���̭q�檬�A�d�߭q�� - Noah
+	//會員依訂單狀態查詢訂單 - Noah
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID, Integer orderCondID) {
@@ -170,9 +170,9 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	//宗鈺
 	@Override
 	public List<HistoryRecordBean> selectHistoryRecord(Integer shopID, Integer orderCondID) {
-		Set<HistoryOrderDetailBean> orderDetailBeans=null;
 		List<HistoryRecordBean> list=new ArrayList();
-//		Query query=this.getSession().createQuery("from OrderSumBean where shopID=:id and orderCondID=:condID");
+		
+//		Query query=this.getSession().createQuery("from OrderSumBean where shopID=:id and orderCondID=:condID"); //HQL會失敗原因不知
 //		query.setInteger("id", shopID);
 //		query.setInteger("condID", orderCondID);
 //		Iterator orderSums=query.list().iterator();
@@ -180,6 +180,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		criteria.add(Restrictions.eq("shopID", shopID)).add(Restrictions.eq("orderCondID", orderCondID));
 		Iterator orderSums=criteria.list().iterator();
 		while(orderSums.hasNext()){
+			Set<HistoryOrderDetailBean> orderDetailBeans=new HashSet<HistoryOrderDetailBean>();
 			HistoryRecordBean historyRecordBean=new HistoryRecordBean();
 			OrderSumBean orderSumBean=(OrderSumBean)orderSums.next();
 			historyRecordBean.setOrderSumID(orderSumBean.getOrderSumID());
@@ -192,7 +193,6 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 			historyRecordBean.setEvaluateForShop(orderSumBean.getEvaluateForShop());
 			Iterator orderDetails= orderSumBean.getOrderDetail().iterator();
 			while(orderDetails.hasNext()){
-				orderDetailBeans=new HashSet<HistoryOrderDetailBean>();
 				OrderDetailBean orderDetailBean=(OrderDetailBean)orderDetails.next();
 				HistoryOrderDetailBean historyOrderDetailBean=new HistoryOrderDetailBean();
 				historyOrderDetailBean.setMealName(orderDetailBean.getMealBean().getMealName());
@@ -206,5 +206,6 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 			
 		return list;
 	}
-		
+	
+	
 }

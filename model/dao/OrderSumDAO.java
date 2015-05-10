@@ -42,16 +42,16 @@ public interface OrderSumDAO {
 	//查詢交易歷史記錄 -利用"店鋪ID和訂單狀態"查詢某店鋪全部的總訂單表-宗鈺
 	public abstract List<OrderSumBean> selectOrderSumByShopID(Integer shopID, Integer orderCondID);
 	
-	//查詢交易歷史記錄 -利用此總訂單內的資料和關聯對應檔 查詢 此總訂單所有的訂單明細-宗鈺
+	//查詢交易歷史記錄 -利用此總訂單內的資料和關聯對應檔 查詢 此總訂單所有的訂單明細-宗鈺 (關聯相依性已高,這反而多餘)
 	public abstract Set<OrderDetailBean> selectOrderDetails(OrderSumBean bean);
 	
-	//查詢交易歷史記錄 -利用此總訂單內的資料和關聯對應檔 查詢 此總訂單所對應的會員資料(MemberBean)-宗鈺
+	//查詢交易歷史記錄 -利用此總訂單內的資料和關聯對應檔 查詢 此總訂單所對應的會員資料(MemberBean)-宗鈺 (關聯相依性已高,這反而多餘)
 	public abstract  MemberBean getMemberBean(OrderSumBean bean);
 	
-	//查詢交易歷史記錄 -利用此總訂單內的資料和關聯對應檔 查詢 此總訂單所對應的店鋪資料(ShopBean)-宗鈺
+	//查詢交易歷史記錄 -利用此總訂單內的資料和關聯對應檔 查詢 此總訂單所對應的店鋪資料(ShopBean)-宗鈺 (關聯相依性已高,這反而多餘)
 	public abstract  ShopBean getShopBean(OrderSumBean bean);
 	
-	//查詢交易歷史記錄 -這方法合了多個DAO(相依性太高),我想先保留,最後專題前會把它刪除,謝謝 -宗鈺
-        public abstract List<HistoryRecordBean> selectHistoryRecord(Integer shopID, Integer orderCondID);
+	//查詢交易歷史記錄 -這方法合了多個DAO(相依性太高),我想先保留,謝謝 -宗鈺 (這應該ok)
+    public abstract List<HistoryRecordBean> selectHistoryRecord(Integer shopID, Integer orderCondID);
 	
 }

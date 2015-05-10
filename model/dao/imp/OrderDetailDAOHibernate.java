@@ -3,7 +3,9 @@ package model.dao.imp;
 import java.util.Iterator;
 import java.util.List;
 
+import model.bean.MealBean;
 import model.bean.OrderDetailBean;
+import model.bean.OrderSumBean;
 import model.dao.OrderDetailDAO;
 
 import org.hibernate.Query;
@@ -29,6 +31,12 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO {
 		query.setString("st", "%"+orderSumID+"%");
 		Iterator list=query.list().iterator();
 		return (List<OrderDetailBean>) query.list();
+	}
+	
+	//宗鈺
+	@Override
+	public MealBean getMealBean(OrderDetailBean bean) {
+		return bean.getMealBean();
 	}
 
 	

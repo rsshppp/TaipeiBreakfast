@@ -53,10 +53,13 @@ public class ShopBean implements Serializable{
 
 	@Override
 	public String toString() {
-		return "["+shopID+","+shopName+","+shopPhone+","+shopCity+","+shopArea+","+
-				shopAddr+","+lastOrderNoon+","+lastOrderNight+","+ownID+","+logoImage
-				+","+shopSuspend+","+shopCondID+","+beginBusinessTime+","+endBusinessTime
-				+","+businessTimeNote+"]";
+		return "{ shopID:"+shopID+", shopName:"+shopName+", shopPhone:"+shopPhone+", shopCity:"
+				+shopCity+", shopArea:"+shopArea+", shopAddr:"+shopAddr+", lastOrderNoon:"+lastOrderNoon
+				+", lastOrderNight:"+lastOrderNight+", ownID:"+ownID+", logoImage:"+logoImage
+				+", shopSuspend:"+shopSuspend+", shopCondID:"+shopCondID+", beginBusinessTime:"+beginBusinessTime+
+				", endBusinessTime:"+endBusinessTime+", businessTimeNote:"+businessTimeNote
+				+", daysoffBeans:"+daysoffBeans+", mealBeans:"+mealBeans+" }";
+		
 	}
 
 

@@ -22,8 +22,9 @@ public class OwnerBean implements Serializable{
     
 	@Override
 	public String toString() {
-		return "["+ownID+","+ownAcc+","+ownPwd+","+ownEmail+","+ownLastName+","+
-				ownFirstName+","+ownStatus+","+ownSuspend+"]";
+		return "{ ownID:"+ownID+", ownAcc:"+ownAcc+", ownPwd:"+ownPwd+", ownEmail:"
+				+ownEmail+", ownLastName:"+ownLastName+", ownFirstName:"+ownFirstName+
+				", ownStatus:"+ownStatus+", ownSuspend:"+ownSuspend+" }";
 	}
 
 	public Integer getOwnID() {

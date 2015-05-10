@@ -3,18 +3,14 @@ package model.dao.imp;
 import java.util.Iterator;              
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 
 import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.dao.OwnerDAO;
-import model.misc.HibernateUtil;
                                                        //by宗鈺
                                                        //沒做關連
                                                        //配合資料庫TaipeiBreakfast_20150504版本
@@ -31,7 +27,8 @@ public class OwnerDAOHibernate implements OwnerDAO {
 	}
 	
 	public OwnerBean select(String ownerAccount){        //此方法含濾掉status為false之賣家,後台管理用時只需show status為true之賣家
-		Query query=this.getSession().createQuery("from OwnerBean where ownAcc=:account");
+//		Query query=this.getSession().createQuery("from OwnerBean as OwnerBean where OwnerBean.OwnAcc=:account"); //有別名."OwnAcc"一定要follow對應檔
+		Query query=this.getSession().createQuery("from OwnerBean where ownAcc=:account");//ownAcc之"o"大小寫ok
 		query.setString("account", ownerAccount);
 		Iterator list=query.list().iterator();
 		while(list.hasNext()){
@@ -145,74 +142,4 @@ public class OwnerDAOHibernate implements OwnerDAO {
 		return false;
 	}
 	
-	public static void main(String[] args) {         //測試用
-	    
-	    	ApplicationContext context=new ClassPathXmlApplicationContext("beans.config.xml");
-			SessionFactory sessionFactory=(SessionFactory)context.getBean("sessionFactory");
-			Session session=sessionFactory.getCurrentSession();
-			session.beginTransaction();
-			
-			OwnerDAO dao=(OwnerDAOHibernate)context.getBean("ownerDAOHibernate");
-			
-			
-//			OwnerBean bean=dao.select("Laya");    //select
-//			System.out.println(bean);
-			
-//			List<OwnerBean> list=dao.selectAll();    //selectAll
-//			System.out.println(list);
-			
-//			List<ShopBean> list=dao.getShops(4);      //getshops
-//			System.out.println(list);
-			
-//			OwnerBean bean=new OwnerBean();            //insert
-//			bean.setOwnAcc("pig");
-//			bean.setOwnEmail("pig@gmail.com");
-//			bean.setOwnFirstName("Mary");
-//			bean.setOwnLastName("BBox");
-//			bean.setOwnPwd("456789");
-//			//bean.setOwnStatus(true); //已有預設
-//			//bean.setOwnSuspend(false);//已有預設
-//			if(dao.insert(bean)){
-//				session.getTransaction().commit();
-//				session=sessionFactory.getCurrentSession();
-//				session.beginTransaction();
-//				dao=(OwnerDAOHibernate)context.getBean("ownerDAOHibernate");
-//				OwnerBean bean2=dao.select(bean.getOwnAcc());
-//				System.out.println(bean2);
-//			}else{
-//				System.out.println("insert失敗");
-//			}
-			
-			
-//			OwnerBean bean=new OwnerBean();              //update多項欄位資料,                      
-//			bean.setOwnAcc("pig");                       //OwnStatus,OwnSuspend值由其他方法更新
-//			bean.setOwnEmail("change2@gmail.com");
-//			bean.setOwnFirstName("Mary");
-//			bean.setOwnLastName("BBox");
-//			bean.setOwnPwd("456789");
-//			OwnerBean bean2=dao.update(bean);
-//			System.out.println(bean2);
-			
-//			OwnerBean bean=dao.updateName("王", "大同", "pig");//update Name相關欄位資料
-//			System.out.println(bean);
-			
-			
-//			OwnerBean bean=dao.updateEmail("change3@gmail.com", "pig"); //update單一(Email欄位資料)
-//			System.out.println(bean);
-			
-			
-//			OwnerBean bean=dao.updatePwd("11111", "pig");    //update單一(密碼欄位資料)
-//			System.out.println(bean);	
-							
-			
-//          boolean b=dao.delete("pig");                 //賣方刪帳號時所用的方法 //由session得知owner account
-//          System.out.println("delete status:"+b);
-			
-//          boolean b=dao.suspendOrCancel("pig");       //為後台管理停權所使用,可以停權,也可以取消停權
-//          System.out.println("停權設定是否成功:"+b);
-			
-			session.getTransaction().commit();
-			sessionFactory.close();
-			((ConfigurableApplicationContext)context).close();
-	}
 }

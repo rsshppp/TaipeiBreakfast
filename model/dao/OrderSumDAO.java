@@ -1,9 +1,13 @@
 ﻿package model.dao;
 
 import java.util.List;
+import java.util.Set;
 
+import model.bean.MemberBean;
+import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
 import model.bean.ShopBean;
+import model.bean.deliverValuesOnly.HistoryRecordBean;
 
 import java.sql.Date;
 
@@ -31,5 +35,23 @@ public interface OrderSumDAO {
 
 	//店家更改訂單狀狀，例如：接受訂單 -廷
 	public abstract boolean updateOrderCond(OrderSumBean bean);
+	
+	//傳入page值 , 每個page抓10筆資料  (-.-)*杜
+	public List<OrderSumBean> queryOrderSumByTime(int page);
+	
+	//查詢交易歷史記錄 -利用"店鋪ID和訂單狀態"查詢某店鋪全部的總訂單表-宗鈺
+	public abstract List<OrderSumBean> selectOrderSumByShopID(Integer shopID, Integer orderCondID);
+	
+	//查詢交易歷史記錄 -利用此總訂單內的資料和關聯對應檔 查詢 此總訂單所有的訂單明細-宗鈺
+	public abstract Set<OrderDetailBean> selectOrderDetails(OrderSumBean bean);
+	
+	//查詢交易歷史記錄 -利用此總訂單內的資料和關聯對應檔 查詢 此總訂單所對應的會員資料(MemberBean)-宗鈺
+	public abstract  MemberBean getMemberBean(OrderSumBean bean);
+	
+	//查詢交易歷史記錄 -利用此總訂單內的資料和關聯對應檔 查詢 此總訂單所對應的店鋪資料(ShopBean)-宗鈺
+	public abstract  ShopBean getShopBean(OrderSumBean bean);
+	
+	//查詢交易歷史記錄 -這方法合了多個DAO(相依性太高),我想先保留,最後專題前會把它刪除,謝謝 -宗鈺
+        public abstract List<HistoryRecordBean> selectHistoryRecord(Integer shopID, Integer orderCondID);
 	
 }

@@ -110,5 +110,11 @@ public class MealDAOHibernate implements MealDAO {
 			return true;
 		}
 	}
+ 
+	//宗鈺
+	@Override
+	public MealKindListBean getMealKindListBean(MealBean bean) {
+		return bean.getMealKindListBean();
+	}
 
 }

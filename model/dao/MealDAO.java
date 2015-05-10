@@ -3,6 +3,7 @@ package model.dao;
 import java.util.List;
 
 import model.bean.MealBean;
+import model.bean.MealKindListBean;
 import model.bean.OrderDetailBean;
 //建立-Gary
 public interface MealDAO {
@@ -23,4 +24,6 @@ public interface MealDAO {
 	//依【ID】更新餐點狀態
 	public boolean updateMealStatus(int mealID, boolean mealStatus);
 	
+	//查詢銷售報表 -利用此餐點表內的資料和關聯對應檔 查詢 此餐點表所對應的餐點總類表(MealKindListBean)-宗鈺
+    public abstract  MealKindListBean getMealKindListBean(MealBean bean);
 }

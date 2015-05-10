@@ -107,15 +107,14 @@ public class TBService{
 	}
 
 	//(-.-)*杜
-	public List<OrderSumBean> selectOrdersByTime() {
-		//orderTime,orderSumID
-//		List<OrderSumBean> sumbeans=ordersum.queryOrderSumByTime();
-		return ordersum.queryOrderSumByTime();
+	public List<OrderSumBean> selectOrdersByTime(int page) {
+		// 顯示orderTime, 用orderSumID抓Detail
+		return ordersum.queryOrderSumByTime(page);
 	}
 	
 	//(-.-)*杜
 	public List<OrderDetailBean> selectOrderDetail(Integer orderSumID) {
-		//orderDetailID,mealId,count,price
+		//用orderSumID抓Detail, orderDetailID與orderSumID隱藏不顯示
 		return orderdetail.queryOrderDetails(orderSumID);
 	}
 

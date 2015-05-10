@@ -13,6 +13,7 @@ import model.bean.ShopBean;
 import model.bean.deliverValuesOnly.HistoryOrderDetailBean;
 import model.bean.deliverValuesOnly.HistoryRecordBean;
 import model.dao.OrderSumDAO;
+import model.misc.HibernateUtil;
 import model.dao.imp.OrderSumDAOHibernate;
 
 import org.hibernate.Criteria;
@@ -20,6 +21,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.StaleStateException;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
@@ -57,7 +59,6 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 
 	@Override
 	public boolean deleteOrderSum(Integer orderSumID) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

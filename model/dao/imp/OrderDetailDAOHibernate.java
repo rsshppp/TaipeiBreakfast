@@ -5,7 +5,6 @@ import java.util.List;
 
 import model.bean.MealBean;
 import model.bean.OrderDetailBean;
-import model.bean.OrderSumBean;
 import model.dao.OrderDetailDAO;
 
 import org.hibernate.Query;
@@ -13,6 +12,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class OrderDetailDAOHibernate implements OrderDetailDAO {
+	
+	public OrderDetailDAOHibernate() {
+		
+	}
 	
 	private SessionFactory sessionFactory;
 	public SessionFactory getSessionFactory() {
@@ -38,7 +41,27 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO {
 	public MealBean getMealBean(OrderDetailBean bean) {
 		return bean.getMealBean();
 	}
+	
+	//新增訂單明細 - Noah
+	@Override
+	public boolean insertOrderDetail(OrderDetailBean bean) {
+		if(bean != null){
+			this.getSession().save(bean);
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean changeOrderDetail(OrderDetailBean bean) {
+		
+		return false;
+	}
+	@Override
+	public boolean deleteOrderDetail(Integer orderDetailID) {
+		
+		return false;
+	}
 
 	
-
 }

@@ -32,7 +32,10 @@ public interface OrderSumDAO {
 	
 	//使用訂單狀態查詢屬於某會員的訂單需要會員ID、訂單狀態 - Noah
 	public abstract List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID, Integer orderCondID);
-
+	
+	//搜尋最後一筆會員的訂單資訊(老樣子) - Noah
+	public abstract OrderSumBean selectLastOrderSum(Integer memberID);
+	
 	//店家更改訂單狀狀，例如：接受訂單 -廷
 	public abstract boolean updateOrderCond(OrderSumBean bean);
 	

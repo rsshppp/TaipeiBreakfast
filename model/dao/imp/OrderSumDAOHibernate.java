@@ -110,7 +110,22 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 				this.getSession().createQuery("from OrderSumBean where memberID = " + memberID + "and orderCondID = " + orderCondID);
 		return (List<OrderSumBean>) query.list();
 	}
-
+	
+	//搜尋最後一筆會員的訂單資訊(老樣子) - Noah
+	@SuppressWarnings("unchecked")
+	@Override
+	public OrderSumBean selectLastOrderSum(Integer memberID) {
+		Query query =
+				this.getSession().createQuery("from OrderSumBean where memberID = " + memberID + " and expectTime = (select MAX(expectTime) from OrderSumBean)");
+		Iterator<OrderSumBean> list = query.list().iterator();
+		
+		if(list.hasNext()){
+			return list.next();
+		}else{
+			return null;
+		}
+	}
+	
 	@Override
 	public boolean updateOrderCond(OrderSumBean bean) {
 		// HQL UPDATE

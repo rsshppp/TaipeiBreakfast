@@ -1,4 +1,4 @@
-﻿package model.dao.imp;
+package model.dao.imp;
 
 import java.util.Iterator;
 import java.util.List;
@@ -13,18 +13,28 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 
 import model.bean.MemberBean;
-import model.bean.ShopBean;
 import model.dao.MemberDAO;
-import model.misc.HibernateUtil;
 
 public class MemberDAOHibernate implements MemberDAO {
 
-	// (-.-)*杜
-	private static Session getSession() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		return session;
+	public MemberDAOHibernate() {
+		
 	}
-
+	
+	private SessionFactory sessionFactory;
+	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
+	public Session getSession() {
+		return this.sessionFactory.getCurrentSession();
+	}
+	
 	// (-.-)*杜
 	@Override
 	public MemberBean insertMember(MemberBean bean) {
@@ -56,10 +66,12 @@ public class MemberDAOHibernate implements MemberDAO {
 			System.out.println("Generic Error :" + gex.getMessage());
 			tx.rollback();
 		}
+		
 		return result;
 	}
-
+	
 	// (-.-)*杜
+	@SuppressWarnings("rawtypes")
 	@Override
 	public MemberBean updateMember(MemberBean bean) {
 		MemberBean result = null;
@@ -78,27 +90,32 @@ public class MemberDAOHibernate implements MemberDAO {
 		upper.setMemberAddr(bean.getMemberAddr());
 		upper.setMemberImage(bean.getMemberImage());
 		upper.setSpecialPriceID(bean.getSpecialPriceID());
+		
 		session.saveOrUpdate(upper);
 		result = upper;
 		tx.commit();
+		
 		if (session != null) {
 			session.close();
 		}
+		
 		return result;
 	}
-
+	
 	// (-.-)*杜
 	@Override
 	public MemberBean selectMember(int MemberID) {
-		MemberBean result = (MemberBean) getSession().get(MemberBean.class,
-				MemberID);
+		MemberBean result = (MemberBean) getSession().get(MemberBean.class, MemberID);
+		
 		if (result.getMemberStatus() == true) {
 			return result;
 		}
+		
 		return null;
 	}
 
 	// (-.-)*杜
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<MemberBean> selectMember() {
 		Query query = getSession().createQuery("from MemberBean");
@@ -106,6 +123,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		if (query != null) {
 			result = (List<MemberBean>) query.list();
 		}
+		
 		return result;
 	}
 
@@ -117,15 +135,17 @@ public class MemberDAOHibernate implements MemberDAO {
 		Transaction tx = session.beginTransaction();
 		Criteria criteria = session.createCriteria(MemberBean.class);
 		criteria.add(Restrictions.eq("MemberID", MemberID));
-		Iterator upprod = criteria.list().iterator();
+		Iterator<?> upprod = criteria.list().iterator();
 		MemberBean upper = (MemberBean) upprod.next();
 		upper.setMemberPwd(memberPwd);
 		session.saveOrUpdate(upper);
 		result = true;
 		tx.commit();
+		
 		if (session != null) {
 			session.close();
 		}
+		
 		return result;
 	}
 
@@ -137,7 +157,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		Transaction tx = session.beginTransaction();
 		Criteria criteria = session.createCriteria(MemberBean.class);
 		criteria.add(Restrictions.eq("MemberID", MemberID));
-		Iterator upprod = criteria.list().iterator();
+		Iterator<?> upprod = criteria.list().iterator();
 		MemberBean upper = (MemberBean) upprod.next();
 		// update MemberStatus
 		if (upper != null) {
@@ -160,7 +180,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		Transaction tx = session.beginTransaction();
 		Criteria criteria = session.createCriteria(MemberBean.class);
 		criteria.add(Restrictions.eq("MemberID", MemberID));
-		Iterator upprod = criteria.list().iterator();
+		Iterator<?> upprod = criteria.list().iterator();
 		MemberBean upper = (MemberBean) upprod.next();
 		// update MemberStatus 後台 & 測試 用
 		if (upper != null) {
@@ -172,49 +192,49 @@ public class MemberDAOHibernate implements MemberDAO {
 		if (session != null) {
 			session.close();
 		}
+		
 		return result;
 	}
-
-	// 查詢會員優惠價格 - Noah
+	
+	//查詢會員優惠價格 - Noah
 	@Override
 	public MemberBean selectSpecialPrice(Integer memberID) {
-		return (MemberBean) this.getSession().get(MemberBean.class, memberID);
+		return (MemberBean)
+				this.getSession().get(MemberBean.class, memberID);
 	}
-
-	// 會員獲得優惠價格 - Noah
+	
+	//會員獲得優惠價格 - Noah
 	@Override
 	public boolean getSpecialPrice(Integer memberID, Integer specialPriceID) {
-
-		String hql = "UPDATE MemberBean as MemberBean SET specialPriceID = :specialPriceID "
-				+ "WHERE MemberBean.memberID = :memberID";
+		
+		String hql = "UPDATE MemberBean as MemberBean SET specialPriceID = :specialPriceID " + 
+            	  "WHERE MemberBean.memberID = :memberID";
 		Query query = this.getSession().createQuery(hql);
 		query.setParameter("specialPriceID", specialPriceID);
 		query.setParameter("memberID", memberID);
 		int result = query.executeUpdate();
-		// System.out.println("Rows affected: " + result);
+		//System.out.println("Rows affected: " + result);
 
-		if (result != 0) {
+		if(result != 0){
 			return true;
 		}
 		return false;
 	}
-
-	// 會員使用優惠價格 - Noah
+	
+	//會員使用優惠價格 - Noah
 	@Override
 	public boolean useSpecialPrice(Integer memberID) {
-
-		String hql = "UPDATE MemberBean as MemberBean SET specialPriceID = :specialPriceID "
-				+ "WHERE MemberBean.memberID = :memberID";
+		
+		String hql = "UPDATE MemberBean as MemberBean SET specialPriceID = :specialPriceID " + 
+          	  "WHERE MemberBean.memberID = :memberID";
 		Query query = this.getSession().createQuery(hql);
 		query.setParameter("specialPriceID", null);
 		query.setParameter("memberID", memberID);
 		int result = query.executeUpdate();
-		// System.out.println("Rows affected: " + result);
 
-		if (result != 0) {
+		if(result != 0){
 			return true;
 		}
 		return false;
 	}
-
 }

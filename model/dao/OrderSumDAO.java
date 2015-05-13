@@ -3,11 +3,11 @@
 import java.util.List;
 import java.util.Set;
 
+import model.bean.MemberBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
 import model.bean.ShopBean;
-
-import java.sql.Date;
+import model.bean.deliverValuesOnly.HistoryRecordBean;
 
 public interface OrderSumDAO {
 	//透過ShopBean的ShopID查詢所有"總訂單"，接續查詢個別總訂單的訂單明細 - chun-ting

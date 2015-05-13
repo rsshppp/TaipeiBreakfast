@@ -3,6 +3,7 @@ package model.dao;
 import java.util.List;
 
 import model.bean.MealBean;
+import model.bean.MealKindListBean;
 import model.bean.OrderDetailBean;
 //建立-Gary
 public interface MealDAO {

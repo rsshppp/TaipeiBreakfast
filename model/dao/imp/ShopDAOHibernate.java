@@ -242,4 +242,5 @@ public class ShopDAOHibernate implements ShopDAO {
 
 	public static void main(String[] args) throws ParseException {      //測試用
 		
+	}
 }

@@ -1,32 +1,19 @@
-﻿package model.dao.imp;
+package model.dao.imp;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import model.bean.MemberBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
 import model.bean.ShopBean;
-import model.bean.deliverValuesOnly.HistoryOrderDetailBean;
-import model.bean.deliverValuesOnly.HistoryRecordBean;
 import model.dao.OrderSumDAO;
-import model.misc.HibernateUtil;
-import model.dao.imp.OrderSumDAOHibernate;
 
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
 import org.hibernate.StaleStateException;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class OrderSumDAOHibernate implements OrderSumDAO {
 
@@ -46,9 +33,12 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 
 	@Override
 	public List<OrderSumBean> queryOrderSum(ShopBean bean) {
-		List<OrderSumBean> result = null;
-		return (List<OrderSumBean>) this.getSession().createQuery("from OrderSumBean as OrderSumBean where OrderSumBean.shopID=:shopID")
-				.setString("shopID", new Integer(bean.getShopID()).toString()).list();
+		return (List<OrderSumBean>) this
+				.getSession()
+				.createQuery(
+						"from OrderSumBean as OrderSumBean where OrderSumBean.shopID=:shopID and OrderSumBean.orderCondID<4")
+				.setString("shopID", new Integer(bean.getShopID()).toString())
+				.list();
 	}
 
 	@Override
@@ -59,10 +49,11 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 
 	@Override
 	public boolean deleteOrderSum(Integer orderSumID) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
-	//新增訂單 - Noah 幫俊廷 handle
+	//�s�W�q�� - Noah ���T�� handle
 	@Override
 	public boolean insertOrderSum(OrderSumBean bean) {
 		
@@ -73,7 +64,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return false;
 	}
 
-	//會員進行評價 - Noah
+	//�|���i����� - Noah
 	@Override
 	public boolean updateOrderSum(OrderSumBean bean) {
 
@@ -92,7 +83,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return false;
 	}
 
-	//會員查詢訂單 - Noah
+	//�|���d�߭q�� - Noah
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderSumBean> selectAllOrderSum(Integer memberID) {
@@ -102,7 +93,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return (List<OrderSumBean>) query.list();
 	}
 
-	//會員依訂單狀態查詢訂單 - Noah
+	//�|���̭q�檬�A�d�߭q�� - Noah
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID, Integer orderCondID) {
@@ -110,9 +101,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 				this.getSession().createQuery("from OrderSumBean where memberID = " + memberID + "and orderCondID = " + orderCondID);
 		return (List<OrderSumBean>) query.list();
 	}
-	
-	//搜尋最後一筆會員的訂單資訊(老樣子) - Noah
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public OrderSumBean selectLastOrderSum(Integer memberID) {
 		Query query =

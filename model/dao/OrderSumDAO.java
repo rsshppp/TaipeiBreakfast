@@ -3,11 +3,9 @@
 import java.util.List;
 import java.util.Set;
 
-import model.bean.MemberBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
 import model.bean.ShopBean;
-import model.bean.deliverValuesOnly.HistoryRecordBean;
 
 import java.sql.Date;
 
@@ -39,8 +37,11 @@ public interface OrderSumDAO {
 	//店家更改訂單狀狀，例如：接受訂單 -廷
 	public abstract boolean updateOrderCond(OrderSumBean bean);
 	
-	//傳入page值 , 每個page抓10筆資料  (-.-)*杜
+//傳入page值 , 每個page抓10筆資料  (-.-)*杜
 	public List<OrderSumBean> queryOrderSumByTime(int page);
+
+	//新增一筆來自會員的訂單
+	public abstract boolean insertOrder(OrderSumBean sbean);
 	
 	//查詢交易歷史記錄 -利用"店鋪ID和訂單狀態"查詢某店鋪全部的總訂單表-宗鈺
 	public abstract List<OrderSumBean> selectOrderSumByShopID(Integer shopID, Integer orderCondID);

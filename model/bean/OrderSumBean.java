@@ -1,4 +1,4 @@
-﻿package model.bean;
+package model.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -34,15 +34,12 @@ public class OrderSumBean implements Serializable {
 	private Integer orderCondID;
 	
 	private Set<OrderDetailBean> orderDetailBean;// Table對應其他表格
-        private ShopBean shopBean;                   //關聯shop - 宗鈺
-        private MemberBean memberBean;               //關聯Member - 宗鈺
-    
+
 	@Override
 	public String toString() {
-		return "orderSumID:"+orderSumID+", shopID:"+shopID+", memberID:"+memberID+", totalPrice:"+totalPrice
-				+", orderTime:"+orderTime+", expectTime:"+expectTime+", memo:"+memo+", starsForOwn:"+starsForOwn
-				+", evaluateForShop:"+evaluateForShop+", orderCondID:"+orderCondID+", orderDetailBean:"+orderDetailBean
-				+", shopBean:"+shopBean+", memberBean:"+memberBean;
+		return "{\"orderSumID\":"+orderSumID+", \"shopID\":"+shopID+", \"memberID\":"+memberID+", \"totalPrice\":"+totalPrice
+				+", \"orderTime\":"+orderTime+", \"expectTime\":"+expectTime+", \"memo\":"+memo+", \"starsForOwn\":"+starsForOwn
+				+", \"evaluateForShop\":"+evaluateForShop+", \"orderCondID\":"+orderCondID+"\"orderDetailBean\":"+orderDetailBean;
 	}
 
 	public OrderSumBean() {
@@ -57,6 +54,15 @@ public class OrderSumBean implements Serializable {
 		this.orderDetailBean = orderDetailBean;
 	}
 
+	//存入OrderDetailBean 到Set<OrderDetailBean>裡
+	public void addOrderDetail(OrderDetailBean bean){
+		orderDetailBean.add(bean);
+	}
+	
+	public void removeOrderDetail(OrderDetailBean bean){
+		orderDetailBean.remove(bean);
+	}
+	
 	public Integer getOrderSumID() {
 		return orderSumID;
 	}
@@ -135,22 +141,6 @@ public class OrderSumBean implements Serializable {
 
 	public void setOrderCondID(Integer orderCondID) {
 		this.orderCondID = orderCondID;
-	}
-
-	public ShopBean getShopBean() {
-		return shopBean;
-	}
-
-	public void setShopBean(ShopBean shopBean) {
-		this.shopBean = shopBean;
-	}
-
-	public MemberBean getMemberBean() {
-		return memberBean;
-	}
-
-	public void setMemberBean(MemberBean memberBean) {
-		this.memberBean = memberBean;
 	}
 	
 }

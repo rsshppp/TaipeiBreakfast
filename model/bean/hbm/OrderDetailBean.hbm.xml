@@ -5,7 +5,7 @@
     <class name="model.bean.OrderDetailBean" table="OrderDetail">
         <id name="orderDetailID" type="java.lang.Integer">
             <column name="orderDetailID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="mealId" type="java.lang.Integer" insert="false" update="false">
             <column name="mealId" />
@@ -16,11 +16,14 @@
         <property name="price" type="java.lang.Double">
             <column name="price" />
         </property>
-        <property name="orderSumID" type="java.lang.Integer">
+        <property name="orderSumID" type="java.lang.Integer" insert="false" update="false">
             <column name="orderSumID" />
         </property>
         <many-to-one name="mealBean" class="model.bean.MealBean" fetch="join" >
 			<column name="mealId"/>
 		</many-to-one>
+		<many-to-one name="orderSumBean" class="model.bean.OrderSumBean" fetch="join">
+            <column name="orderSumID" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

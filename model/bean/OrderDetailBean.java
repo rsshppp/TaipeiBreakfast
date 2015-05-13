@@ -14,10 +14,12 @@ public class OrderDetailBean implements Serializable{
 	private Integer orderSumID;
 	
 	private MealBean mealBean;	//關聯 -廷
+	private OrderSumBean orderSumBean;	//關聯 -廷
+	
 	@Override
 	public String toString() {
-		return "orderDetailID:"+orderDetailID+", mealId:"+mealId+", count:"+count+", price:"
-					+price+", orderSumID:"+orderSumID;
+		return "{\"orderDetailID\":"+orderDetailID+", \"mealId\":"+mealId+", \"count\":"+count+", \"price\":"
+					+price+", \"orderSumID\":"+orderSumID+", \"mealBean\""+mealBean;
 	}
 
 	public OrderDetailBean() {
@@ -60,5 +62,13 @@ public class OrderDetailBean implements Serializable{
 	public void setMealBean(MealBean mealBean) {
 		this.mealBean = mealBean;
 	}
-	
+
+	public OrderSumBean getOrderSumBean() {
+		return orderSumBean;
+	}
+
+	public void setOrderSumBean(OrderSumBean orderSumBean) {
+		this.orderSumBean = orderSumBean;
+	}
+
 }

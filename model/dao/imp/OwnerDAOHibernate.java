@@ -3,14 +3,18 @@ package model.dao.imp;
 import java.util.Iterator;              
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.dao.OwnerDAO;
+import model.misc.HibernateUtil;
                                                        //by宗鈺
                                                        //沒做關連
                                                        //配合資料庫TaipeiBreakfast_20150504版本

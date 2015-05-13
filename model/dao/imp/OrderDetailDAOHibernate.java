@@ -3,8 +3,8 @@ package model.dao.imp;
 import java.util.Iterator;
 import java.util.List;
 
-import model.bean.MealBean;
 import model.bean.OrderDetailBean;
+import model.bean.OrderSumBean;
 import model.dao.OrderDetailDAO;
 
 import org.hibernate.Query;
@@ -35,14 +35,13 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO {
 		Iterator list=query.list().iterator();
 		return (List<OrderDetailBean>) query.list();
 	}
-	
-	//å®—éˆº
 	@Override
 	public MealBean getMealBean(OrderDetailBean bean) {
 		return bean.getMealBean();
 	}
+
 	
-	//æ–°å¢žè¨‚å–®æ˜Žç´° - Noah
+	//·s¼W­q³æ©ú²Ó - Noah
 	@Override
 	public boolean insertOrderDetail(OrderDetailBean bean) {
 		if(bean != null){
@@ -63,5 +62,4 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO {
 		return false;
 	}
 
-	
 }

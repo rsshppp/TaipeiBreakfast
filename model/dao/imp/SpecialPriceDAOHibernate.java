@@ -47,6 +47,8 @@ public class SpecialPriceDAOHibernate implements SpecialPriceDAO {
 				this.getSession().save(bean);
 				return true;
 			}
+		}else if (!iterator.hasNext()){
+			this.getSession().save(bean);
 		}
 		return false;
 	}

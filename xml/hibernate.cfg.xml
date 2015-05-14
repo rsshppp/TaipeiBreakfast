@@ -17,5 +17,10 @@
 		<mapping class="model.bean.MealKindListBean" resource="model/bean/hbm/MealKindListBean.hbm.xml" />
 		<mapping class="model.bean.ShopBean" resource="model/bean/hbm/ShopBean.hbm.xml" />
 		<mapping class="model.bean.FavoriteBean" resource="model/bean/hbm/FavoriteBean.hbm.xml" />
+  		<mapping class="model.bean.OrderSumBean" resource="model/bean/hbm/OrderSumBean.hbm.xml"/>
+  		<mapping class="model.bean.OrderDetailBean" resource="model/bean/hbm/OrderDetailBean.hbm.xml"/>
+  		<mapping class="model.bean.OrderDetailBean" resource="model/bean/hbm/SpecialPriceBean.hbm.xml"/>
+  		<mapping class="model.bean.OrderDetailBean" resource="model/bean/hbm/DaysoffBean.hbm.xml"/>
+  		<mapping class="model.bean.OrderDetailBean" resource="model/bean/hbm/MemberBean.hbm.xml"/>
 	</session-factory>
 </hibernate-configuration>

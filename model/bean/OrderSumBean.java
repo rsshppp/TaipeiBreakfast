@@ -1,4 +1,4 @@
-﻿package model.bean;
+package model.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -34,14 +34,15 @@ public class OrderSumBean implements Serializable {
 	private Integer orderCondID;
 	
 	private Set<OrderDetailBean> orderDetailBean;// Table對應其他表格
-    private ShopBean shopBean;                   //關聯shop - 宗鈺
-    private MemberBean memberBean;               //關聯Member - 宗鈺
+        private ShopBean shopBean;                   //關聯shop - 宗鈺
+        private MemberBean memberBean;               //關聯Member - 宗鈺
     
 	@Override
 	public String toString() {
 		return "{\"orderSumID\":"+orderSumID+", \"shopID\":"+shopID+", \"memberID\":"+memberID+", \"totalPrice\":"+totalPrice
 				+", \"orderTime\":"+orderTime+", \"expectTime\":"+expectTime+", \"memo\":"+memo+", \"starsForOwn\":"+starsForOwn
-				+", \"evaluateForShop\":"+evaluateForShop+", \"orderCondID\":"+orderCondID+"\"orderDetailBean\":"+orderDetailBean;
+				+", \"evaluateForShop\":"+evaluateForShop+", \"orderCondID\":"+orderCondID+"\"orderDetailBean\":"+orderDetailBean
+				+", shopBean:"+shopBean+", memberBean:"+memberBean;
 	}
 
 	public OrderSumBean() {

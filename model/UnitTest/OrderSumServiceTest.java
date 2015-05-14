@@ -1,24 +1,19 @@
-package UnitTest;
+package UnitTest.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import model.bean.MealBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
 import model.bean.ShopBean;
 import model.dao.MealDAO;
-import model.dao.OrderSumDAO;
-import model.dao.imp.OrderSumDAOHibernate;
 import model.dao.imp.MealDAOHibernate;
+import model.service.OrderSumService;
 
-import org.apache.tomcat.jni.Time;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -28,10 +23,10 @@ import org.junit.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class OrderSumDAOHibernateUnitTest {
+public class OrderSumServiceTest {
 	private ConfigurableApplicationContext context;
 	private SessionFactory sessionFactory;
-	private OrderSumDAO dao;
+	private OrderSumService orderSumService;
 	private MealDAO mealDAO;
 
 	@BeforeClass
@@ -46,7 +41,7 @@ public class OrderSumDAOHibernateUnitTest {
 	public void setUp() throws Exception {
 		context = new ClassPathXmlApplicationContext("beans.cfg.xml");
 		sessionFactory = (SessionFactory) context.getBean("sessionFactory");
-		dao = (OrderSumDAOHibernate) context.getBean("orderSumDAO");
+		orderSumService = (OrderSumService) context.getBean("orderSumService");
 		mealDAO = (MealDAOHibernate) context.getBean("mealDAO");
 		sessionFactory.getCurrentSession().beginTransaction();
 	}
@@ -59,44 +54,27 @@ public class OrderSumDAOHibernateUnitTest {
 
 	@Test
 	public void testQueryOrderSum() {
-		// 查詢該店鋪所有訂單
-		// 假設前面傳來店鋪資訊，店鋪ID=3
-		ShopBean bean = new ShopBean();
-		bean.setShopID(3);
-		List<OrderSumBean> orderSums = dao.queryOrderSum(bean);
-		Iterator list = orderSums.iterator();
-		while (list.hasNext()) {
-			OrderSumBean orderSum = (OrderSumBean) list.next();
-			System.out.println("OrderSum=" + orderSum);
-			// 取得訂單明細
-			Iterator orderDetails = orderSum.getOrderDetail().iterator();
-			while (orderDetails.hasNext()) {
-				OrderDetailBean orderDetail = (OrderDetailBean) orderDetails
-						.next();
-				System.out.println("OrderDetail.getPrice=" + orderDetail);
-				// 取得餐點名字
-				MealBean meal = orderDetail.getMealBean();
-				System.out.println("meal.getMealName=" + meal);
-			}
+		ShopBean sbean = new ShopBean();
+		sbean.setShopID(11);
+		List<OrderSumBean> result = orderSumService.queryOrderSum(sbean);
+		Iterator iterator = result.iterator();
+		while (iterator.hasNext()) {
+			OrderSumBean bean = (OrderSumBean) iterator.next();
+			System.out.println("testQueryOrderSum" + bean);
 		}
-
 	}
 
 	@Test
 	public void testUpdateOrderCond() {
-
-		// 更改訂單狀態
-		// 假設前面傳來更改某筆訂單狀態和狀態更改值
-		OrderSumBean update = new OrderSumBean();
-		update.setOrderSumID(2);
-		update.setOrderCondID(2);
-		// 執行更改訂單狀態方法
-		boolean b = dao.updateOrderCond(update);
-		System.out.println("testUpdateOrderCondOrderSumBean=" + b);
+		OrderSumBean obean = new OrderSumBean();
+		obean.setOrderSumID(22);
+		obean.setOrderCondID(1);
+		boolean b = orderSumService.updateOrderCond(obean);
+		System.out.println("testUpdateOrderCond=" + b);
 	}
 
 	@Test
-	public void testInsertOrder() {
+	public void insertOrder() {
 		// 假設已經組裝好OrderSumBean物件
 		MealBean mbean1 = mealDAO.selectOneMeal(5);
 		MealBean mbean2 = mealDAO.selectOneMeal(6);
@@ -129,29 +107,7 @@ public class OrderSumDAOHibernateUnitTest {
 		obean.addOrderDetail(dbean1);
 		obean.addOrderDetail(dbean2);
 
-		boolean b = dao.insertOrder(obean);
-		System.out.println("testInsertOrder=" + b);
-
-	}
-
-	@Test
-	public void queryOneOrderSum() {
-		Integer OrderSumID = 20;
-		OrderSumBean obean = dao.queryOneOrderSum(OrderSumID);
-		System.out.println("queryOneOrderSum" + obean);
-	}
-
-	@Test
-	public void queryOneOrderSumPage() {
-		// 查詢該店鋪所有訂單
-		// 假設前面傳來店鋪資訊，店鋪ID=3
-		ShopBean bean = new ShopBean();
-		bean.setShopID(3);
-		List<OrderSumBean> orderSums = dao.queryOrderSum(bean, 0, 1);
-		Iterator list = orderSums.iterator();
-		while (list.hasNext()) {
-			OrderSumBean orderSum = (OrderSumBean) list.next();
-			System.out.println("queryOneOrderSumPage=" + orderSum);			
-		}
+		boolean b = orderSumService.insertOrder(obean);
+		System.out.println("insertOreder="+b);
 	}
 }

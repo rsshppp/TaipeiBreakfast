@@ -171,9 +171,6 @@ public class ShopDAOHibernate implements ShopDAO {
 			bean.setBeginBusinessTime(shopBean.getBeginBusinessTime());
 			bean.setEndBusinessTime(shopBean.getEndBusinessTime());
 			bean.setBusinessTimeNote(shopBean.getBusinessTimeNote());
-			
-			bean.setDaysoffBeans(shopBean.getDaysoffBeans());
-			bean.setMealBeans(shopBean.getMealBeans());
 			return bean;
 		}
 		

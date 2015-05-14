@@ -46,7 +46,7 @@ public class ShopDAOHibernateTest {
 		context.close();
 	}
 
-//	@Test
+	@Test
 	public void testUpdateBusinessTime() {
 		
 		//假設傳入營業時間與ShopID而已,
@@ -88,7 +88,7 @@ public class ShopDAOHibernateTest {
 		}
 	}
 	@Test
-	public void getShops(){
+	public void testQueryShops(){
 		OwnerBean obean = new OwnerBean();
 		obean.setOwnID(1);
 		List<ShopBean> beans = dao.queryShops(obean);

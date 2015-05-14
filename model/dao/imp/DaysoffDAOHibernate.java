@@ -27,7 +27,7 @@ public class DaysoffDAOHibernate implements DaysoffDAO {
 	public boolean insertDaysoff(DaysoffBean bean) {
 		
 		Criteria criteria = this.getSession().createCriteria(DaysoffBean.class);
-		System.out.println("bean="+bean);
+//		System.out.println("bean="+bean);
 		criteria.add(Restrictions.eq("shopID",bean.getShopID()));
 		criteria.add(Restrictions.eq("daysoff",bean.getDaysoff()));
 		if(!criteria.list().iterator().hasNext()){

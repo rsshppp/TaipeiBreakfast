@@ -10,8 +10,6 @@ import model.bean.MemberBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
 import model.bean.ShopBean;
-import model.bean.deliverValuesOnly.HistoryRecordBean;
-import model.bean.deliverValuesOnly.HistoryOrderDetailBean;
 import model.dao.OrderSumDAO;
 
 import org.hibernate.Criteria;
@@ -186,7 +184,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	public ShopBean getShopBean(OrderSumBean bean) {
 		return bean.getShopBean();
 	}
-
+/*
 	// 宗鈺
 	@SuppressWarnings("unchecked")
 	@Override
@@ -237,11 +235,46 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 
 		return list;
 	}
-
+*/
 	@Override
 	public boolean insertOrder(OrderSumBean sbean) {
-
+		if(!sbean.getOrderDetail().isEmpty()){
+			System.out.println("sbean"+sbean);
+			this.getSession().save(sbean);
+			return true;
+		}
 		return false;
+
+	}
+
+	@Override
+	public OrderSumBean queryOneOrderSum(Integer OrderSumID) {
+		return (OrderSumBean) this
+				.getSession()
+				.createQuery(
+						"from OrderSumBean as OrderSumBean where OrderSumBean.orderSumID=:orderSumID")
+				.setInteger("orderSumID", OrderSumID)
+				.list().iterator().next();
+	}
+
+	@Override
+	public List<OrderSumBean> queryOrderSum(ShopBean bean, Integer page,
+			Integer pagesize) {
+		return (List<OrderSumBean>) this
+				.getSession()
+				.createQuery(
+						"from OrderSumBean as OrderSumBean where OrderSumBean.shopID=:shopID and OrderSumBean.orderCondID<4")
+				.setString("shopID", new Integer(bean.getShopID()).toString())
+				.setFirstResult(page*pagesize)
+				.setMaxResults(pagesize)
+				.list();
+	}
+
+	@Override
+	public List<model.dao.HistoryRecordBean> selectHistoryRecord(
+			Integer shopID, Integer orderCondID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

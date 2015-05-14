@@ -42,6 +42,12 @@ public interface OrderSumDAO {
 
 	//新增一筆來自會員的訂單
 	public abstract boolean insertOrder(OrderSumBean sbean);
+
+	//利用訂單編號查詢單一筆訂單	-chunting (for updateOrderCond of OrderSumService)
+	public OrderSumBean queryOneOrderSum(Integer OrderSumID);
+	
+	//利用店鋪查詢OrderSum後進行分頁，需要給兩個分頁參數	-chunting
+	public List<OrderSumBean> queryOrderSum(ShopBean bean, Integer page, Integer pagesize);
 	
 	//查詢交易歷史記錄 -利用"店鋪ID和訂單狀態"查詢某店鋪全部的總訂單表-宗鈺
 	public abstract List<OrderSumBean> selectOrderSumByShopID(Integer shopID, Integer orderCondID);

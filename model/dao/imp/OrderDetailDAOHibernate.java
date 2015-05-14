@@ -15,10 +15,6 @@ import org.hibernate.criterion.Restrictions;
 
 public class OrderDetailDAOHibernate implements OrderDetailDAO {
 	
-	public OrderDetailDAOHibernate() {
-		
-	}
-	
 	private SessionFactory sessionFactory;
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
@@ -42,11 +38,20 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO {
 	
 	//宗鈺
 	@Override
+	public List<OrderDetailBean> queryOrderDetails(OrderSumBean bean) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+@Override
 	public MealBean getMealBean(OrderDetailBean bean) {
 		return bean.getMealBean();
 	}
+<<<<<<< HEAD
 	
 	//新增訂單明細 - Noah
+=======
+	//�s�W�q����� - Noah
+>>>>>>> 上傳新增訂單，和查詢訂單(分頁)
 	@Override
 	public boolean insertOrderDetail(OrderDetailBean bean) {
 		if(bean != null){

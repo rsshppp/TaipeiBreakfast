@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.bean.OwnerBean;
 import model.bean.ShopBean;
+import model.dao.OwnerDAO;
 import model.dao.ShopDAO;
 import model.misc.HibernateUtil;
 

@@ -1,6 +1,11 @@
 package model.dao.imp;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +15,8 @@ import model.bean.MemberBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
 import model.bean.ShopBean;
+import model.bean.deliverValuesOnly.HistoryOrderDetailBean;
+import model.bean.deliverValuesOnly.HistoryRecordBean;
 import model.dao.OrderSumDAO;
 
 import org.hibernate.Criteria;
@@ -184,7 +191,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	public ShopBean getShopBean(OrderSumBean bean) {
 		return bean.getShopBean();
 	}
-/*
+
 	// 宗鈺
 	@SuppressWarnings("unchecked")
 	@Override
@@ -235,7 +242,66 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 
 		return list;
 	}
-*/
+     
+	//特定店鋪日報表--宗鈺
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object[]> getDailyReport(Integer shopID, Integer year,  
+			Integer month, Integer day) throws ParseException {
+		
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date startDate=sdf.parse(year+"-"+month+"-"+day+" 00:00:00");  
+		Timestamp startDate1=new Timestamp(startDate.getTime());
+		Date endDate=sdf.parse(year+"-"+month+"-"+day+" 23:59:59");
+		Timestamp endDate1=new Timestamp(endDate.getTime());
+		
+
+		Query query=this.getSession().createQuery("select c.mealName, sum(b.count), avg(b.price), (sum(b.count)*avg(b.price))"
+				+ " from OrderSumBean as a JOIN a.OrderDetail as b"  //因只做單項關聯,只能從OrderSumBean                                                     
+				+ " JOIN b.mealBean as c"                            //一個帶一個跑	
+				+ " where a.expectTime between ? and ?"        //條件由此開始
+				+ " and a.shopID=? and a.orderCondID=4"
+				+ " group by c.mealName"); 
+		
+		query.setTimestamp(0, startDate1);
+		query.setTimestamp(1, endDate1);
+		query.setInteger(2, shopID);
+	
+		
+		return query.list();
+	}
+	
+	//特定店鋪月報表--宗鈺
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object[]> getMonthlyReport(Integer shopID, Integer year,
+			Integer month) throws ParseException {
+		
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date startDate=sdf.parse(year+"-"+month+"-"+1+" 00:00:00");  
+		Timestamp startDate1=new Timestamp(startDate.getTime());
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR, year);
+		c.set(Calendar.MONTH, month-1);  //month 註標值從0開始
+		Integer day=c.getActualMaximum(Calendar.DATE);
+//		System.out.println(day);
+		Date endDate=sdf.parse(year+"-"+month+"-"+day+" 23:59:59");
+		Timestamp endDate1=new Timestamp(endDate.getTime());
+		
+		Query query=this.getSession().createQuery("select c.mealName, sum(b.count), avg(b.price), (sum(b.count)*avg(b.price))"
+				+ " from OrderSumBean as a JOIN a.OrderDetail as b"                                                    
+				+ " JOIN b.mealBean as c"                            
+				+ " where a.expectTime between ? and ?"        
+				+ " and a.shopID=? and a.orderCondID=4"
+				+ " group by c.mealName"); 
+		
+		query.setTimestamp(0, startDate1);
+		query.setTimestamp(1, endDate1);
+		query.setInteger(2, shopID);
+		
+		return query.list();
+	}
+			
 	@Override
 	public boolean insertOrder(OrderSumBean sbean) {
 		if(!sbean.getOrderDetail().isEmpty()){
@@ -258,6 +324,7 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<OrderSumBean> queryOrderSum(ShopBean bean, Integer page,
 			Integer pagesize) {
 		return (List<OrderSumBean>) this
@@ -270,11 +337,5 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 				.list();
 	}
 
-	@Override
-	public List<model.dao.HistoryRecordBean> selectHistoryRecord(
-			Integer shopID, Integer orderCondID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

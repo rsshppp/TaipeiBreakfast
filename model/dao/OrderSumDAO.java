@@ -1,5 +1,6 @@
 ﻿package model.dao;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
 
@@ -37,7 +38,7 @@ public interface OrderSumDAO {
 	//店家更改訂單狀狀，例如：接受訂單 -廷
 	public abstract boolean updateOrderCond(OrderSumBean bean);
 	
-//傳入page值 , 每個page抓10筆資料  (-.-)*杜
+    //傳入page值 , 每個page抓10筆資料  (-.-)*杜
 	public List<OrderSumBean> queryOrderSumByTime(int page);
 
 	//新增一筆來自會員的訂單
@@ -61,7 +62,13 @@ public interface OrderSumDAO {
 	//查詢交易歷史記錄 -利用此總訂單內的資料和關聯對應檔 查詢 此總訂單所對應的店鋪資料(ShopBean)-宗鈺 (關聯相依性已高,這反而多餘)
 	public abstract  ShopBean getShopBean(OrderSumBean bean);
 	
-	//查詢交易歷史記錄 -這方法合了多個DAO(相依性太高),我想先保留,謝謝 -宗鈺 (這應該ok)
+	//查詢交易歷史記錄 -因為此方法造成紅字的人請麻煩一下找我解決,很抱歉造成不便--宗鈺 (這應該ok)
     public abstract List<HistoryRecordBean> selectHistoryRecord(Integer shopID, Integer orderCondID);
+    
+    //特定店鋪日報表--宗鈺
+    public abstract List<Object[]> getDailyReport(Integer shopID,Integer year,Integer month,Integer day)throws ParseException;
+    
+    //特定店鋪月報表--宗鈺
+    public abstract List<Object[]> getMonthlyReport(Integer shopID,Integer year,Integer month)throws ParseException;
 	
 }

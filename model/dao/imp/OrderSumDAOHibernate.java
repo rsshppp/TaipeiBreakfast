@@ -23,7 +23,11 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 
 public class OrderSumDAOHibernate implements OrderSumDAO {
 
@@ -98,9 +102,9 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	@Override
 	public List<OrderSumBean> selectAllOrderSum(Integer memberID) {
 
-		Query query = this.getSession().createQuery(
-				"from OrderSumBean where memberID = " + memberID);
-		return (List<OrderSumBean>) query.list();
+		Criteria criteria = getSession().createCriteria(OrderSumBean.class);
+		criteria.add(Restrictions.eq("memberID", memberID));
+		return (List<OrderSumBean>) criteria.list();
 	}
 
 	// 使用訂單狀態查詢屬於某會員的訂單需要會員ID、訂單狀態 - Noah
@@ -108,10 +112,10 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	@Override
 	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID,
 			Integer orderCondID) {
-		Query query = this.getSession().createQuery(
-				"from OrderSumBean where memberID = " + memberID
-						+ "and orderCondID = " + orderCondID);
-		return (List<OrderSumBean>) query.list();
+		Criteria criteria = getSession().createCriteria(OrderSumBean.class);
+		criteria.add(Restrictions.eq("memberID", memberID));
+		criteria.add(Restrictions.eq("orderCondID", orderCondID));
+		return (List<OrderSumBean>) criteria.list();
 	}
 	
 	//搜尋最後一筆會員的訂單資訊(老樣子) - Noah
@@ -119,9 +123,18 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	@Override
 	public OrderSumBean selectLastOrderSum(Integer memberID) {
 		
-		Query query = this.getSession().createQuery("from OrderSumBean where memberID = "+ memberID + " and expectTime = (select MAX(expectTime) from OrderSumBean)");
+		Criteria criteria = getSession().createCriteria(OrderSumBean.class);
 		
-		Iterator<OrderSumBean> list = query.list().iterator();
+		criteria.add(Restrictions.eq("memberID", memberID));
+		
+		//子查詢 (expectTime = (select MAX(expectTime) from OrderSumBean))
+		DetachedCriteria maxtime = DetachedCriteria.forClass(OrderSumBean.class);
+		ProjectionList proj = Projections.projectionList();
+		proj.add(Projections.max("expectTime"));
+		maxtime.setProjection(proj);
+		criteria.add(Subqueries.propertiesEq(new String[]{"expectTime"}, maxtime));
+		
+		Iterator<OrderSumBean> list = criteria.list().iterator();
 
 		if (list.hasNext()) {
 			return list.next();

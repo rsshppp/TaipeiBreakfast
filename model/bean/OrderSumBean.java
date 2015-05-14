@@ -1,48 +1,42 @@
 package model.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+
 import java.util.Set;
+import java.util.HashSet;
 
-import model.dao.OrderSumDAO;
-import model.dao.imp.OrderSumDAOHibernate;
-import model.misc.HibernateUtil;
-
-import org.hibernate.SessionFactory;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-
-//總訂單表
+// 總訂單表
 public class OrderSumBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	// Table屬性
+	
 	private Integer orderSumID;
 	private Integer shopID;
 	private Integer memberID;
 	private Double totalPrice;
-	private Timestamp orderTime;	//原始java.sql.Date 改成 java.sql.Timestamp
-	private Timestamp expectTime;	//原始java.sql.Date 改成 java.sql.Timestamp
+	private Timestamp orderTime;	// 原始java.sql.Date 改成 java.sql.Timestamp
+	private Timestamp expectTime;	// 原始java.sql.Date 改成 java.sql.Timestamp
 	private String memo;
 	private Integer starsForOwn;
 	private String evaluateForShop;
 	private Integer orderCondID;
-	
-	private Set<OrderDetailBean> orderDetailBean;// Table對應其他表格
-        private ShopBean shopBean;                   //關聯shop - 宗鈺
-        private MemberBean memberBean;               //關聯Member - 宗鈺
-    
+
+	private Set<OrderDetailBean> orderDetailBean;	// Table 對應其他表格
+	private ShopBean shopBean;	// 關聯 Shop - 宗鈺
+	private MemberBean memberBean;	// 關聯 Member - 宗鈺
+
 	@Override
 	public String toString() {
-		return "{\"orderSumID\":"+orderSumID+", \"shopID\":"+shopID+", \"memberID\":"+memberID+", \"totalPrice\":"+totalPrice
-				+", \"orderTime\":"+orderTime+", \"expectTime\":"+expectTime+", \"memo\":"+memo+", \"starsForOwn\":"+starsForOwn
-				+", \"evaluateForShop\":"+evaluateForShop+", \"orderCondID\":"+orderCondID+"\"orderDetailBean\":"+orderDetailBean
-				+", shopBean:"+shopBean+", memberBean:"+memberBean;
+		return "{\"orderSumID\":" + orderSumID + ", \"shopID\":" + shopID
+				+ ", \"memberID\":" + memberID + ", \"totalPrice\":"
+				+ totalPrice + ", \"orderTime\":" + orderTime
+				+ ", \"expectTime\":" + expectTime + ", \"memo\":" + memo
+				+ ", \"starsForOwn\":" + starsForOwn + ", \"evaluateForShop\":"
+				+ evaluateForShop + ", \"orderCondID\":" + orderCondID
+				+ "\"orderDetailBean\":" + orderDetailBean + ", shopBean:"
+				+ shopBean + ", memberBean:" + memberBean;
 	}
 
 	public OrderSumBean() {
@@ -57,15 +51,15 @@ public class OrderSumBean implements Serializable {
 		this.orderDetailBean = orderDetailBean;
 	}
 
-	//存入OrderDetailBean 到Set<OrderDetailBean>裡
-	public void addOrderDetail(OrderDetailBean bean){
+	// 存入OrderDetailBean 到Set<OrderDetailBean>裡
+	public void addOrderDetail(OrderDetailBean bean) {
 		orderDetailBean.add(bean);
 	}
-	
-	public void removeOrderDetail(OrderDetailBean bean){
+
+	public void removeOrderDetail(OrderDetailBean bean) {
 		orderDetailBean.remove(bean);
 	}
-	
+
 	public Integer getOrderSumID() {
 		return orderSumID;
 	}
@@ -161,5 +155,4 @@ public class OrderSumBean implements Serializable {
 	public void setMemberBean(MemberBean memberBean) {
 		this.memberBean = memberBean;
 	}
-	
 }

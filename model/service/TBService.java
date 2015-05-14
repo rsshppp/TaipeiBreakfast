@@ -136,22 +136,45 @@ public class TBService{
 			}
 		}
 	}
+
+	//(-.-)*杜
+	public ShopBean selectSByID(int shopID) {
+		if (shopID != 0) {
+			return shop.select(shopID);
+		}
+		return null;
+	}
+
+	//(-.-)*杜
+	public List<ShopBean> selectSByArea(String shopArea) {
+		// Ajax 用 shopArea 找出 list 後選出 shopID
+		List<ShopBean> result=null;
+		if (shopArea != null) {
+			result = shop.selectArea(shopArea);
+		}
+		//前端從BEAN中找Name
+		return result;
+	}
 	
 	//(-.-)*杜
-	public List<ShopBean> selectShop(String keyword, String shopArea, int shopID) {
+	public List<ShopBean> selectSByKeyword(String keyword, String shopArea) {
 		//店鋪ID,店鋪所在城市,店鋪所在區域
 		List<ShopBean> result=null;
-		// select keyword from shopName,shopCity,shopArea
-		if(keyword!=null){
-			result=shop.selectKeyword(keyword);
+		List<ShopBean> ka=null;
+
+		// Ajax 用 shopArea 找出 list 後選出 shopID
+		if (shopArea != null) {
+			if (keyword != null) {
+				// select shopArea 中符合keyword的部分
+				result=shop.selectAK(shopArea, keyword);
+			}
+		}else{
+			// select keyword from shopName,shopCity,shopArea,shopAddr,businessTimeNote
+			if (keyword != null) {
+				result = shop.selectKeyword(keyword);
+				// 傳回ShopName,ShopCity,ShopArea, 保留ShopID
+			}
 		}
-		if(shopID!=0){
-			// Ajax 用 shopArea 找出 list 後選出 shopID
-			result.add(shop.select(shopID));
-		}
-		// select shopArea 傳回 list
-		result=shop.selectArea(shopArea);
-		
 		return result;
 	}
 

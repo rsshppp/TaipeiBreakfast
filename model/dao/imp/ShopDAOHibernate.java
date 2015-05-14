@@ -29,14 +29,33 @@ public class ShopDAOHibernate implements ShopDAO {
 	public Session getSession() {
 		return this.sessionFactory.getCurrentSession();
 	}
+
+	//(-.-)*杜
+	@Override
+	public List<ShopBean> selectAK(String shopArea,String keyword) {
+		//shopArea 中符合keyword條件的
+		Query query=getSession().createQuery("from ShopBean "
+				+ "where shopArea=:ar "
+				+ "and shopName like:kw "
+				+ "or shopCity like:kw "
+				+ "or shopAddr like:kw "
+				+ "or businessTimeNote like:kw ");
+		query.setString("ar", shopArea);
+		query.setString("kw", "%"+keyword+"%");
+		return (List<ShopBean>) query.list();
+	}
 	
 	//(-.-)*杜
 	@Override
 	public List<ShopBean> selectKeyword(String keyword) {
 		//用 keyword 模糊查詢 shopName,shopCity,shopArea
-		Query query=getSession().createQuery("from ShopBean where shopName like:st or shopCity like:st or shopArea like:st");
+		Query query=getSession().createQuery("from ShopBean "
+				+ "where shopName like:st "
+				+ "or shopCity like:st "
+				+ "or shopArea like:st "
+				+ "or shopAddr like:st "
+				+ "or businessTimeNote like:st");
 		query.setString("st", "%"+keyword+"%");
-		Iterator list=query.list().iterator();
 		return (List<ShopBean>) query.list();
 	}
 	
@@ -45,7 +64,6 @@ public class ShopDAOHibernate implements ShopDAO {
 	public List<ShopBean> selectArea(String shopArea){
 		Query query=getSession().createQuery("from ShopBean where shopArea =: status");
 		query.setString("status", "%"+shopArea+"%");
-		Iterator list=query.list().iterator();
 		return (List<ShopBean>) query.list();
 	}
 
@@ -54,7 +72,6 @@ public class ShopDAOHibernate implements ShopDAO {
 	public List<ShopBean> allowNeedsShop() {
 		Query query=this.getSession().createQuery("from ShopBean where ShopCondID=:status");
 		query.setInteger("status", 1);
-		Iterator list=query.list().iterator();
 		return (List<ShopBean>) query.list();
 	}
 

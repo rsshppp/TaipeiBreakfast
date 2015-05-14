@@ -20,12 +20,47 @@ public class TBService{
 	private ShopDAO shop;
 	private OrderSumDAO ordersum;
 	private OrderDetailDAO orderdetail;
-	private EmailDAO mail;
+	private EmailDAO mailD;
 
+
+	//(-.-)*杜
+	public boolean CheackAcc(String mai){
+		boolean result=false;
+		//Ajax用mail檢查Acc有沒有重複
+		if(mai!=null){
+			boolean m=member.selectMemberByAcc(mai);
+			if(m=false){
+				//if(false沒用過){ 允許進行下一步 sendCheackMail()}
+				result=true;
+			}
+			// if(true有重複到){result=false}
+		}
+		return result;
+	}
+	
+	//(-.-)*杜
+	public boolean sendCheackMail(String ma){
+		boolean result=false;
+			//寄出mail驗證碼
+		if(ma!=null){
+			String r="";
+			for(int i=0;i<5;i++){
+				long a=Math.round(Math.random()*9);
+				r+=a;
+			}
+			mailD.send(ma, "台北早餐通信箱驗證", "驗證碼 : "+r);
+		}
+		return result;
+	}
+	
 	//(-.-)*杜
 	public MemberBean insertMember(MemberBean bean) {
 		if(bean!=null){
-			return member.insertMember(bean);
+			//檢查Acc
+			boolean c=CheackAcc(bean.getMemberAcc());
+			if(c=true){
+				return member.insertMember(bean);
+			}
 		}
 		return null;
 	}
@@ -89,7 +124,7 @@ public class TBService{
 			if(aa=true){
 				String membermail=bean.getMemberEmail();
 				String first=bean.getMemberFirstName();
-				boolean ab=mail.send(membermail, 
+				boolean ab=mailD.send(membermail, 
 						"台北早餐通密碼變更", 
 						"Dear "+first+" : \n\n 您的新密碼為 : "+b+" \n\n 請登入帳戶並修改密碼");
 				//回傳通知訊息到 view 給 Member 看

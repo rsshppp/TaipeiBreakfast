@@ -9,6 +9,7 @@ public interface MemberDAO {
 	//--*杜
 	public abstract MemberBean insertMember(MemberBean bean);
 	public abstract MemberBean updateMember(MemberBean bean);
+	public abstract boolean selectMemberByAcc(String mail);
 	public abstract MemberBean selectMember(int MemberID);
 	public abstract boolean changePassword(int MemberID,String memberPwd);
 	public abstract List<MemberBean> selectMember();

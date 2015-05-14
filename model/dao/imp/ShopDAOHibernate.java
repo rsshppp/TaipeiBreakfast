@@ -1,13 +1,10 @@
 package model.dao.imp;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
 import model.bean.OwnerBean;
 import model.bean.ShopBean;
-import model.dao.OwnerDAO;
 import model.dao.ShopDAO;
 import model.misc.HibernateUtil;
 
@@ -17,11 +14,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-                                                   //沒做關連
                                                    //圖片部分未完成!!!
                                                    //配合資料庫TaipeiBreakfast_20150504版本
 public class ShopDAOHibernate implements ShopDAO {   
@@ -167,10 +159,13 @@ public class ShopDAOHibernate implements ShopDAO {
 			bean.setLastOrderNoon(shopBean.getLastOrderNoon());
 			bean.setLastOrderNight(shopBean.getLastOrderNight());
 			bean.setOwnID(shopBean.getOwnID());    //此處如何給值待前端做完再想或修改方法
-			//bean.setLogoImage(shopBean.getLogoImage());  //這裡還未完成!!!!!!!
+			bean.setLogoImage(shopBean.getLogoImage());  //這裡還未完成!!!!!!!
 			bean.setBeginBusinessTime(shopBean.getBeginBusinessTime());
 			bean.setEndBusinessTime(shopBean.getEndBusinessTime());
 			bean.setBusinessTimeNote(shopBean.getBusinessTimeNote());
+			
+			bean.setDaysoffBeans(shopBean.getDaysoffBeans());
+			bean.setMealBeans(shopBean.getMealBeans());
 			return bean;
 		}
 		
@@ -235,9 +230,5 @@ public class ShopDAOHibernate implements ShopDAO {
 		query.setInteger("ownID", bean.getOwnID());
 		return query.list();
 	}
-	
-
-	public static void main(String[] args) throws ParseException {      //測試用
 		
-	}
 }

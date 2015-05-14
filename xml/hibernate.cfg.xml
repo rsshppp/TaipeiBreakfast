@@ -1,46 +1,21 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC
-		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-    <!-- 
-    
-        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-        <property name="hibernate.connection.password">sa123456</property>
-        <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;database=TaipeiBreakfast</property>
-        <property name="hibernate.connection.username">sa</property>
-     -->
-        <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
-        <property name="hibernate.current_session_context_class">thread</property>
-        
-        <mapping class="model.bean.AccuseBean" resource="model/bean/hbm/AccuseBean.hbm.xml" />
-        <mapping class="model.bean.AccuseStatusBean" resource="model/bean/hbm/AccuseStatusBean.hbm.xml" />
-        <mapping class="model.bean.AdministratorBean" resource="model/bean/hbm/AdministratorBean.hbm.xml" />
-        <mapping class="model.bean.AdministratorPermissionBean" resource="model/bean/hbm/AdministratorPermissionBean.hbm.xml" />
-        <mapping class="model.bean.AdvertisementBean" resource="model/bean/hbm/AdvertisementBean.hbm.xml" />
-        <mapping class="model.bean.AdvertisementStatusBean" resource="model/bean/hbm/AdvertisementStatusBean.hbm.xml" />
-        
-        <mapping class="model.bean.DaysoffBean" resource="model/bean/hbm/DaysoffBean.hbm.xml" />
-        
-        <mapping class="model.bean.FavoriteBean" resource="model/bean/hbm/FavoriteBean.hbm.xml" />
-        
-        <mapping class="model.bean.MealBean" resource="model/bean/hbm/MealBean.hbm.xml"/>
-        <mapping class="model.bean.MealKindListBean" resource="model/bean/hbm/MealKindListBean.hbm.xml"/>
-        <mapping class="model.bean.MemberBean" resource="model/bean/hbm/MemberBean.hbm.xml"/>
-        <mapping class="model.bean.MessageBoardBean" resource="model/bean/hbm/MessageBoardBean.hbm.xml" />
-        
-        <mapping class="model.bean.NewsBean" resource="model/bean/hbm/NewsBean.hbm.xml" />
-        
-        <mapping class="model.bean.OrderCondBean" resource="model/bean/hbm/OrderCondBean.hbm.xml"/>
-        <mapping class="model.bean.OrderDetailBean" resource="model/bean/hbm/OrderDetailBean.hbm.xml"/>
-        <mapping class="model.bean.OrderSumBean" resource="model/bean/hbm/OrderSumBean.hbm.xml"/>
-        <mapping class="model.bean.OwnerBean" resource="model/bean/hbm/OwnerBean.hbm.xml" />
-        
-        <mapping class="model.bean.ReplyMessageBean" resource="model/bean/hbm/ReplyMessageBean.hbm.xml" />
-        <mapping class="model.bean.ShopBean" resource="model/bean/hbm/ShopBean.hbm.xml" />
-        <mapping class="model.bean.ShopCondBean" resource="model/bean/hbm/ShopCondBean.hbm.xml" />
-        <mapping class="model.bean.SpecialPriceBean" resource="model/bean/hbm/SpecialPriceBean.hbm.xml"/>
-       
-    </session-factory>
+	<session-factory name="">
+		<!-- 顯示實際操作資料庫時的SQL -->
+		<property name="show_sql">true</property>
+		<!-- 將顯示的SQL排版，方便觀看 -->
+		<property name="format_sql">true</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<!-- 以下設置物件與資料庫表格映射文件 -->
+		<mapping class="model.bean.AdvertisementBean" resource="model/bean/hbm/AdvertisementBean.hbm.xml" />
+		<mapping class="model.bean.AdvertisementStatusBean"
+			resource="model/bean/hbm/AdvertisementStatusBean.hbm.xml" />
+		<mapping class="model.bean.MealBean" resource="model/bean/hbm/MealBean.hbm.xml" />
+		<mapping class="model.bean.MealKindListBean" resource="model/bean/hbm/MealKindListBean.hbm.xml" />
+		<mapping class="model.bean.ShopBean" resource="model/bean/hbm/ShopBean.hbm.xml" />
+		<mapping class="model.bean.FavoriteBean" resource="model/bean/hbm/FavoriteBean.hbm.xml" />
+	</session-factory>
 </hibernate-configuration>

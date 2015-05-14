@@ -7,6 +7,7 @@ import model.bean.MemberBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
 import model.bean.ShopBean;
+import model.dao.EmailDAO;
 import model.dao.MemberDAO;
 import model.dao.OrderDetailDAO;
 import model.dao.OrderSumDAO;
@@ -19,6 +20,7 @@ public class TBService{
 	private ShopDAO shop;
 	private OrderSumDAO ordersum;
 	private OrderDetailDAO orderdetail;
+	private EmailDAO mail;
 
 	//(-.-)*杜
 	public MemberBean insertMember(MemberBean bean) {
@@ -82,9 +84,21 @@ public class TBService{
 				long a=Math.round(Math.random()*9);
 				b+=a;
 			}
-			member.changePassword(MemberID, b);
+			boolean aa=member.changePassword(MemberID, b);
 			// b 是新密碼,用Email寄給Member
-			//回傳通知訊息到 view 給 Member 看
+			if(aa=true){
+				String membermail=bean.getMemberEmail();
+				String first=bean.getMemberFirstName();
+				boolean ab=mail.send(membermail, 
+						"台北早餐通密碼變更", 
+						"Dear "+first+" : \n\n 您的新密碼為 : "+b+" \n\n 請登入帳戶並修改密碼");
+				//回傳通知訊息到 view 給 Member 看
+				if(ab=true){
+					//傳回"請收信"
+				}else{
+					//傳回信件發送失敗
+				}
+			}
 		}
 	}
 	

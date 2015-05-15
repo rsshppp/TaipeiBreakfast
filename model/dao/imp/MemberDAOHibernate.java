@@ -118,7 +118,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		}
 		return result;
 	}
-	
+
 	// (-.-)*杜
 	@Override
 	public MemberBean selectMember(int MemberID) {
@@ -132,12 +132,21 @@ public class MemberDAOHibernate implements MemberDAO {
 	}
 
 	// (-.-)*杜
+//	@Override
+//	public List<MemberBean> selectMember() {
+//		Query query = getSession().createQuery("from MemberBean where MemberStatus=:st");
+//		query.setInteger("st", 1);
+//		return (List<MemberBean>) query.list();
+//	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<MemberBean> selectMember() {
 		Query query = getSession().createQuery("from MemberBean");
+		//抓資料時需要確認 MemberStatus
 		List<MemberBean> result = null;
 		if (query != null) {
+			//query 100%  不會null , 即使其內容為空
 			result = (List<MemberBean>) query.list();
 		}
 		

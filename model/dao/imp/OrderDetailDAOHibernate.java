@@ -1,10 +1,11 @@
-package model.dao.imp;
+﻿package model.dao.imp;
 
 import java.util.Iterator;
 import java.util.List;
 
 import model.bean.MealBean;
 import model.bean.OrderDetailBean;
+import model.bean.OrderSumBean;
 import model.dao.OrderDetailDAO;
 
 import org.hibernate.Criteria;
@@ -36,22 +37,21 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO {
 		return (List<OrderDetailBean>) criteria.list();
 	}
 	
-	//宗鈺
+	
 	@Override
 	public List<OrderDetailBean> queryOrderDetails(OrderSumBean bean) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-@Override
+	
+	//宗鈺
+        @Override
 	public MealBean getMealBean(OrderDetailBean bean) {
 		return bean.getMealBean();
 	}
-<<<<<<< HEAD
+
 	
-	//新增訂單明細 - Noah
-=======
-	//�s�W�q����� - Noah
->>>>>>> 上傳新增訂單，和查詢訂單(分頁)
+	//新增訂單明細 - Noah 
 	@Override
 	public boolean insertOrderDetail(OrderDetailBean bean) {
 		if(bean != null){

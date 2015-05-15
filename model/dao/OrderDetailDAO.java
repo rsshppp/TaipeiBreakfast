@@ -7,15 +7,15 @@ import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
 
 public interface OrderDetailDAO {
-<<<<<<< HEAD
+
 
 	//利用個別總訂單查詢訂單明細，接著查詢餐點名字 - 沛勳
-=======
+
 	//利用個別總訂單查詢訂單明細，接著查詢餐點名字
 	public List<OrderDetailBean> queryOrderDetails(OrderSumBean bean);
 	
 	//利用個別總訂單查詢訂單明細，接著查詢餐點名字                                             
->>>>>>> 上傳新增訂單，和查詢訂單(分頁)
+    // 上傳新增訂單，和查詢訂單(分頁)
 	public List<OrderDetailBean> queryOrderDetails(Integer orderSumID);
 
 	//查詢交易歷史記錄 -利用此訂單明細內的資料和關聯對應檔，查詢此訂單明細所對應的 MealBean - 宗鈺

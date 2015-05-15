@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.criteria.Root;
+
 import model.bean.MemberBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
@@ -82,19 +84,14 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	@Override
 	public boolean updateOrderSum(OrderSumBean bean) {
 
-		String hql = "UPDATE OrderSumBean as OrderSumBean SET starsforOwn = :StarsforOwn, evaluateforShop = :evaluateforShop"
-				+ " WHERE OrderSumBean.orderSumID = :OrderSumID";
-		Query query = this.getSession().createQuery(hql);
-		query.setParameter("StarsforOwn", bean.getStarsForOwn());
-		query.setParameter("evaluateforShop", bean.getEvaluateForShop());
-		query.setParameter("OrderSumID", bean.getOrderSumID());
-		int result = query.executeUpdate();
-		// System.out.println("Rows affected: " + result);
-
-		if (result != 0) {
-			return true;
-		}
-		return false;
+		Criteria criteria = getSession().createCriteria(OrderSumBean.class);
+		 
+		criteria.add(Restrictions.eq("orderSumID", bean.getOrderSumID()));
+		OrderSumBean osbean = (OrderSumBean) criteria.uniqueResult();
+		
+		getSession().saveOrUpdate(osbean);
+			
+		return true;
 	}
 
 	// 查詢全部屬於某會員的訂單需要會員ID - Noah
@@ -325,15 +322,16 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return false;
 
 	}
-
+	
+	// 查詢單筆總訂單 - 沛勳 ( HQL 改寫 Criteria - Noah )
 	@Override
 	public OrderSumBean queryOneOrderSum(Integer OrderSumID) {
-		return (OrderSumBean) this
-				.getSession()
-				.createQuery(
-						"from OrderSumBean as OrderSumBean where OrderSumBean.orderSumID=:orderSumID")
-				.setInteger("orderSumID", OrderSumID)
-				.list().iterator().next();
+		
+		Criteria criteria = this.getSession().createCriteria(OrderSumBean.class);
+		
+		criteria.add(Restrictions.eq("orderSumID", OrderSumID));
+		return (OrderSumBean) criteria.list().iterator().next();
+		
 	}
 
 	@Override

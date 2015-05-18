@@ -66,6 +66,9 @@ dependencies {
     
     //For sending mail
     compile 'org.apache.commons:commons-email:1.3.3'
+    
+    //For login
+    compile 'org.facebook4j:facebook4j-core:2.2.2'
 }
 
 // 設置 Project Facets

@@ -62,7 +62,7 @@ public class MemberInsertServlet extends HttpServlet {
 			}
             //mail 型態驗證
             String[] mailStyle = mbmail.split("@");
-			boolean ca=tbs.CheackAcc(mbmail);
+			boolean ca=tbs.CheackAcc(mailStyle[0]);
             if(ca=false){
 //          if(!tbs.CheackAcc(mbmail)){
 				errors.put("acc", "This email had been used");

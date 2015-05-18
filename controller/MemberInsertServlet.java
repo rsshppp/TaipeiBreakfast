@@ -46,7 +46,6 @@ public class MemberInsertServlet extends HttpServlet {
 
 //            String mbtel = request.getParameter("tel");
             String mbphone = request.getParameter("pho");
-            
             String mbaddr = request.getParameter("addr");
             
 //            byte[] mbimg= request.getParameter("img");  用Struts2解決
@@ -63,13 +62,11 @@ public class MemberInsertServlet extends HttpServlet {
             //mail 型態驗證
             String[] mailStyle = mbmail.split("@");
 			boolean ca=tbs.CheackAcc(mailStyle[0]);
-            if(ca=false){
+            if(!ca){
 //          if(!tbs.CheackAcc(mbmail)){
 				errors.put("acc", "This email had been used");
             }
-
             
-
 			byte[] temp = mbpwd.getBytes();
 			byte[] pass = ckpwd.getBytes();
 			if(!Arrays.equals(temp, pass)) {
@@ -120,9 +117,6 @@ public class MemberInsertServlet extends HttpServlet {
 				request.getRequestDispatcher("/pages/insertMember1.jsp").forward(request, response);
                 return;
 				
-//          } else {
-//              errors.put("action", "Unknown Action");
-//              request.getRequestDispatcher("/pages/insertMember1.jsp").forward(request, response);
             }
 			
         } catch (UnsupportedEncodingException e) {

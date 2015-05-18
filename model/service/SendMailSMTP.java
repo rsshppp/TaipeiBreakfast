@@ -1,14 +1,12 @@
-package model.dao.imp;
+package model.service;
 
 import java.util.Properties;
 
 import javax.mail.*;
 import javax.mail.internet.*;
 
-import model.dao.EmailDAO;
-
 // (-.-)*杜
-public class SendMailSMTP implements EmailDAO{
+public class SendMailSMTP{
 
 	  //用於登入
 	  private final static String us = "taipeibreakfast@gmail.com";

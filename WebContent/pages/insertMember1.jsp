@@ -92,9 +92,9 @@ tr{
 			<tr><th><h3>加入會員</h3></th></tr>
 			<tr>
 				<td>Email :</td>
-				<td><input type="text" name="email"></td>
+				<td><input type="text" name="email" id="idEmail"></td>
 				<td>${errors.acc}</td>
-			</tr>  
+			</tr>
 			<tr>
 				<td>密碼 :</td>
 				<td><input type="password" name="pass01"></td>
@@ -106,18 +106,19 @@ tr{
 			</tr>
 			<tr><td>============</td><td>======================</td></tr>
 			<tr>
-				<td>姓氏 :</td>
+				<td>姓氏 ：</td>
 				<td><input type="text" name="first"></td>
 			</tr>
 			<tr>
-				<td>名子 :</td>
+				<td>名字 :</td>
 				<td><input type="text" name="last"></td>
 			</tr>
-			
+			<!-- 只須手機即可 修改by Steven  
 			<tr>
 				<td>聯絡電話 :</td>
 				<td><input type="text" name="tel">例:(0212345678)</td>
 			</tr>
+			-->
 			<tr>
 				<td>手機 :</td>
 				<td><input type="text" name="pho">例:(0999123456)</td>
@@ -179,6 +180,6 @@ tr{
 		</footer>
 	</div>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </body>
 </html>

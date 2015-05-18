@@ -3,6 +3,8 @@ package model.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+
 import model.bean.MemberBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
@@ -22,7 +24,28 @@ public class TBService{
 	private OrderDetailDAO orderdetail;
 	private EmailDAO mailD;
 
-
+	public TBService(){
+	}
+	public TBService(MemberDAO member){
+		this.member = member;
+	}
+	public void setMember(MemberDAO member) {
+		this.member = member;
+	}
+	public void setShop(ShopDAO shop) {
+		this.shop = shop;
+	}
+	public void setOrdersum(OrderSumDAO ordersum) {
+		this.ordersum = ordersum;
+	}
+	public void setOrderdetail(OrderDetailDAO orderdetail) {
+		this.orderdetail = orderdetail;
+	}
+	public void setMailD(EmailDAO mailD) {
+		this.mailD = mailD;
+	}
+	
+	
 	//(-.-)*杜
 	public boolean CheackAcc(String mai){
 		boolean result=false;
@@ -30,7 +53,7 @@ public class TBService{
 		if(mai!=null){
 			boolean m=member.selectMemberByAcc(mai);
 			if(m=false){
-				//if(false沒用過){ 允許進行下一步 sendCheackMail()}
+				//if(false沒東西){ 允許進行下一步 sendCheackMail()}
 				result=true;
 			}
 			// if(true有重複到){result=false}
@@ -39,6 +62,7 @@ public class TBService{
 	}
 	
 	//(-.-)*杜
+	//需要能使用的mail才能註冊,考慮中的功能,很高的機率不會DEMO
 	public boolean sendCheackMail(String ma){
 		boolean result=false;
 			//寄出mail驗證碼
@@ -56,11 +80,7 @@ public class TBService{
 	//(-.-)*杜
 	public MemberBean insertMember(MemberBean bean) {
 		if(bean!=null){
-			//檢查Acc
-			boolean c=CheackAcc(bean.getMemberAcc());
-			if(c=true){
 				return member.insertMember(bean);
-			}
 		}
 		return null;
 	}
@@ -99,12 +119,13 @@ public class TBService{
 	//(-.-)*杜
 	public boolean changePassword(int MemberID,String memberPwd,String newMemPwd){
 		boolean result=false;
-		MemberBean bean= member.selectMember(MemberID);
-		if(bean!=null){
-			String testPwd=bean.getMemberPwd();
-			if(testPwd==memberPwd){
+		MemberBean bean = member.selectMember(MemberID);
+		if (bean != null) {
+			String testPwd = bean.getMemberPwd();
+			System.out.println(testPwd);
+			if (memberPwd.equals(testPwd)) {
 				member.changePassword(MemberID, newMemPwd);
-				result=true;
+				result = true;
 			}
 		}
 		return result;
@@ -160,7 +181,6 @@ public class TBService{
 	public List<ShopBean> selectSByKeyword(String keyword, String shopArea) {
 		//店鋪ID,店鋪所在城市,店鋪所在區域
 		List<ShopBean> result=null;
-		List<ShopBean> ka=null;
 
 		// Ajax 用 shopArea 找出 list 後選出 shopID
 		if (shopArea != null) {

@@ -85,7 +85,7 @@ tr{
 		</div>
 	</nav>
 
-	<div style="text-align: left; margin: 120px 20px 50px 400px;">
+	<div style="text-align: left; margin: 80px 20px 50px 30%;">
 	
 	<form action="MemberInsertServlet.controller" method="post">
 		<table>
@@ -93,7 +93,7 @@ tr{
 			<tr>
 				<td>Email :</td>
 				<td><input type="text" name="email" id="idEmail"></td>
-				<td>${errors.acc}</td>
+				<td>${erro.acc}</td>
 			</tr>
 			<tr>
 				<td>密碼 :</td>
@@ -102,26 +102,45 @@ tr{
 			<tr>
 				<td>確認密碼 :</td>
 				<td><input type="password" name="pass02"></td>
-				<td>${errors.acc}</td>
+				<td>${erro.pwd}</td>
 			</tr>
-			<tr><td>============</td><td>======================</td></tr>
 			<tr>
-				<td>姓氏 ：</td>
+				<td> </td>
+			</tr>
+			<tr>
+				<td>姓氏 :</td>
 				<td><input type="text" name="first"></td>
 			</tr>
 			<tr>
 				<td>名字 :</td>
 				<td><input type="text" name="last"></td>
 			</tr>
+			
+			<tr>
+				<td> </td>
+			</tr>
 			<!-- 只須手機即可 修改by Steven  
 			<tr>
 				<td>聯絡電話 :</td>
-				<td><input type="text" name="tel">例:(0212345678)</td>
+				<td><input type="text" name="tel"></td>
+				<td>${erro.tel}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>例:(0212345678)</td>
 			</tr>
 			-->
 			<tr>
 				<td>手機 :</td>
-				<td><input type="text" name="pho">例:(0999123456)</td>
+				<td><input type="text" name="pho"></td>
+				<td>${erro.pho}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>例:(0999123456)</td>
+			</tr>
+			<tr>
+				<td> </td>
 			</tr>
 			
 			<tr>
@@ -133,6 +152,12 @@ tr{
 				<td>圖片 :</td>
 				<td><input type="file" name="img" accept="image/*"></td>
 			</tr>
+			
+			<tr>
+				<td></td>
+				<td>${action}</td>
+			</tr>
+			
 		</table>
 		
 	<div style="text-align: center; margin: 50px auto;">
@@ -155,7 +180,7 @@ tr{
 			</div>
 
 			<div class="col-md-4 col-sm-6 inner"></div>
-
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		</div>
 	</div>
 
@@ -180,6 +205,6 @@ tr{
 		</footer>
 	</div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 </body>
 </html>

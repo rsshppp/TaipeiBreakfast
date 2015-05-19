@@ -69,6 +69,7 @@ dependencies {
     
     //For login
     compile 'org.facebook4j:facebook4j-core:2.2.2'
+    compile 'org.springframework.social:spring-social-facebook:2.0.1.RELEASE'
 }
 
 // 設置 Project Facets

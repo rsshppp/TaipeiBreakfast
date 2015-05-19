@@ -30,6 +30,18 @@ public class OwnerService {        //by宗鈺
 		}
 		return list;
 	}
+	//登入用  -Gary
+	public OwnerBean login(String user,String password){
+		if(user!=null&&user.trim().length()!=0&&password!=null&&password.trim().length()!=0){
+			OwnerBean bean= ownerDAO.select(user);
+			if(bean!=null){
+				if(password.equals(bean.getOwnPwd())){
+					return bean;
+				}
+			}
+		}
+		return null;
+	}
 	
 	
 	//利用賣家ID 查詢 其所有店鋪資料

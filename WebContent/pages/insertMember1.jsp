@@ -43,15 +43,6 @@ tr{
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#">最新消息</a></li>
 					<li><a href="#">關於早餐通</a></li>
-					<li><a href="#">聯絡我們</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a data-toggle="tab" href="#"> <span
-							class="glyphicon glyphicon-user"></span> 會員中心
-					</a></li>
-					<li><a data-toggle="modal" data-target="#myModal" href="#">
-							<span class="glyphicon glyphicon-log-in"></span> 登入
-					</a></li>
 				</ul>
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
@@ -92,7 +83,7 @@ tr{
 			<tr><th><h3>加入會員</h3></th></tr>
 			<tr>
 				<td>Email :</td>
-				<td><input type="text" name="email" id="idEmail"></td>
+				<td><input type="text" name="email" id="idEmail" onchange="checkmail()"></td>
 				<td>${erro.acc}</td>
 			</tr>
 			<tr>
@@ -159,7 +150,24 @@ tr{
 			</tr>
 			
 		</table>
-		
+		<script>
+// 		function checkmail(){
+// 	 		var email = $("#vote_idEmail").attr("value");
+// 	 		if(email==""){
+// 	 			alert("Please enter Email");
+// 	 			$("#vote_idEmail").focus();
+// 	 			return false;
+// 	 		}else{
+// 	 			var emailRegxp = /[\w-]+@([\w-]+\.)+[\w-]+/; 
+// 	 			if (emailRegxp.test(email) != true){
+// 	 				alert("電子信箱格式錯誤");
+// 	 				$("#vote_idEmail").focus();
+// 	 				$("#vote_idEmail").select();
+// 	 				return false;
+// 	 			}
+// 	 		}
+// 		}
+		</script>
 	<div style="text-align: center; margin: 50px auto;">
 		<span style="text-align: center; position: relative; left:-200px;">
 			<input type="submit" name="insertMemberActive" value="註冊">
@@ -189,7 +197,9 @@ tr{
 			<p class="pull-left">&copy; 2015 Taipei Breakfast. All rights
 				reserved. &middot;</p>
 			<p class="pull-left">
-				<a href="#">隱私權政策</a> &middot; <a href="#">常見問題</a>
+				<a href="#">隱私權政策</a> &middot; 
+				<a href="#">常見問題</a> &middot; 
+				<a href="#">聯絡我們</a>
 			</p>
 			<p class="pull-right">
 				<a href="https://www.facebook.com/taipeibreakfast"><i

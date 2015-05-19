@@ -44,14 +44,10 @@ tr{
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#">最新消息</a></li>
 					<li><a href="#">關於早餐通</a></li>
-					<li><a href="#">聯絡我們</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a data-toggle="tab" href="#"> <span
 							class="glyphicon glyphicon-user"></span> 會員中心
-					</a></li>
-					<li><a data-toggle="modal" data-target="#myModal" href="#">
-							<span class="glyphicon glyphicon-log-in"></span> 登入
 					</a></li>
 				</ul>
 				<form class="navbar-form navbar-left" role="search">
@@ -86,7 +82,7 @@ tr{
 		</div>
 	</nav>
 
-	<div style="text-align: left; margin: 120px 20px 50px 400px;">
+	<div style="text-align: left; margin: 80px 20px 50px 30%;">
 	
 	<form action="MemberUpdateServlet.controller" method="post">
 		<table>
@@ -94,7 +90,10 @@ tr{
 			<tr>
 				<td>Email :</td>
 				<td><input type="text" name="email" value="${sqldata.mail}"></td>
-				<td>${errors.acc}</td>
+				<td>${errou.acc}</td>
+			</tr>
+			<tr>
+				<td> </td>
 			</tr>
 			<tr>
 				<td>姓氏 :</td>
@@ -106,25 +105,45 @@ tr{
 			</tr>
 			
 			<tr>
+				<td> </td>
+			</tr>
+			<tr>
 				<td>聯絡電話 :</td>
-				<td><input type="text" name="tel" value="${sqldata.tel}">例:(0212345678)</td>
+				<td><input type="text" name="tel" value="${sqldata.tel}"></td>
+				<td>${errou.tel}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>例:(0212345678)</td>
 			</tr>
 			<tr>
 				<td>手機 :</td>
-				<td><input type="text" name="pho" value="${sqldata.pho}">例:(0999123456)</td>
+				<td><input type="text" name="pho" value="${sqldata.pho}"></td>
+				<td>${errou.pho}</td>
 			</tr>
-			
+			<tr>
+				<td></td>
+				<td>例:(0999123456)</td>
+			</tr>
 			<tr>
 				<td>地址 :</td>
 				<td><input type="text" name="addr" value="${sqldata.addr}"></td>
 			</tr>
 			
 			<tr>
+				<td> </td>
+			</tr>
+			<tr>
 				<td>圖片 :</td>
 				<td><input type="file" name="img" accept="image/*"></td>
 			</tr>
 			<tr>
 				<td><img name="img" src=""></td>
+			</tr>
+			
+			<tr>
+				<td></td>
+				<td>${action}${errou.update}</td>
 			</tr>
 			
 		</table>
@@ -158,7 +177,9 @@ tr{
 			<p class="pull-left">&copy; 2015 Taipei Breakfast. All rights
 				reserved. &middot;</p>
 			<p class="pull-left">
-				<a href="#">隱私權政策</a> &middot; <a href="#">常見問題</a>
+				<a href="#">隱私權政策</a> &middot; 
+				<a href="#">常見問題</a> &middot; 
+				<a href="#">聯絡我們</a>
 			</p>
 			<p class="pull-right">
 				<a href="https://www.facebook.com/taipeibreakfast"><i

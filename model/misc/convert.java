@@ -1,7 +1,14 @@
 package model.misc;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import org.apache.commons.codec.binary.Base64;
 
 public class convert {
 
@@ -37,6 +44,42 @@ public class convert {
 			result = -1000;
 		}
 		return result;
+	}
+
+	public byte[] loadFile(File file) throws IOException {
+	    InputStream is = new FileInputStream(file);
+	    long length = file.length();
+	    if (length > Integer.MAX_VALUE) {
+	    	System.out.println("File is too large");
+	    }
+	    byte[] bytes = new byte[(int)length];
+	    int offset = 0;
+	    int numRead = 0;
+	    while (offset < bytes.length
+	           && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+	        offset += numRead;
+	    }
+	    if (offset < bytes.length) {
+	        throw new IOException("read file false : "+file.getName());
+	    }
+	    is.close();
+	    return bytes;
+	}
+
+	public String encodeFileToBase64Binary(File file){
+	    String encodedfile = null;
+	    try {
+	        FileInputStream fileInputStreamReader = new FileInputStream(file);
+	        byte[] bytes = new byte[(int)file.length()];
+	        fileInputStreamReader.read(bytes);
+	        encodedfile = Base64.encodeBase64(bytes).toString();
+	    } catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	     
+	    return encodedfile;
 	}
 	
 }

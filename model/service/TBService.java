@@ -1,6 +1,7 @@
 package model.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -113,15 +114,16 @@ public class TBService{
 				result = b;
 			}
 		}
-		System.out.println(result);
 		return result;
 	}
 	
 	
 	//(-.-)*杜
 	public Boolean deleteMember(int MemberID) {
+		System.out.println(MemberID);
 		if(MemberID!=0){
 			return member.deleteMember(MemberID);
+//			return member.rebornMember(MemberID);
 		}
 		return false;
 	}
@@ -129,12 +131,8 @@ public class TBService{
 	//(-.-)*杜
 	public boolean changePassword(int MemberID,String memberPwd,String newMemPwd){
 		boolean result=false;
-		MemberBean bean = member.selectMember(MemberID);
-		if (bean != null) {
-			String testPwd = bean.getMemberPwd();
-			System.out.println(testPwd);
-			if (memberPwd.equals(testPwd)) {
-				member.changePassword(MemberID, newMemPwd);
+		if (!Arrays.equals(memberPwd.getBytes(), newMemPwd.getBytes())) {
+			if(member.changePassword(MemberID, newMemPwd)){
 				result = true;
 			}
 		}

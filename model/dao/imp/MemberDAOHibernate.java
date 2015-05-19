@@ -83,7 +83,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		upper.setMemberPhone(bean.getMemberPhone());
 		upper.setMemberTel(bean.getMemberTel());
 		upper.setMemberAddr(bean.getMemberAddr());
-//		upper.setMemberImage(bean.getMemberImage());
+		upper.setMemberImage(bean.getMemberImage());
 
 		session.saveOrUpdate(upper);
 		result = upper;
@@ -116,7 +116,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		Iterator list = query.list().iterator();
 		if (list.hasNext()) {
 			MemberBean b=(MemberBean)list.next();
-			System.out.println(b.getMemberEmail());
+			System.out.println("selectMemberByMail : "+b.getMemberEmail());
 			result = b;
 		}
 		return result;
@@ -161,7 +161,7 @@ public class MemberDAOHibernate implements MemberDAO {
 	@Override
 	public boolean changePassword(int MemberID, String memberPwd) {
 		Boolean result = false;
-
+		
 //		Session session = getSession();
 //		Transaction tx = session.beginTransaction();
 //		Criteria criteria = session.createCriteria(MemberBean.class);
@@ -175,15 +175,14 @@ public class MemberDAOHibernate implements MemberDAO {
 //			result=true;
 //		}
 //		tx.commit();
+		//criteria 檢查失敗
 		
 		MemberBean mb = (MemberBean)getSession().get(MemberBean.class, MemberID);
-		System.out.println(mb.getMemberAcc());
 		if (mb != null) {
 			mb.setMemberPwd(memberPwd);
 			getSession().saveOrUpdate(mb);
 			result = true;
 		}
-		
 		return result;
 	}
 	
@@ -191,21 +190,28 @@ public class MemberDAOHibernate implements MemberDAO {
 	@Override
 	public Boolean deleteMember(int MemberID) {
 		Boolean result = false;
-		Session session = getSession();
-		Transaction tx = session.beginTransaction();
-		Criteria criteria = session.createCriteria(MemberBean.class);
-		criteria.add(Restrictions.eq("MemberID", MemberID));
-		Iterator<?> upprod = criteria.list().iterator();
-		MemberBean upper = (MemberBean) upprod.next();
-		// update MemberStatus
-		if (upper != null) {
-			upper.setMemberStatus(false);
-			session.saveOrUpdate(upper);
+		
+//		Session session = getSession();
+//		Criteria criteria = session.createCriteria(MemberBean.class);
+//		criteria.add(Restrictions.eq("MemberID", MemberID));
+//		Iterator<?> upprod = criteria.list().iterator();
+//		MemberBean upper = (MemberBean) upprod.next();
+//		if (upper != null) {
+//			upper.setMemberStatus(false);
+//			session.saveOrUpdate(upper);
+//			result = true;
+//		}
+//		if (session != null) {
+//			session.close();
+//		}
+		//criteria 檢查失敗
+		
+		MemberBean mb = (MemberBean)getSession().get(MemberBean.class, MemberID);
+		if (mb != null) {
+			// update MemberStatus
+			mb.setMemberStatus(false);
+			getSession().saveOrUpdate(mb);
 			result = true;
-			tx.commit();
-		}
-		if (session != null) {
-			session.close();
 		}
 		return result;
 	}
@@ -214,21 +220,30 @@ public class MemberDAOHibernate implements MemberDAO {
 	@Override
 	public Boolean rebornMember(int MemberID) {
 		Boolean result = false;
-		Session session = getSession();
-		Transaction tx = session.beginTransaction();
-		Criteria criteria = session.createCriteria(MemberBean.class);
-		criteria.add(Restrictions.eq("MemberID", MemberID));
-		Iterator<?> upprod = criteria.list().iterator();
-		MemberBean upper = (MemberBean) upprod.next();
-		// update MemberStatus 後台 & 測試 用
-		if (upper != null) {
-			upper.setMemberStatus(true);
-			session.saveOrUpdate(upper);
+		
+//		Session session = getSession();
+//		Transaction tx = session.beginTransaction();
+//		Criteria criteria = session.createCriteria(MemberBean.class);
+//		criteria.add(Restrictions.eq("MemberID", MemberID));
+//		Iterator<?> upprod = criteria.list().iterator();
+//		MemberBean upper = (MemberBean) upprod.next();
+//		if (upper != null) {
+//			upper.setMemberStatus(true);
+//			session.saveOrUpdate(upper);
+//			result = true;
+//			tx.commit();
+//		}
+//		if (session != null) {
+//			session.close();
+//		}
+		//criteria 檢查失敗
+
+		MemberBean mb = (MemberBean)getSession().get(MemberBean.class, MemberID);
+		if (mb != null) {
+			// update MemberStatus 後台 & 測試 用
+			mb.setMemberStatus(true);
+			getSession().saveOrUpdate(mb);
 			result = true;
-			tx.commit();
-		}
-		if (session != null) {
-			session.close();
 		}
 		return result;
 	}

@@ -68,33 +68,25 @@ public class MemberDAOHibernate implements MemberDAO {
 	}
 
 	// (-.-)*杜
-	@SuppressWarnings("rawtypes")
 	@Override
 	public MemberBean updateMember(MemberBean bean) {
 		MemberBean result = null;
 		Session session = getSession();
-		Transaction tx = session.beginTransaction();
-		Criteria criteria = session.createCriteria(MemberBean.class);
-		criteria.add(Restrictions.eq("MemberID", bean.getMemberID()));
+		Criteria criteria = session.createCriteria(MemberBean.class)
+				.add(Restrictions.eq("memberID", bean.getMemberID()));
 		Iterator upprod = criteria.list().iterator();
 		MemberBean upper = (MemberBean) upprod.next();
 		upper.setMemberAcc(bean.getMemberAcc());
+		upper.setMemberEmail(bean.getMemberEmail());
 		upper.setMemberLastName(bean.getMemberLastName());
 		upper.setMemberFirstName(bean.getMemberFirstName());
 		upper.setMemberPhone(bean.getMemberPhone());
 		upper.setMemberTel(bean.getMemberTel());
-		upper.setMemberEmail(bean.getMemberEmail());
 		upper.setMemberAddr(bean.getMemberAddr());
-		upper.setMemberImage(bean.getMemberImage());
+//		upper.setMemberImage(bean.getMemberImage());
 
 		session.saveOrUpdate(upper);
 		result = upper;
-		tx.commit();
-
-		if (session != null) {
-			session.close();
-		}
-
 		return result;
 	}
 
@@ -104,12 +96,28 @@ public class MemberDAOHibernate implements MemberDAO {
 		boolean result = false;
 		Query query = getSession().createQuery(
 						"from MemberBean where memberAcc like:acc or memberEmail like:acc");
-		query.setString("acc", mail + "@%");
+		query.setString("acc", mail);
 		Iterator list = query.list().iterator();
 		if (list.hasNext()) {
-//			MemberBean b=(MemberBean)list.next();
-//			System.out.println(b.getMemberEmail());
+			MemberBean b=(MemberBean)list.next();
+			System.out.println(b.getMemberEmail());
 			result = true;
+		}
+		return result;
+	}
+
+	// (-.-)*杜
+	@Override
+	public MemberBean selectMemberByMail(String mail) {
+		MemberBean result = null;
+		Query query = getSession().createQuery(
+						"from MemberBean where memberAcc like:acc or memberEmail like:acc");
+		query.setString("acc", mail);
+		Iterator list = query.list().iterator();
+		if (list.hasNext()) {
+			MemberBean b=(MemberBean)list.next();
+			System.out.println(b.getMemberEmail());
+			result = b;
 		}
 		return result;
 	}

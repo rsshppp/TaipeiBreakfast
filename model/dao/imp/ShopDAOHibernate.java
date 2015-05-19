@@ -20,8 +20,8 @@ import org.hibernate.criterion.Restrictions;
 public class ShopDAOHibernate implements ShopDAO {   
 	
 	private SessionFactory sessionFactory;
-	
-	
+	public ShopDAOHibernate(){
+	}
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

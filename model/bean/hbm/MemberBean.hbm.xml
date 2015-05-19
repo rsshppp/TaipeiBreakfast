@@ -31,7 +31,7 @@
         <property name="memberAddr" type="java.lang.String">
             <column name="memberAddr" />
         </property>
-        <property name="memberImage" type="Byte[]">
+        <property name="memberImage" type="binary">
             <column name="memberImage" />
         </property>
         <property name="memberStatus" type="java.lang.Boolean">

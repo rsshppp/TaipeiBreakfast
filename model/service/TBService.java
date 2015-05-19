@@ -9,7 +9,6 @@ import model.bean.MemberBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
 import model.bean.ShopBean;
-import model.dao.EmailDAO;
 import model.dao.MemberDAO;
 import model.dao.OrderDetailDAO;
 import model.dao.OrderSumDAO;
@@ -22,7 +21,7 @@ public class TBService{
 	private ShopDAO shop;
 	private OrderSumDAO ordersum;
 	private OrderDetailDAO orderdetail;
-	private EmailDAO mailD;
+	private SendMailSMTP mailD;
 
 	public TBService(){
 	}
@@ -41,9 +40,6 @@ public class TBService{
 	public void setOrderdetail(OrderDetailDAO orderdetail) {
 		this.orderdetail = orderdetail;
 	}
-	public void setMailD(EmailDAO mailD) {
-		this.mailD = mailD;
-	}
 	
 	
 	//(-.-)*杜
@@ -52,7 +48,7 @@ public class TBService{
 		//Ajax用mail檢查Acc有沒有重複
 		if(mai!=null){
 			boolean m=member.selectMemberByAcc(mai);
-			if(m=false){
+			if(m!=true){
 				//if(false沒東西){ 允許進行下一步 sendCheackMail()}
 				result=true;
 			}
@@ -108,6 +104,20 @@ public class TBService{
 		return result;
 	}
 
+	//(-.-)*杜
+	public MemberBean selectMemberE(String ea) {
+	MemberBean result=null;
+		if (ea != null) {
+			MemberBean b = member.selectMemberByMail(ea);
+			if (b != null) {
+				result = b;
+			}
+		}
+		System.out.println(result);
+		return result;
+	}
+	
+	
 	//(-.-)*杜
 	public Boolean deleteMember(int MemberID) {
 		if(MemberID!=0){

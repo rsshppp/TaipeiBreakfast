@@ -160,17 +160,11 @@ public class TBService{
 			if(member.changePassword(MemberID, b)){
 				String membermail=bean.getMemberEmail();
 				String first=bean.getMemberFirstName();
-				boolean ab=mailD.send(membermail, 
+				mailD.send(membermail, 
 						"台北早餐通密碼變更", 
 						"Dear "+first+
 						" : \n\n 您的新密碼為 : "+b+
 						" \n\n 請登入帳戶並修改密碼");
-//				if(ab=true){
-					//回傳通知訊息到 view 給 Member 看
-					//傳回"請收信"
-//				}else{
-					//傳回信件發送失敗
-//				}
 			}else{
 				System.out.println("chPass false");
 			}

@@ -96,7 +96,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		boolean result = false;
 		Query query = getSession().createQuery(
 						"from MemberBean where memberAcc like:acc or memberEmail like:acc");
-		query.setString("acc", mail);
+		query.setString("acc", mail+"%");
 		Iterator list = query.list().iterator();
 		if (list.hasNext()) {
 			MemberBean b=(MemberBean)list.next();
@@ -112,7 +112,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		MemberBean result = null;
 		Query query = getSession().createQuery(
 						"from MemberBean where memberAcc like:acc or memberEmail like:acc");
-		query.setString("acc", mail);
+		query.setString("acc", mail+"%");
 		Iterator list = query.list().iterator();
 		if (list.hasNext()) {
 			MemberBean b=(MemberBean)list.next();
@@ -125,10 +125,11 @@ public class MemberDAOHibernate implements MemberDAO {
 	// (-.-)*杜
 	@Override
 	public MemberBean selectMember(int MemberID) {
-		Query query = getSession().createQuery("from MemberBean");
+		Query query = getSession().createQuery("from MemberBean where memberID=:MemberID ");
 		query.setInteger("MemberID", MemberID);
 		MemberBean result = (MemberBean)query.list().iterator().next();
 //		MemberBean result = (MemberBean) getSession().get(MemberBean.class,MemberID);
+		System.out.println("selectByID="+result);
 		if (result.getMemberStatus() == true) {
 			return result;
 		}

@@ -257,7 +257,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 						if (service.deleteMember(t.getMemberID()) != false) {
 							errors.put("action", "刪除成功");
 							//若成功則返回首頁
-							
+							return "index";
 						} else {
 							errors.put("action", "Delete fail");
 						}
@@ -270,6 +270,32 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		}catch(Exception e){
 			errors.put("action", "刪除失敗");
 			return "memberdelete";
+		}
+	}
+
+	public String losePassword() {
+		try{
+			if (mf != null) {
+				System.out.println("lose :" + mf);
+				MemberBean t = service.selectMemberE(mf.getMemberEmail().split("@")[0]);
+				if (t != null) {
+					if(mf.getMemberFirstName().equals(t.getMemberFirstName())){
+						service.losepassword(t.getMemberID());
+						errors.put("action", "已幫您變更密碼,請前往電子郵件信箱收信");
+						//若成功則顯示action並返回首頁
+
+						return "index";
+					} else {
+						errors.put("action", "Ooooooooooooops");
+					}
+					redata = gson.toJson(errors);
+					System.out.println(redata);
+				}
+			}
+			return "losepass";
+		}catch(Exception e){
+			errors.put("action", "驗證失敗");
+			return "losepass";
 		}
 	}
 	

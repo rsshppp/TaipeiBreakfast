@@ -78,99 +78,30 @@ tr{
 
 	<div style="text-align: left; margin: 80px 20px 50px 30%;">
 	
-	<form action="MemberInsertServlet.controller" method="post">
+	<form action="MemberLosePassServlet.controller" method="post">
 		<table>
-			<tr><th><h3>加入會員</h3></th></tr>
+			<tr><th><h3>忘記密碼</h3></th></tr>
 			<tr>
 				<td>Email :</td>
-				<td><input type="text" name="email" id="idEmail" onchange="checkmail()"></td>
-				<td>${erro.acc}</td>
-			</tr>
-			<tr>
-				<td>密碼 :</td>
-				<td><input type="password" name="pass01"></td>
-			</tr>
-			<tr>
-				<td>確認密碼 :</td>
-				<td><input type="password" name="pass02"></td>
-				<td>${erro.pwd}</td>
-			</tr>
-			<tr>
-				<td> </td>
-			</tr>
+				<td><input type="text" name="email"></td>
+				<td>${errors.acc}</td>
+			</tr>  
 			<tr>
 				<td>姓氏 :</td>
 				<td><input type="text" name="first"></td>
-			</tr>
-			<tr>
-				<td>名字 :</td>
-				<td><input type="text" name="last"></td>
-			</tr>
-			
-			<tr>
-				<td> </td>
-			</tr>
-			<!-- 只須手機即可 修改by Steven  
-			<tr>
-				<td>聯絡電話 :</td>
-				<td><input type="text" name="tel"></td>
-				<td>${erro.tel}</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>例:(0212345678)</td>
-			</tr>
-			-->
-			<tr>
-				<td>手機 :</td>
-				<td><input type="text" name="pho"></td>
-				<td>${erro.pho}</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>例:(0999123456)</td>
-			</tr>
-			<tr>
-				<td> </td>
-			</tr>
-			
-			<tr>
-				<td>地址 :</td>
-				<td><input type="text" name="addr"></td>
-			</tr>
-			
-			<tr>
-				<td>圖片 :</td>
-				<td><input type="file" name="img" accept="image/*"></td>
-			</tr>
+				<td>${errors.first}</td>
+			</tr>  
 			
 			<tr>
 				<td></td>
-				<td>${action}</td>
+				<td>${errors.action}</td>
 			</tr>
 			
 		</table>
-		<script>
-// 		function checkmail(){
-// 	 		var email = $("#vote_idEmail").attr("value");
-// 	 		if(email==""){
-// 	 			alert("Please enter Email");
-// 	 			$("#vote_idEmail").focus();
-// 	 			return false;
-// 	 		}else{
-// 	 			var emailRegxp = /[\w-]+@([\w-]+\.)+[\w-]+/; 
-// 	 			if (emailRegxp.test(email) != true){
-// 	 				alert("電子信箱格式錯誤");
-// 	 				$("#vote_idEmail").focus();
-// 	 				$("#vote_idEmail").select();
-// 	 				return false;
-// 	 			}
-// 	 		}
-// 		}
-		</script>
+		
 	<div style="text-align: center; margin: 50px auto;">
 		<span style="text-align: center; position: relative; left:-200px;">
-			<input type="submit" name="insertMemberActive" value="註冊">
+			<input type="submit" name="insertMemberActive" value="確認">
 		</span>
 		<span style="text-align: center; color:red; position: relative; left:-100px;">
 			<input type="reset" value="清空重填">
@@ -188,7 +119,7 @@ tr{
 			</div>
 
 			<div class="col-md-4 col-sm-6 inner"></div>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 		</div>
 	</div>
 

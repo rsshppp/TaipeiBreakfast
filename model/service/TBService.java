@@ -41,6 +41,9 @@ public class TBService{
 	public void setOrderdetail(OrderDetailDAO orderdetail) {
 		this.orderdetail = orderdetail;
 	}
+	public void setMailD(SendMailSMTP mailD) {
+		this.mailD = mailD;
+	}
 	
 	
 	//(-.-)*杜
@@ -109,6 +112,7 @@ public class TBService{
 	public MemberBean selectMemberE(String ea) {
 	MemberBean result=null;
 		if (ea != null) {
+			System.out.println("in selectE="+ea);
 			MemberBean b = member.selectMemberByMail(ea);
 			if (b != null) {
 				result = b;
@@ -143,25 +147,32 @@ public class TBService{
 	public void losepassword(int MemberID){
 		MemberBean bean= member.selectMember(MemberID);
 		if(bean!=null){
-			String b="";
-			for(int i=0;i<8;i++){
-				long a=Math.round(Math.random()*9);
-				b+=a;
+			char les[] = {
+					'A','B','C','D','E','F','G','H','I','J',
+					'K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+					'0','1','2','3','4','5','6','7','8','9'};
+			char a[] = new char[8];
+			for(int i=0;i<a.length;i++){
+				a[i]= les[(int)Math.round(Math.random() * (les.length - 1))];
 			}
-			boolean aa=member.changePassword(MemberID, b);
-			// b 是新密碼,用Email寄給Member
-			if(aa=true){
+			String b=new String(a);
+			System.out.println("// b 是新密碼,用Email寄給Member : "+b);
+			if(member.changePassword(MemberID, b)){
 				String membermail=bean.getMemberEmail();
 				String first=bean.getMemberFirstName();
 				boolean ab=mailD.send(membermail, 
 						"台北早餐通密碼變更", 
-						"Dear "+first+" : \n\n 您的新密碼為 : "+b+" \n\n 請登入帳戶並修改密碼");
-				//回傳通知訊息到 view 給 Member 看
-				if(ab=true){
+						"Dear "+first+
+						" : \n\n 您的新密碼為 : "+b+
+						" \n\n 請登入帳戶並修改密碼");
+//				if(ab=true){
+					//回傳通知訊息到 view 給 Member 看
 					//傳回"請收信"
-				}else{
+//				}else{
 					//傳回信件發送失敗
-				}
+//				}
+			}else{
+				System.out.println("chPass false");
 			}
 		}
 	}

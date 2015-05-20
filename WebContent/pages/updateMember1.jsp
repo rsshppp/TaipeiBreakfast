@@ -35,7 +35,7 @@ tr{
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"> <img alt="Brand"
+				<a class="navbar-brand" href="../index.html"> <img alt="Brand"
 					src="../image/proj_icon_2.png"
 					style="max-width: 100px; margin-top: -12px;">
 				</a>

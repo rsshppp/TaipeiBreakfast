@@ -108,11 +108,11 @@ tr{
 				<td><input type="text" name="email"></td>
 				<td>${errors.acc}</td>
 			</tr>  
-			<tr>
-				<td>密碼 :</td>
-				<td><input type="password" name="pass"></td>
-				<td>${errors.pwd}</td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td>密碼 :</td> -->
+<!-- 				<td><input type="password" name="pass"></td> -->
+<%-- 				<td>${errors.pwd}</td> --%>
+<!-- 			</tr> -->
 			
 			<tr>
 				<td></td>
@@ -131,25 +131,6 @@ tr{
 				</div>
 			</div>
 			
-			
-			<!-- 互動視窗（Modal） -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">登入</h4>
-						</div>
-						<div class="modal-body">
-							<div id="test"></div>
-						</div>
-					</div>
-					<!-- /.modal-content -->
-				</div>
-				<!-- /.modal -->
-			</div>
 		</div>
 	</div>
 

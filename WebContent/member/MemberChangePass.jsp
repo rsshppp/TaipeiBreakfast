@@ -112,13 +112,13 @@ tr{
 							</tr>
 							<tr>
 								<td>密碼 :</td>
-								<td><input type="password" name="pass01"></td>
+								<td><input type="password" name="pass"></td>
 							</tr>
-							<tr>
-								<td>確認密碼 :</td>
-								<td><input type="password" name="pass02"></td>
-								<td>${errors.pwd}</td>
-							</tr>
+<!-- 							<tr> -->
+<!-- 								<td>確認密碼 :</td> -->
+<!-- 								<td><input type="password" name="pass02"></td> -->
+<%-- 								<td>${errors.pwd}</td> --%>
+<!-- 							</tr> -->
 
 							<tr>
 								<td></td>

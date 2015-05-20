@@ -86,11 +86,11 @@ tr{
 				<td><input type="text" name="email"></td>
 				<td>${errors.acc}</td>
 			</tr>  
-			<tr>
-				<td>姓氏 :</td>
-				<td><input type="text" name="first"></td>
-				<td>${errors.first}</td>
-			</tr>  
+<!-- 			<tr> -->
+<!-- 				<td>姓氏 :</td> -->
+<!-- 				<td><input type="text" name="first"></td> -->
+<%-- 				<td>${errors.first}</td> --%>
+<!-- 			</tr>   -->
 			
 			<tr>
 				<td></td>

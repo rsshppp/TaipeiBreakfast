@@ -135,11 +135,11 @@ public class TBService{
 	//(-.-)*杜
 	public boolean changePassword(int MemberID,String memberPwd,String newMemPwd){
 		boolean result=false;
-		if (!Arrays.equals(memberPwd.getBytes(), newMemPwd.getBytes())) {
+//		if (!Arrays.equals(memberPwd.getBytes(), newMemPwd.getBytes())) {
 			if(member.changePassword(MemberID, newMemPwd)){
 				result = true;
 			}
-		}
+//		}
 		return result;
 	}
 	

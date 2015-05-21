@@ -15,4 +15,8 @@ public class MealKindListService {
 	public List<MealKindListBean> selectAllKind(){
 		return dao.selectAll();
 	}
+	//查詢單一餐點TYPE
+	public MealKindListBean selectOneKind(int kindId){
+		return dao.selectOne(kindId);
+	}
 }

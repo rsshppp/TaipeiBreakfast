@@ -42,7 +42,7 @@ public class ShopDAOHibernateTestWeng {                  //宗鈺
 	   ((ConfigurableApplicationContext)context).close();
 	}
 
-	@Test
+//	@Test
 	public void testSelect() {
 		ShopBean bean=dao.select(3);                       //select
 		System.out.println(bean); //假設session裡的shopID為3

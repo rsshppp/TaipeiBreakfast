@@ -42,9 +42,8 @@ public class ShopServiceTestWeng {                //宗鈺-維護店鋪資料
 
 	@Test
 	public void testSelect() {
-		ShopBean shopBean=new ShopBean();                    //select
-		shopBean.setShopID(3);
-		ShopBean bean=service.select(shopBean);                       
+		
+		ShopBean bean=service.select(3);                      //select 
 		System.out.println(bean); //假設session裡的shopID為3
 	}
 
@@ -82,7 +81,7 @@ public class ShopServiceTestWeng {                //宗鈺-維護店鋪資料
 			session.getTransaction().commit(); //review
 			session=sessionFactory.getCurrentSession(); //review
 			session.beginTransaction(); //review
-			ShopBean bean2=service.select(bean);
+			ShopBean bean2=service.select(bean.getShopID());
 			System.out.println(bean2);
 		}else{
 			System.out.println("insert失敗");

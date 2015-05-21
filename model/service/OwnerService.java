@@ -15,7 +15,24 @@ public class OwnerService {        //by宗鈺
 	public void setOwnerDAO(OwnerDAO ownerDAO) {
 		this.ownerDAO = ownerDAO;
 	}
-
+	//利用賣家帳號查詢賣家資料
+	public OwnerBean select(String OwnAcc){ 
+		OwnerBean bean=null;
+		if(OwnAcc!=null && OwnAcc.trim().length()!=0){
+			bean=ownerDAO.select(OwnAcc);
+			return bean;
+		}	
+		return bean;
+	}
+	//利用賣家ID查詢賣家資料
+	public OwnerBean select(Integer OwnID){ 
+		OwnerBean bean=null;
+		if(OwnID!=null && OwnID!=0){
+			bean=ownerDAO.select(OwnID);
+			return bean;
+		}	
+		return bean;
+	}
 	//利用賣家帳號查詢賣家資料-先寫上,專題前沒用到再刪
 	public List<OwnerBean> select(OwnerBean ownerBean){ 
 		List<OwnerBean> list=null;
@@ -30,30 +47,19 @@ public class OwnerService {        //by宗鈺
 		}
 		return list;
 	}
-	//登入用  -Gary
-	public OwnerBean login(String user,String password){
-		if(user!=null&&user.trim().length()!=0&&password!=null&&password.trim().length()!=0){
-			OwnerBean bean= ownerDAO.select(user);
-			if(bean!=null){
-				if(password.equals(bean.getOwnPwd())){
-					return bean;
-				}
-			}
-		}
-		return null;
-	}
 	
 	
 	//利用賣家ID 查詢 其所有店鋪資料
-	public List<ShopBean> getShops(OwnerBean ownerBean){
-		if(ownerBean!=null && ownerBean.getOwnID()!=0){
-			return ownerDAO.getShops(ownerBean.getOwnID());
+	public List<ShopBean> getShops(Integer OwnID){
+		if(OwnID!=null && OwnID!=0){
+			return ownerDAO.getShops(OwnID);
 		}
 		return null;
 	}
 	
 	//新增賣家資料
 	public boolean insert(OwnerBean ownerBean){
+//		System.out.println(ownerBean);
 		if(ownerBean!=null){
 			if(ownerDAO.insert(ownerBean)){
 				return true;
@@ -71,9 +77,9 @@ public class OwnerService {        //by宗鈺
 	}
 	
 	//刪除賣方帳號(設賣方狀態為false)
-	public boolean delete(OwnerBean ownerBean){
-		if(ownerBean!=null && ownerBean.getOwnAcc().trim().length()!=0){
-			if(ownerDAO.delete(ownerBean.getOwnAcc())){
+	public boolean delete(Integer ownID){
+		if(ownID!=null && ownID!=0){
+			if(ownerDAO.delete(ownID)){
 				return true;
 			}
 		}

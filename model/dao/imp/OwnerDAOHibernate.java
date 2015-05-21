@@ -72,7 +72,7 @@ public class OwnerDAOHibernate implements OwnerDAO {
 	
 	public boolean insert(OwnerBean ownerBean){
 		OwnerBean bean=this.select(ownerBean.getOwnAcc());
-//		System.out.println(bean);
+//		System.out.println(ownerBean);
 		if(bean==null){
 			this.getSession().save(ownerBean);
 			return true;
@@ -85,9 +85,9 @@ public class OwnerDAOHibernate implements OwnerDAO {
 		OwnerBean bean=this.select(ownerBean.getOwnAcc());
 		if(bean!=null){
 			bean.setOwnEmail(ownerBean.getOwnEmail());
-			bean.setOwnFirstName(bean.getOwnFirstName());
-			bean.setOwnLastName(bean.getOwnLastName());
-			bean.setOwnPwd(bean.getOwnPwd());
+			bean.setOwnFirstName(ownerBean.getOwnFirstName());
+			bean.setOwnLastName(ownerBean.getOwnLastName());
+
 			return bean;
 		}
 		
@@ -123,8 +123,8 @@ public class OwnerDAOHibernate implements OwnerDAO {
 	}
 	
 	
-	public boolean delete(String ownAcc){
-		OwnerBean bean=this.select(ownAcc);
+	public boolean delete(Integer ownID){
+		OwnerBean bean=this.select(ownID);
 		if(bean!=null){
 			bean.setOwnStatus(false);
 			return true;
@@ -145,5 +145,12 @@ public class OwnerDAOHibernate implements OwnerDAO {
 		}
 		return false;
 	}
-	
+
+	public OwnerBean select(Integer ownID){        //此方法含濾掉status為false之賣家,後台管理用時只需show status為true之賣家
+		OwnerBean bean=(OwnerBean)this.getSession().get(OwnerBean.class,ownID);
+		if(bean.getOwnStatus()==true){                 //此處過濾
+			return bean;
+		}		
+		return null;
+	}
 }

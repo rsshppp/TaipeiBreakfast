@@ -10,6 +10,9 @@ public interface OwnerDAO {    //by宗鈺
 	//用賣方帳號得到"該筆"賣方所有資料, 之後可business service可用此方法         //login可用此方法  //已過濾掉status為false之賣家
 	public abstract OwnerBean select(String ownerAccount);
 
+	//用賣方ID得到"該筆"賣方所有資料
+	public abstract OwnerBean select(Integer ownID);
+	
 	//查"所有"賣方資料
 	public abstract List<OwnerBean> selectAll();
 
@@ -33,7 +36,7 @@ public interface OwnerDAO {    //by宗鈺
 	public abstract OwnerBean updatePwd(String ownPwd, String ownAcc);
 
 	//賣方刪帳號時所用的方法,但實作是update改賣方的ownStatus而已
-	public abstract boolean delete(String ownAcc);
+	public abstract boolean delete(Integer ownID);
 	
 	//為後台管理停權所使用,可以停權,也可以取消停權
 	public abstract boolean suspendOrCancel(String ownAcc);

@@ -2,6 +2,7 @@ package model.UnitTest;
 
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
 import java.util.List;
 
 import model.bean.OwnerBean;
@@ -41,12 +42,19 @@ public class OwnerDAOHibernateTestWeng {           //宗鈺
 	}
 
 //	@Test
+	public void testSelect2() {
+		OwnerBean bean=dao.select(4);    //select
+		System.out.println(bean);
+	}
+	
+	
+	@Test
 	public void testSelect() {
 		OwnerBean bean=dao.select("Laya");    //select
 		System.out.println(bean);
 	}
 
-	@Test
+//	@Test
 	public void testSelectAll() {
 		List<OwnerBean> list=dao.selectAll();    //selectAll
 		System.out.println(list);
@@ -112,7 +120,7 @@ public class OwnerDAOHibernateTestWeng {           //宗鈺
 
 //	@Test
 	public void testDelete() {
-       boolean b=dao.delete("pig");                 //賣方刪帳號時所用的方法 //由session得知owner account
+       boolean b=dao.delete(14);                 //賣方刪帳號時所用的方法 //由session得知owner account
        System.out.println("delete status:"+b);
 	}
 

@@ -40,6 +40,19 @@ public class OwnerServiceTestWeng {              //宗鈺-維護賣家資料
 	}
 
 	@Test
+	public void testSelect3() {
+	
+		OwnerBean bean=service.select(4);            //select
+		System.out.println(bean);
+	}
+	
+//	@Test
+	public void testSelect2() {
+		OwnerBean bean=service.select("Laya");    //select
+		System.out.println(bean);
+	}
+	
+//	@Test
 	public void testSelect() {
 		OwnerBean ownerBean=new OwnerBean();          //select
 		ownerBean.setOwnAcc("Laya");
@@ -49,9 +62,7 @@ public class OwnerServiceTestWeng {              //宗鈺-維護賣家資料
 
 //	@Test
 	public void testGetShops() {
-		OwnerBean ownerBean=new OwnerBean();          //getshops
-		ownerBean.setOwnID(4);
-		List<ShopBean> list=service.getShops(ownerBean);      
+		List<ShopBean> list=service.getShops(4);    //getshops  
 		System.out.println(list);
 	}
 
@@ -89,10 +100,8 @@ public class OwnerServiceTestWeng {              //宗鈺-維護賣家資料
 	}
 
 //	@Test
-	public void testDelete() {
-		OwnerBean ownerBean=new OwnerBean();         //賣方刪帳號時所用的方法 //由session得知owner account
-		ownerBean.setOwnAcc("pig");
-		boolean b=service.delete(ownerBean);                 
+	public void testDelete() {	
+		boolean b=service.delete(14);        //賣方刪帳號時所用的方法 //由session得知owner ID         
         System.out.println("delete status:"+b); 
 	}
 

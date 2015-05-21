@@ -10,6 +10,7 @@ import model.bean.ShopBean;
 public interface ShopDAO {    
 
 	//(-.-)*杜
+	public abstract List<ShopBean> selectAK(String shopArea,String keyword);
 	public abstract List<ShopBean> selectKeyword(String keyword);
 	public abstract List<ShopBean> selectArea(String shopArea);
 	public abstract List<ShopBean> allowNeedsShop();

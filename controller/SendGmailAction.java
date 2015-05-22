@@ -10,11 +10,14 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import form.SendGmailForm;
+
 public class SendGmailAction extends ActionSupport implements ServletRequestAware{
 	HttpSession session=ServletActionContext.getRequest().getSession();
 	private String subject;
 	private String text;
 	private String gmail;
+	private SendGmailForm sgf;
 	private HttpServletRequest request;
 	
 	public void setSubject(String subject) {

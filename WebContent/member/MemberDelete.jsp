@@ -41,9 +41,8 @@ tr{
 					<span class="icon-bar"></span> 
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="../index.html"> <img alt="Brand"
-					src="../image/proj_icon_2.png"
-					style="max-width: 100px; margin-top: -12px;">
+				<a class="navbar-brand" href="../index.html"> 
+				<img alt="Brand" src="../image/proj_icon_2.png" style="max-width: 100px; margin-top: -12px;">
 				</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
@@ -100,12 +99,14 @@ tr{
 				</div>
 				<div class="col-md-10" style="text-align: left; top: 30px;">
 
-	<form action="MemberDeleteServlet.controller" method="post">
+<!-- 	<form action="MemberDeleteServlet.controller" method="post"> -->
+	<form action="<c:url value='/pe/duAction!deleteMember.action'/>" method="post">
 		<table>
 			<tr><th><h3>刪除帳號</h3></th></tr>
 			<tr>
 				<td>Email :</td>
-				<td><input type="text" name="email"></td>
+<!-- 				<td><input type="text" name="email"></td> -->
+				<td><input type="text" name="mf.memberEmail"></td>
 				<td>${errors.acc}</td>
 			</tr>  
 <!-- 			<tr> -->
@@ -116,7 +117,7 @@ tr{
 			
 			<tr>
 				<td></td>
-				<td>${action}</td>
+				<td>${errors.action}</td>
 			</tr>
 			
 		</table>

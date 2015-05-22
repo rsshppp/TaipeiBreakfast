@@ -5,12 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <title>Taipei Breakfast - 台北早餐通</title>
 
 <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="../css/carousel.css" rel="stylesheet">
 <link rel="icon" href="../favicon.ico">
 
@@ -78,12 +77,14 @@ tr{
 
 	<div style="text-align: left; margin: 80px 20px 50px 30%;">
 	
-	<form action="MemberLosePassServlet.controller" method="post">
+<!-- 	<form action="MemberLosePassServlet.controller" method="post"> -->
+	<form action="<c:url value='/pe/duAction!losePassword.action'/>" method="post">
 		<table>
 			<tr><th><h3>忘記密碼</h3></th></tr>
 			<tr>
 				<td>Email :</td>
-				<td><input type="text" name="email"></td>
+<!-- 				<td><input type="text" name="email"></td> -->
+				<td><input type="text" name="mf.memberEmail"></td>
 				<td>${errors.acc}</td>
 			</tr>  
 <!-- 			<tr> -->
@@ -101,7 +102,7 @@ tr{
 		
 	<div style="text-align: center; margin: 50px auto;">
 		<span style="text-align: center; position: relative; left:-200px;">
-			<input type="submit" name="insertMemberActive" value="確認">
+			<input type="submit" value="確認">
 		</span>
 		<span style="text-align: center; color:red; position: relative; left:-100px;">
 			<input type="reset" value="清空重填">

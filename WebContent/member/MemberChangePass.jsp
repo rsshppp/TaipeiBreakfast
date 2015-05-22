@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -28,7 +29,10 @@ tr{
  height:20px;
 }
 </style>
-		
+	
+<%-- <struts> --%>
+<!--     <include file="struts.xml"/> -->
+<%-- </struts>	 --%>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -72,7 +76,8 @@ tr{
 								<option>內湖區</option>
 								<option>南港區</option>
 								<option>文山區</option>
-							</select> <select class="form-control" id="sel1">
+							</select> 
+							<select class="form-control" id="sel1">
 								<option>店家</option>
 								<option>早餐吃到飽</option>
 								<option>早餐吃不飽</option>
@@ -98,21 +103,24 @@ tr{
 					<a class="list-group-item text-center" href="#">會員功能</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a>
 				</div>
+				
 				<div class="col-md-10" style="text-align: left; top: 30px;">
-
-					<form action="MemberChPassServlet.controller" method="post">
+					<form action="<c:url value='/pe/duAction!changePassword.action'/>" method="post">
+<!-- 					<form action="MemberChPassServlet.controller" method="post"> -->
 						<table>
 							<tr>
 								<th><h3>修改密碼</h3></th>
 							</tr>
 							<tr>
 								<td>Email :</td>
-								<td><input type="text" name="email"></td>
+								<td><input type="text" name="mf.memberEmail"></td>
+<!-- 								<td><input type="text" name="email"></td> -->
 								<td>${errors.acc}</td>
 							</tr>
 							<tr>
 								<td>密碼 :</td>
-								<td><input type="password" name="pass"></td>
+								<td><input type="password" name="mf.memberPwd"></td>
+<!-- 								<td><input type="password" name="pass01"></td> -->
 							</tr>
 <!-- 							<tr> -->
 <!-- 								<td>確認密碼 :</td> -->
@@ -122,17 +130,16 @@ tr{
 
 							<tr>
 								<td></td>
-								<td>${action}</td>
+								<td>${errors.action}</td>
 							</tr>
 
 						</table>
 
 						<div style="text-align: center; margin: 50px auto;">
-							<span
-								style="text-align: center; position: relative; left: -200px;">
-								<input type="submit" name="insertMemberActive" value="修改">
-							</span> <span
-								style="text-align: center; color: red; position: relative; left: -100px;">
+							<span style="text-align: center; position: relative; left: -200px;">
+								<input type="submit" value="修改">
+							</span> 
+							<span style="text-align: center; color: red; position: relative; left: -100px;">
 								<input type="reset" value="清空重填">
 							</span>
 						</div>

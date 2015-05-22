@@ -26,9 +26,9 @@ public class TBService{
 
 	public TBService(){
 	}
-	public TBService(MemberDAO member){
-		this.member = member;
-	}
+//	public TBService(MemberDAO member){
+//		this.member = member;
+//	}
 	public void setMember(MemberDAO member) {
 		this.member = member;
 	}
@@ -110,7 +110,8 @@ public class TBService{
 
 	//(-.-)*杜
 	public MemberBean selectMemberE(String ea) {
-	MemberBean result=null;
+		MemberBean result=null;
+//		System.out.println("select e : "+ea);
 		if (ea != null) {
 			System.out.println("in selectE="+ea);
 			MemberBean b = member.selectMemberByMail(ea);

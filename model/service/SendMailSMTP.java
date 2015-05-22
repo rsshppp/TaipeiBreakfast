@@ -32,6 +32,7 @@ public class SendMailSMTP{
 	  }
 	  
 	  public boolean send(String MemberMail,String Subject,String Text){
+		  System.out.println(MemberMail);
 		  boolean result=false;
 //		  String us=u;
 //		  String pa=p;
@@ -39,7 +40,6 @@ public class SendMailSMTP{
 //		  String sm=s;
 //		  int po = this.po;
   	      Properties props = setProperties();
-
 		  Session session = Session.getInstance(
 				  props, new Authenticator() {
 					  protected PasswordAuthentication getPasswordAuthentication() {
@@ -48,11 +48,9 @@ public class SendMailSMTP{
 				  }								);
 
 		try {
-
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(us));
-			message.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse(MemberMail));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(MemberMail));
 			message.setSubject(Subject);
 			message.setText(Text);
 

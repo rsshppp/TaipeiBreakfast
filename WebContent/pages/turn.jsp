@@ -17,7 +17,7 @@ window.location = "../index.html";
 </p>
 </form>
 <p align="center"> 如果無法跳轉,
-<a style="text-decoration: none" href="../index.html"><font color="red">請點這裡</font></a>.
+<a style="text-decoration: none" href="../index.jsp"><font color="red">請點這裡</font></a>.
 </p>
 </body>
 </html>

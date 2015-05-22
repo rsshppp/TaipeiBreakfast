@@ -2,14 +2,19 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.lang.reflect.Type;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import model.bean.MemberBean;
+import model.bean.ShopBean;
 import model.misc.convert;
 import model.service.TBService;
 
@@ -28,18 +33,24 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	private HttpServletRequest request;
 	private TBService service=new TBService();
 	private MemberForm mf=new MemberForm();
-//	private ShopForm sf;
+	private ShopForm sf;
 	private Map<String, String> errors=new HashMap<String, String>();
 	private Gson gson=new Gson();
 	private String redata;
-//	private String jsondata;
+	private String jsondata;
 //	private String mealName;
 
 	public MemberForm getMf() {
 		return mf;
 	}
-	public void setMb(MemberForm mf) {
+	public void setMf(MemberForm mf) {
 		this.mf = mf;
+	}
+	public ShopForm getSf() {
+		return sf;
+	}
+	public void setSf(ShopForm sf) {
+		this.sf = sf;
 	}
 	public void setService(TBService service) {
 		this.service = service;
@@ -55,7 +66,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 //	}
 	
 	
-	public String memberinsert() {
+	public String memberInsert() {
 
 		if (mf.getMemberEmail() != null && mf.getMemberEmail().length() != 0) {
 	        //mail 型態驗證
@@ -87,6 +98,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		}
         if (errors!=null && !errors.isEmpty()) {
         	// errors != null &&
+			request.setAttribute("errors", errors);
 			return "memberinsert";
         }
 		
@@ -119,14 +131,14 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			if(result != null){
 				errors.put("action", "新增成功");
 				//回首頁, 自動登入
-				request.setAttribute("insert", result);
 				return "index";
 			}else{
 				errors.put("action", "Insert fail");
 			}
-			redata=gson.toJson(errors);
-			System.out.println(redata);
 		}
+		redata=gson.toJson(errors);
+		System.out.println(redata);
+			request.setAttribute("errors", errors);
 			return "memberinsert";
 		}catch(IOException e){
 			errors.put("action", "新增失敗");
@@ -135,7 +147,8 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	}
 
 	public String memberUpdate() {
-		
+
+    	System.out.println(mf.getMemberEmail());
 		if (mf.getMemberEmail() != null && mf.getMemberEmail().length() != 0) {
 			System.out.println("Action mail pass");
 		}else{
@@ -157,7 +170,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		}
         if (errors!=null && !errors.isEmpty()) {
         	// errors != null &&
-        	System.out.println(mf.getMemberEmail());
+			request.setAttribute("errors", errors);
 			return "memberupdate";
         }
         
@@ -193,8 +206,11 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 					}
 					redata = gson.toJson(errors);
 					System.out.println(redata);
+				}else{
+					errors.put("action", "無此mail");
 				}
 			}
+			request.setAttribute("errors", errors);
 			return "memberupdate";
 		}catch(IOException e){
 			errors.put("action", "Update失敗");
@@ -217,6 +233,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 //		}
         if (errors!=null && !errors.isEmpty()) {
         	// errors != null &&
+			request.setAttribute("errors", errors);
 			return "memberchangepass";
         }
         
@@ -231,10 +248,13 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 					} else {
 						errors.put("action", "Change fail");
 					}
-					redata = gson.toJson(errors);
-					System.out.println(redata);
+				}else{
+					errors.put("action", "無此mail");
 				}
 			}
+			redata = gson.toJson(errors);
+			System.out.println(redata);
+			request.setAttribute("errors", errors);
 			return "memberchangepass";
 		}catch(Exception e){
 			errors.put("action", "Change失敗");
@@ -249,6 +269,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			errors.put("acc", "Please enter email");
 		}
 		if (errors != null && !errors.isEmpty()) {
+			request.setAttribute("errors", errors);
 			return "memberdelete";
 		}
 		try{
@@ -273,10 +294,12 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 							errors.put("action", "Delete fail");
 						}
 //					}
-					redata = gson.toJson(errors);
-					System.out.println(redata);
+				}else{
+					errors.put("action", "無此mail");
 				}
 			}
+			redata = gson.toJson(errors);
+			System.out.println(redata);
 			return "memberdelete";
 		}catch(Exception e){
 			errors.put("action", "刪除失敗");
@@ -291,7 +314,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			errors.put("acc", "Please enter email");
 		}
 		if (errors != null && !errors.isEmpty()) {
-			System.out.println("err");
+			request.setAttribute("errors", errors);
 			return "losepass";
 		}
 		try{
@@ -302,16 +325,16 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 //					if(mf.getMemberFirstName().equals(t.getMemberFirstName())){
 						service.losepassword(t.getMemberID());
 						errors.put("action", "已幫您變更密碼,請前往電子郵件信箱收信");
-						//若成功則彈出顯示action並返回首頁
-
-						return "index";
-//					} else {
+						return "losepass";
+					}else{
 //						errors.put("action", "Ooooooooooooops");
+						errors.put("action", "無此mail");
 					}
-					redata = gson.toJson(errors);
-					System.out.println(redata);
 //				}
 			}
+			redata = gson.toJson(errors);
+			System.out.println(redata);
+			request.setAttribute("errors", errors);
 			return "losepass";
 		}catch(Exception e){
 			errors.put("action", "驗證失敗");
@@ -319,15 +342,82 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		}
 	}
 
-	public String allowShop() {
-		
+	public String shoplist() {
+		System.out.println("slist");
 		try{
-			errors.put("action", "Ooooooooooooops");
+			List<ShopBean> list=service.selectAllowShop();
+			Iterator<ShopBean> shopBlist=list.iterator();
+			List<ShopForm> listform=new ArrayList<ShopForm>();
+			while(shopBlist.hasNext()){
+				ShopBean bean=shopBlist.next();
+				ShopForm form=new ShopForm();
+				form.setShopID(bean.getShopID());
+				form.setShopName(bean.getShopName());
+				form.setOwnID(bean.getOwnID());
+				form.setLogoImage(bean.getLogoImage());
+				form.setShopCondID(bean.getShopCondID());
+				form.setShopPhone(bean.getShopPhone());
+				form.setShopCity(bean.getShopCity());
+				form.setShopArea(bean.getShopArea());
+				form.setShopSuspend(bean.getShopSuspend());
+				form.setBeginBusinessTime(bean.getBeginBusinessTime());
+				form.setBusinessTimeNote(bean.getBusinessTimeNote());
+				listform.add(form);
+			}
+			Type listType = new TypeToken<List<ShopForm>>(){}.getType();
+			
+//			redata = gson.toJson(errors);
+			redata=gson.toJson(listform,listType);
+			System.out.println(redata);
+			return "allowshop";
+		}catch(Exception e){
+			errors.put("action", "失敗");
+			return "error";
+		}
+	}
+
+	public String allowShop() {
+		if(sf.getShopID()!=null && sf.getShopID()!=0){
+			System.out.println("Action mail pass");
+		}else{
+			errors.put("action", "no ID");
+			return "allowshop";
+		}
+		try{
+			boolean s=service.allowShop(sf.getShopID());
+			if(s){
+				
+			}else{
+				errors.put("action", "Ooooooooooooops");
+			}
 			redata = gson.toJson(errors);
 			System.out.println(redata);
 			return "allowshop";
 		}catch(Exception e){
-			errors.put("action", "驗證失敗");
+			errors.put("action", "失敗");
+			return "error";
+		}
+	}
+
+	public String selectShop() {
+		try{
+			if (sf.getShopID() != null && sf.getShopID() != 0) {
+				service.selectSByID(sf.getShopID());
+				//
+				return "selectshop";
+			} else {
+//				service.selectSByKeyword(keyword, sf.getShopArea());
+//				if(sf.getShopArea()!=null && sf.getShopArea().length()!=0){
+//					
+//				}else{
+//					errors.put("action", "選個區域");
+//				}
+			}
+			redata = gson.toJson(errors);
+			System.out.println(redata);
+			return "selectshop";
+		}catch(Exception e){
+			errors.put("action", "失敗");
 			return "error";
 		}
 	}

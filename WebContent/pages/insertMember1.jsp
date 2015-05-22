@@ -5,6 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <title>Taipei Breakfast - 台北早餐通</title>
 
 <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,7 +21,36 @@ tr{
  height:30px;
 } 
 </style>
-
+		
+<script>
+    function ProcessFile(e){   
+        var file = document.getElementById('imgin').files[0];
+        console.log(file);
+        if (file) {
+            if (document.getElementById("imgout").hasChildNodes()) {
+                document.getElementById("imgout").removeChild(document.getElementById("imgout").childNodes[0]);
+            }
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var txt = event.target.result;
+                var img = document.createElement("img");
+                img.id="image1";
+                img.src = txt;
+                document.getElementById("imgout").appendChild(img);
+            };
+        }else{
+        	if (document.getElementById("imgout").hasChildNodes()) {
+                document.getElementById("imgout").removeChild(document.getElementById("imgout").childNodes[0]);
+            }
+        }
+        reader.readAsDataURL(file);
+    }
+    function contentLoaded(){
+        document.getElementById('imgin').addEventListener('change',ProcessFile,false);
+    }
+    window.addEventListener("DOMContentLoaded",contentLoaded,false);
+</script>
+    
 </head>
 <body>
 
@@ -78,28 +108,33 @@ tr{
 
 	<div style="text-align: left; margin: 80px 20px 50px 30%;">
 	
-	<form action="MemberInsertServlet.controller" method="post">
+<!-- 	<form action="MemberInsertServlet.controller" method="post"> -->
+	<form action="<c:url value='/pe/duAction!memberInsert.action'/>" method="post" enctype="multipart/form-data">
 		<table>
 			<tr><th><h3>加入會員</h3></th></tr>
 			<tr>
 				<td>Email :</td>
-				<td><input type="text" name="email" id="idEmail" onchange="checkmail()"></td>
-				<td>${erro.acc}</td>
+<!-- 				<td><input type="text" name="email" id="idEmail" onchange="checkmail()"></td> -->
+				<td><input type="text" name="mf.memberEmail" id="idEmail" onchange="checkmail()"></td>
+				<td>${errors.acc}</td>
 			</tr>
 			<tr>
 				<td>密碼 :</td>
-				<td><input type="password" name="pass"></td>
+<!-- 				<td><input type="password" name="pass"></td> -->
+				<td><input type="password" name="mf.memberPwd"></td>
 			</tr>
 			<tr>
 				<td> </td>
 			</tr>
 			<tr>
 				<td>姓氏 :</td>
-				<td><input type="text" name="first"></td>
+<!-- 				<td><input type="text" name="first"></td> -->
+				<td><input type="text" name="mf.memberFirstName"></td>
 			</tr>
 			<tr>
 				<td>名字 :</td>
-				<td><input type="text" name="last"></td>
+<!-- 				<td><input type="text" name="last"></td> -->
+				<td><input type="text" name="mf.memberLastName"></td>
 			</tr>
 			
 			<tr>
@@ -109,6 +144,7 @@ tr{
 			<tr>
 				<td>聯絡電話 :</td>
 				<td><input type="text" name="tel"></td>
+				<td><input type="text" name="mf.memberTel"></td>
 				<td>${erro.tel}</td>
 			</tr>
 			<tr>
@@ -118,8 +154,9 @@ tr{
 			-->
 			<tr>
 				<td>手機 :</td>
-				<td><input type="text" name="pho"></td>
-				<td>${erro.pho}</td>
+<!-- 				<td><input type="text" name="pho"></td> -->
+				<td><input type="text" name="mf.memberPhone"></td>
+				<td>${errors.pho}</td>
 			</tr>
 			<tr>
 				<td></td>
@@ -131,17 +168,23 @@ tr{
 			
 			<tr>
 				<td>地址 :</td>
-				<td><input type="text" name="addr"></td>
+<!-- 				<td><input type="text" name="addr"></td> -->
+				<td><input type="text" name="mf.memberAddr"></td>
 			</tr>
 			
 			<tr>
 				<td>圖片 :</td>
-				<td><input type="file" name="img" accept="image/*"></td>
+<!-- 				<td><input type="file" name="img" accept="image/*"></td> -->
+				<td><input type="file" id="imgin" name="mf.memberImage" accept="image/*"></td>
 			</tr>
-			
 			<tr>
 				<td></td>
-				<td>${action}</td>
+				<td id="imgout" style="width: 20px; height: 20px;"></td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td>${errors.action}</td>
 			</tr>
 			
 		</table>
@@ -165,7 +208,7 @@ tr{
 		</script>
 	<div style="text-align: center; margin: 50px auto;">
 		<span style="text-align: center; position: relative; left:-200px;">
-			<input type="submit" name="insertMemberActive" value="註冊">
+			<input type="submit" value="註冊">
 		</span>
 		<span style="text-align: center; color:red; position: relative; left:-100px;">
 			<input type="reset" value="清空重填">
@@ -189,8 +232,7 @@ tr{
 
 	<div class="container marketing">
 		<footer>
-			<p class="pull-left">&copy; 2015 Taipei Breakfast. All rights
-				reserved. &middot;</p>
+			<p class="pull-left">&copy; 2015 Taipei Breakfast. All rights reserved. &middot;</p>
 			<p class="pull-left">
 				<a href="#">隱私權政策</a> &middot; 
 				<a href="#">常見問題</a> &middot; 

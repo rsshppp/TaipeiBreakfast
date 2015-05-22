@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<
 <html>
 <head>
 <meta charset="utf-8">
@@ -11,7 +13,9 @@
 <!-- Bootstrap -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!-- social icon 使用 -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
 <!-- Custom styles -->
 <link href="css/carousel.css" rel="stylesheet">
 <link rel="icon" href="favicon.ico">
@@ -32,14 +36,13 @@
 			<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
 				aria-controls="navbar">
-				<span class="sr-only">Toggle navigation</span> 
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span>
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#"> 
-				<img alt="Brand" src="image/proj_icon_2.png" 
-					style="max-width: 100px; margin-top: -12px;">
+			<a class="navbar-brand" href="#"> <img alt="Brand"
+				src="image/proj_icon_2.png"
+				style="max-width: 100px; margin-top: -12px;">
 			</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
@@ -58,32 +61,27 @@
 				</a></li>
 			</ul>
 			<form class="navbar-form navbar-left" role="search">
-<!-- 					<form class="navbar-form navbar-left" role="search" 
- 							action="<c:url value='/pe/duAction!selectShop.action'/>" 
-							method="post"> -->
 				<div class="form-group">
-					<select class="form-control" id="sel1" name="shopArea">
+					<select class="form-control" id="sel1" name="">
 						<option>地區</option>
-						<option value="中正">中正區</option>
-						<option value="大同">大同區</option>
-						<option value="中山">中山區</option>
-						<option value="松山">松山區</option>
-						<option value="大安">大安區</option>
-						<option value="萬華">萬華區</option>
-						<option value="信義">信義區</option>
-						<option value="士林">士林區</option>
-						<option value="北投">北投區</option>
-						<option value="內湖">內湖區</option>
-						<option value="南港">南港區</option>
-						<option value="文山">文山區</option>
-					</select> 
-					<select class="form-control" id="sel1" name="sid">
+						<option>中正區</option>
+						<option>大同區</option>
+						<option>中山區</option>
+						<option>松山區</option>
+						<option>大安區</option>
+						<option>萬華區</option>
+						<option>信義區</option>
+						<option>士林區</option>
+						<option>北投區</option>
+						<option>內湖區</option>
+						<option>南港區</option>
+						<option>文山區</option>
+					</select> <select class="form-control" id="sel1" name="">
 						<option>店家</option>
 						<option>早餐吃到飽</option>
 						<option>早餐吃不飽</option>
 						<option>早餐吃很少</option>
-					</select> 
-					<input type="text" class="form-control" placeholder="關鍵字" name="keyword">
+					</select> <input type="text" class="form-control" placeholder="關鍵字" name="">
 				</div>
 				<button type="submit" class="btn btn-default">搜尋早餐</button>
 			</form>
@@ -95,7 +93,8 @@
 		data-ride="carousel">
 		<!-- Indicators -->
 		<ol class="carousel-indicators">
-			<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+			<li data-target="#carousel-example-generic" data-slide-to="0"
+				class="active"></li>
 			<li data-target="#carousel-example-generic" data-slide-to="1"></li>
 			<li data-target="#carousel-example-generic" data-slide-to="2"></li>
 			<li data-target="#carousel-example-generic" data-slide-to="3"></li>
@@ -136,13 +135,12 @@
 		</div>
 		<!-- Controls -->
 		<a class="left carousel-control" href="#carousel-example-generic"
-			role="button" data-slide="prev"> 
-			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
-			<span class="sr-only">Previous</span>
-		</a> 
-		<a class="right carousel-control" href="#carousel-example-generic"
-					role="button" data-slide="next"> 
-			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			role="button" data-slide="prev"> <span
+			class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span
+			class="sr-only">Previous</span>
+		</a> <a class="right carousel-control" href="#carousel-example-generic"
+			role="button" data-slide="next"> <span
+			class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 			<span class="sr-only">Next</span>
 		</a>
 	</div>
@@ -171,8 +169,7 @@
 		<p class="pull-left">&copy; 2015 Taipei Breakfast. All rights
 			reserved. &middot;</p>
 		<p class="pull-left">
-			<a href="#">隱私權政策</a> &middot; 
-			<a href="#">常見問題</a> &middot;
+			<a href="#">隱私權政策</a> &middot; <a href="#">常見問題</a> &middot;
 			<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
 				data-target="#myModalforContact">聯絡我們</button>
 
@@ -184,15 +181,19 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">信箱</h4>
-						<input type="text" placeholder="請填入你的信箱">
-						<h4 class="modal-title">主旨</h4>
-						<input type="text" placeholder="請填入主旨">
-						<h4 class="modal-title">內容</h4>
-						<input type="text" placeholder="請填入內容">
-						<div class="modal-footer">
-							<input type="submit" value="送出">
-						</div>
+						<form
+							action="${pageContext.request.contextPath}/myNamespace/myAction.controller"
+							method="post">
+							<h4 class="modal-title">信箱</h4>
+							<input type="text" placeholder="請填入你的信箱" name="SendGmailForm.gmail" required="required">
+							<h4 class="modal-title">主旨</h4>
+							<input type="text" placeholder="請填入主旨" name="SendGmailForm.subject" required="required">
+							<h4 class="modal-title">內容</h4>
+							<input type="text" placeholder="請填入內容" name="SendGmailForm.text" required="required">
+							<div class="modal-footer">
+								<button type="submit">送出</button>
+							</div>
+						</form>
 					</div>
 
 				</div>
@@ -256,8 +257,9 @@
 									</div>
 									<button class="btn btn-lg btn-info btn-block" type="submit">登入</button>
 									<!-- 新會員註冊button連結至 insertMember1.jsp by Steven -->
-									<a href="${pageContext.request.contextPath}/pages/insertMember1.jsp" 
-											type="button" class="btn btn-lg btn-primary btn-block">新會員註冊</a>
+									<a
+										href="${pageContext.request.contextPath}/pages/insertMember1.jsp"
+										type="button" class="btn btn-lg btn-primary btn-block">新會員註冊</a>
 									<!--  
 							<button class="btn btn-lg btn-primary btn-block" type="button">新會員註冊</button>
 							-->

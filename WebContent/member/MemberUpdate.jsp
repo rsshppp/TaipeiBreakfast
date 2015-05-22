@@ -28,6 +28,35 @@ tr{
 }
 </style>
 		
+<script>
+    function ProcessFile(e){   
+        var file = document.getElementById('imgin').files[0];
+        console.log(file);
+        if (file) {
+            if (document.getElementById("imgout").hasChildNodes()) {
+                document.getElementById("imgout").removeChild(document.getElementById("imgout").childNodes[0]);
+            }
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var txt = event.target.result;
+                var img = document.createElement("img");
+                img.id="image1";
+                img.src = txt;
+                document.getElementById("imgout").appendChild(img);
+            };
+        }else{
+        	if (document.getElementById("imgout").hasChildNodes()) {
+                document.getElementById("imgout").removeChild(document.getElementById("imgout").childNodes[0]);
+            }
+        }
+        reader.readAsDataURL(file);
+    }
+    function contentLoaded(){
+        document.getElementById('imgin').addEventListener('change',ProcessFile,false);
+    }
+    window.addEventListener("DOMContentLoaded",contentLoaded,false);
+</script>
+    
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -97,28 +126,32 @@ tr{
 					<a class="list-group-item text-center" href="#">會員功能</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a>
 				</div>
-				<div class="col-md-10" style="text-align: left; top: 30px;">
-
-					<form action="MemberUpdateServlet.controller" method="post">
+				
+				<div id="d1" class="col-md-10" style="text-align: left; top: 30px;">
+<!-- 					<form id="formup" action="MemberUpdateServlet.controller" method="post"> -->
+					<form action="<c:url value='/pe/duAction!memberUpdate.action'/>" method="post" enctype="multipart/form-data">
 						<table>
 							<tr>
 								<th><h3>更新資料</h3></th>
 							</tr>
 							<tr>
 								<td>Email :</td>
-								<td><input type="text" name="email" value="${sqldata.mail}"></td>
-								<td>${errou.acc}</td>
+<%-- 								<td><input type="text" name="email" value="${sqldata.mail}"></td> --%>
+								<td><input type="text" name="mf.memberEmail" value="${sqldata.mail}"></td>
+								<td>${errou.acc}${errors.acc}</td>
 							</tr>
 							<tr>
 								<td></td>
 							</tr>
 							<tr>
 								<td>姓氏 :</td>
-								<td><input type="text" name="first" value="${sqldata.firs}"></td>
+<%-- 								<td><input type="text" name="first" value="${sqldata.firs}"></td> --%>
+								<td><input type="text" name="mf.memberFirstName" value="${sqldata.firs}"></td>
 							</tr>
 							<tr>
 								<td>名子 :</td>
-								<td><input type="text" name="last" value="${sqldata.last}"></td>
+<%-- 								<td><input type="text" name="last" value="${sqldata.last}"></td> --%>
+								<td><input type="text" name="mf.memberLastName" value="${sqldata.last}"></td>
 							</tr>
 
 							<tr>
@@ -126,8 +159,9 @@ tr{
 							</tr>
 							<tr>
 								<td>聯絡電話 :</td>
-								<td><input type="text" name="tel" value="${sqldata.tel}"></td>
-								<td>${errou.tel}</td>
+<%-- 								<td><input type="text" name="tel" value="${sqldata.tel}"></td> --%>
+								<td><input type="text" name="mf.memberTel" value="${sqldata.tel}"></td>
+								<td>${errou.tel}${errors.tel}</td>
 							</tr>
 							<tr>
 								<td></td>
@@ -135,8 +169,9 @@ tr{
 							</tr>
 							<tr>
 								<td>手機 :</td>
-								<td><input type="text" name="pho" value="${sqldata.pho}"></td>
-								<td>${errou.pho}</td>
+<%-- 								<td><input type="text" name="pho" value="${sqldata.pho}"></td> --%>
+								<td><input type="text" name="mf.memberPhone" value="${sqldata.pho}"></td>
+								<td>${errou.pho}${errors.pho}</td>
 							</tr>
 							<tr>
 								<td></td>
@@ -144,7 +179,8 @@ tr{
 							</tr>
 							<tr>
 								<td>地址 :</td>
-								<td><input type="text" name="addr" value="${sqldata.addr}"></td>
+<%-- 								<td><input type="text" name="addr" value="${sqldata.addr}"></td> --%>
+								<td><input type="text" name="mf.memberAddr" value="${sqldata.addr}"></td>
 							</tr>
 
 							<tr>
@@ -152,52 +188,35 @@ tr{
 							</tr>
 							<tr>
 								<td>圖片 :</td>
-								<td><input type="file" name="img" accept="image/*"></td>
+<!-- 								<td><input type="file" id="imgin" name="img" accept="image/*"></td> -->
+								<td><input type="file" id="imgin" name="mf.memberImage" accept="image/*"></td>
 							</tr>
 							<tr>
-								<td><img name="img" src=""></td>
+								<td></td>
+								<td id="imgout" style="width:20px; height:20px;"></td>
 							</tr>
 
 							<tr>
 								<td></td>
-								<td>${action}${errou.update}</td>
+								<td>${errou.action}${errors.action}</td>
 							</tr>
 
 						</table>
 
 						<div style="text-align: center; margin: 50px auto;">
-							<span
-								style="text-align: center; position: relative; left: -200px;">
-								<input type="submit" name="insertMemberActive" value="更新">
-							</span> <span
-								style="text-align: center; color: red; position: relative; left: -100px;">
+							<span style="text-align: center; position: relative; left: -200px;">
+								<input type="submit" value="更新">
+							</span> 
+							<span style="text-align: center; color: red; position: relative; left: -100px;">
 								<input type="reset" value="清空重填">
 							</span>
 						</div>
-
+<!-- 			<div id="imgout" class="col-md-1" style="width:20px; height:20px; top: 150px; right:10%"></div> -->
+							
 					</form>
 
 				</div>
-			</div>
-			
-			
-			<!-- 互動視窗（Modal） -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">登入</h4>
-						</div>
-						<div class="modal-body">
-							<div id="test"></div>
-						</div>
-					</div>
-					<!-- /.modal-content -->
-				</div>
-				<!-- /.modal -->
+				
 			</div>
 		</div>
 	</div>

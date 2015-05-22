@@ -29,13 +29,14 @@ tr{
 				<button type="button" class="navbar-toggle collapsed"
 					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
 					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
+					<span class="sr-only">Toggle navigation</span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="../index.html"> <img alt="Brand"
-					src="../image/proj_icon_2.png"
-					style="max-width: 100px; margin-top: -12px;">
+				<a class="navbar-brand" href="../index.html"> 
+					<img alt="Brand" src="../image/proj_icon_2.png"
+						style="max-width: 100px; margin-top: -12px;">
 				</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
@@ -43,6 +44,16 @@ tr{
 					<li class="active"><a href="#">最新消息</a></li>
 					<li><a href="#">關於早餐通</a></li>
 				</ul>
+					<ul class="nav navbar-nav navbar-right">
+<!-- 					登入後由會員中心的li取代登入的li -->
+<!-- 						<li><a data-toggle="tab" href="member/MemberCenter"> -->
+<!-- 							<span class="glyphicon glyphicon-user"></span> 會員中心 </a> -->
+<!-- 						</li> -->
+						<!-- 觸發模態窗 -->
+						<li><a data-toggle="modal" data-target="#myModal" href="#">
+							<span class="glyphicon glyphicon-log-in"></span> 登入 </a>
+						</li>
+					</ul>
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
 						<select class="form-control" id="sel1">
@@ -147,6 +158,86 @@ tr{
 		</footer>
 	</div>
 
+		
+		
+		
+		<!-- 互動視窗（Modal） -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   			<div class="modal-dialog modal-sm">
+      		<div class="modal-content">
+      		
+        	<div class="modal-header">
+            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+			<h4 class="modal-title" id="myModalLabel">
+			歡迎光臨
+            </h4>
+		</div>
+		<div class="modal-body">
+		<!-- 登入頁籤 -->
+			<div role="tabpanel">
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a href="#membersign" aria-controls="membersign" role="tab" data-toggle="tab">會員</a></li>
+					<li role="presentation"><a href="#ownersign" aria-controls="ownersign" role="tab" data-toggle="tab">賣方</a></li>
+				</ul>
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="membersign">	
+						<form class="form-signin">
+							<h2 class="form-signin-heading">會員登入</h2>
+							<label for="inputEmail1" class="sr-only">Email 地址</label>
+							<input type="email" id="inputEmail1" class="form-control" placeholder="Email 地址" required autofocus>
+							<label for="inputPassword1" class="sr-only">密碼</label>
+							<input type="password" id="inputPassword1" class="form-control" placeholder="密碼" required>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" value="remember-me"> 記住密碼
+								</label>
+							</div>
+							<button class="btn btn-lg btn-info btn-block" type="submit">登入</button>
+							<!-- 新會員註冊buttion連結至 insertMember1.jsp by Steven -->
+							<a href="http://localhost:8080/TB/pages/insertMember1.jsp" type="button" class="btn btn-lg btn-primary btn-block">新會員註冊</a>
+							<!--  
+							<button class="btn btn-lg btn-primary btn-block" type="button">新會員註冊</button>
+							-->
+							<br>
+							<div class="text-right"><h5><a href="http://localhost:8080/TB/pages/losePassMember.jsp">忘記密碼?</a></h5></div>
+						</form>
+					</div>
+    				<div role="tabpanel" class="tab-pane" id="ownersign">
+    					<form class="form-signin">
+        					<h2 class="form-signin-heading">賣方登入</h2>
+							<label for="inputEmail2" class="sr-only">Email 地址</label>
+							<input type="email" id="inputEmail2" class="form-control" placeholder="Email 地址" required autofocus>
+							<label for="inputPassword2" class="sr-only">密碼</label>
+							<input type="password" id="inputPassword2" class="form-control" placeholder="密碼" required>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" value="remember-me"> 記住密碼
+								</label>
+							</div>
+							<button class="btn btn-lg btn-info btn-block" type="submit">登入</button>
+							<button class="btn btn-lg btn-primary btn-block" type="button">合作聯繫</button>
+							<br>
+							<div class="text-right"><h5><a href="">忘記密碼?</a></h5></div>
+						</form>
+    				</div>
+ 				</div>
+			</div>
+         </div>
+         
+      </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+</div>
+		
+		<!-- jQuery (Bootstrap 所有外掛均需要使用) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- 依需要參考已編譯外掛版本（如下），或各自獨立的外掛版本 -->
+		<script src="../bootstrap/js/bootstrap.min.js"></script>
+		<!-- Custom Javascript -->
+		<script src="../js/holder.js"></script>
 
 </body>
 </html>

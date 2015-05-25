@@ -37,7 +37,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	private Map<String, String> errors=new HashMap<String, String>();
 	private Gson gson=new Gson();
 	private String redata;
-	private String jsondata;
+//	private String jsondata;
 //	private String mealName;
 
 	public MemberForm getMf() {
@@ -141,7 +141,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			request.setAttribute("errors", errors);
 			return "memberinsert";
 		}catch(IOException e){
-			errors.put("action", "新增失敗");
 			return "error";
 		}
 	}
@@ -213,7 +212,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			request.setAttribute("errors", errors);
 			return "memberupdate";
 		}catch(IOException e){
-			errors.put("action", "Update失敗");
 			return "error";
 		}
 	}
@@ -257,7 +255,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			request.setAttribute("errors", errors);
 			return "memberchangepass";
 		}catch(Exception e){
-			errors.put("action", "Change失敗");
 			return "error";
 		}
 	}
@@ -302,7 +299,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			System.out.println(redata);
 			return "memberdelete";
 		}catch(Exception e){
-			errors.put("action", "刪除失敗");
 			return "error";
 		}
 	}
@@ -337,7 +333,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			request.setAttribute("errors", errors);
 			return "losepass";
 		}catch(Exception e){
-			errors.put("action", "驗證失敗");
 			return "error";
 		}
 	}
@@ -365,13 +360,12 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				listform.add(form);
 			}
 			Type listType = new TypeToken<List<ShopForm>>(){}.getType();
-			
 //			redata = gson.toJson(errors);
 			redata=gson.toJson(listform,listType);
-			System.out.println(redata);
+			System.out.println("re="+redata);
+//			request.setAttribute("redata", redata);
 			return "allowshop";
 		}catch(Exception e){
-			errors.put("action", "失敗");
 			return "error";
 		}
 	}
@@ -394,11 +388,39 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			System.out.println(redata);
 			return "allowshop";
 		}catch(Exception e){
-			errors.put("action", "失敗");
 			return "error";
 		}
 	}
 
+	public String selectShopArea() {
+		try{
+			if (sf.getShopArea()!= null && sf.getShopArea().length()!= 0) {
+				List<ShopBean> list=service.selectSByArea(sf.getShopArea());
+				Iterator<ShopBean> shopBlist=list.iterator();
+				List<ShopForm> listform=new ArrayList<ShopForm>();
+				while (shopBlist.hasNext()) {
+					ShopBean bean = shopBlist.next();
+					ShopForm form = new ShopForm();
+					form.setShopID(bean.getShopID());
+					form.setShopName(bean.getShopName());
+					listform.add(form);
+				}
+				Type listType = new TypeToken<List<ShopForm>>(){}.getType();
+
+				redata=gson.toJson(listform,listType);
+				System.out.println(redata);
+				return "selectarea";
+			} else {
+				errors.put("action", "area=null");
+			}
+			redata = gson.toJson(errors);
+			System.out.println(redata);
+			return "selectarea";
+		}catch(Exception e){
+			return "error";
+		}
+	}
+	
 	public String selectShop() {
 		try{
 			if (sf.getShopID() != null && sf.getShopID() != 0) {
@@ -417,7 +439,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			System.out.println(redata);
 			return "selectshop";
 		}catch(Exception e){
-			errors.put("action", "失敗");
 			return "error";
 		}
 	}

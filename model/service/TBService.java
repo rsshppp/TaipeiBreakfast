@@ -197,14 +197,14 @@ public class TBService{
 		List<ShopBean> result=null;
 
 		// Ajax 用 shopArea 找出 list 後選出 shopID
-		if (shopArea != null) {
-			if (keyword != null) {
+		if (shopArea != null && shopArea.length()!=0) {
+			if (keyword != null && keyword.length()!=0) {
 				// select shopArea 中符合keyword的部分
 				result=shop.selectAK(shopArea, keyword);
 			}
 		}else{
 			// select keyword from shopName,shopCity,shopArea,shopAddr,businessTimeNote
-			if (keyword != null) {
+			if (keyword != null && keyword.length()!=0) {
 				result = shop.selectKeyword(keyword);
 				// 傳回ShopName,ShopCity,ShopArea, 保留ShopID
 			}
@@ -233,6 +233,11 @@ public class TBService{
 	//(-.-)*杜
 	public boolean allowShop(int ShopID){
 		return shop.allowShop(ShopID);
+	}
+
+	//(-.-)*杜
+	public boolean notallowShop(int ShopID){
+		return shop.notAllowShop(ShopID);
 	}
 	
 }

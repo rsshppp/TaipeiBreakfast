@@ -1,6 +1,5 @@
 package model.dao.imp;
 
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+                                                   //圖片部分未完成!!!
                                                    //配合資料庫TaipeiBreakfast_20150504版本
 public class ShopDAOHibernate implements ShopDAO {   
 	
@@ -33,8 +33,10 @@ public class ShopDAOHibernate implements ShopDAO {
 	//(-.-)*杜
 	@Override
 	public List<ShopBean> selectAK(String shopArea,String keyword) {
+		Session session = getSession();
+		Transaction tx=session.beginTransaction();
 		//shopArea 中符合keyword條件的
-		Query query=getSession().createQuery("from ShopBean "
+		Query query=session.createQuery("from ShopBean "
 				+ "where shopArea=:ar "
 				+ "and shopName like:kw "
 				+ "or shopCity like:kw "
@@ -42,81 +44,121 @@ public class ShopDAOHibernate implements ShopDAO {
 				+ "or businessTimeNote like:kw ");
 		query.setString("ar", shopArea);
 		query.setString("kw", "%"+keyword+"%");
-		return (List<ShopBean>) query.list();
+		List<ShopBean> result=(List<ShopBean>) query.list();
+		tx.commit();
+		return result;
 	}
 	
 	//(-.-)*杜
 	@Override
 	public List<ShopBean> selectKeyword(String keyword) {
+		Session session = getSession();
+		Transaction tx=session.beginTransaction();
 		//用 keyword 模糊查詢 shopName,shopCity,shopArea
-		Query query=getSession().createQuery("from ShopBean "
+		Query query=session.createQuery("from ShopBean "
 				+ "where shopName like:st "
 				+ "or shopCity like:st "
 				+ "or shopArea like:st "
 				+ "or shopAddr like:st "
 				+ "or businessTimeNote like:st");
 		query.setString("st", "%"+keyword+"%");
-		return (List<ShopBean>) query.list();
+		List<ShopBean> result=(List<ShopBean>) query.list();
+		tx.commit();
+		return result;
 	}
 	
 	//(-.-)*杜
 	@Override
 	public List<ShopBean> selectArea(String shopArea){
-		Query query=getSession().createQuery("from ShopBean where shopArea =: status");
-		query.setString("status", "%"+shopArea+"%");
-		return (List<ShopBean>) query.list();
+		Session session = getSession();
+		Transaction tx=session.beginTransaction();
+		Query query=session.createQuery("from ShopBean where shopArea =: status");
+		query.setString("status", shopArea+"%");
+		List<ShopBean> result=(List<ShopBean>) query.list();
+		tx.commit();
+		return result;
 	}
 
 	//(-.-)*杜
 	@Override
 	public List<ShopBean> allowNeedsShop() {
-		Query query=this.getSession().createQuery("from ShopBean where ShopCondID=:status");
+		Session session = getSession();
+		Transaction tx=session.beginTransaction();
+		Query query=session.createQuery("from ShopBean where ShopCondID=:status");
 		query.setInteger("status", 1);
-		return (List<ShopBean>) query.list();
+		List<ShopBean> result=(List<ShopBean>) query.list();
+		tx.commit();
+		return result;
 	}
 
 	//(-.-)*杜
 	@Override
 	public boolean allowShop(int ShopID) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction tx = session.beginTransaction();
-		Criteria criteria = session.createCriteria(ShopBean.class);
-		criteria.add(Restrictions.eq("shopID", ShopID));
-		Iterator users = criteria.list().iterator();
-		while (users.hasNext()) {
-			ShopBean bean = (ShopBean) users.next();
-			System.out.println(bean);
-			if(bean.getShopCondID()==1){
-				bean.setShopCondID(2);
-				return true;
-			}
-			System.out.println(bean);
-			session.saveOrUpdate(bean);
+		
+//		Session session = HibernateUtil.getSessionFactory().openSession();
+//		Criteria criteria = session.createCriteria(ShopBean.class);
+//		criteria.add(Restrictions.eq("shopID", ShopID));
+//		Iterator users = criteria.list().iterator();
+//		while (users.hasNext()) {
+//			ShopBean bean = (ShopBean) users.next();
+//			System.out.println(bean);
+//			if(bean.getShopCondID()==1){
+//				bean.setShopCondID(3);
+//				return true;
+//			}
+//			System.out.println(bean);
+//			session.saveOrUpdate(bean);
+//		}
+//		session.close();
+
+		Session session = getSession();
+		Transaction tx=session.beginTransaction();
+		ShopBean sb = (ShopBean)session.get(ShopBean.class, ShopID);
+		System.out.println("allow: "+sb);
+		if (sb != null) {
+			// update ShopCondID
+			sb.setShopCondID(3);
+			getSession().saveOrUpdate(sb);
+			tx.commit();
+			return true;
 		}
+
 		tx.commit();
-		session.close();
 		return false;
 	}
 
 	//(-.-)*杜
 	public boolean notAllowShop(int ShopID) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction tx = session.beginTransaction();
-		Criteria criteria = session.createCriteria(ShopBean.class);
-		criteria.add(Restrictions.eq("shopID", ShopID));
-		Iterator users = criteria.list().iterator();
-		while (users.hasNext()) {
-			ShopBean bean = (ShopBean) users.next();
-			System.out.println(bean);
-			if(bean.getShopCondID()==1){
-				bean.setShopCondID(3);
-				return true;
-			}
-			System.out.println(bean);
-			session.saveOrUpdate(bean);
+		
+//		Session session = HibernateUtil.getSessionFactory().openSession();
+//		Criteria criteria = session.createCriteria(ShopBean.class);
+//		criteria.add(Restrictions.eq("shopID", ShopID));
+//		Iterator users = criteria.list().iterator();
+//		while (users.hasNext()) {
+//			ShopBean bean = (ShopBean) users.next();
+//			System.out.println(bean);
+//			if(bean.getShopCondID()==1){
+//				bean.setShopCondID(2);
+//				return true;
+//			}
+//			System.out.println(bean);
+//			session.saveOrUpdate(bean);
+//		}
+//		session.close();
+
+		Session session = getSession();
+		Transaction tx=session.beginTransaction();
+		ShopBean sb = (ShopBean)session.get(ShopBean.class, ShopID);
+		System.out.println("not allow: "+sb);
+		if (sb != null) {
+			// update ShopCondID
+			sb.setShopCondID(2);
+			getSession().saveOrUpdate(sb);
+			tx.commit();
+			return true;
 		}
+
 		tx.commit();
-		session.close();
 		return false;
 	}
 
@@ -240,7 +282,5 @@ public class ShopDAOHibernate implements ShopDAO {
 		query.setInteger("ownID", bean.getOwnID());
 		return query.list();
 	}
-	
-
-	
+		
 }

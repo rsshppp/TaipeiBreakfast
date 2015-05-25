@@ -12,7 +12,7 @@
 <font color="#0066ff" size="2">請稍等</font>
 <font color="#0066ff" size="2" face="Arial">...</font>
 <script>
-window.location = "../index.html";
+window.location = "../index.jsp";
 </script>
 </p>
 </form>

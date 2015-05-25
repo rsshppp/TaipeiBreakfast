@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <meta charset="utf-8">
@@ -25,41 +25,36 @@
 		<![endif]-->
 		
 	<!-- jQuery (Bootstrap 所有外掛均需要使用) -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<!-- 依需要參考已編譯外掛版本（如下），或各自獨立的外掛版本 -->
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<!-- Custom Javascript -->
 	<script src="js/holder.js"></script>
 		
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
-    <script src="http://malsup.github.com/jquery.form.js"></script> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.form.js"></script>
+
 	<script>
 		var shopID;
-    	$.get("<c:url value='/pe/duAction!selectShopArea'/>",
-    		function (data) {
-    			var list=JSON.parse(data.redata);
-        		console.log(list);
-        		$.each(list,function(u,i){
-					$('#sel2').append("<option value='" + i.shopID + "'>" + i.shopName + "</option>");
-	            })
-	            shopID = {shopID:$('#sel2').val()};
-    		});
-		$('#sel1').change(function(){
-			shopID = {shopID:$('#sel1').val()}
-				while(document.getElementById("sel2").hasChildNodes()){
-					document.getElementById("sel2").removeChild(document.getElementById("sel2").childNodes[0]);
-				}
-			createtable();
-		})
-		function createtable(){
-	    	$.get("<c:url value='/pe/duAction!selectShopArea.action'/>",Area,
+		var Area;
+		function createarea(){
+			Area={shopArea:$('#sel1').val()};
+    		console.log(Area);
+			while(document.getElementById("sel2").hasChildNodes()){
+				document.getElementById("sel2").removeChild(document.getElementById("sel2").childNodes[0]);
+			}
+			$('#sel2').append("<option>店家</option>");
+	    	$.get("<c:url value='/pe/duAction!selectShopArea.action'/>?sf.shopArea="+Area+"",
 	        	function(data){
 					var list=JSON.parse(data.redata);
+	         		console.log(list);
 					$.each(list,function(i,v){
 						$('#sel2').append("<option value='" + v.shopID + "'>" + v.shopName + "</option>");	
 					})
-	        	})
+	        	});
 		}
 	</script>
 		
@@ -98,12 +93,12 @@
 						<span class="glyphicon glyphicon-log-in"></span> 登入
 				</a></li>
 			</ul>
-			<form class="navbar-form navbar-left" role="search" action="selectShopServlet.controller">
-<!-- 					<form class="navbar-form navbar-left" role="search" 
- 							action="<c:url value='/pe/duAction!selectShop.action'/>" 
-							method="post"> -->
+<!-- 			<form class="navbar-form navbar-left" role="search" action="selectShopServlet.controller"> -->
+			<form class="navbar-form navbar-left" role="search" 
+ 					action="<c:url value='/pe/duAction!selectShop.action'/>" 
+					method="post">
 				<div class="form-group">
-					<select class="form-control" id="sel1" name="shopArea" onchange="" >
+					<select class="form-control" id="sel1" name="sf.shopArea" onchange="createarea()" >
 						<option>地區</option>
 						<option value="中正">中正區</option>
 						<option value="大同">大同區</option>
@@ -118,7 +113,7 @@
 						<option value="南港">南港區</option>
 						<option value="文山">文山區</option>
 					</select> 
-					<select class="form-control" id="sel1" name="sid">
+					<select class="form-control" id="sel2" name="sf.shopID" onchange="">
 						<option>店家</option>
 						<option>早餐吃到飽</option>
 						<option>早餐吃不飽</option>
@@ -224,17 +219,17 @@
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-header">
-<%-- 						<form action="${pageContext.request.contextPath}/myNamespace/myAction.controller" method="post" > --%>
-<!-- 							<h4 class="modal-title">信箱</h4> -->
-<!-- 							<input type="text" placeholder="請填入你的信箱" name="SendGmailForm.gmail" required="required"> -->
-<!-- 							<h4 class="modal-title">主旨</h4> -->
-<!-- 							<input type="text" placeholder="請填入主旨" name="SendGmailForm.subject" required="required"> -->
-<!-- 							<h4 class="modal-title">內容</h4> -->
-<!-- 							<input type="text" placeholder="請填入內容" name="SendGmailForm.text" required="required"> -->
-<!-- 							<div class="modal-footer"> -->
-<!-- 							<button type="submit">送出</button> -->
-<!-- 							</div> -->
-<!-- 						</form> -->
+						<form action="${pageContext.request.contextPath}/myNamespace/myAction.controller" method="post" >
+							<h4 class="modal-title">信箱</h4>
+							<input type="text" placeholder="請填入你的信箱" name="SendGmailForm.gmail" required="required">
+							<h4 class="modal-title">主旨</h4>
+							<input type="text" placeholder="請填入主旨" name="SendGmailForm.subject" required="required">
+							<h4 class="modal-title">內容</h4>
+							<input type="text" placeholder="請填入內容" name="SendGmailForm.text" required="required">
+							<div class="modal-footer">
+							<button type="submit">送出</button>
+							</div>
+						</form>
 					</div>
 
 				</div>
@@ -285,21 +280,19 @@
 							<div role="tabpanel" class="tab-pane active" id="membersign">
 								<form class="form-signin">
 									<h2 class="form-signin-heading">會員登入</h2>
-									<label for="inputEmail1" class="sr-only">Email 地址</label> <input
-										type="email" id="inputEmail1" class="form-control"
-										placeholder="Email 地址" required autofocus> <label
-										for="inputPassword1" class="sr-only">密碼</label> <input
-										type="password" id="inputPassword1" class="form-control"
+									<label for="inputEmail1" class="sr-only">Email 地址</label> 
+									<input type="email" id="inputEmail1" class="form-control"
+										placeholder="Email 地址" required autofocus> 
+									<label for="inputPassword1" class="sr-only">密碼</label> 
+									<input type="password" id="inputPassword1" class="form-control"
 										placeholder="密碼" required>
 									<div class="checkbox">
-										<label> <input type="checkbox" value="remember-me">
-											記住密碼
-										</label>
+										<label> <input type="checkbox" value="remember-me">記住密碼</label>
 									</div>
 									<button class="btn btn-lg btn-info btn-block" type="submit">登入</button>
 <!-- 									新會員註冊button連結至 insertMember1.jsp by Steven -->
-<%-- 									<a href="${pageContext.request.contextPath}/pages/insertMember1.jsp"  --%>
-<!-- 											type="button" class="btn btn-lg btn-primary btn-block">新會員註冊</a> -->
+									<a href="${pageContext.request.contextPath}/pages/insertMember1.jsp" 
+											type="button" class="btn btn-lg btn-primary btn-block">新會員註冊</a>
 							<button class="btn btn-lg btn-primary btn-block" type="button">新會員註冊</button>
 									<br>
 									<div class="text-right">
@@ -309,19 +302,17 @@
 									</div>
 								</form>
 							</div>
-							<div role="tabpanel"  class="tab-pane" id="ownersign">
+							<div role="tabpanel" class="tab-pane" id="ownersign">
 								<form class="form-signin" action='<c:url value="/login"/>' method="post">
 									<h2 class="form-signin-heading">賣方登入</h2>
-									<label for="inputEmail2" class="sr-only">Email 地址</label> <input
-										type="text" id="inputEmail2" name="user" class="form-control"
-										placeholder="Email 地址" required autofocus> <label
-										for="inputPassword2" class="sr-only">密碼</label> <input
-										type="password" name="password" id="inputPassword2" class="form-control"
+									<label for="inputEmail2" class="sr-only">Email 地址</label> 
+									<input type="email" id="inputEmail2" name="user" class="form-control"
+										placeholder="Email 地址" required autofocus> 
+									<label for="inputPassword2" class="sr-only">密碼</label> 
+									<input type="password" name="password" id="inputPassword2" class="form-control"
 										placeholder="密碼" required>
 									<div class="checkbox">
-										<label> <input type="checkbox" value="remember-me">
-											記住密碼
-										</label>
+										<label> <input type="checkbox" value="remember-me">記住密碼</label>
 									</div>
 									<button class="btn btn-lg btn-info btn-block" type="submit">登入</button>
 									<button class="btn btn-lg btn-primary btn-block" type="button">合作聯繫</button>

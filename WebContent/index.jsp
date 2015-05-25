@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -308,14 +309,14 @@
 									</div>
 								</form>
 							</div>
-							<div role="tabpanel" class="tab-pane" id="ownersign">
-								<form class="form-signin">
+							<div role="tabpanel"  class="tab-pane" id="ownersign">
+								<form class="form-signin" action='<c:url value="/login"/>' method="post">
 									<h2 class="form-signin-heading">賣方登入</h2>
 									<label for="inputEmail2" class="sr-only">Email 地址</label> <input
-										type="email" id="inputEmail2" class="form-control"
+										type="text" id="inputEmail2" name="user" class="form-control"
 										placeholder="Email 地址" required autofocus> <label
 										for="inputPassword2" class="sr-only">密碼</label> <input
-										type="password" id="inputPassword2" class="form-control"
+										type="password" name="password" id="inputPassword2" class="form-control"
 										placeholder="密碼" required>
 									<div class="checkbox">
 										<label> <input type="checkbox" value="remember-me">

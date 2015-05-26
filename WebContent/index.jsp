@@ -41,12 +41,12 @@
 		var shopID;
 		var Area;
 		function createarea(){
-			Area={shopArea:$('#sel1').val()};
+			Area=$('#sel1').val();
     		console.log(Area);
 			while(document.getElementById("sel2").hasChildNodes()){
 				document.getElementById("sel2").removeChild(document.getElementById("sel2").childNodes[0]);
 			}
-			$('#sel2').append("<option>店家</option>");
+			$('#sel2').append("<option value='0' >店家</option>");
 	    	$.get("<c:url value='/pe/duAction!selectShopArea.action'/>?sf.shopArea="+Area+"",
 	        	function(data){
 					var list=JSON.parse(data.redata);
@@ -99,7 +99,7 @@
 					method="post">
 				<div class="form-group">
 					<select class="form-control" id="sel1" name="sf.shopArea" onchange="createarea()" >
-						<option>地區</option>
+						<option value="">地區</option>
 						<option value="中正">中正區</option>
 						<option value="大同">大同區</option>
 						<option value="中山">中山區</option>
@@ -113,11 +113,11 @@
 						<option value="南港">南港區</option>
 						<option value="文山">文山區</option>
 					</select> 
-					<select class="form-control" id="sel2" name="sf.shopID" onchange="">
-						<option>店家</option>
-						<option>早餐吃到飽</option>
-						<option>早餐吃不飽</option>
-						<option>早餐吃很少</option>
+					<select class="form-control" id="sel2" name="sf.shopID">
+						<option value='0' >店家</option>
+						<option value='0' >早餐吃到飽</option>
+						<option value='0' >早餐吃不飽</option>
+						<option value='0' >早餐吃很少</option>
 					</select> 
 					<input type="text" class="form-control" placeholder="關鍵字" name="keyword">
 				</div>
@@ -219,9 +219,9 @@
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-header">
-						<form action="${pageContext.request.contextPath}/myNamespace/myAction.controller" method="post" >
-							<h4 class="modal-title">信箱</h4>
-							<input type="text" placeholder="請填入你的信箱" name="SendGmailForm.gmail" required="required">
+<%-- 						<form action="${pageContext.request.contextPath}/myNamespace/myAction.controller" method="post" > --%>
+<!-- 							<h4 class="modal-title">信箱</h4> -->
+<!-- 							<input type="text" placeholder="請填入你的信箱" name="SendGmailForm.gmail" required="required"> -->
 							<h4 class="modal-title">主旨</h4>
 							<input type="text" placeholder="請填入主旨" name="SendGmailForm.subject" required="required">
 							<h4 class="modal-title">內容</h4>
@@ -229,7 +229,7 @@
 							<div class="modal-footer">
 							<button type="submit">送出</button>
 							</div>
-						</form>
+<!-- 						</form> -->
 					</div>
 
 				</div>
@@ -291,8 +291,8 @@
 									</div>
 									<button class="btn btn-lg btn-info btn-block" type="submit">登入</button>
 <!-- 									新會員註冊button連結至 insertMember1.jsp by Steven -->
-									<a href="${pageContext.request.contextPath}/pages/insertMember1.jsp" 
-											type="button" class="btn btn-lg btn-primary btn-block">新會員註冊</a>
+<%-- 									<a href="${pageContext.request.contextPath}/pages/insertMember1.jsp"  --%>
+<!-- 											type="button" class="btn btn-lg btn-primary btn-block">新會員註冊</a> -->
 							<button class="btn btn-lg btn-primary btn-block" type="button">新會員註冊</button>
 									<br>
 									<div class="text-right">

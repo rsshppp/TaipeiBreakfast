@@ -11,8 +11,24 @@
 <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="../css/carousel.css" rel="stylesheet">
-<link rel="icon" href="../favicon.ico">
+<link rel="../icon" href="../favicon.ico">
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/table.css'/>" /> --%>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/holder.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+<!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
+<!-- <script src="../js/jquery.min.js"></script> -->
+<!-- <script src="../js/jquery.form.js"></script> -->
 
+
+<!-- HTML5 shim and Respond.js 讓 IE8 支援 HTML5 元素與媒體查詢 -->
+<!-- 警告：Respond.js 無法在 file:// 協定下運作 -->
+<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
 <style>
 #footer { width:100%; height:100px; position:fixed; bottom:0px; z-index:1; }
 tr{
@@ -20,6 +36,27 @@ tr{
 } 
 </style>
 
+	<script>
+		var shopID;
+		var Area;
+		function createarea(){
+			Area=$('#sel1').val();
+    		console.log(Area);
+			while(document.getElementById("sel2").hasChildNodes()){
+				document.getElementById("sel2").removeChild(document.getElementById("sel2").childNodes[0]);
+			}
+			$('#sel2').append("<option value='0' >店家</option>");
+	    	$.get("<c:url value='/pe/duAction!selectShopArea.action'/>?sf.shopArea="+Area+"",
+	        	function(data){
+					var list=JSON.parse(data.redata);
+	         		console.log(list);
+					$.each(list,function(i,v){
+						$('#sel2').append("<option value='" + v.shopID + "'>" + v.shopName + "</option>");	
+					})
+	        	});
+		}
+	</script>
+		
 </head>
 <body>
 
@@ -54,33 +91,35 @@ tr{
 							<span class="glyphicon glyphicon-log-in"></span> 登入 </a>
 						</li>
 					</ul>
-				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<select class="form-control" id="sel1">
-							<option>地區</option>
-							<option>中正區</option>
-							<option>大同區</option>
-							<option>中山區</option>
-							<option>松山區</option>
-							<option>大安區</option>
-							<option>萬華區</option>
-							<option>信義區</option>
-							<option>士林區</option>
-							<option>北投區</option>
-							<option>內湖區</option>
-							<option>南港區</option>
-							<option>文山區</option>
-						</select> 
-						<select class="form-control" id="sel1">
-							<option>店家</option>
-							<option>早餐吃到飽</option>
-							<option>早餐吃不飽</option>
-							<option>早餐吃很少</option>
-						</select> 
-						<input type="text" class="form-control" placeholder="關鍵字">
-					</div>
-					<button type="submit" class="btn btn-default">搜尋早餐</button>
-				</form>
+				<form class="navbar-form navbar-left" role="search" 
+ 					action="<c:url value='/pe/duAction!selectShop.action'/>" 
+					method="post">
+				<div class="form-group">
+					<select class="form-control" id="sel1" name="sf.shopArea" onchange="createarea()" >
+						<option value="">地區</option>
+						<option value="中正">中正區</option>
+						<option value="大同">大同區</option>
+						<option value="中山">中山區</option>
+						<option value="松山">松山區</option>
+						<option value="大安">大安區</option>
+						<option value="萬華">萬華區</option>
+						<option value="信義">信義區</option>
+						<option value="士林">士林區</option>
+						<option value="北投">北投區</option>
+						<option value="內湖">內湖區</option>
+						<option value="南港">南港區</option>
+						<option value="文山">文山區</option>
+					</select> 
+					<select class="form-control" id="sel2" name="sf.shopID">
+						<option value='0' >店家</option>
+						<option value='0' >早餐吃到飽</option>
+						<option value='0' >早餐吃不飽</option>
+						<option value='0' >早餐吃很少</option>
+					</select> 
+					<input type="text" class="form-control" placeholder="關鍵字" name="keyword">
+				</div>
+				<button type="submit" class="btn btn-default">搜尋早餐</button>
+			</form>
 			</div>
 			<!--/.nav-collapse -->
 		</div>

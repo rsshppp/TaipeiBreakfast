@@ -103,7 +103,7 @@ public class MemberDAOHibernate implements MemberDAO {
 			Transaction tx=session.beginTransaction();
 			Query query = session.createQuery(
 						"from MemberBean where memberAcc like:acc or memberEmail like:acc");
-		query.setString("acc", mail+"%");
+		query.setString("acc", mail+"@%");
 		Iterator list = query.list().iterator();
 			if (list.hasNext()) {
 				MemberBean b = (MemberBean) list.next();
@@ -124,7 +124,7 @@ public class MemberDAOHibernate implements MemberDAO {
 			Transaction tx=session.beginTransaction();
 			Query query = session.createQuery(
 							"from MemberBean where memberAcc like:acc or memberEmail like:acc");
-			query.setString("acc", mail + "%");
+			query.setString("acc", mail);
 			Iterator list = query.list().iterator();
 			if (list.hasNext()) {
 				MemberBean b = (MemberBean) list.next();

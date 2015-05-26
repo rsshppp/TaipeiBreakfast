@@ -37,8 +37,8 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	private Map<String, String> errors=new HashMap<String, String>();
 	private Gson gson=new Gson();
 	private String redata;
-//	private String jsondata;
-//	private String mealName;
+	private String jsondata;
+	private String keyword;
 
 	public MemberForm getMf() {
 		return mf;
@@ -58,12 +58,15 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	public String getRedata() {
 		return redata;
 	}
-//	public void setMealName(String mealName) {
-//		this.mealName = mealName;
-//	}
-//	public void setJsondata(String jsondata) {
-//		this.jsondata = jsondata;
-//	}
+	public void setRedata(String redata) {
+		this.redata = redata;
+	}
+	public void setJsondata(String jsondata) {
+		this.jsondata = jsondata;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	
 	
 	public String memberInsert() {
@@ -144,7 +147,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			return "error";
 		}
 	}
-
+	
 	public String memberUpdate() {
 
     	System.out.println(mf.getMemberEmail());
@@ -350,7 +353,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				form.setShopName(bean.getShopName());
 				form.setOwnID(bean.getOwnID());
 				form.setLogoImage(bean.getLogoImage());
-				form.setShopCondID(bean.getShopCondID());
 				form.setShopPhone(bean.getShopPhone());
 				form.setShopCity(bean.getShopCity());
 				form.setShopArea(bean.getShopArea());
@@ -363,7 +365,8 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 //			redata = gson.toJson(errors);
 			redata=gson.toJson(listform,listType);
 			System.out.println("re="+redata);
-//			request.setAttribute("redata", redata);
+//			errors.put("action", redata);
+//			request.setAttribute("errors", errors);
 			return "allowshop";
 		}catch(Exception e){
 			return "error";
@@ -372,16 +375,36 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 
 	public String allowShop() {
 		if(sf.getShopID()!=null && sf.getShopID()!=0){
+			System.out.println("Action id pass");
+		}else{
+			errors.put("action", "no ID");
+			return "allowshop";
+		}
+		try{
+			if (service.allowShop(sf.getShopID()) != false) {
+				errors.put("action", "操作成功");
+			} else {
+				errors.put("action", "Ooooooooooooops");
+			}
+			redata = gson.toJson(errors);
+			System.out.println(redata);
+			return "allowshop";
+		}catch(Exception e){
+			return "error";
+		}
+	}
+
+	public String notallowShop() {
+		if(sf.getShopID()!=null && sf.getShopID()!=0){
 			System.out.println("Action mail pass");
 		}else{
 			errors.put("action", "no ID");
 			return "allowshop";
 		}
 		try{
-			boolean s=service.allowShop(sf.getShopID());
-			if(s){
-				
-			}else{
+			if (service.notallowShop(sf.getShopID()) != false) {
+				errors.put("action", "操作成功");
+			} else {
 				errors.put("action", "Ooooooooooooops");
 			}
 			redata = gson.toJson(errors);
@@ -394,6 +417,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 
 	public String selectShopArea() {
 		try{
+			System.out.println(1+":"+sf.getShopArea());
 			if (sf.getShopArea()!= null && sf.getShopArea().length()!= 0) {
 				List<ShopBean> list=service.selectSByArea(sf.getShopArea());
 				Iterator<ShopBean> shopBlist=list.iterator();
@@ -406,16 +430,13 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 					listform.add(form);
 				}
 				Type listType = new TypeToken<List<ShopForm>>(){}.getType();
-
 				redata=gson.toJson(listform,listType);
-				System.out.println(redata);
-				return "selectarea";
 			} else {
 				errors.put("action", "area=null");
+				redata = gson.toJson(errors);
 			}
-			redata = gson.toJson(errors);
-			System.out.println(redata);
-			return "selectarea";
+			System.out.println(redata+","+errors);
+			return "searea";
 		}catch(Exception e){
 			return "error";
 		}
@@ -423,20 +444,47 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	
 	public String selectShop() {
 		try{
+			System.out.println(11+":"+sf.getShopID()+":"+keyword+":"+sf.getShopArea());
 			if (sf.getShopID() != null && sf.getShopID() != 0) {
-				service.selectSByID(sf.getShopID());
-				//
-				return "selectshop";
+				ShopBean bean=service.selectSByID(sf.getShopID());
+				errors.put("action", "s by id");
+				//跳到 bean.getShopID 所指向的shop進入頁
+				return "searea";
 			} else {
-//				service.selectSByKeyword(keyword, sf.getShopArea());
-//				if(sf.getShopArea()!=null && sf.getShopArea().length()!=0){
-//					
-//				}else{
-//					errors.put("action", "選個區域");
-//				}
+				if(keyword!=null && keyword.length()!=0){
+					List<ShopBean> list=service.selectSByKeyword(keyword, sf.getShopArea());
+					System.out.println(13+":"+list);
+					Iterator<ShopBean> shopBlist=list.iterator();
+					List<ShopForm> listform=new ArrayList<ShopForm>();
+					while (shopBlist.hasNext()) {
+						ShopBean bean = shopBlist.next();
+						ShopForm form = new ShopForm();
+						form.setShopID(bean.getShopID());
+						form.setShopName(bean.getShopName());
+						listform.add(form);
+					}
+					Type listType = new TypeToken<List<ShopForm>>(){}.getType();
+					redata=gson.toJson(listform,listType);
+					errors.put("action", "s by keyword");
+				}else{
+					List<ShopBean> list=service.selectSByArea(sf.getShopArea());
+					System.out.println(14+":"+list);
+					Iterator<ShopBean> shopBlist=list.iterator();
+					List<ShopForm> listform=new ArrayList<ShopForm>();
+					while (shopBlist.hasNext()) {
+						ShopBean bean = shopBlist.next();
+						ShopForm form = new ShopForm();
+						form.setShopID(bean.getShopID());
+						form.setShopName(bean.getShopName());
+						listform.add(form);
+					}
+					Type listType = new TypeToken<List<ShopForm>>(){}.getType();
+					redata=gson.toJson(listform,listType);
+					errors.put("action", "s by area");
+				}
 			}
-			redata = gson.toJson(errors);
-			System.out.println(redata);
+//			redata = gson.toJson(errors);
+			System.out.println(redata+":"+errors);
 			return "selectshop";
 		}catch(Exception e){
 			return "error";

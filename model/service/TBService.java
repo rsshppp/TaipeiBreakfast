@@ -206,7 +206,6 @@ public class TBService{
 			// select keyword from shopName,shopCity,shopArea,shopAddr,businessTimeNote
 			if (keyword != null && keyword.length()!=0) {
 				result = shop.selectKeyword(keyword);
-				// 傳回ShopName,ShopCity,ShopArea, 保留ShopID
 			}
 		}
 		return result;

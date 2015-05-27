@@ -45,6 +45,7 @@ public class ShopDAOHibernate implements ShopDAO {
 		query.setString("ar", shopArea);
 		query.setString("kw", "%"+keyword+"%");
 		List<ShopBean> result=(List<ShopBean>) query.list();
+		System.out.println(17+":"+result);
 		tx.commit();
 		return result;
 	}
@@ -54,15 +55,17 @@ public class ShopDAOHibernate implements ShopDAO {
 	public List<ShopBean> selectKeyword(String keyword) {
 		Session session = getSession();
 		Transaction tx=session.beginTransaction();
-		//用 keyword 模糊查詢 shopName,shopCity,shopArea
-		Query query=session.createQuery("from ShopBean "
-				+ "where shopName like:st "
-				+ "or shopCity like:st "
-				+ "or shopArea like:st "
-				+ "or shopAddr like:st "
-				+ "or businessTimeNote like:st");
-		query.setString("st", "%"+keyword+"%");
+		//用 keyword 模糊查詢
+		Query query=session
+				.createQuery("from ShopBean "
+				+ "where shopName like:kw "
+				+ "or shopCity like:kw "
+				+ "or shopArea like:kw "
+				+ "or shopAddr like:kw "
+				+ "or businessTimeNote like:kw ")
+				.setString("kw", "%"+keyword+"%");
 		List<ShopBean> result=(List<ShopBean>) query.list();
+		System.out.println(16+":"+result);
 		tx.commit();
 		return result;
 	}
@@ -72,12 +75,15 @@ public class ShopDAOHibernate implements ShopDAO {
 	public List<ShopBean> selectArea(String shopArea){
 		Session session = getSession();
 		Transaction tx=session.beginTransaction();
-		Query query=session.createQuery("from ShopBean where shopArea =: status");
+		System.out.println(2+":"+shopArea);
+		Query query=session.createQuery("from ShopBean where shopArea like:status ");
 		query.setString("status", shopArea+"%");
 		List<ShopBean> result=(List<ShopBean>) query.list();
+		System.out.println(15+":"+result);
 		tx.commit();
 		return result;
 	}
+	// result 要有print才能抓到東西,原因不明
 
 	//(-.-)*杜
 	@Override
@@ -216,8 +222,16 @@ public class ShopDAOHibernate implements ShopDAO {
 			bean.setShopCity(shopBean.getShopCity());
 			bean.setShopArea(shopBean.getShopArea());
 			bean.setShopAddr(shopBean.getShopAddr());
-			bean.setLogoImage(shopBean.getLogoImage());  
-		
+			bean.setLastOrderNoon(shopBean.getLastOrderNoon());
+			bean.setLastOrderNight(shopBean.getLastOrderNight());
+			bean.setOwnID(shopBean.getOwnID());    //此處如何給值待前端做完再想或修改方法
+			bean.setLogoImage(shopBean.getLogoImage());  //這裡還未完成!!!!!!!
+			bean.setBeginBusinessTime(shopBean.getBeginBusinessTime());
+			bean.setEndBusinessTime(shopBean.getEndBusinessTime());
+			bean.setBusinessTimeNote(shopBean.getBusinessTimeNote());
+			
+			bean.setDaysoffBeans(shopBean.getDaysoffBeans());
+			bean.setMealBeans(shopBean.getMealBeans());
 			return bean;
 		}
 		

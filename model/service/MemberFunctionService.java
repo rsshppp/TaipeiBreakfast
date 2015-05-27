@@ -27,6 +27,20 @@ public class MemberFunctionService {
 		this.mdao = mdao;
 	}
 	
+	//登入 by Steven
+			public MemberBean login(String user,String password){
+				if(user!=null&&user.trim().length()!=0&&password!=null&&password.trim().length()!=0){
+					MemberBean bean= mdao.selectMemberByMail(user);
+					System.out.println(bean.getMemberPwd());
+					if(bean!=null){
+						if(password.equals(bean.getMemberPwd())){
+							return bean;
+						}
+					}
+				}
+				return null;
+			}
+	
 	// 依訂單狀態查詢訂單 - Noah
 	public List<OrderSumBean> selectOrderSumByOrderCond(Integer memberID, Integer orderCondID){
 		

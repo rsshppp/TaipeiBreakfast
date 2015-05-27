@@ -278,13 +278,13 @@
 						<!-- Tab panes -->
 						<div class="tab-content">
 							<div role="tabpanel" class="tab-pane active" id="membersign">
-								<form class="form-signin">
+								<form class="form-signin" action='<c:url value="/member/loginMemberAction"/>' method="post">
 									<h2 class="form-signin-heading">會員登入</h2>
 									<label for="inputEmail1" class="sr-only">Email 地址</label> 
-									<input type="email" id="inputEmail1" class="form-control"
+									<input type="email" id="inputEmail1" name="user" class="form-control"
 										placeholder="Email 地址" required autofocus> 
 									<label for="inputPassword1" class="sr-only">密碼</label> 
-									<input type="password" id="inputPassword1" class="form-control"
+									<input type="password" id="inputPassword1" name="password" class="form-control"
 										placeholder="密碼" required>
 									<div class="checkbox">
 										<label> <input type="checkbox" value="remember-me">記住密碼</label>

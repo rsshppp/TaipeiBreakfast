@@ -120,18 +120,17 @@ public class MemberDAOHibernate implements MemberDAO {
 	public MemberBean selectMemberByMail(String mail) {
 		MemberBean result = null;
 		if(mail!=null){
+			System.out.println("I am in MemberDAOHibernate");
 			Session session=getSession();
-			Transaction tx=session.beginTransaction();
 			Query query = session.createQuery(
-							"from MemberBean where memberAcc like:acc or memberEmail like:acc");
-			query.setString("acc", mail);
+							"from MemberBean where memberAcc like:acc");
+			query.setString("acc", mail);			
 			Iterator list = query.list().iterator();
 			if (list.hasNext()) {
 				MemberBean b = (MemberBean) list.next();
 				System.out.println("selectMemberByMail : " + b.getMemberEmail());
 				result = b;
 			}
-			tx.commit();
 		}
 		return result;
 	}

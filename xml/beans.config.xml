@@ -2,15 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	
-
+<!-- 	dataSource&sessionFactory -->
 	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
-		<property name="url" value="jdbc:sqlserver://localhost:1433;database=TaipeiBreakFast"></property>
-		<property name="username" value="sa"></property>
-		<property name="password" value="passw0rd"></property>
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/xxx"></property>
 	</bean>
+	
 	<bean id="sessionFactory" destroy-method="destroy"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
@@ -18,32 +15,56 @@
 			value="classpath:hibernate.cfg.xml">
 		</property>
 	</bean>
-	<bean id="mealKindListDAO"
-		class="model.dao.imp.MealKindListDAOHibernate">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="mealDAO" class="model.dao.imp.MealDAOHibernate">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="advertisementStatusDAO"
-		class="model.dao.imp.AdvertisementStatusDAOHibernate">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
+	
+<!-- 	DAO系列 -->
 	<bean id="advertisementDAO"
 		class="model.dao.imp.AdvertisementDAOHibernate">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="mealService" class="model.service.MealService">
-		<property name="mkdao" ref="mealKindListDAO"></property>
-		<property name="dao" ref="mealDAO"></property>
+		<bean id="advertisementStatusDAO"
+		class="model.dao.imp.AdvertisementStatusDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="mealKindListService"
-		class="model.service.MealKindListService">
-		<property name="dao" ref="mealKindListDAO"></property>
+	<bean id="daysoffDAO" class="model.dao.imp.DaysoffDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+		<bean id="favoriteDAO"
+		class="model.dao.imp.FavoriteDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+		<bean id="mealDAO" class="model.dao.imp.MealDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="mealKindListDAO"
+		class="model.dao.imp.MealKindListDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="memberDAO" class="model.dao.imp.MemberDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="orderDetailDAO"
+		class="model.dao.imp.OrderDetailDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="orderSumDAO" class="model.dao.imp.OrderSumDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	<bean id="ownerDAO" class="model.dao.imp.OwnerDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="shopDAO" class="model.dao.imp.ShopDAOHibernate">
-		<constructor-arg ref="sessionFactory"></constructor-arg>
+		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	<bean id="messageBoardDAO"
+		class="model.dao.imp.MessageBoardDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="specialPriceDAO"
+		class="model.dao.imp.SpecialPriceDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+<!-- 	Service系列 -->
 	<bean id="advertisementService"
 		class="model.service.AdvertisementService">
 		<property name="dao" ref="advertisementDAO"></property>
@@ -54,4 +75,84 @@
 		class="model.service.AdvertisementStatusService">
 		<property name="dao" ref="advertisementStatusDAO"></property>
 	</bean>
+	<bean id="mealKindListService"
+		class="model.service.MealKindListService">
+		<property name="dao" ref="mealKindListDAO"></property>
+	</bean>
+	<bean id="mealService" class="model.service.MealService">
+		<property name="mkdao" ref="mealKindListDAO"></property>
+		<property name="dao" ref="mealDAO"></property>
+		<property name="shopdao" ref="shopDAO"></property>
+	</bean>
+	<bean id="memberFunctionService"
+		class="model.service.MemberFunctionService">
+		<property name="osdao" ref="orderSumDAO"></property>
+		<property name="oddao" ref="orderDetailDAO"></property>
+		<property name="mdao" ref="memberDAO"></property>
+	</bean>	
+	<bean id="orderFunctionService"
+		class="model.service.OrderFunctionService">
+		<property name="osdao" ref="orderSumDAO"></property>
+		<property ref="orderDetailDAO" name="oddao"></property>
+	</bean>
+	<bean id="orderSumService" class="model.service.OrderSumService">
+		<property name="orderSumDAO" ref="orderSumDAO"></property>
+	</bean>
+	<bean id="ownerService" class="model.service.OwnerService">
+		<property name="ownerDAO" ref="ownerDAO"></property>
+	</bean>
+		<bean id="reportService" class="model.service.ReportService">
+		<property name="orderSumDAO" ref="orderSumDAO"></property>
+	</bean>
+		<bean id="sendGmailService"
+		class="model.service.SendGmailService">
+	</bean>
+	<bean id="sendMailSMTP" class="model.service.SendMailSMTP">
+	</bean>
+	<bean id="shopService" class="model.service.ShopService">
+		<property name="shopDAO" ref="shopDAO"></property>
+		<property name="daysoffDAO" ref="daysoffDAO"></property>
+	</bean>
+		<bean id="specialPriceService"
+		class="model.service.SpecialPriceService">
+		<property name="shopDAO" ref="shopDAO"></property>
+		<property name="specialPriceDAO" ref="specialPriceDAO"></property>
+	</bean>
+		<bean id="tBService" class="model.service.TBService">
+		<property name="member" ref="memberDAO"></property>
+		<property name="shop" ref="shopDAO"></property>
+		<property name="ordersum" ref="orderSumDAO"></property>
+		<property name="orderdetail" ref="orderDetailDAO"></property>
+		<property name="mailD" ref="sendMailSMTP"></property>
+	</bean>
+		<bean id="transactionHistoryRecordService"
+		class="model.service.TransactionHistoryRecordService">
+		<property name="orderSumDAO" ref="orderSumDAO"></property>
+		<property name="orderDetailDAO" ref="orderDetailDAO"></property>
+	</bean>
+	
+<!-- 	Action系列 -->
+	<bean id="advertisementAction"
+		class="controller.AdvertisementAction" scope="prototype">
+		<property name="advertisementStatusService"
+			ref="advertisementStatusService">
+		</property>
+		<property name="advertisementService"
+			ref="advertisementService">
+		</property>
+		<property name="ownerService" ref="ownerService"></property>
+	</bean>
+	<bean id="imageAction" class="controller.ImageAction" scope="prototype">
+		<property name="mealservice" ref="mealService"></property>
+		<property name="mealKindService" ref="mealKindListService"></property>
+	</bean>
+	<bean id="loginAction" class="controller.LoginAction" scope="prototype">
+		<property name="ownerservice" ref="ownerService"></property>
+	</bean>
+	<bean id="mealAction" class="controller.MealAction" scope="prototype">
+		<property name="mealservice" ref="mealService"></property>
+		<property name="mealKindservice" ref="mealKindListService"></property>
+		<property name="shopService" ref="shopService"></property>
+	</bean>
+	
 </beans>

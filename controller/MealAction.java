@@ -74,6 +74,7 @@ public class MealAction extends ActionSupport implements ServletRequestAware{
 	}
 
 	public String mealadd() {
+		System.out.println("新增"+bean);
 		try{
 		MealBean mbean=new MealBean();
 		byte[] image;
@@ -174,8 +175,8 @@ public class MealAction extends ActionSupport implements ServletRequestAware{
 	}
 	
 	public String mealchange(){
+		System.out.println("修改"+bean);
 		try{
-			System.out.println(bean);
 			MealBean mbean=new MealBean();
 			mbean.setMealID(bean.getMealID());
 			mbean.setMealKindID(bean.getMealKindID());
@@ -194,11 +195,18 @@ public class MealAction extends ActionSupport implements ServletRequestAware{
 			}else{
 				mbean.setMealImage(mealservice.selectMealByMealID(bean.getMealID()).getMealImage());
 			}
-			mealservice.modifyMeal(mbean);
+			if(mealservice.modifyMeal(mbean)){
+				map.put("Message", "修改成功");
+			}else{
+				map.put("Message", "修改失敗");
+			}
+			redata=gson.toJson(map);
+			System.out.println(redata);
+			return "meal";
 		}catch(IOException e){
-			
+			map.put("Message", "修改失敗");
+			return "meal";
 		}
-		return "mealchange";
 	}
 	public String onemeal(){
 		System.out.println(request.getParameter("shopID"));
@@ -207,13 +215,14 @@ public class MealAction extends ActionSupport implements ServletRequestAware{
 		//System.out.println(mbean);
 		MealListForm mform=new MealListForm();
 		if(mbean!=null){
-			//mform.setMealID(mbean.getMealID());
+			mform.setMealID(mbean.getMealID());
 			mform.setMealName(mbean.getMealName());
 //			if(mbean.getMealImage()==null){
 //				mform.setMealImage(mbean.getMealKindListBean().getDefaultImage());
 //			}else{
 //				mform.setMealImage(mbean.getMealImage());
 //			}
+			mform.setShopID(mbean.getShopID());
 			mform.setMealKindID(mbean.getMealKindID());
 			mform.setPrice(mbean.getPrice());
 			mform.setShopName(mbean.getShopBean().getShopName());

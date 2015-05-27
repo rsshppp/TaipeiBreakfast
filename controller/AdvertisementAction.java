@@ -96,8 +96,13 @@ public class AdvertisementAction extends ActionSupport implements ServletRequest
 					AdvertisementBean adbean=adlist.next();
 					System.out.println(adbean);
 					//System.out.println(adbean.getAdvertisementID()+" , "+adbean.getContext());
-					adform.setTitle(adbean.getContext().split("xxx")[0]);
-					adform.setContext(adbean.getContext().split("xxx")[1]);
+					if(!adbean.getContext().equals("xxx")){
+						adform.setTitle(adbean.getContext().split("xxx")[0]);
+						adform.setContext(adbean.getContext().split("xxx")[1]);
+					}else{
+						adform.setTitle("廣告申請");
+						adform.setContext("廣告申請");
+					}
 					adform.setDays(adbean.getDays());
 					adform.setAdStatus(adbean.getAdvertisementStatusBean().getAdvertisementStatus());
 					adformlist.add(adform);
@@ -119,8 +124,13 @@ public class AdvertisementAction extends ActionSupport implements ServletRequest
 				adform.setAdID(adbean.getAdvertisementID());
 				adform.setOwerID(adbean.getShopBean().getOwnID());
 				adform.setShopName(adbean.getShopBean().getShopName());
-				adform.setTitle(adbean.getContext().split("xxx")[0]);
-				adform.setContext(adbean.getContext().split("xxx")[1]);
+				if(!adbean.getContext().equals("xxx")){
+					adform.setTitle(adbean.getContext().split("xxx")[0]);
+					adform.setContext(adbean.getContext().split("xxx")[1]);
+				}else{
+					adform.setTitle("廣告申請");
+					adform.setContext("廣告申請");
+				}
 				adform.setDays(adbean.getDays());
 				adform.setAdStatus(adbean.getAdvertisementStatusBean().getAdvertisementStatus());
 				adform.setAdStatusID(adbean.getAdvertisementStatusID());

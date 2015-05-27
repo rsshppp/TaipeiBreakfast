@@ -87,8 +87,8 @@
 				<div class="row">
 					<div class="col-md-2">
 						<div class="list-group" id="menu"></div>
-							<a class="list-group-item text-center" href="#">賣方功能</a>
-							<a class="list-group-item text-center" href="#">賣方功能</a>
+							<a class="list-group-item text-center" href="<c:url value="/owner/selectmeal"/>">修改菜單</a>
+							<a class="list-group-item text-center" href="<c:url value="/owner/selectad"/>">申請廣告</a>
 							<a class="list-group-item text-center" href="#">賣方功能</a>
 							<a class="list-group-item text-center" href="#">賣方功能</a>
 							<a class="list-group-item text-center" href="#">賣方功能</a>
@@ -186,7 +186,7 @@
 								<div class="row" style="margin-top: 5px">
 									<div class="col-sm-3">廣告title:</div>
 									<div class="col-sm-7">
-										<input type="text" name="readform.title">
+										<input type="text" name="readform.title" id="rftitle">
 									</div>
 								</div>
 								<div class="row" style="margin-top: 5px">
@@ -220,7 +220,7 @@
 					<!-- 	     	 新增廣告 -->
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" id="over" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-default" id="over" data-dismiss="modal" aria-hidden="true">Close</button>
 <!-- 					<button type="button" onclick="" class="btn btn-primary">Save changes</button> -->
 				</div>
 			</div>
@@ -247,16 +247,13 @@
 						$('#form1').ajaxForm({
 							complete : function(msg) {
 								createtable();
-// 								$('#over').click();
-							    $(".modal-backdrop").remove();
-// 							    $("#insertAD").hide();
-							    $("#insertAD").attr("aria-hidden","true");
-								$("#insertAD").removeClass("in");
-// 								$("#insertAD").modal();
-// 								$('#insertAD').modal('toggle');
-// 								$('body').removeClass('modal-open');
-// 								$('.modal-backdrop').remove();
-								//$('.modal-backdrop').hide();
+								$('#over').click();
+								document.forms["form1"].reset();
+								if (document.getElementById("imga")
+										.hasChildNodes()) {
+									document.getElementById("imga")
+											.removeChild(document.getElementById("imga").childNodes[0]);
+								}
 							}
 						})
 						$('#txtarea').keyup(
@@ -279,7 +276,7 @@
 								}
 								var reader = new FileReader();
 								reader.onload = function(event) {
-									var txt = event.target.imga;
+									var txt = event.target.result;
 									var img = document.createElement("img");
 									img.id = "image1";
 									img.src = txt;
@@ -291,11 +288,8 @@
 							} else {
 								if (document.getElementById("imga")
 										.hasChildNodes()) {
-									document
-											.getElementById("imga")
-											.removeChild(
-													document
-															.getElementById("imga").childNodes[0]);
+									document.getElementById("imga")
+											.removeChild(document.getElementById("imga").childNodes[0]);
 								}
 							}
 							reader.readAsDataURL(file);

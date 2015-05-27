@@ -12,7 +12,6 @@
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title>賣方範本</title>
 <!-- Bootstrap -->
-<link href="<c:url value='/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
 <!-- social icon 使用 -->
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
@@ -20,8 +19,6 @@
 <!-- Custom styles -->
 <link href="<c:url value='/css/carousel.css'/>" rel="stylesheet">
 <link rel="icon" href="favicon.ico">
-<link href="<c:url value='/bootstrap/css/bootstrap.min.css'/>"
-	rel="stylesheet" type="text/css" />
 <!-- HTML5 shim and Respond.js 讓 IE8 支援 HTML5 元素與媒體查詢 -->
 <!-- 警告：Respond.js 無法在 file:// 協定下運作 -->
 <!--[if lt IE 9]>
@@ -33,11 +30,18 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!-- 依需要參考已編譯外掛版本（如下），或各自獨立的外掛版本 -->
-<script src="<c:url value='/bootstrap/js/bootstrap.min.js'/>"></script>
 <!-- Custom Javascript -->
 <script src="<c:url value='/js/holder.js'/>"></script>
 <style>
 .imgsimple {
+	width: 60px;
+	height: 60px;
+}
+#image1 {
+	width: 60px;
+	height: 60px;
+}
+#image2 {
 	width: 60px;
 	height: 60px;
 }
@@ -46,13 +50,16 @@
 <script src="<c:url value='/js/jquery.min.js'/>"></script>
 <script src="<c:url value='/js/jquery.form.js'/>"></script>
 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-<link href="<c:url value='/bootstrap/css/bootstrap.min.css'/>"
+<link href="<c:url value='/bootstrap/css/bootstrap.css'/>"
 	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
-	src="<c:url value='/bootstrap/js/bootstrap.min.js'/>"></script>
+	src="<c:url value='/bootstrap/js/bootstrap.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/jquery-ui.js'/>"></script>
 <link href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"
 	rel="stylesheet" type="text/css" />
+<link href="<c:url value='/bootstrap/css/bootstrap-switch.css'/>"
+	rel="stylesheet">
+<script src="<c:url value='/bootstrap/js/bootstrap-switch.js'/>"></script>
 </head>
 <body>
 	<!-- Fixed navbar -->
@@ -96,7 +103,7 @@
 					<div class="list-group" id="menu"></div>
 					
 					<a class="list-group-item text-center" href="<c:url value="/owner/selectmeal.jsp"/>">修改菜單</a> <a
-						class="list-group-item text-center" href="<c:url value="/owner/addmeal.jsp"/>">新增菜單</a> <a
+						class="list-group-item text-center" href="<c:url value="/owner/selectad"/>">申請廣告</a> <a
 						class="list-group-item text-center" href="#">賣方功能</a> <a
 						class="list-group-item text-center" href="#">賣方功能</a> <a
 						class="list-group-item text-center" href="#">賣方功能</a> <a
@@ -106,14 +113,22 @@
 				<div class="col-md-10" style="margin-top: 20px;">
 
 					<!-- 功能放這邊！！！ -->
-					<div>
-						店家:
-						<select id="shopsel">
-
-						</select>
+					<div class="row">
+						<div class="col-sm-2">
+							店家:
+							<select id="shopsel">
+	
+							</select>
+						</div>
+						
+						<div class="col-sm-2 col-md-offset-8 text-right" style="margin-bottom: 20px;margin-top: 20px">
+							<button type="button" class="btn btn-primary btn" data-toggle="modal"
+								data-target="#insertMeal">新增餐點</button>
+						</div>
 					</div>
 					<div id="creattable" style="margin-top: 10px;"></div>
-
+					
+					
 					<script>
 						var jsondata = {
 							owerID : 1
@@ -134,25 +149,19 @@
 									};
 									createtable();
 								});
-						$('#shopsel')
-								.change(
-										function() {
+						$('#shopsel').change(function() {
 											shopID = {
 												shopID : $('#shopsel').val()
 											}
-											while (document.getElementById(
-													"creattable")
-													.hasChildNodes()) {
-												document
-														.getElementById(
-																"creattable")
-														.removeChild(
-																document
-																		.getElementById("creattable").childNodes[0]);
-											}
 											createtable();
+											$("#select1 option[value='"+ $('#shopsel').val()
+													+ "']").prop('selected', true);
 										})
 						function createtable() {
+							while (document.getElementById("creattable").hasChildNodes()) {
+								document.getElementById("creattable").removeChild(
+										document.getElementById("creattable").childNodes[0]);
+							}
 							$('#creattable')
 									.append("<table id='menu1' class='display'></table>");
 							$('#menu1')
@@ -178,11 +187,8 @@
 																							+ v.mealStatus
 																							+ "' onclick='changestudes(event)' id='sbtn"
 																							+ v.mealID
-																							+ "' /></td><td><a class='btn btn-default' role='button' href='<c:url value='/owner/changemeal.jsp'/>?mealID="
-																							+ v.mealID
-																							+ "&shopID="
-																							+ shopID.shopID
-																							+ "'>修改</a></td></tr>");
+																							+ "' /></td><td><button type='button' class='btn btn-default btn' id='insb"
+																							+v.mealID+"' onclick='getmeal(event)' data-toggle='modal'data-target='#updateMeal'>修改</button></td></tr>");
 																	var t = "#sbtn"
 																			+ v.mealID;
 																	if (v.mealStatus == "販售中") {
@@ -197,8 +203,8 @@
 																	})
 																}
 												$('#menu1').DataTable({
-												    "iDisplayLength": 7,
-												    "aLengthMenu": [[7, 10, 20, -1], [7, 10, 20, "All"]],
+												    "iDisplayLength": 5,
+												    "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
 												    "oLanguage":{
 												    "sProcessing": "處理中...",
 												      "sLengthMenu": "一頁顯示 _MENU_ 筆記錄",
@@ -222,12 +228,11 @@
 
 						function changestudes(event) {
 							var btid = event.target.id;
-							var mealid = {
+							var mealsid = {
 								mealID : btid.split("sbtn")[1]
 							};
-							console.log(mealid);
 							$.get("<c:url value='/owner/mealaction!changestatus'/>",
-											mealid,
+											mealsid,
 											function() {
 												var Old_Class = $("#" + btid)
 														.attr('class');
@@ -251,13 +256,13 @@
 			</div>
 			<!-- 互動視窗（Modal） -->
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
+				aria-labelledby="myModalLabel2" aria-hidden="true">
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">登入</h4>
+							<h4 class="modal-title" id="myModalLabel2">登入</h4>
 						</div>
 						<div class="modal-body">
 							<div id="test"></div>
@@ -267,9 +272,327 @@
 				</div>
 				<!-- /.modal -->
 			</div>
-		</div>
+<!-- 							新增餐點 -->
+	<div class="modal fade" id="insertMeal" tabindex="-1" role="dialog"
+					aria-labelledby="mySmallModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="myModalLabel">新增菜單</h4>
+							</div>
+							<div class="modal-body">
+<!-- 							新增餐點動態內碼 -->
+								
+	<div id="dv01">
+		<form id="form1" action="<c:url value='/owner/mealaction!mealadd'/>"
+			method="POST" enctype=multipart/form-data>
+			<div class="row" style="margin-top: 5px">
+				<div class="col-sm-2">店家:</div>
+				<div class="col-sm-5">
+					<select id="select1" name="bean.shopID"></select>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 5px">
+				<div class="col-sm-2">餐點名稱:</div>
+				<div class="col-sm-5">
+					<input type="text" name="bean.mealName" value="" />
+				</div>
+			</div>
+			<div class="row" style="margin-top: 5px">
+				<div class="col-sm-2">餐點種類:</div>
+				<div class="col-sm-5">
+					<select id="select2" name="bean.mealKindID"></select>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 5px">
+				<div class="col-sm-2">價格:</div>
+				<div class="col-sm-5">
+					<input type="number" min="0" value="60" name="bean.price" />
+				</div>
+			</div>
+			<div class="row" style="margin-top: 5px">
+				<div class="col-sm-2">圖片:</div>
+				<div class="col-sm-5">
+					<div id="result" ></div>
+					<input type="file" accept="image/*" id="file"
+					name="bean.mealImage" />
+				</div>
+			</div>
+			<div class="row" style="margin-top: 5px">
+				<div class="col-sm-2" style="margin: 5px">
+					<input type="submit" class='btn btn-default' value="新增">
+				</div>
+			</div>
+		</form>
 	</div>
 
+	<script>
+	var jsondata = {owerID:1};
+	$.get("/TaipeiBreakFast/owner/mealaction!shoplist", jsondata, 
+		function (data) {
+			var list=JSON.parse(data.redata);
+
+    		$.each(list,function(u,i){
+				$('#select1').append("<option value='" + i.shopID + "'>" + i.shopName + "</option>");
+        	})
+		});
+       
+        var kindlist;
+        $.ajax({
+            url: "/TaipeiBreakFast/owner/mealaction!mealKind",
+            data: "",
+            type:"POST",
+            dataType:'text',
+
+            success: function(msg){
+                kindlist=JSON.parse(msg);
+                    var ss=JSON.parse(kindlist.redata);
+                    console.log(ss);
+                    $.each(ss,function(a,b){
+                    	$('#select2').append("<option value='" + b.mealKindID + "'>" + b.mealKindName + "</option>");
+                    	$('#select3').append("<option value='" + b.mealKindID + "'>"+ b.mealKindName+ "</option>");
+                    });
+            },
+
+             error:function(xhr, ajaxOptions, thrownError){ 
+                alert(xhr.status); 
+                alert(thrownError); 
+             }
+        });
+        
+    </script>
+	<script>
+
+    $('#form1').ajaxForm({
+        beforeSend:function(){
+
+        },
+		complete:function(msg){               
+                var txt = JSON.parse(msg.responseJSON.redata);
+                var message=txt.Message;
+                alert(message);
+                document.forms["form1"].reset();
+                createtable();
+                $('#over').click();
+                if (document.getElementById("result").hasChildNodes()) {
+                    document.getElementById("result").removeChild(document.getElementById("result").childNodes[0]);
+                }
+			}
+        })
+	
+    </script>
+    <script>
+    function ProcessFile( e ) {   
+        var file = document.getElementById('file').files[0];
+        console.log(file);
+        if (file) {
+            if (document.getElementById("result").hasChildNodes()) {
+                document.getElementById("result").removeChild(document.getElementById("result").childNodes[0]);
+            }
+            var reader = new FileReader();
+            reader.onload = function ( event ) {                 
+                var txt = event.target.result;
+                var img = document.createElement("img");
+                img.id="image1";
+                img.src = txt;
+                document.getElementById("result").appendChild( img );
+            };
+        }else{
+        	if (document.getElementById("result").hasChildNodes()) {
+                document.getElementById("result").removeChild(document.getElementById("result").childNodes[0]);
+            }
+            }
+        reader.readAsDataURL( file );
+    }
+    function contentLoaded() {
+        document.getElementById('file').addEventListener( 'change' ,ProcessFile , false );
+    }
+    window.addEventListener( "DOMContentLoaded" , contentLoaded , false );
+    </script>
+<!-- 							新增餐點動態內碼 -->
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" id="over" data-dismiss="modal" aria-hidden="true">Close</button>
+			<!-- 					<button type="button" onclick="" class="btn btn-primary">Save changes</button> -->
+							</div>
+						</div>
+					</div>
+				</div>
+<!-- 							新增餐點 -->
+				
+<!-- 				修改餐點 -->
+	<div class="modal fade" id="updateMeal" tabindex="-1" role="dialog"
+					aria-labelledby="mySmallModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="upModalLabel">新增菜單</h4>
+							</div>
+							<div class="modal-body">
+<!-- 							修改餐點動態內碼 -->
+					<div id="dv02">
+						<form id="form2"
+							action="<c:url value='/owner/mealaction!mealchange'/>"
+							method="POST" enctype=multipart/form-data>
+							<div class="row" style="margin-top: 5px">
+								<div class="col-sm-2">
+									店家: <input type="hidden" name="bean.shopID" id="sh01"
+										value="">
+								</div>
+								<div class="col-sm-5">
+									<!-- 					<input type="text" id="shopname" name="bean.shopName" readonly/> -->
+									<label id="shopname"></label>
+								</div>
+							</div>
+							<div class="row" style="margin-top: 5px">
+								<div class="col-sm-2">
+
+									餐點名稱: <input type="hidden" name="bean.mealID" id="nm01"
+										value="">
+								</div>
+								<div class="col-sm-3">
+									<label id="mealname"></label>
+								</div>
+							</div>
+							<div class="row" style="margin-top: 5px">
+								<div class="col-sm-2">餐點種類:</div>
+								<div class="col-sm-3">
+									<select id="select3" name="bean.mealKindID"></select>
+								</div>
+							</div>
+							<div class="row" style="margin-top: 5px">
+								<div class="col-sm-2">價格:</div>
+								<div class="col-sm-3">
+									<input type="text" id="price" value="60" name="bean.price" />
+								</div>
+							</div>
+							<div class="row" style="margin-top: 5px">
+								<div class="col-md-2">
+									修改圖片: <input type="hidden" name="bean.imageChange"
+										id="imageChange" value="false">
+								</div>
+								<div id="imagediv" class="col-sm-3">
+									<div id="imgdiv" style="width: 60px; height: 60px">
+										<img id="image2" src="">
+									</div>
+									<input type="checkbox" name="my-checkbox" id="check1">
+								</div>
+							</div>
+							<div class="row" style="margin-top: 5px">
+								<div class="col-sm-2 ">
+
+									<a class='btn btn-default' role='button'
+										href="<c:url value='/owner/selectmeal.jsp'/>">回菜單</a>
+								</div>
+								<div class="col-sm-3 ">
+									<input type="submit" class='btn btn-default' value="修改">
+								</div>
+							</div>
+						</form>
+					</div>
+<!-- 							修改餐點動態內碼 -->
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" id="over2" data-dismiss="modal" aria-hidden="true">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+<!-- 				修改餐點 -->
+				<script>
+					$("[name='my-checkbox']").bootstrapSwitch();
+					var mealID;
+					var shID;
+					function getmeal(event){
+						$('#shopname').empty();
+						$('#mealname').empty();
+						shID = shopID.shopID;
+						mealID = event.target.id.split("insb")[1]
+						var selone = {shopID : shID,mealID : mealID};
+						$.get("<c:url value='/owner/mealaction!onemeal'/>",
+								selone, function(data) {
+									var list = JSON.parse(data.redata);
+									console.log(list);
+
+
+									$('#shopname').append(list.shopName);
+									console.log(list.shopID);
+									$('#sh01').val(list.shopID);
+									$('#mealname').append(list.mealName);
+									$('#nm01').val(list.mealID);
+									$('#price').val(list.price);
+									$("#select3 option[value='"
+													+ list.mealKindID
+													+ "']").prop(
+											'selected', true);
+									$('#image2').attr(
+											"src",
+											"<s:url action='imageAction!getMealImage?imageId="
+													+ mealID + "' />");
+									//image=list.mealImage;
+									//byteimage(image);
+								});
+					}
+					$('#select3').change(
+							function() {
+								var file = document.getElementById('file').files[0];
+								if (!file) {
+									var ss = $('#select3').val();
+									$('#image2').attr("src",
+											"<s:url action='imageAction!getMealImage?typeId="+ ss + "' />");
+								}
+					});
+					$('input[name="my-checkbox"]').on(
+							'switchChange.bootstrapSwitch',
+							function(event, state) {
+								$("#file").remove();
+								if (state) {
+									$('#imageChange').val('true');
+									$("#imagediv")
+											.append(
+													'<input type="file" accept="image/*" id="file" name="bean.mealImage" />');
+									var ss = $('#select3').val();
+									$('#image2').attr(
+											"src",
+											"<s:url action='imageAction!getMealImage?typeId="
+													+ ss + "' />");
+								} else {
+									$('#imageChange').val('false');
+									$("#file").remove();
+									$('#image2').attr(
+											"src",
+											"<s:url action='imageAction!getMealImage?imageId="
+													+ mealID
+													+ "' />");
+								}
+							});
+					$('#form2').ajaxForm({
+				        beforeSend:function(){
+
+				        },
+						complete:function(msg){               
+				                var txt = JSON.parse(msg.responseJSON.redata);
+				                var message=txt.Message;
+				                alert(message);
+				                document.forms["form2"].reset();
+				                createtable();
+				                $('#over2').click();
+				                
+							}
+				        })
+				</script>
+								
+				
+			</div>
+	</div>
 	<div class="container marketing">
 		<footer>
 			<p class="pull-left">&copy; 2015 Taipei Breakfast. All rights

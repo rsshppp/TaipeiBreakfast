@@ -90,7 +90,7 @@ public class MealDAOHibernate implements MealDAO {
 		if(result==null){
 			return false;
 		}else{
-			result.setMealName(bean.getMealName());
+			//result.setMealName(bean.getMealName());
 			result.setPrice(bean.getPrice());
 			//result.setMealKindID(bean.getMealKindID());
 			result.setMealKindListBean(bean.getMealKindListBean());

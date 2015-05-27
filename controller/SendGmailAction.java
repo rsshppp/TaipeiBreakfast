@@ -10,41 +10,53 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import form.SendGmailForm;
-
 public class SendGmailAction extends ActionSupport implements ServletRequestAware{
-	HttpSession session=ServletActionContext.getRequest().getSession();
+	private HttpSession session=ServletActionContext.getRequest().getSession();
 	private String subject;
 	private String text;
 	private String gmail;
-	private SendGmailForm sgf;
 	private HttpServletRequest request;
+	private SendGmailService sendGmailService;
 	
+	public String getSubject() {
+		return subject;
+	}
+
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+
+	public String getText() {
+		return text;
 	}
 
 	public void setText(String text) {
 		this.text = text;
 	}
 
+	public String getGmail() {
+		return gmail;
+	}
+
 	public void setGmail(String gmail) {
 		this.gmail = gmail;
+	}
+
+	public void setSendGmailService(SendGmailService sendGmailService) {
+		this.sendGmailService = sendGmailService;
+	}
+
+	@Override
+	public String execute() throws Exception {
+		sendGmailService.setGmail(gmail);
+		sendGmailService.setSubject(subject);
+		sendGmailService.setText(text);
+		sendGmailService.SendGmail();
+		return "success";
 	}
 
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request=request;
-		
-	}
-
-	@Override
-	public String execute() throws Exception {
-		SendGmailService sgs = new SendGmailService();
-		sgs.setGmail(gmail);
-		sgs.setSubject(subject);
-		sgs.setText(text);
-		sgs.SendGmail();
-		return "success";
 	}
 }

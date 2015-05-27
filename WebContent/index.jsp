@@ -219,17 +219,17 @@
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-header">
-<%-- 						<form action="${pageContext.request.contextPath}/myNamespace/myAction.controller" method="post" > --%>
-<!-- 							<h4 class="modal-title">信箱</h4> -->
-<!-- 							<input type="text" placeholder="請填入你的信箱" name="SendGmailForm.gmail" required="required"> -->
+<%-- 						<form action='<c:url value="/member/sendGmailAction"/>' method="post" >
+							<h4 class="modal-title">信箱</h4>
+							<input type="text" placeholder="請填入你的信箱" name="gmail">
 							<h4 class="modal-title">主旨</h4>
-							<input type="text" placeholder="請填入主旨" name="SendGmailForm.subject" required="required">
+							<input type="text" placeholder="請填入主旨" name="subject">
 							<h4 class="modal-title">內容</h4>
-							<input type="text" placeholder="請填入內容" name="SendGmailForm.text" required="required">
+							<input type="text" placeholder="請填入內容" name="text">
 							<div class="modal-footer">
 							<button type="submit">送出</button>
 							</div>
-<!-- 						</form> -->
+						</form>
 					</div>
 
 				</div>

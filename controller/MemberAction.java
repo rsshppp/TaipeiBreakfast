@@ -37,7 +37,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	private Map<String, String> errors=new HashMap<String, String>();
 	private Gson gson=new Gson();
 	private String redata;
-	private String jsondata;
+//	private String jsondata;
 	private String keyword;
 
 	public MemberForm getMf() {
@@ -61,9 +61,9 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	public void setRedata(String redata) {
 		this.redata = redata;
 	}
-	public void setJsondata(String jsondata) {
-		this.jsondata = jsondata;
-	}
+//	public void setJsondata(String jsondata) {
+//		this.jsondata = jsondata;
+//	}
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
@@ -356,7 +356,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				form.setShopPhone(bean.getShopPhone());
 				form.setShopCity(bean.getShopCity());
 				form.setShopArea(bean.getShopArea());
-				form.setShopSuspend(bean.getShopSuspend());
 				form.setBeginBusinessTime(bean.getBeginBusinessTime());
 				form.setBusinessTimeNote(bean.getBusinessTimeNote());
 				listform.add(form);
@@ -441,14 +440,20 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			return "error";
 		}
 	}
+
+//	public String selectShop2() {
+//
+//		return "selects";
+//	}
 	
 	public String selectShop() {
+//		byte[] image;
 		try{
 			System.out.println(11+":"+sf.getShopID()+":"+keyword+":"+sf.getShopArea());
 			if (sf.getShopID() != null && sf.getShopID() != 0) {
 				ShopBean bean=service.selectSByID(sf.getShopID());
 				errors.put("action", "s by id");
-				//跳到 bean.getShopID 所指向的shop進入頁
+				//跳到 bean.getShopID 所指向的shop進入頁(施工中,dead end)
 				return "searea";
 			} else {
 				if(keyword!=null && keyword.length()!=0){
@@ -460,7 +465,19 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 						ShopBean bean = shopBlist.next();
 						ShopForm form = new ShopForm();
 						form.setShopID(bean.getShopID());
+//						if(bean.getLogoImage()!=null){
+//							image=bean.getLogoImage();
+//							convert ftb=new convert();
+//							File file=ftb.encodeFileToBase64Binary(image);
+//							form.setLogoImage(file);
+//							errors.put("img", gson.toJson(image));
+//						}
+//						將byte[]轉成img (施工中)
 						form.setShopName(bean.getShopName());
+						form.setShopCity(bean.getShopCity());
+						form.setShopArea(bean.getShopArea());
+						form.setBeginBusinessTime(bean.getBeginBusinessTime());
+						form.setBusinessTimeNote(bean.getBusinessTimeNote());
 						listform.add(form);
 					}
 					Type listType = new TypeToken<List<ShopForm>>(){}.getType();
@@ -475,7 +492,19 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 						ShopBean bean = shopBlist.next();
 						ShopForm form = new ShopForm();
 						form.setShopID(bean.getShopID());
+//						if(bean.getLogoImage()!=null){
+//							image=bean.getLogoImage();
+//							convert ftb=new convert();
+//							File file=ftb.encodeFileToBase64Binary(image);
+//							form.setLogoImage(file);
+//							errors.put("img", gson.toJson(image));
+//						}
+//						將byte[]轉成img (施工中)
 						form.setShopName(bean.getShopName());
+						form.setShopCity(bean.getShopCity());
+						form.setShopArea(bean.getShopArea());
+						form.setBeginBusinessTime(bean.getBeginBusinessTime());
+						form.setBusinessTimeNote(bean.getBusinessTimeNote());
 						listform.add(form);
 					}
 					Type listType = new TypeToken<List<ShopForm>>(){}.getType();
@@ -484,8 +513,10 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				}
 			}
 //			redata = gson.toJson(errors);
+			errors.put("re", redata);
 			System.out.println(redata+":"+errors);
-			return "selectshop";
+			request.setAttribute("re", redata);
+			return "selects";
 		}catch(Exception e){
 			return "error";
 		}

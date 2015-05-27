@@ -2,7 +2,6 @@ package form;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.Set;
 
 //餐點表-Gary
 public class MealForm implements Serializable {
@@ -11,18 +10,48 @@ public class MealForm implements Serializable {
 	private String mealName;
 	private Double price;
 	private Integer shopID;
+	private String shopName;
 	private File mealImage;
 	private Boolean mealStatus;
 	private Integer mealKindID;
+	private Boolean imageChange;
 	
+	
+	
+	public Boolean getImageChange() {
+		return imageChange;
+	}
+
+
+
+	public void setImageChange(Boolean imageChange) {
+		this.imageChange = imageChange;
+	}
+
+
+
 	@Override
 	public String toString() {
 
 		return "{ mealID:" + mealID + " , mealName:" + mealName + " , price:"
-				+ price + " , shopID:" + shopID + " , mealImage:" + mealImage
-				+ " , mealStatus:" + mealStatus + " , mealKindID:" + mealKindID
+				+ price + " , shopID:" + shopID +" ， shopName:"+shopName +" , mealImage:" + mealImage
+				+ " , mealStatus:" + mealStatus + " , mealKindID:" + mealKindID+ " , imageChange:" + imageChange
 				 + " }";
 	}
+	
+	
+	
+	public String getShopName() {
+		return shopName;
+	}
+
+
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+
 
 	public Integer getMealID() {
 		return mealID;

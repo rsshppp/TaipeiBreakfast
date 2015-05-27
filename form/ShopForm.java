@@ -1,6 +1,8 @@
 package form;
 
-public class ShopForm {
+import java.io.Serializable;
+
+public class ShopForm implements Serializable{
 	private String shopName;
 	private Integer shopID;
 	public String getShopName() {

@@ -1,12 +1,16 @@
 package form;
 
-public class MealListForm {
+import java.io.Serializable;
+
+public class MealListForm implements Serializable{
 	private Integer mealID;
 	private String mealName;
 	private Double price;
 	private byte[] mealImage;
 	private String mealStatus;
 	private String mealKindName;
+	private Integer mealKindID;
+	private String shopName;
 	public Integer getMealID() {
 		return mealID;
 	}
@@ -42,6 +46,18 @@ public class MealListForm {
 	}
 	public void setMealKindName(String mealKindName) {
 		this.mealKindName = mealKindName;
+	}
+	public Integer getMealKindID() {
+		return mealKindID;
+	}
+	public void setMealKindID(Integer mealKindID) {
+		this.mealKindID = mealKindID;
+	}
+	public String getShopName() {
+		return shopName;
+	}
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
 	}
 	
 	

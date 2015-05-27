@@ -31,9 +31,9 @@
 	<!-- Custom Javascript -->
 	<script src="js/holder.js"></script>
 		
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>  -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+<!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.form.js"></script>
 
@@ -85,13 +85,13 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 <!-- 					登入後由會員中心的li取代登入的li -->
-<!-- 					<li><a data-toggle="tab" href="member/MemberCenter"> <span -->
-<!-- 							class="glyphicon glyphicon-user"></span> 會員中心 -->
-<!-- 					</a></li> -->
+<!-- 				<li><a data-toggle="tab" href="member/MemberCenter">  -->
+<!-- 					<span class="glyphicon glyphicon-user"></span> 會員中心 </a> -->
+<!-- 				</li>  -->
 					<!-- 觸發模態窗 -->
 				<li><a data-toggle="modal" data-target="#myModal" href="#">
-						<span class="glyphicon glyphicon-log-in"></span> 登入
-				</a></li>
+					<span class="glyphicon glyphicon-log-in"></span> 登入</a>
+				</li>
 			</ul>
 <!-- 			<form class="navbar-form navbar-left" role="search" action="selectShopServlet.controller"> -->
 			<form class="navbar-form navbar-left" role="search" 

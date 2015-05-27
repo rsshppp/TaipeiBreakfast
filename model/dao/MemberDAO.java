@@ -15,6 +15,7 @@ public interface MemberDAO {
 	public abstract List<MemberBean> selectMember();
 	public abstract Boolean deleteMember(int MemberID);
 	public abstract Boolean rebornMember(int MemberID);
+	public abstract MemberBean selectMemberByMail(String mail);
 	//--*
 	
 	//會員查詢現存優惠 - Noah

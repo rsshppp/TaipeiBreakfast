@@ -82,9 +82,14 @@ tr{
 					<li><a href="#">關於早餐通</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a data-toggle="tab" href="/member/MemberCenter.jsp"> 
-						<span class="glyphicon glyphicon-user"></span> 會員中心</a>
-					</li>
+<!-- 					登入後由會員中心的li取代登入的li -->
+<!-- 				<li><a data-toggle="tab" href="member/MemberCenter">  -->
+<!-- 					<span class="glyphicon glyphicon-user"></span> 會員中心 </a> -->
+<!-- 				</li>  -->
+					<!-- 觸發模態窗 -->
+				<li><a data-toggle="modal" data-target="#myModal" href="#">
+					<span class="glyphicon glyphicon-log-in"></span> 登入</a>
+				</li>
 				</ul>
 				<form class="navbar-form navbar-left" role="search" 
  					action="<c:url value='/pe/duAction!selectShop.action'/>" 

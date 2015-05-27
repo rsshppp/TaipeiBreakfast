@@ -83,9 +83,7 @@ public class AdvertisementAction extends ActionSupport implements ServletRequest
 		if(session.getAttribute("user")!=null){
 			int ownerID=((OwnerBean)session.getAttribute("user")).getOwnID();
 			//int ownerID=1;
-			OwnerBean ob=new OwnerBean();
-			ob.setOwnID(ownerID);
-			Iterator<ShopBean> shoplist=ownerService.getShops(ob).iterator();
+			Iterator<ShopBean> shoplist=ownerService.getShops(ownerID).iterator();
 			ShopBean shop;
 			AdForm adform;
 			List<AdForm> adformlist=new ArrayList<AdForm>();

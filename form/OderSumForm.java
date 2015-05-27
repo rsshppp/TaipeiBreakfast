@@ -1,8 +1,9 @@
 package form;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class OderSumForm {
+public class OderSumForm implements Serializable {
 	
 	private Integer orderSumID;
 	private Integer shopID;

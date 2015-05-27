@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,7 +14,10 @@ import java.lang.reflect.Type;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import model.bean.MealBean;
 import model.bean.MemberBean;
+import model.bean.OrderDetailBean;
+import model.bean.OrderSumBean;
 import model.bean.ShopBean;
 import model.misc.convert;
 import model.service.TBService;
@@ -26,6 +30,8 @@ import com.google.gson.reflect.TypeToken;
 import com.opensymphony.xwork2.ActionSupport;
 
 import form.MemberForm;
+import form.OderSumForm;
+import form.OrderDetailForm;
 import form.ShopForm;
 
 public class MemberAction extends ActionSupport implements ServletRequestAware{
@@ -34,11 +40,13 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	private TBService service=new TBService();
 	private MemberForm mf=new MemberForm();
 	private ShopForm sf;
+	private OderSumForm osf;
+//	private OrderDetailForm odf;
 	private Map<String, String> errors=new HashMap<String, String>();
 	private Gson gson=new Gson();
 	private String redata;
-//	private String jsondata;
 	private String keyword;
+	private Integer page;
 
 	public MemberForm getMf() {
 		return mf;
@@ -61,12 +69,18 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	public void setRedata(String redata) {
 		this.redata = redata;
 	}
-//	public void setJsondata(String jsondata) {
-//		this.jsondata = jsondata;
-//	}
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+	public void setOsf(OderSumForm osf) {
+		this.osf = osf;
+	}
+//	public void setOdf(OrderDetailForm odf) {
+//		this.odf = odf;
+//	}
 	
 	
 	public String memberInsert() {
@@ -441,11 +455,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		}
 	}
 
-//	public String selectShop2() {
-//
-//		return "selects";
-//	}
-	
 	public String selectShop() {
 //		byte[] image;
 		try{
@@ -522,7 +531,54 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		}
 	}
 	
+	public String newoders0(){
+		System.out.println("n01:"+page);
+		try{
+			List<OrderSumBean> list=service.selectOrdersByTime(page);
+			System.out.println("n02:"+list);
+			Iterator<OrderSumBean> oblist=list.iterator();
+			List<OderSumForm> listform=new ArrayList<OderSumForm>();
+			while (oblist.hasNext()) {
+				OrderSumBean bean = oblist.next();
+				OderSumForm form = new OderSumForm();
+				form.setOrderSumID(bean.getOrderSumID());
+				form.setOrderTime(bean.getOrderTime());
+				form.setMemo(bean.getMemo());
+				listform.add(form);
+			}
+			Type listType = new TypeToken<List<ShopForm>>(){}.getType();
+			redata=gson.toJson(listform,listType);
+			System.out.println(redata);
+			return "newods";
+		}catch(Exception e){
+			return "error";
+		}
+	}
 	
+	public String newoderDetail(){
+		System.out.println("d1:"+osf.getOrderSumID());
+		try{
+			if(osf.getOrderSumID()!=0 && osf.getOrderSumID()!=null){
+				List<OrderDetailBean> list = service.selectOrderDetail(osf.getOrderSumID());
+				Iterator<OrderDetailBean> odlist = list.iterator();
+				List<OrderDetailForm> listform = new ArrayList<OrderDetailForm>();
+				while (odlist.hasNext()) {
+					OrderDetailBean bean = odlist.next();
+					OrderDetailForm form = new OrderDetailForm();
+					form.setMealName(bean.getMealBean().getMealName());
+					form.setCount(bean.getCount());
+					form.setPrice(bean.getPrice());
+					listform.add(form);
+				}
+				Type listType = new TypeToken<List<ShopForm>>() {}.getType();
+				redata = gson.toJson(listform, listType);
+				System.out.println(redata);
+			}
+			return "newods";
+		} catch (Exception e) {
+			return "error";
+		}
+	}
 	
 	@Override
 	public void setServletRequest(HttpServletRequest request) {

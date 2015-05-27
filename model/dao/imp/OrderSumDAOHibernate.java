@@ -25,6 +25,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
@@ -158,17 +159,18 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	}
 
 	// (-.-)*杜
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderSumBean> queryOrderSumByTime(int page) {
-
-		Query query = getSession()
+		Session session=getSession();
+		Transaction tx=session.beginTransaction();
+		Query query = session
 				.createQuery("from OrderSumBean order by orderTime desc")
 				.setFirstResult(page * 10).setMaxResults(10);
-		List<OrderSumBean> result = null;
-		if (query != null) {
-			result = (List<OrderSumBean>) query.list();
-		}
+		List<OrderSumBean> result =null;
+		result= (List<OrderSumBean>)query.list();
+//OrderSumBean.hbm.xml的 ShopBean & MemberBean 關聯必須設定lazy=false,不然list()會死掉
+		System.out.println("n06:"+result);
+		tx.commit();
 		return result;
 	}
 

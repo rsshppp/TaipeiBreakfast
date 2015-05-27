@@ -10,13 +10,13 @@
         <property name="shopID" type="java.lang.Integer" insert="false" update="false">
             <column name="shopID" />
         </property>
-        <many-to-one name="shopBean" class="model.bean.ShopBean" access="property" fetch="join">
+        <many-to-one name="shopBean" class="model.bean.ShopBean" access="property" fetch="join" lazy="false">
             <column name="shopID" />
         </many-to-one>
         <property name="memberID" type="java.lang.Integer" insert="false" update="false">
             <column name="memberID" />
         </property>
-        <many-to-one name="memberBean" class="model.bean.MemberBean" access="property" fetch="join">
+        <many-to-one name="memberBean" class="model.bean.MemberBean" access="property" fetch="join" lazy="false">
             <column name="memberID" />
         </many-to-one>
         <property name="totalPrice" type="java.lang.Double">

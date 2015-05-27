@@ -6,10 +6,12 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import model.bean.MealBean;
 import model.bean.MemberBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
 import model.bean.ShopBean;
+import model.dao.MealDAO;
 import model.dao.MemberDAO;
 import model.dao.OrderDetailDAO;
 import model.dao.OrderSumDAO;
@@ -22,6 +24,7 @@ public class TBService{
 	private ShopDAO shop;
 	private OrderSumDAO ordersum;
 	private OrderDetailDAO orderdetail;
+	private MealDAO meal;
 	private SendMailSMTP mailD;
 
 	public TBService(){
@@ -40,6 +43,9 @@ public class TBService{
 	}
 	public void setOrderdetail(OrderDetailDAO orderdetail) {
 		this.orderdetail = orderdetail;
+	}
+	public void setMeal(MealDAO meal) {
+		this.meal = meal;
 	}
 	public void setMailD(SendMailSMTP mailD) {
 		this.mailD = mailD;
@@ -221,6 +227,12 @@ public class TBService{
 	public List<OrderDetailBean> selectOrderDetail(Integer orderSumID) {
 		//用orderSumID抓Detail, orderDetailID與orderSumID隱藏不顯示
 		return orderdetail.queryOrderDetails(orderSumID);
+	}
+
+	//(-.-)*杜
+	public MealBean findMeal(Integer mealID) {
+		//用orderSumID抓Detail, orderDetailID與orderSumID隱藏不顯示
+		return meal.selectOneMeal(mealID);
 	}
 
 	//(-.-)*杜

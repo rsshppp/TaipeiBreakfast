@@ -28,17 +28,13 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO {
 		return this.sessionFactory.getCurrentSession();
 	}
 
-	//(-.-)*杜   \_tx
 	//查詢訂單明細 - 沛勳 (HQL 改寫為 Criteria - Noah)
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderDetailBean> queryOrderDetails(Integer orderSumID) {
-		Session session = getSession();
-		Transaction tx=session.beginTransaction();
-		Criteria criteria = session.createCriteria(OrderDetailBean.class);
+		Criteria criteria = getSession().createCriteria(OrderDetailBean.class);
 		criteria.add(Restrictions.eq("orderSumID", orderSumID));
 		List<OrderDetailBean> result=(List<OrderDetailBean>) criteria.list();
-		tx.commit();
 		return result;
 	}
 

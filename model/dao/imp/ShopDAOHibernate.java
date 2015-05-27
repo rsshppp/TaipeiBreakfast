@@ -33,10 +33,8 @@ public class ShopDAOHibernate implements ShopDAO {
 	//(-.-)*杜
 	@Override
 	public List<ShopBean> selectAK(String shopArea,String keyword) {
-		Session session = getSession();
-		Transaction tx=session.beginTransaction();
 		//shopArea 中符合keyword條件的
-		Query query=session.createQuery("from ShopBean "
+		Query query=getSession().createQuery("from ShopBean "
 				+ "where shopArea=:ar "
 				+ "and shopName like:kw "
 				+ "or shopCity like:kw "
@@ -46,17 +44,14 @@ public class ShopDAOHibernate implements ShopDAO {
 		query.setString("kw", "%"+keyword+"%");
 		List<ShopBean> result=(List<ShopBean>) query.list();
 		System.out.println(17+":"+result);
-		tx.commit();
 		return result;
 	}
 	
 	//(-.-)*杜
 	@Override
 	public List<ShopBean> selectKeyword(String keyword) {
-		Session session = getSession();
-		Transaction tx=session.beginTransaction();
 		//用 keyword 模糊查詢
-		Query query=session
+		Query query=getSession()
 				.createQuery("from ShopBean "
 				+ "where shopName like:kw "
 				+ "or shopCity like:kw "
@@ -66,21 +61,17 @@ public class ShopDAOHibernate implements ShopDAO {
 				.setString("kw", "%"+keyword+"%");
 		List<ShopBean> result=(List<ShopBean>) query.list();
 		System.out.println(16+":"+result);
-		tx.commit();
 		return result;
 	}
 	
 	//(-.-)*杜
 	@Override
 	public List<ShopBean> selectArea(String shopArea){
-		Session session = getSession();
-		Transaction tx=session.beginTransaction();
 		System.out.println(2+":"+shopArea);
-		Query query=session.createQuery("from ShopBean where shopArea like:status ");
+		Query query=getSession().createQuery("from ShopBean where shopArea like:status ");
 		query.setString("status", shopArea+"%");
 		List<ShopBean> result=(List<ShopBean>) query.list();
 		System.out.println(15+":"+result);
-		tx.commit();
 		return result;
 	}
 	// result 要有print才能抓到東西,原因不明
@@ -88,12 +79,9 @@ public class ShopDAOHibernate implements ShopDAO {
 	//(-.-)*杜
 	@Override
 	public List<ShopBean> allowNeedsShop() {
-		Session session = getSession();
-		Transaction tx=session.beginTransaction();
-		Query query=session.createQuery("from ShopBean where ShopCondID=:status");
+		Query query=getSession().createQuery("from ShopBean where ShopCondID=:status");
 		query.setInteger("status", 1);
 		List<ShopBean> result=(List<ShopBean>) query.list();
-		tx.commit();
 		return result;
 	}
 
@@ -117,19 +105,14 @@ public class ShopDAOHibernate implements ShopDAO {
 //		}
 //		session.close();
 
-		Session session = getSession();
-		Transaction tx=session.beginTransaction();
-		ShopBean sb = (ShopBean)session.get(ShopBean.class, ShopID);
+		ShopBean sb = (ShopBean)getSession().get(ShopBean.class, ShopID);
 		System.out.println("allow: "+sb);
 		if (sb != null) {
 			// update ShopCondID
 			sb.setShopCondID(3);
 			getSession().saveOrUpdate(sb);
-			tx.commit();
 			return true;
 		}
-
-		tx.commit();
 		return false;
 	}
 
@@ -152,19 +135,14 @@ public class ShopDAOHibernate implements ShopDAO {
 //		}
 //		session.close();
 
-		Session session = getSession();
-		Transaction tx=session.beginTransaction();
-		ShopBean sb = (ShopBean)session.get(ShopBean.class, ShopID);
+		ShopBean sb = (ShopBean)getSession().get(ShopBean.class, ShopID);
 		System.out.println("not allow: "+sb);
 		if (sb != null) {
 			// update ShopCondID
 			sb.setShopCondID(2);
 			getSession().saveOrUpdate(sb);
-			tx.commit();
 			return true;
 		}
-
-		tx.commit();
 		return false;
 	}
 

@@ -161,16 +161,13 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 	// (-.-)*杜
 	@Override
 	public List<OrderSumBean> queryOrderSumByTime(int page) {
-		Session session=getSession();
-		Transaction tx=session.beginTransaction();
-		Query query = session
+		Query query = getSession()
 				.createQuery("from OrderSumBean order by orderTime desc")
 				.setFirstResult(page * 10).setMaxResults(10);
 		List<OrderSumBean> result =null;
 		result= (List<OrderSumBean>)query.list();
-//OrderSumBean.hbm.xml的 ShopBean & MemberBean 關聯必須設定lazy=false,不然list()會死掉
+//OrderSumBean.hbm.xml的 ShopBean & MemberBean 關聯必須設定lazy=false,不然list()會死掉(待驗證)
 		System.out.println("n06:"+result);
-		tx.commit();
 		return result;
 	}
 

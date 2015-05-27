@@ -42,8 +42,7 @@
 	<bean id="memberDAO" class="model.dao.imp.MemberDAOHibernate">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="orderDetailDAO"
-		class="model.dao.imp.OrderDetailDAOHibernate">
+	<bean id="orderDetailDAO" class="model.dao.imp.OrderDetailDAOHibernate">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="orderSumDAO" class="model.dao.imp.OrderSumDAOHibernate">
@@ -104,8 +103,7 @@
 		<bean id="reportService" class="model.service.ReportService">
 		<property name="orderSumDAO" ref="orderSumDAO"></property>
 	</bean>
-		<bean id="sendGmailService"
-		class="model.service.SendGmailService">
+	<bean id="sendGmailService" class="model.service.SendGmailService">
 	</bean>
 	<bean id="sendMailSMTP" class="model.service.SendMailSMTP">
 	</bean>
@@ -124,6 +122,7 @@
 		<property name="ordersum" ref="orderSumDAO"></property>
 		<property name="orderdetail" ref="orderDetailDAO"></property>
 		<property name="mailD" ref="sendMailSMTP"></property>
+		<property name="meal" ref="mealDAO"></property>
 	</bean>
 		<bean id="transactionHistoryRecordService"
 		class="model.service.TransactionHistoryRecordService">
@@ -153,6 +152,9 @@
 		<property name="mealservice" ref="mealService"></property>
 		<property name="mealKindservice" ref="mealKindListService"></property>
 		<property name="shopService" ref="shopService"></property>
+	</bean>
+	<bean id="memberAction" class="controller.MemberAction" scope="prototype">
+		<property name="service" ref="tBService" />
 	</bean>
 	
 </beans>

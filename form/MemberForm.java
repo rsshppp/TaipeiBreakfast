@@ -1,12 +1,13 @@
 package form;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class MemberForm {
+public class MemberForm implements Serializable {
 
 	private String memberAcc;
 	private String memberPwd;
-	private String memberCwd;
+//	private String memberCwd;
 	private String memberLastName;
 	private String memberFirstName;
 	private String memberPhone;
@@ -36,12 +37,12 @@ public class MemberForm {
 	public void setMemberPwd(String memberPwd) {
 		this.memberPwd = memberPwd;
 	}
-	public String getMemberCwd() {
-		return memberCwd;
-	}
-	public void setMemberCwd(String memberCwd) {
-		this.memberCwd = memberCwd;
-	}
+//	public String getMemberCwd() {
+//		return memberCwd;
+//	}
+//	public void setMemberCwd(String memberCwd) {
+//		this.memberCwd = memberCwd;
+//	}
 	public String getMemberLastName() {
 		return memberLastName;
 	}

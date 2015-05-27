@@ -32,10 +32,10 @@
 	<script src="js/holder.js"></script>
 		
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>  -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-<!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery.form.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<!-- <script src="js/jquery.min.js"></script> -->
+<!-- <script src="js/jquery.form.js"></script> -->
 
 	<script>
 		var shopID;
@@ -291,9 +291,8 @@
 									</div>
 									<button class="btn btn-lg btn-info btn-block" type="submit">登入</button>
 <!-- 									新會員註冊button連結至 insertMember1.jsp by Steven -->
-<%-- 									<a href="${pageContext.request.contextPath}/pages/insertMember1.jsp"  --%>
-<!-- 											type="button" class="btn btn-lg btn-primary btn-block">新會員註冊</a> -->
-							<button class="btn btn-lg btn-primary btn-block" type="button">新會員註冊</button>
+<a href="${pageContext.request.contextPath}/pages/insertMember1.jsp" type="button" class="btn btn-lg btn-primary btn-block">新會員註冊</a>
+<!-- 							<button class="btn btn-lg btn-primary btn-block" type="button">新會員註冊</button> -->
 									<br>
 									<div class="text-right">
 										<h5>

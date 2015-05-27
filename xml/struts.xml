@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<package name="du" namespace="/pe" extends="json-default">
+		<global-results>
+	        <result name="index">/pages/turn.jsp</result>
+			<result name="input">/errors/error.jsp</result>
+			<result name="error">/errors/error.jsp</result>
+		</global-results>
+		<action name="duAction" class="memberAction" >
+	        <result name="memberchangepass">/member/MemberChangePass.jsp</result>
+	        <result name="memberupdate">/member/MemberUpdate.jsp</result>
+	        <result name="memberdelete">/member/MemberDelete.jsp</result>
+	        <result name="memberinsert">/pages/insertMember1.jsp</result>
+	        <result name="losepass">/pages/losePassMember.jsp</result>
+	        <result name="searea" type="json" >/index.jsp</result>
+	        <result name="allowshop" type="json" >/pages/AllowShop.jsp</result>
+	        <result name="selects">/pages/selectShops.jsp</result>
+	        <result name="newods" type="json" >/pages/NewOders.jsp</result>
+
+		</action>
+<!-- 		<action name="duActionCP" method="changePassword" class="controller.MemberAction" > -->
+<!-- 		<action name="duAction" method="memberupdate" class="controller.MemberAction" > -->
+<!-- 		<action name="duAction" method="memberinsert" class="controller.MemberAction" > -->
+<!-- 		</action> -->
+	</package>
+	
+	
+<!-- 	<constant name="struts.custom.i18n.resources" value="globalMessages" /> -->
+<!-- 	<package name="myPackage" namespace="/myNamespace" extends="struts-default"> -->
+<!-- 		<global-results> -->
+<!-- 			<result name="error">/error.jsp</result> -->
+<!-- 		</global-results> -->
+<!-- 		<global-exception-mappings> -->
+<!-- 			<exception-mapping exception="java.lang.Exception" result="error" /> -->
+<!-- 		</global-exception-mappings> -->
+<!-- 		<action name="myAction" class="com.action.HelloAction" > -->
+<!-- 		<action name="myAction" class="com.action.HelloAction" method="add" > -->
+<!-- 			<result>/hello.jsp</result> -->
+<!-- 			<result name="error">/form.jsp</result> -->
+<!-- 	        <result name="input">/form.jsp</result> -->
+<!-- 			<result type="redirect" >/hello.jsp</result> -->
+<!-- 		</action> -->
+<!-- 	</package> -->
+    
+</struts>

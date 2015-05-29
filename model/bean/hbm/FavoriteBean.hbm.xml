@@ -13,5 +13,11 @@
         <property name="mealID" type="java.lang.Integer">
             <column name="mealID" />
         </property>
+        <many-to-one name="mealBean" class="model.bean.MealBean" fetch="join" >
+			<column name="mealId"/>
+		</many-to-one>
+		<many-to-one name="memberBean" class="model.bean.MemberBean" fetch="join" >
+			<column name="memberId"/>
+		</many-to-one>
     </class>
 </hibernate-mapping>

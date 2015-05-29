@@ -3,16 +3,26 @@ package model.bean;
 import java.io.Serializable;
 
 //會員最愛表
-public class FavoriteBean implements Serializable{
+public class FavoriteBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer favoriteID;
 	private Integer memberID;
 	private Integer mealID;
-	
+
+	private MealBean mealBean;
+	private MemberBean memberBean;
+
 	public FavoriteBean() {
-	
+
+	}
+
+	@Override
+	public String toString() {
+		return "{\"favoriteID\":" + favoriteID + ", \"memberID\":" + memberID
+				+ ", \"mealID\":" + mealID + ", \"MealBean\":"
+				+ ", \"MemberBean\":" + memberBean + "}";
 	}
 
 	public Integer getFavoriteID() {
@@ -37,5 +47,21 @@ public class FavoriteBean implements Serializable{
 
 	public void setMealID(Integer mealID) {
 		this.mealID = mealID;
+	}
+
+	public MealBean getMealBean() {
+		return mealBean;
+	}
+
+	public void setMealBean(MealBean mealBean) {
+		this.mealBean = mealBean;
+	}
+
+	public MemberBean getMemberBean() {
+		return memberBean;
+	}
+
+	public void setMemberBean(MemberBean memberBean) {
+		this.memberBean = memberBean;
 	}
 }

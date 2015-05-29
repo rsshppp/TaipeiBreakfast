@@ -11,6 +11,14 @@ public class MealListForm implements Serializable{
 	private String mealKindName;
 	private Integer mealKindID;
 	private String shopName;
+	private Integer shopID;
+	
+	public Integer getShopID() {
+		return shopID;
+	}
+	public void setShopID(Integer shopID) {
+		this.shopID = shopID;
+	}
 	public Integer getMealID() {
 		return mealID;
 	}

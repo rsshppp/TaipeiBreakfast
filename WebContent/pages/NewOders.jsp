@@ -128,21 +128,14 @@ tr{
 		<div class="container">
 			<div class="row">
 				<div class="col-md-10" style="text-align: left; top: 30px;">
-
-		<table>		
-	<thead>
-	<tr>
-		<th>下單時間</th>
-		<th>註記</th>
-	</tr>
-	</thead>
-	<tbody id="tn">
 		
-	</tbody>
-		</table>
-				</div>
-			</div>
-			
+	<div class="newodivth">
+		<span class="newothtime" >下單時間</span><span class="newothmemo" >註記</span>
+	</div>
+		
+	<div id="tn">
+	</div>
+		
 	<script>
 	var page=0;
 	console.log(page);
@@ -152,14 +145,15 @@ tr{
 			console.log(list);
 			$.each(list,function(u,i){
 				$('#tn').append(
-					"<tr id='tnd' onclick='detail("+i.orderSumID+")' >"+
-					"<td>"+i.orderTime+"</td>"+
-					"<td>"+i.memo+"</td>"+
-					"</tr>");
+					"<div id='tnd"+i.orderSumID+"' class='newodiv' onclick='cleardetail("+i.orderSumID+");'>"+
+					"<ul class='newoul'>"+
+					"<li class='newotime'>"+i.orderTime+"</li>"+
+					"<li class='newomemo'>"+i.memo+"</li>"+
+					"</ul>"+
+					"</div>");
     		})
 			$('#tn').append(
-				"<tr id='tnp' onclick='newpage("+(page+1)+")' >"+
-				"<td></td><td>+</td></tr>");
+				"<div id='tnp' onclick='newpage("+(page+1)+")'><p style='text-align:center;'>+</p></div>");
 		}
 	);
  	
@@ -167,7 +161,7 @@ tr{
 		if(document.getElementById("tnp").hasChildNodes()){
 			document.getElementById("tn").removeChild(document.getElementById("tnp"));
 		}
-		console.log(page+':'+pa);
+		console.log("page:"+page+'; pa:'+pa);
 		$.get("<c:url value='/pe/duAction!newoders0.action'/>?page="+pa+"",
 			function (data) {
 				var list=JSON.parse(data.redata);
@@ -175,97 +169,60 @@ tr{
 				if(list!=""){
 				$.each(list,function(u,i){
 					$('#tn').append(
-						"<tr id='tnd' onclick='detail("+i.orderSumID+")' >"+
-						"<td>"+i.orderTime+"</td>"+
-						"<td>"+i.memo+"</td>"+
-						"</tr>");
+						"<div id='tnd"+i.orderSumID+"' class='newodiv' onclick='cleardetail("+i.orderSumID+")'>"+
+						"<ul class='newoul'>"+
+						"<li class='newotime'>"+i.orderTime+"</li>"+
+						"<li class='newomemo'>"+i.memo+"</li>"+
+						"</ul>"+
+						"</div>");
     			})
 				$('#tn').append(
-					"<tr id='tnp' onclick='newpage("+(pa+1)+")' >"+
-					"<td></td><td>+</td></tr>");
+					"<div id='tnp' onclick='newpage("+(page+1)+")'><p style='text-align:center;'>+</p></div>");
 				}
 			}
 		)
 	}
 
-	function detail(osid){
-		while(document.getElementById("tnd").hasChildNodes()){
-			document.getElementById("tnd").removeChild(document.getElementById("tnd").childNodes[0]);
+	function cleardetail(osid){
+		if(document.getElementById("tu")){
+			$('#tu').slideUp("4000",function(){
+				console.log(2);
+				document.getElementById("tu").remove();
+				detail(osid);
+			});
+		}else{
+			console.log(3);
+			detail(osid);
 		}
+	}
+	function detail(osid){
 		console.log("osid:"+osid);
 		$.get("<c:url value='/pe/duAction!newoderDetail.action'/>?osf.orderSumID="+osid+"",
 			function (data) {
 				var list=JSON.parse(data.redata);
 				console.log(list);
-				$('#tnd').append(
-						"<tr>"+
-						"<th>餐點名稱</th>"+
-						"<th>數量</th>"+
-						"<th>單價</th>"+
-						"</tr>");
+				$('#tnd'+osid).append(
+						"<div id='tu' class='newodetaildiv' onclick='' >"+
+						"</div>");
 				$.each(list,function(u,i){
-					$('#tnd').append(
-						"<tr onclick='' >"+
-						"<td>"+i.mealName+"</td>"+
-						"<td>"+i.count+"</td>"+
-						"<td>"+i.price+"</td>"+
-						"</tr>");
+					$('#tu').append(
+						"<ul class='newodetailul'>"+
+						"<li class='newodetail'>"+i.mealName+"</li> "+
+						"<li class='newodetail'> $"+i.price+"</li> "+
+						"<li class='newodetail'> *"+i.count+"</li> "+
+						"</ul>");
+					$('#tu').hide();
     			})
+				$('#tu').slideDown("4000");
 			}
 		)
 	}
 
-	
-//     function change(sid){
-//     	console.log(1);
-//     	$.get("<c:url value='/pe/duAction!allowShop.action'/>?sf.shopID="+sid+"")
-//     	window.location = "";
-//     }
-//     function nota(sid){
-//     	console.log(2);
-//     	$.get("<c:url value='/pe/duAction!notallowShop.action'/>?sf.shopID="+sid+"")
-//     	window.location = "";
-//     }
-//     $.get("<c:url value='/pe/duAction!shoplist.action'/>",
-// 		function (data) {
-// 			var list=JSON.parse(data.redata);
-//     		console.log(list);
-//     		$.each(list,function(u,i){
-// 				$('#t1').append("<tr>"+
-// 					"<td>"+i.shopID+"</td>"+
-// 					"<td>"+i.ownID+"</td>"+
-// 					"<td>"+i.logoImage+"</td>"+
-// 					"<td>"+i.shopName+"</td>"+
-// 					"<td>"+i.shopPhone+"</td>"+
-// 					"<td>"+i.shopCity+"</td>"+
-// 					"<td>"+i.shopArea+"</td>"+
-// 					"<td>"+i.shopAddr+"</td>"+
-// 					"<td>"+i.beginBusinessTime+"</td>"+
-// 					"<td>"+i.businessTimeNote+"</td>"+
-// 					"<td><input type='button' value='允許' onclick='change("+i.shopID+")' /></td>"+
-// 					"<td><input type='button' value='不准' onclick='nota("+i.shopID+")' /></td>"+
-// 					"</tr>");
-//         	})
-// 		}
-// 	);
-    
-// 	$(function(){
-// 		var redata=${re};
-// 		$.each(redata,function(u,i){
-// 			$('#ts').append(
-// 				"<tr value='"+i.shopID+"' onclick=''>"+
-// 				"<td>"+i.logoImage+"</td>"+
-// 				"<td>"+i.shopName+"</td>"+
-// 				"<td>"+i.shopCity+"</td>"+
-// 				"<td>"+i.shopArea+"</td>"+
-// 				"<td>"+i.beginBusinessTime+"</td>"+
-// 				"<td>"+i.businessTimeNote+"</td>"+
-// 				"</tr>");
-//     	})
-// 	});
-    
     </script>
 		
+				</div>
+			</div>
+			
 			
 			<!-- 互動視窗（Modal） -->
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"

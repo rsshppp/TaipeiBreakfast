@@ -2,6 +2,7 @@ package model.service;
 
 
 import java.util.List;
+
 import model.bean.DaysoffBean;
 import model.bean.OwnerBean;
 import model.bean.ShopBean;
@@ -11,6 +12,7 @@ import model.dao.ShopDAO;
 public class ShopService {
     private ShopDAO shopDAO;
 	private DaysoffDAO daysoffDAO;
+	
 	public void setShopDAO(ShopDAO shopDAO) {
 		this.shopDAO = shopDAO;
 	}
@@ -33,7 +35,12 @@ public class ShopService {
 		}
 		return null;
 	}
-	
+
+	//查詢所有店鋪資料
+	public List<ShopBean> selectAll(){
+		return shopDAO.selectAll();
+	}	
+
 	//新增店鋪資料
 	public boolean insert(ShopBean shopBean){
 		if(shopBean!=null){
@@ -97,4 +104,8 @@ public class ShopService {
 		return daysoffDAO.deleteDaysoff(bean);
 	}
 
+	//根據shopArea找商家資料(for historyMap usage)--宗鈺
+	public List<ShopBean> selectShopArea(String shopArea){
+		return shopDAO.selectShopArea(shopArea);
+	}
 }

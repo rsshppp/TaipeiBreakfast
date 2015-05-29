@@ -40,7 +40,7 @@ public class ShopServiceTestWeng {                //宗鈺-維護店鋪資料
 		((ConfigurableApplicationContext)context).close();
 	}
 
-	@Test
+//	@Test
 	public void testSelect() {
 		
 		ShopBean bean=service.select(3);                      //select 
@@ -55,6 +55,12 @@ public class ShopServiceTestWeng {                //宗鈺-維護店鋪資料
 		System.out.println(list);
 	}
 
+	@Test
+	public void testSelectAll() {
+		List<ShopBean> list=service.selectAll();
+		System.out.println(list);
+	}
+	
 //	@Test
 	public void testInsert() throws ParseException {
 		ShopBean bean=new ShopBean();                     //insert

@@ -14,7 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.dao.OwnerDAO;
-import model.misc.HibernateUtil;
+
                                                        //by宗鈺
                                                        //沒做關連
                                                        //配合資料庫TaipeiBreakfast_20150504版本

@@ -310,7 +310,76 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		
 		return query.list();
 	}
+	
+	//特定店鋪當日不同時段報表--宗鈺
+	@Override
+	public List<Object> getTimeReport(Integer shopID, Integer year,
+			Integer month, Integer day) throws ParseException {
+		List<Object> list=new ArrayList();
+		for(int i=5;i<=14;i++){
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date startDate=sdf.parse(year+"-"+month+"-"+day+" "+i+":00:00");  //00取出 +" 00:"+i+":00"
+			Timestamp startDate1=new Timestamp(startDate.getTime());
+//			System.out.println(startDate1);
+			Date endDate=sdf.parse(year+"-"+month+"-"+day+" "+i+":59:59");  //i+1改為i+":59:59"
+			Timestamp endDate1=new Timestamp(endDate.getTime());
+//			System.out.println(endDate1);
 			
+			Query query=this.getSession().createQuery("select sum(a.totalPrice)"
+					+ " from OrderSumBean as a"
+					+ " where a.expectTime between ? and ?"        //條件由此開始
+					+ " and a.shopID=? and a.orderCondID=4"
+                     ); 
+			
+			query.setTimestamp(0, startDate1);
+			query.setTimestamp(1, endDate1);
+			query.setInteger(2, shopID);
+			
+//			System.out.println(query.list());
+			if(query.list().toString()=="[]"){
+				list.add(0.0);
+				continue;
+			}
+			
+			List smallList=query.list();
+			Iterator ite=smallList.iterator();
+			while(ite.hasNext()){
+				Object b=(Object)ite.next();
+//				System.out.print(b);
+				list.add(b);		
+			}
+		}
+		return list;
+	}
+	
+	//特定店鋪特定時段報表--宗鈺
+	@Override
+	public List<Object[]> getDetailTimeReport(Integer shopID, Integer year,
+			Integer month, Integer day, Integer hour) throws ParseException {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date startDate=sdf.parse(year+"-"+month+"-"+day+" "+hour+":00:00");  //00取出 
+		Timestamp startDate1=new Timestamp(startDate.getTime());
+//		System.out.println(startDate1);
+		Date endDate=sdf.parse(year+"-"+month+"-"+day+" "+hour+":59:59");  //i+1改為i+":59:59"
+		Timestamp endDate1=new Timestamp(endDate.getTime());
+//		System.out.println(endDate1);
+		
+		
+		Query query=this.getSession().createQuery("select c.mealName, sum(b.count), avg(b.price), (sum(b.count)*avg(b.price))"
+				+ " from OrderSumBean as a JOIN a.OrderDetail as b"                                                      
+				+ " JOIN b.mealBean as c"                            
+				+ " where a.expectTime between ? and ?"        
+				+ " and a.shopID=? and a.orderCondID=4"
+				+ " group by c.mealName"); 
+		
+		query.setTimestamp(0, startDate1);
+		query.setTimestamp(1, endDate1);
+		query.setInteger(2, shopID);
+//	    System.out.println(query.list());
+		
+		return query.list();
+	}
+	
 	@Override
 	public boolean insertOrder(OrderSumBean sbean) {
 		if(!sbean.getOrderDetail().isEmpty()){

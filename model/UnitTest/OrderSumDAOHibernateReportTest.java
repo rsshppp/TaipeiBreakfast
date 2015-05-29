@@ -41,7 +41,7 @@ public class OrderSumDAOHibernateReportTest {
 
 //	@Test
 	public void testGetDailyReport() throws ParseException {
-		List<Object[]> list=dao.getDailyReport(3,2015, 05, 03); //日報表  //5,3也ok原因不知
+		List<Object[]> list=dao.getDailyReport(11,2015, 5, 21); //日報表  //5,3也ok原因不知
 
 		Iterator ite=list.iterator();
 		while(ite.hasNext()){
@@ -65,6 +65,13 @@ public class OrderSumDAOHibernateReportTest {
 			System.out.print(item[2]+" ");
 			System.out.println(item[3]);
 		}
+	}
+	
+	@Test
+	public void testGetTimeReport() throws ParseException {  //特定店鋪當日不同時段報表
+		List<Object> list=dao.getTimeReport(11,2015,6,23);
+		System.out.println(list);
+
 	}
 
 }

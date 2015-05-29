@@ -7,7 +7,7 @@ import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.dao.OwnerDAO;
 import model.dao.ShopDAO;
-import model.misc.HibernateUtil;
+
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -274,5 +274,12 @@ public class ShopDAOHibernate implements ShopDAO {
 		query.setInteger("ownID", bean.getOwnID());
 		return query.list();
 	}
+	
+	//--宗鈺
+	public List<ShopBean> selectShopArea(String shopArea){
+		Query query=this.getSession().createQuery("from ShopBean where shopArea like:status");
+		query.setString("status", "%"+shopArea+"%");
+		return (List<ShopBean>) query.list();
+	}	
 		
 }

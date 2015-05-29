@@ -41,7 +41,7 @@ public class ReportServiceTest {                     //宗鈺
 
 //	@Test
 	public void testGetDailyReport() throws ParseException {  //日報表  //5,3也ok原因不知
-		List<Object[]> list=service.getDailyReport(3, 2015, 5, 3); 
+		List<Object[]> list=service.getDailyReport(11, 2015, 5, 21); 
 			Iterator ite=list.iterator();
 			if(!ite.hasNext()){                        //action可參考
 				System.out.println("輸入值不正確");
@@ -59,7 +59,29 @@ public class ReportServiceTest {                     //宗鈺
 
 //	@Test
 	public void testGetMonthlyReport() throws ParseException {  //月報表  //month要>0
-		List<Object[]> list=service.getMonthlyReport(3, 2015, 6);
+		List<Object[]> list=service.getMonthlyReport(11, 2015, 5);
+		Iterator ite=list.iterator();
+		if(!ite.hasNext()){                        //action可參考
+			System.out.println("輸入值不正確");
+		}
+		while(ite.hasNext()){
+			Object[] item=(Object[])ite.next();
+			System.out.print(item[0]+"  ");
+			System.out.print(item[1]+" ");
+			System.out.print(item[2]+" ");
+			System.out.println(item[3]);
+		}
+	}
+	
+//	@Test
+	public void testGetTimeReport() throws ParseException {   //特定店鋪當日不同時段報表
+		List<Object> list=service.getTimeReport(11, 2015, 6, 23);
+		System.out.println(list);
+	}
+	
+	@Test
+	public void testGetDetailTimeReport() throws ParseException {  //特定店鋪特定時段報表
+		List<Object[]> list=service.getDetailTimeReport(12, 2015, 6, 23, 9);
 		Iterator ite=list.iterator();
 		if(!ite.hasNext()){                        //action可參考
 			System.out.println("輸入值不正確");

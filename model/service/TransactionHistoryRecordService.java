@@ -85,8 +85,8 @@ public class TransactionHistoryRecordService {            //by宗鈺-查詢交�
 		
 		TransactionHistoryRecordService service=(TransactionHistoryRecordService)context
 				.getBean("transactionHistoryRecordService");
-//		List<HistoryRecordBean> list=service.selectHistoryRecord(3, 4);
-		List<HistoryRecordBean> list=service.selectHistoryRecord1(3, 4);
+		List<HistoryRecordBean> list=service.selectHistoryRecord(3, 4);
+//		List<HistoryRecordBean> list=service.selectHistoryRecord1(3, 4);
 		System.out.println(list);
 		
 		

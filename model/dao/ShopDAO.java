@@ -53,5 +53,6 @@ public interface ShopDAO {
 	//測試透過Owner查詢店鋪、店鋪的餐點
 	public List<ShopBean> queryShops(OwnerBean bean);
 	
-	
+	//根據shopArea找商家資料(for historyMap usage)--宗鈺
+	public List<ShopBean> selectShopArea(String shopArea);	
 }

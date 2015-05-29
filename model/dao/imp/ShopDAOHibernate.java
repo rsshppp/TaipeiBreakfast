@@ -200,16 +200,8 @@ public class ShopDAOHibernate implements ShopDAO {
 			bean.setShopCity(shopBean.getShopCity());
 			bean.setShopArea(shopBean.getShopArea());
 			bean.setShopAddr(shopBean.getShopAddr());
-			bean.setLastOrderNoon(shopBean.getLastOrderNoon());
-			bean.setLastOrderNight(shopBean.getLastOrderNight());
-			bean.setOwnID(shopBean.getOwnID());    //此處如何給值待前端做完再想或修改方法
-			bean.setLogoImage(shopBean.getLogoImage());  //這裡還未完成!!!!!!!
-			bean.setBeginBusinessTime(shopBean.getBeginBusinessTime());
-			bean.setEndBusinessTime(shopBean.getEndBusinessTime());
-			bean.setBusinessTimeNote(shopBean.getBusinessTimeNote());
-			
-			bean.setDaysoffBeans(shopBean.getDaysoffBeans());
-			bean.setMealBeans(shopBean.getMealBeans());
+			bean.setLogoImage(shopBean.getLogoImage());  
+		
 			return bean;
 		}
 		

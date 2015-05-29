@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import model.bean.FavoriteBean;
+import model.bean.MealBean;
+import model.bean.MemberBean;
+import model.bean.OrderDetailBean;
 import model.dao.FavoriteDAO;
 
 import org.hibernate.Criteria;
@@ -41,14 +44,12 @@ public class FavoriteDAOHibernate implements FavoriteDAO {
 		Criteria criteria = this.getSession()
 				.createCriteria(FavoriteBean.class);
 		criteria.add(Restrictions.eq("memberID", memberID));
-		List<FavoriteBean> list = criteria.list();
-		return list;
+		return (List<FavoriteBean>) criteria.list();
 	}
 
 	@Override
 	public boolean Delete(int favoriteID) {
 		Session session = this.getSession();
-		Transaction tx = session.beginTransaction();
 		Criteria criteria = session.createCriteria(FavoriteBean.class);
 		criteria.add(Restrictions.eqOrIsNull("favoriteID", favoriteID));
 		Iterator<FavoriteBean> favoriteBeans = criteria.list().iterator();
@@ -57,7 +58,6 @@ public class FavoriteDAOHibernate implements FavoriteDAO {
 				FavoriteBean favoriteBean = (FavoriteBean) favoriteBeans.next();
 				session.delete(favoriteBean);
 			}
-			tx.commit();
 			session.close();
 			return true;
 		} else {
@@ -65,4 +65,14 @@ public class FavoriteDAOHibernate implements FavoriteDAO {
 		}
 	}
 
+	@Override
+	public MealBean getMealBean(FavoriteBean bean) {
+		return bean.getMealBean();
+	}
+
+	@Override
+	public MemberBean getMemberBean(FavoriteBean bean) {
+		return bean.getMemberBean();
+	}
+	
 }

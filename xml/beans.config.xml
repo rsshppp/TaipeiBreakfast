@@ -17,6 +17,10 @@
 	</bean>
 	
 <!-- 	DAO系列 -->
+	<bean id="administratorDAO"
+			class="model.dao.imp.AdministratorDAOHibernate">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+		</bean>
 	<bean id="advertisementDAO"
 		class="model.dao.imp.AdvertisementDAOHibernate">
 		<property name="sessionFactory" ref="sessionFactory"></property>
@@ -64,6 +68,10 @@
 	</bean>
 	
 <!-- 	Service系列 -->
+	<bean id="administratorService"
+			class="model.service.AdministratorService">
+			<property name="admindao" ref="administratorDAO"></property>
+		</bean>
 	<bean id="advertisementService"
 		class="model.service.AdvertisementService">
 		<property name="dao" ref="advertisementDAO"></property>
@@ -147,6 +155,7 @@
 	</bean>
 	<bean id="loginAction" class="controller.LoginAction" scope="prototype">
 		<property name="ownerservice" ref="ownerService"></property>
+		<property name="adminservice" ref="administratorService"></property>
 	</bean>
 	<bean id="mealAction" class="controller.MealAction" scope="prototype">
 		<property name="mealservice" ref="mealService"></property>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.ObjectFactory" value="spring"/>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+
+	<package name="mealpage" namespace="/owner" extends="json-default">
+
+		<result-types>
+			<result-type name="imageResult"
+				class="misc.CustomImageBytesResult" />
+		</result-types>
+		
+		<interceptors>
+			<interceptor name="authentication" class="misc.OwnerationInterceptor" />
+			<interceptor-stack name="myAuthenticationDefault">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="authentication" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myAuthenticationDefault" />
+		<global-results>
+			<result name="login" type="redirect">/index.jsp</result>
+		</global-results>
+		
+		<action name="mealaction" class="mealAction">
+			<result name="meal" type="json"></result>
+			<result name="mealKind" type="json"></result>	
+		</action>
+		
+		<action name="imageAction" class="imageAction">
+			<result name="image" type="imageResult"></result>
+		</action>
+		
+		<action name="adAction" class="advertisementAction">
+			<result name="AD" type="json"></result>
+		</action>
+		
+		<action name="*" >
+              <result>/owner/{1}.jsp</result>                      <!-- 沒有name屬性代表name="sucess" -->
+         </action>
+		
+	</package>
+	
+	<package name="login" namespace="/" extends="struts-default">
+		
+		
+		<action name="login" class="loginAction">
+			<result name="res">/index.jsp</result>
+			<result name="success" type="redirect">/owner/selectmeal.jsp</result>
+			<result name="message"></result>
+		</action>
+		<action name="logout" class="loginAction" method="logout" >
+			<result name="input">/index.jsp</result>
+			<result name="success" type="redirect">/index.jsp</result>
+		</action>
+		<action name="adminlogin" class="loginAction" method="adminLogin">
+			<result name="admin" type="redirect">/admin/checkad.jsp</result>
+			<result name="erradmin">/adminindex.jsp</result>
+		</action>
+		<action name="adminlogout" class="loginAction" method="adminLogout">
+			<result name="input">/adminindex.jsp</result>
+			<result name="logout" type="redirect">/adminindex.jsp</result>
+		</action>
+		
+	</package>
+	
+	<package name="admin" namespace="/admin" extends="json-default">
+	
+		<action name="adAction" class="advertisementAction">
+			<result name="AD" type="json"></result>
+		</action>
+		
+	</package>
+	
+</struts>

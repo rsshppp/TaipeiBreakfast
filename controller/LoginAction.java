@@ -6,7 +6,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import model.bean.AdministratorBean;
 import model.bean.OwnerBean;
+import model.service.AdministratorService;
 import model.service.OwnerService;
 
 import org.apache.struts2.ServletActionContext;
@@ -19,10 +21,15 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
 	private String user;
 	private String password;
 	private OwnerService ownerservice;
+	private AdministratorService adminservice;
 	private HttpSession session=ServletActionContext.getRequest().getSession();
 	private String suspend;
 	
 	
+	public void setAdminservice(AdministratorService adminservice) {
+		this.adminservice = adminservice;
+	}
+
 	public String getSuspend() {
 		return suspend;
 	}
@@ -73,10 +80,33 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
 			return "res";
 		}
 	}
+	
 	 public String logout(){
 		 session.removeAttribute("user");
 		 session.removeAttribute("type");
 		 return "success";
+	 }
+	 
+	 public String adminLogin(){
+		 AdministratorBean bean=null;
+		System.out.println(user);
+		System.out.println(password);
+		if(user!=null&&user.trim().length()!=0&&password!=null&&password.trim().length()!=0){
+			bean=adminservice.login(user, password);
+		}
+		if(bean!=null){
+			session.setAttribute("admin", bean);
+			return "admin";
+		}else{
+			suspend="錯誤的帳號密碼";
+			System.out.println(suspend);
+			return "erradmin";
+		}
+	 }
+	 
+	 public String adminLogout(){
+		 session.removeAttribute("admin");
+		 return "logout";
 	 }
 	@Override
 	public void setServletRequest(HttpServletRequest request) {

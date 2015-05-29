@@ -14,9 +14,9 @@
 <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="../css/carousel.css" rel="stylesheet">
-<link rel="../icon" href="../favicon.ico">
+<link rel="icon" href="../favicon.ico">
 <%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/table.css'/>" /> --%>
-<script src="../bootstrap/js/bootstrap.min.js"></script>
+<%-- <script src="../bootstrap/js/bootstrap.min.js"></script> --%>
 <script src="../js/holder.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
@@ -189,8 +189,33 @@ tr{
 			<p class="pull-left">
 				<a href="#">隱私權政策</a> &middot; 
 				<a href="#">常見問題</a> &middot; 
-				<a href="#">聯絡我們</a>
-			</p>
+			<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+				data-target="#myModalforContact">聯絡我們</button>
+
+			<!-- Modal -->
+		<div class="modal fade" id="myModalforContact" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+<%-- 						<form action="${pageContext.request.contextPath}/myNamespace/myAction.controller" method="post" > --%>
+<!-- 							<h4 class="modal-title">信箱</h4> -->
+							<input type="text" placeholder="請填入你的信箱" name="SendGmailForm.gmail" required="required">
+							<h4 class="modal-title">主旨</h4>
+							<input type="text" placeholder="請填入主旨" name="SendGmailForm.subject" required="required">
+							<h4 class="modal-title">內容</h4>
+							<input type="text" placeholder="請填入內容" name="SendGmailForm.text" required="required">
+							<div class="modal-footer">
+							<button type="submit">送出</button>
+							</div>
+<!-- 						</form> -->
+					</div>
+
+				</div>
+			</div>
+		</div>
+
 			<p class="pull-right">
 				<a href="https://www.facebook.com/taipeibreakfast">
 					<i id="social" class="fa fa-facebook-square fa-3x social-fb"></i>

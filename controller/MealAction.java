@@ -130,9 +130,12 @@ public class MealAction extends ActionSupport implements ServletRequestAware{
 			while(shopBlist.hasNext()){
 				ShopBean bean=shopBlist.next();
 				ShopForm form=new ShopForm();
-				form.setShopID(bean.getShopID());
-				form.setShopName(bean.getShopName());
-				listform.add(form);
+				System.out.println(bean);
+				if(bean.getShopCondID()==3&&bean.getShopSuspend()==false){
+					form.setShopID(bean.getShopID());
+					form.setShopName(bean.getShopName());
+					listform.add(form);
+				}
 			}
 			Type listType = new TypeToken<List<ShopForm>>() {}.getType();
 			redata=gson.toJson(listform,listType);

@@ -52,4 +52,22 @@ public class ReportService {                        //宗鈺
 			return null;
 		}		
 	}
+	
+	//特定店鋪年營收報表--宗鈺
+	public List<Object> getYearly(Integer shopID, Integer year) throws ParseException {
+		if(shopID!=0 && year!=0){
+			return orderSumDAO.getYearly(shopID, year);
+		}else{
+			return null;
+		}	
+	}
+	
+	//特定店鋪年營收報表--宗鈺
+	public List<Object> getYearlyDetail(Integer shopID, Integer year) throws ParseException {
+		if(shopID!=0 && year!=0){
+			return orderSumDAO.getYearlyDetail(shopID, year);
+		}else{
+			return null;
+		}	
+	}
 }

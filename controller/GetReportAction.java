@@ -253,4 +253,28 @@ public class GetReportAction extends ActionSupport{
 			return "success";
 		}
     }
+	
+	public String getYearly(){
+		try {
+			numberList=service.getYearly(shopID, year);
+			System.out.println(numberList);
+			return "success2";
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "success2";
+		}
+	}
+	
+	public String getYearlyDetail(){
+		try {
+			numberList=service.getYearlyDetail(shopID, year);
+			System.out.println(list);
+			return "success2";
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "success2";
+		}
+	}
 }

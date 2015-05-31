@@ -76,4 +76,10 @@ public interface OrderSumDAO {
     
     //特定店鋪特定時段報表--宗鈺
     public abstract List<Object[]> getDetailTimeReport(Integer shopID,Integer year,Integer month,Integer day,Integer hour)throws ParseException;
+    
+    //特定店鋪年營收報表--宗鈺
+    public abstract List<Object> getYearly(Integer shopID,Integer year)throws ParseException;
+    
+    //特定店鋪年營收細節--宗鈺
+    public abstract List<Object> getYearlyDetail(Integer shopID,Integer year)throws ParseException;
 }

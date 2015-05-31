@@ -6,9 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.criteria.Root;
@@ -290,10 +292,11 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		Date startDate=sdf.parse(year+"-"+month+"-"+1+" 00:00:00");  
 		Timestamp startDate1=new Timestamp(startDate.getTime());
 		Calendar c = Calendar.getInstance();
-		c.set(Calendar.YEAR, year);
-		c.set(Calendar.MONTH, month-1);  //month 註標值從0開始
-		Integer day=c.getActualMaximum(Calendar.DATE);
-//		System.out.println(day);
+		c.set(year,(month-1),1);
+//		c.set(Calendar.YEAR, year);       //不知為何此方法忽然不能用
+//		c.set(Calendar.MONTH, month-1);  //month 註標值從0開始
+		Integer day=c.getActualMaximum(Calendar.DAY_OF_MONTH);
+		System.out.println(day);
 		Date endDate=sdf.parse(year+"-"+month+"-"+day+" 23:59:59");
 		Timestamp endDate1=new Timestamp(endDate.getTime());
 		
@@ -380,6 +383,115 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 		return query.list();
 	}
 	
+	//特定店鋪年營收報表--宗鈺
+	@Override
+	public List<Object> getYearly(Integer shopID, Integer year)throws ParseException {
+		List<Object> list=new ArrayList();
+		for(int i=1;i<=12;i++){
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date startDate=sdf.parse(year+"-"+i+"-"+1+" 00:00:00");  
+			Timestamp startDate1=new Timestamp(startDate.getTime());
+			Calendar c = Calendar.getInstance();
+			c.set(year,(i-1),1);
+			Integer day=c.getActualMaximum(Calendar.DAY_OF_MONTH);
+			System.out.println(day);
+			Date endDate=sdf.parse(year+"-"+i+"-"+day+" 23:59:59");
+			Timestamp endDate1=new Timestamp(endDate.getTime());
+			
+			Query query=this.getSession().createQuery("select sum(a.totalPrice)"
+					+ " from OrderSumBean as a"
+					+ " where a.expectTime between ? and ?"        //條件由此開始
+					+ " and a.shopID=? and a.orderCondID=4"
+                     ); 
+			
+			query.setTimestamp(0, startDate1);
+			query.setTimestamp(1, endDate1);
+			query.setInteger(2, shopID);
+			
+//			System.out.println(query.list().toString());
+			String s="[null]";
+			if(query.list().toString().equals(s)){
+//				System.out.println("hello");
+				list.add(0.0);
+				continue;
+			}
+			
+			List smallList=query.list();
+			Iterator ite=smallList.iterator();
+			while(ite.hasNext()){
+				Object b=(Object)ite.next();
+//				System.out.print(b);
+				list.add(b);		
+			}
+		}
+		return list;
+	}
+	
+	//特定店鋪年營收細節--宗鈺
+	@Override
+	public List<Object> getYearlyDetail(Integer shopID, Integer year) throws ParseException {
+		List<Object> listAll=new ArrayList();
+		
+		Query query1=this.getSession().createQuery("select mealName,mealID"
+				+ " from MealBean"
+				+ " where shopID=?"      
+                 ); 
+		query1.setInteger(0, shopID);
+		Iterator ite1=query1.list().iterator();
+		while(ite1.hasNext()){
+			Map m1 = new HashMap<String, Object>();
+			Object[] item=(Object[])ite1.next();
+//			System.out.print(item[0]+"  ");
+			m1.put("name",item[0]);
+//			System.out.print(item[1]+"  ");
+			
+			List<Object> list=new ArrayList();
+			for(int i=1;i<=12;i++){
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date startDate=sdf.parse(year+"-"+i+"-"+1+" 00:00:00");  
+				Timestamp startDate1=new Timestamp(startDate.getTime());
+				Calendar c = Calendar.getInstance();
+				c.set(year,(i-1),1);
+				Integer day=c.getActualMaximum(Calendar.DAY_OF_MONTH);
+//				System.out.println(day);
+				Date endDate=sdf.parse(year+"-"+i+"-"+day+" 23:59:59");
+				Timestamp endDate1=new Timestamp(endDate.getTime());
+				
+				Query query2=this.getSession().createQuery("select (sum(b.count)*avg(b.price))"
+						+ " from OrderSumBean as a JOIN a.OrderDetail as b"                                                    
+						+ " JOIN b.mealBean as c"                            
+						+ " where a.expectTime between ? and ?"        
+						+ " and a.shopID=? and a.orderCondID=4 and c.mealID=?"
+						+ " group by c.mealName"); 
+				
+				query2.setTimestamp(0, startDate1);
+				query2.setTimestamp(1, endDate1);
+				query2.setInteger(2, shopID);				
+				query2.setInteger(3, (Integer)item[1]);	
+				
+				System.out.println(query2.list());
+				String s1="[null]";
+				String s2="[]";
+				if(query2.list().toString().equals(s1) || query2.list().toString().equals(s2)){
+//					System.out.println("hello");
+					list.add(0.0);
+					continue;
+				}
+				
+				List smallList=query2.list();
+				Iterator ite=smallList.iterator();
+				while(ite.hasNext()){
+					Object b=(Object)ite.next();
+//					System.out.print(b);
+					list.add(b);		
+				}				
+			}
+			m1.put("data",list);
+			listAll.add(m1);
+		}
+		return listAll;
+	}
+	
 	@Override
 	public boolean insertOrder(OrderSumBean sbean) {
 		if(!sbean.getOrderDetail().isEmpty()){
@@ -415,6 +527,8 @@ public class OrderSumDAOHibernate implements OrderSumDAO {
 				.setMaxResults(pagesize)
 				.list();
 	}
+
+
 
 
 }

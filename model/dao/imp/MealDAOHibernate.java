@@ -117,4 +117,22 @@ public class MealDAOHibernate implements MealDAO {
 		return bean.getMealKindListBean();
 	}
 
+	@Override
+	public List<MealBean> selectShopMeal(int shopID, int mealKindID,
+			int page) {
+		Criteria criteria=this.getSession().createCriteria(MealBean.class);
+		criteria.add(Restrictions.eq("shopID", shopID));
+		criteria.add(Restrictions.eq("mealKindID", mealKindID));
+		criteria.setFirstResult(page*6).setMaxResults(6);
+		List<MealBean> list=criteria.list();
+		return list;
+	}
+
+	@Override
+	public byte[] queryMealImage(int mealID) {
+		MealBean bean=(MealBean)this.getSession().get(MealBean.class, mealID);
+		byte[] imageByte = bean.getMealImage();
+		return imageByte;
+	}
+
 }

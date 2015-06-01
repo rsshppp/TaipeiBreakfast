@@ -60,6 +60,7 @@ dependencies {
     compile 'org.json:json:20141113'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'commons-codec:commons-codec:1.10'
+    compile 'com.googlecode.json-simple:json-simple:1.1.1'
     
     //Direct Web Remoting
     compile 'org.directwebremoting:dwr:2.0.11-RELEASE'

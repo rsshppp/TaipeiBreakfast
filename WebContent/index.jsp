@@ -219,7 +219,7 @@
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-header">
-<%-- 						<form action='<c:url value="/member/sendGmailAction"/>' method="post" >
+ 						<form action='<c:url value="/member/sendGmailAction"/>' method="post" >
 							<h4 class="modal-title">信箱</h4>
 							<input type="text" placeholder="請填入你的信箱" name="gmail">
 							<h4 class="modal-title">主旨</h4>

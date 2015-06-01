@@ -212,6 +212,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				if (t != null) {
 
 					bean.setMemberID(t.getMemberID());
+					bean.setMemberAcc(t.getMemberAcc());
 					bean.setMemberEmail(mf.getMemberEmail());
 					bean.setMemberLastName(mf.getMemberLastName());
 					bean.setMemberFirstName(mf.getMemberFirstName());

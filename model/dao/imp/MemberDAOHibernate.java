@@ -74,7 +74,6 @@ public class MemberDAOHibernate implements MemberDAO {
 				.add(Restrictions.eq("memberID", bean.getMemberID()));
 		Iterator upprod = criteria.list().iterator();
 		MemberBean upper = (MemberBean) upprod.next();
-		upper.setMemberAcc(bean.getMemberAcc());
 		upper.setMemberEmail(bean.getMemberEmail());
 		upper.setMemberLastName(bean.getMemberLastName());
 		upper.setMemberFirstName(bean.getMemberFirstName());

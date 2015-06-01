@@ -84,19 +84,24 @@ public class OwnerSpecialPriceAction {
 		OwnerBean obean = new OwnerBean();
 		obean.setOwnID(ownID);
 		List<ShopBean> slist = specialPriceService.queryShops(obean);
+		System.out.println(slist);
 		ListIterator<ShopBean> iterator = slist.listIterator();
 		ShopBeanInfo sbeani;
 		//將資料做整理回傳
 		list = new ArrayList<ShopBeanInfo>();
 		while(iterator.hasNext()){
+			System.out.println("hasNext");
 			ShopBean sbean = iterator.next();
-			sbeani = new ShopBeanInfo();
-			sbeani.setOwnID(sbean.getOwnID());
-			sbeani.setShopCondID(sbean.getShopCondID());
-			sbeani.setShopID(sbean.getShopID());
-			sbeani.setShopName(sbean.getShopName());
-			sbeani.setShopSuspend(sbean.getShopSuspend());
-			list.add(sbeani);
+//			System.out.println(sbean);
+//			if(sbean.getShopSuspend()==false&&sbean.getShopCondID()==3){
+				sbeani = new ShopBeanInfo();
+				sbeani.setOwnID(sbean.getOwnID());
+				sbeani.setShopCondID(sbean.getShopCondID());
+				sbeani.setShopID(sbean.getShopID());
+				sbeani.setShopName(sbean.getShopName());
+				sbeani.setShopSuspend(sbean.getShopSuspend());
+				list.add(sbeani);
+//			}
 		}
 		
 		return "queryShops";
@@ -108,14 +113,16 @@ public class OwnerSpecialPriceAction {
 		mlist = new ArrayList<MealBeanInfo>();
 		while(iterator.hasNext()){
 			MealBean mbean = iterator.next();
-			mealBeanInfo = new MealBeanInfo();
-			mealBeanInfo.setMealID(mbean.getMealID());
-			mealBeanInfo.setMealKindID(mbean.getMealKindID());
-			mealBeanInfo.setMealName(mbean.getMealName());
-			mealBeanInfo.setMealStatus(mbean.getMealStatus());
-			mealBeanInfo.setPrice(mbean.getPrice());
-			mealBeanInfo.setShopName(mbean.getShopBean().getShopName());
-			mlist.add(mealBeanInfo);
+			if(mbean.getMealStatus()==true){
+				mealBeanInfo = new MealBeanInfo();
+				mealBeanInfo.setMealID(mbean.getMealID());
+				mealBeanInfo.setMealKindID(mbean.getMealKindID());
+				mealBeanInfo.setMealName(mbean.getMealName());
+				mealBeanInfo.setMealStatus(mbean.getMealStatus());
+				mealBeanInfo.setPrice(mbean.getPrice());
+				mealBeanInfo.setShopName(mbean.getShopBean().getShopName());
+				mlist.add(mealBeanInfo);
+			}
 		}
 		mlist.sort(new Comparator<MealBeanInfo>() {
 

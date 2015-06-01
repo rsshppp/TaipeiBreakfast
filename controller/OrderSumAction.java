@@ -106,30 +106,32 @@ public class OrderSumAction {
 			List<Object> list2 = new ArrayList<Object>();
 			OrderSumBean sbean = (OrderSumBean) oIterator.next();
 //			System.out.println("sbean="+sbean);
-			Iterator dIterator = sbean.getOrderDetail().iterator();
-			while (dIterator.hasNext()) {
-				OrderDetailBean dbean = (OrderDetailBean) dIterator.next();
+			if(sbean.getOrderCondID()<3){
+				Iterator dIterator = sbean.getOrderDetail().iterator();
+				while (dIterator.hasNext()) {
+					OrderDetailBean dbean = (OrderDetailBean) dIterator.next();
 //				System.out.println("dbean="+dbean);
-				// 取mealName, count
-				String mealName = dbean.getMealBean().getMealName();
-				Integer count = dbean.getCount();
-				// 放入Map物件後加入list2
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("mealName", mealName);
-				map.put("count", count);
-				list2.add(map);
+					// 取mealName, count
+					String mealName = dbean.getMealBean().getMealName();
+					Integer count = dbean.getCount();
+					// 放入Map物件後加入list2
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("mealName", mealName);
+					map.put("count", count);
+					list2.add(map);
+				}
+				Double totalPrice = sbean.getTotalPrice();
+				Timestamp expectTime = sbean.getExpectTime();
+				Integer orderCondID = sbean.getOrderCondID();
+				Integer orderSumID = sbean.getOrderSumID();
+				Map<String, Object> map1 = new HashMap<String, Object>();
+				map1.put("orderSumID", orderSumID);
+				map1.put("totalPrice", totalPrice);
+				map1.put("expectTime", expectTime.toString().substring(11, 16));
+				map1.put("orderCondID", orderCondID);
+				map1.put("orderDetail", list2);
+				list1.add(map1);
 			}
-			Double totalPrice = sbean.getTotalPrice();
-			Timestamp expectTime = sbean.getExpectTime();
-			Integer orderCondID = sbean.getOrderCondID();
-			Integer orderSumID = sbean.getOrderSumID();
-			Map<String, Object> map1 = new HashMap<String, Object>();
-			map1.put("orderSumID", orderSumID);
-			map1.put("totalPrice", totalPrice);
-			map1.put("expectTime", expectTime.toString().substring(11, 16));
-			map1.put("orderCondID", orderCondID);
-			map1.put("orderDetail", list2);
-			list1.add(map1);
 		}
 		Map<String, Object> orderSummap = new HashMap<String, Object>();
 		orderSummap.put("OrderSums", list1);
@@ -143,12 +145,12 @@ public class OrderSumAction {
 	
 	public String updateOrderCond(){
 		System.out.println(this.orderSumID+":"+this.orderCondID);
-		OrderSumBean orderSumBean = new OrderSumBean();
-		orderSumBean.setOrderCondID(orderCondID);
-		orderSumBean.setOrderSumID(orderSumID);
-		boolean b = orderSumService.updateOrderCond(orderSumBean);
-		updateStatus = Boolean.toString(b);
-		this.inputStream = new StringBufferInputStream(updateStatus);
+			OrderSumBean orderSumBean = new OrderSumBean();
+			orderSumBean.setOrderCondID(orderCondID);
+			orderSumBean.setOrderSumID(orderSumID);
+			boolean b = orderSumService.updateOrderCond(orderSumBean);
+			updateStatus = Boolean.toString(b);
+			this.inputStream = new StringBufferInputStream(updateStatus);
 //		System.out.println(updateStatus);
 		return "updateCond";
 	}

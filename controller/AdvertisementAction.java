@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import misc.FileToByte;
 import model.bean.AdvertisementBean;
 import model.bean.AdvertisementStatusBean;
+import model.bean.MealBean;
+import model.bean.MealKindListBean;
 import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.service.AdvertisementService;
@@ -37,7 +39,15 @@ public class AdvertisementAction extends ActionSupport implements ServletRequest
 	private String redata;
 	private AdForm readform;
 	private HttpServletRequest request;
+	private String imageId;
+	private int typeID;
 	
+	public void setTypeID(int typeID) {
+		this.typeID = typeID;
+	}
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
+	}
 	public AdForm getReadform() {
 		return readform;
 	}
@@ -59,7 +69,6 @@ public class AdvertisementAction extends ActionSupport implements ServletRequest
 	}
 	public String addAD(){
 		try{
-			System.out.println(readform);
 			AdvertisementBean bean=new AdvertisementBean();
 			bean.setAdvertisementStatusID(1);
 			bean.setContext(readform.getTitle()+"xxx"+readform.getContext());
@@ -94,8 +103,39 @@ public class AdvertisementAction extends ActionSupport implements ServletRequest
 					adform=new AdForm();
 					adform.setShopName(shop.getShopName());
 					AdvertisementBean adbean=adlist.next();
-					System.out.println(adbean);
+					if(adbean.getAdvertisementID()!=1){
 					//System.out.println(adbean.getAdvertisementID()+" , "+adbean.getContext());
+						if(!adbean.getContext().equals("xxx")){
+							adform.setTitle(adbean.getContext().split("xxx")[0]);
+							adform.setContext(adbean.getContext().split("xxx")[1]);
+						}else{
+							adform.setTitle("廣告申請");
+							adform.setContext("廣告申請");
+						}
+						adform.setDays(adbean.getDays());
+						adform.setAdStatus(adbean.getAdvertisementStatusBean().getAdvertisementStatus());
+						adformlist.add(adform);
+					}
+				}
+			}
+			Type listType = new TypeToken<List<AdForm>>() {}.getType();
+			redata=gson.toJson(adformlist,listType);
+
+		}
+		return "AD";
+	}
+	public String checkAD(){
+		System.out.println(typeID);
+			List<AdminADForm> adformlist=new ArrayList<AdminADForm>();
+			AdminADForm adform;
+			Iterator<AdvertisementBean> adlist=advertisementService.selectAllAd().iterator();
+			while(adlist.hasNext()){
+				adform=new AdminADForm();
+				AdvertisementBean adbean=adlist.next();
+				if(adbean.getAdvertisementID()!=1&&(typeID==0||adbean.getAdvertisementStatusID()==typeID)){
+					adform.setAdID(adbean.getAdvertisementID());
+					adform.setOwerID(adbean.getShopBean().getOwnID());
+					adform.setShopName(adbean.getShopBean().getShopName());
 					if(!adbean.getContext().equals("xxx")){
 						adform.setTitle(adbean.getContext().split("xxx")[0]);
 						adform.setContext(adbean.getContext().split("xxx")[1]);
@@ -105,41 +145,14 @@ public class AdvertisementAction extends ActionSupport implements ServletRequest
 					}
 					adform.setDays(adbean.getDays());
 					adform.setAdStatus(adbean.getAdvertisementStatusBean().getAdvertisementStatus());
+					adform.setAdStatusID(adbean.getAdvertisementStatusID());
 					adformlist.add(adform);
 				}
-			}
-			Type listType = new TypeToken<List<AdForm>>() {}.getType();
-			redata=gson.toJson(adformlist,listType);
-			System.out.println(redata);
-		}
-		return "AD";
-	}
-	public String checkAD(){
-			List<AdminADForm> adformlist=new ArrayList<AdminADForm>();
-			AdminADForm adform;
-			Iterator<AdvertisementBean> adlist=advertisementService.selectAllAd().iterator();
-			while(adlist.hasNext()){
-				adform=new AdminADForm();
-				AdvertisementBean adbean=adlist.next();
-				adform.setAdID(adbean.getAdvertisementID());
-				adform.setOwerID(adbean.getShopBean().getOwnID());
-				adform.setShopName(adbean.getShopBean().getShopName());
-				if(!adbean.getContext().equals("xxx")){
-					adform.setTitle(adbean.getContext().split("xxx")[0]);
-					adform.setContext(adbean.getContext().split("xxx")[1]);
-				}else{
-					adform.setTitle("廣告申請");
-					adform.setContext("廣告申請");
-				}
-				adform.setDays(adbean.getDays());
-				adform.setAdStatus(adbean.getAdvertisementStatusBean().getAdvertisementStatus());
-				adform.setAdStatusID(adbean.getAdvertisementStatusID());
-				adformlist.add(adform);
 			}
 		
 		Type listType = new TypeToken<List<AdminADForm>>() {}.getType();
 		redata=gson.toJson(adformlist,listType);
-		System.out.println(redata);
+
 		return "AD";
 	}
 	public String allStatus(){
@@ -162,5 +175,29 @@ public class AdvertisementAction extends ActionSupport implements ServletRequest
 	public void setServletRequest(HttpServletRequest request) {
 		this.request=request;
 		
+	}
+	
+	public byte[] getCustomImageInBytes() {
+		byte[] imageInByte = null;
+		if(imageId!=null){
+			AdvertisementBean mbean=advertisementService.selectAd(Integer.parseInt(imageId));
+			if(mbean.getImage()!=null){
+				imageInByte=mbean.getImage();
+			}else{
+				mbean=advertisementService.selectAd(1);
+				imageInByte=mbean.getImage();
+			}
+		}else{
+			AdvertisementBean mbean=advertisementService.selectAd(1);
+			imageInByte=mbean.getImage();
+		}
+		imageId=null;
+		return imageInByte;
+	}
+	public String getCustomContentType() {
+		return "image/*";
+	}
+	public String adimage(){
+		return "image";
 	}
 }

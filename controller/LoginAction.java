@@ -96,6 +96,7 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
 		}
 		if(bean!=null){
 			session.setAttribute("admin", bean);
+			System.out.println("sss");
 			return "admin";
 		}else{
 			suspend="錯誤的帳號密碼";

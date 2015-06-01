@@ -2,6 +2,7 @@ package model.dao;
 
 import java.util.List;
 
+import model.bean.MemberBean;
 import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.bean.SpecialPriceBean;
@@ -15,4 +16,6 @@ public interface SpecialPriceDAO {
 	public List<SpecialPriceBean> querySpecialPrice(ShopBean bean);
 	//查詢賣家所有的優惠券(所有店鋪的)	chunting
 	public List<SpecialPriceBean> querySpecialPrice(OwnerBean bean);
+	//會員查詢自己的優惠券	--chunting
+	public SpecialPriceBean querySpecialPrice(MemberBean bean);
 }

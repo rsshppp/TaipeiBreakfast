@@ -26,4 +26,11 @@ public interface MealDAO {
 	
 	//查詢銷售報表 -利用此餐點表內的資料和關聯對應檔 查詢 此餐點表所對應的餐點總類表(MealKindListBean)-宗鈺
     public abstract  MealKindListBean getMealKindListBean(MealBean bean);
+    
+    //依【店家ID】及【餐點種類】搜尋全部餐點，分頁版
+    public List<MealBean> selectShopMeal(int shopID, int mealKindID, int page);
+    
+    //特殊用，依據餐點ID獲得Image的Byte[]
+    public byte[] queryMealImage(int mealID);
+   
 }

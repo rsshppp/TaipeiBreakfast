@@ -14,6 +14,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import model.bean.MealBean;
+import model.bean.MemberBean;
 import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.bean.SpecialPriceBean;
@@ -49,6 +50,7 @@ public class SpecialPriceDAOHibernate implements SpecialPriceDAO {
 			}
 		}else if (!iterator.hasNext()){
 			this.getSession().save(bean);
+			return true;
 		}
 		return false;
 	}
@@ -108,5 +110,20 @@ public class SpecialPriceDAOHibernate implements SpecialPriceDAO {
 				.add(Restrictions.eq("OwnID", bean.getOwnID()));
 		return criteria.list();
 	}
+
+	@Override
+	public SpecialPriceBean querySpecialPrice(MemberBean bean) {
+		Criteria criteria = this.getSession().createCriteria(MemberBean.class);
+		criteria.add(Restrictions.eq("memberID", bean.getMemberID()));
+		MemberBean mbean = (MemberBean) criteria.list().iterator().next();
+		criteria = this.getSession().createCriteria(SpecialPriceBean.class);
+		criteria.add(Restrictions.eq("specialPriceID", mbean.getSpecialPriceID()));
+		if(criteria.list().iterator().hasNext()){
+			return (SpecialPriceBean) criteria.list().iterator().next();
+		}
+		return null;
+	}
+
+	
 
 }

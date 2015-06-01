@@ -20,6 +20,7 @@
 	        <result name="memberdelete">/member/MemberDelete.jsp</result>
 	        <result name="memberinsert">/pages/insertMember1.jsp</result>
 	        <result name="losepass">/pages/losePassMember.jsp</result>
+	        <result name="losepassown">/pages/losePassOwner.jsp</result>
 	        <result name="searea" type="json" >/index.jsp</result>
 	        <result name="allowshop" type="json" >/pages/AllowShop.jsp</result>
 	        <result name="selects">/pages/selectShops.jsp</result>

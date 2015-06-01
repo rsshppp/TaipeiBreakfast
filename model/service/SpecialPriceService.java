@@ -1,7 +1,10 @@
 package model.service;
 
+import java.sql.Date;
 import java.util.List;
 
+import model.bean.MealBean;
+import model.bean.MemberBean;
 import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.bean.SpecialPriceBean;
@@ -50,4 +53,25 @@ public class SpecialPriceService {
 		return specialPriceDAO.deleteSpecialPrice(bean);
 	}
 	
+	//會員查詢優惠券
+	public SpecialPriceBean querySpecialPrice(MemberBean bean){
+		SpecialPriceBean sbean = specialPriceDAO.querySpecialPrice(bean);
+		if(sbean==null){
+			return null;
+		}
+		java.sql.Date nowDate = new Date(System.currentTimeMillis());
+		java.sql.Date sDate = sbean.getStartDate();
+		java.sql.Date eDate = sbean.getEndDate();
+		if(nowDate.compareTo(sDate) >=0 && nowDate.compareTo(eDate) <=0){
+			SpecialPriceBean spbean = new SpecialPriceBean();
+			spbean.setMealID(sbean.getMealID());
+			spbean.setSpecialPrice(sbean.getSpecialPrice());
+			MealBean mbean = new MealBean();
+			spbean.setMealBean(mbean);
+			spbean.getMealBean().setPrice(sbean.getMealBean().getPrice());
+			spbean.getMealBean().setMealName(sbean.getMealBean().getMealName());
+			return spbean;
+		}
+		return null;
+	}
 }

@@ -18,8 +18,10 @@ import model.bean.MealBean;
 import model.bean.MemberBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
+import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.misc.convert;
+import model.service.OwnerService;
 import model.service.TBService;
 
 import org.apache.struts2.ServletActionContext;
@@ -32,16 +34,18 @@ import com.opensymphony.xwork2.ActionSupport;
 import form.MemberForm;
 import form.OderSumForm;
 import form.OrderDetailForm;
+import form.OwnerForm;
 import form.ShopForm;
 
 public class MemberAction extends ActionSupport implements ServletRequestAware{
 	HttpSession session=ServletActionContext.getRequest().getSession();
 	private HttpServletRequest request;
 	private TBService service=new TBService();
+	private OwnerService ownser=new OwnerService();
 	private MemberForm mf=new MemberForm();
 	private ShopForm sf;
 	private OderSumForm osf;
-//	private OrderDetailForm odf;
+	private OwnerForm owf;
 	private Map<String, String> errors=new HashMap<String, String>();
 	private Gson gson=new Gson();
 	private String redata;
@@ -63,6 +67,9 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	public void setService(TBService service) {
 		this.service = service;
 	}
+	public void setOwnser(OwnerService ownser) {
+		this.ownser = ownser;
+	}
 	public String getRedata() {
 		return redata;
 	}
@@ -78,9 +85,12 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	public void setOsf(OderSumForm osf) {
 		this.osf = osf;
 	}
-//	public void setOdf(OrderDetailForm odf) {
-//		this.odf = odf;
-//	}
+	public OwnerForm getOwf() {
+		return owf;
+	}
+	public void setOwf(OwnerForm owf) {
+		this.owf = owf;
+	}
 	
 	
 	public String memberInsert() {
@@ -302,7 +312,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 //					} else {
 						if (service.deleteMember(t.getMemberID()) != false) {
 							errors.put("action", "刪除成功");
-							//若成功則返回首頁
 							return "index";
 						} else {
 							errors.put("action", "Delete fail");
@@ -340,7 +349,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 						errors.put("action", "已幫您變更密碼,請前往電子郵件信箱收信");
 						return "losepass";
 					}else{
-//						errors.put("action", "Ooooooooooooops");
 						errors.put("action", "無此mail");
 					}
 //				}
@@ -349,6 +357,44 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			System.out.println(redata);
 			request.setAttribute("errors", errors);
 			return "losepass";
+		}catch(Exception e){
+			return "error";
+		}
+	}
+
+	public String losePassOwner() {
+		System.out.println(owf.getOwnAcc());
+		if (owf.getOwnAcc() != null && owf.getOwnAcc().length() != 0) {
+			if (owf.getOwnEmail() != null && owf.getOwnEmail().length() != 0) {
+			System.out.println("Action mail pass");
+			}else{
+				errors.put("mail", "Please enter email");
+			}
+		}else{
+			errors.put("acc", "Please enter Acc");
+		}
+		if (errors != null && !errors.isEmpty()) {
+			request.setAttribute("errors", errors);
+			return "losepassown";
+		}
+		try{
+			if (owf != null) {
+				System.out.println("lose :" + owf);
+				OwnerBean t = ownser.select(owf.getOwnAcc());
+				if (t != null) {
+					System.out.println("t="+t.getOwnEmail());
+					//if(t.getOwnEmail.equals(owf.getOwnEmail())){
+					service.losepassown(t.getOwnID());
+					errors.put("action", "已幫您變更密碼,請前往電子郵件信箱收信");
+					return "losepassown";
+				}else{
+					errors.put("action", "無此mail");
+				}
+			}
+			redata = gson.toJson(errors);
+			System.out.println(redata);
+			request.setAttribute("errors", errors);
+			return "losepassown";
 		}catch(Exception e){
 			return "error";
 		}
@@ -480,6 +526,8 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 //							File file=ftb.encodeFileToBase64Binary(image);
 //							form.setLogoImage(file);
 //							errors.put("img", gson.toJson(image));
+//						}else{
+//							使用預設圖片
 //						}
 //						將byte[]轉成img (施工中)
 						form.setShopName(bean.getShopName());
@@ -507,6 +555,8 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 //							File file=ftb.encodeFileToBase64Binary(image);
 //							form.setLogoImage(file);
 //							errors.put("img", gson.toJson(image));
+//						}else{
+//							使用預設圖片
 //						}
 //						將byte[]轉成img (施工中)
 						form.setShopName(bean.getShopName());
@@ -521,7 +571,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 					errors.put("action", "s by area");
 				}
 			}
-//			redata = gson.toJson(errors);
 			errors.put("re", redata);
 			System.out.println(redata+":"+errors);
 			request.setAttribute("re", redata);

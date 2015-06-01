@@ -10,11 +10,13 @@ import model.bean.MealBean;
 import model.bean.MemberBean;
 import model.bean.OrderDetailBean;
 import model.bean.OrderSumBean;
+import model.bean.OwnerBean;
 import model.bean.ShopBean;
 import model.dao.MealDAO;
 import model.dao.MemberDAO;
 import model.dao.OrderDetailDAO;
 import model.dao.OrderSumDAO;
+import model.dao.OwnerDAO;
 import model.dao.ShopDAO;
 
 public class TBService{
@@ -25,6 +27,7 @@ public class TBService{
 	private OrderSumDAO ordersum;
 	private OrderDetailDAO orderdetail;
 	private MealDAO meal;
+	private OwnerDAO own;
 	private SendMailSMTP mailD;
 
 	public TBService(){
@@ -46,6 +49,9 @@ public class TBService{
 	}
 	public void setMeal(MealDAO meal) {
 		this.meal = meal;
+	}
+	public void setOwn(OwnerDAO own) {
+		this.own = own;
 	}
 	public void setMailD(SendMailSMTP mailD) {
 		this.mailD = mailD;
@@ -174,6 +180,34 @@ public class TBService{
 						" \n\n 請登入帳戶並修改密碼");
 			}else{
 				System.out.println("chPass false");
+			}
+		}
+	}
+
+	//(-.-)*杜
+	public void losepassown(int ownID){
+		OwnerBean bean= own.select(ownID);
+		if(bean!=null){
+			char les[] = {
+					'A','B','C','D','E','F','G','H','I','J',
+					'K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+					'0','1','2','3','4','5','6','7','8','9'};
+			char a[] = new char[8];
+			for(int i=0;i<a.length;i++){
+				a[i]= les[(int)Math.round(Math.random() * (les.length - 1))];
+			}
+			String b=new String(a);
+			System.out.println(" b 是新密碼,用Email寄出 : "+b);
+			if(own.updatePwd(b, bean.getOwnAcc())!=null){
+				String membermail=bean.getOwnEmail();
+				String first=bean.getOwnFirstName();
+				mailD.send(membermail, 
+						"台北早餐通密碼變更", 
+						"Dear "+first+
+						" : \n\n 您的新密碼為 : "+b+
+						" \n\n 請登入帳戶並修改密碼");
+			}else{
+				System.out.println("own ch Pass false");
 			}
 		}
 	}

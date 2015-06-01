@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+<!-- 	<constant name="struts.devMode" value="true"></constant> -->
+	<!-- 	開啟"!"選擇action其他方法 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" /> 
+	<constant name="struts.objectFactory" value="spring"></constant>
+	<constant name="struts.ui.theme" value="simple" />
+	<!-- 	賣方統一用owner -->
+	<package name="orderPackage" namespace="/owner" extends="json-default">
+		<result-types>
+			<result-type name="Orderimage"
+				class="result.OrderImageBytesResult" />
+				<!-- 圖片用結果 -->
+<!-- 			<result-type class="org.apache.struts2.json.JSONResult" -->
+<!-- 				name="json"></result-type> -->
+		</result-types>
+		<interceptors>
+			<interceptor name="authentication" class="misc.OwnerationInterceptor" />
+			<interceptor-stack name="myAuthenticationDefault">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="authentication" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myAuthenticationDefault" />
+		<global-results>
+			<result name="login" type="redirect">/index.jsp</result>
+		</global-results>
+		<action name="mealaction" class="mealAction">
+			<result name="meal" type="json"></result>
+			<result name="mealKind" type="json"></result>	
+		</action>
+		
+		<action name="imageAction" class="imageAction">
+			<result name="image" type="Orderimage"></result>
+		</action>
+		
+		<action name="adAction" class="advertisementAction">
+			<result name="AD" type="json"></result>
+		</action>
+		
+		<action name="oneOrderSum" class="orderSumAction">
+			<result name="orderSum" type="json">
+				<param name="jSONString"></param>
+			</result>
+<!-- 			傳回字串到jQuery -->
+			<result name="updateCond" type="stream">
+				<param name="inputStream"></param>
+			</result>
+			<result name="success"></result>
+		</action>
+		<action name="businessTime" class="businessTimeAction">
+			<result name="businessTime" type="json">
+				<param name="root">list</param>
+			</result>
+			<result name="updateBusinessTime" type="stream">
+			</result>
+			<result name="updateDayoff" type="stream">
+			</result>
+			<result name="removeDaysoff" type="stream"></result>
+		</action>
+		<action name="ownerSpecialPrice" class="ownerSpecialPriceAction">
+			<result name="queryShops" type="json"></result>
+			<result name="selectShopMeal" type="json">
+				<param name="root">mlist</param>
+			</result>
+			<result name="insertSpecialPrice" type="stream"></result>
+			<result name="querySpecialPrice" type="json">
+				<param name="root">slist</param>
+			</result>
+			<result name="deleteSpecialPrice" type="stream"></result>
+		</action>
+		<action name="*" >
+              <result>/owner/{1}.jsp</result>                      <!-- 沒有name屬性代表name="sucess" -->
+         </action>
+	</package>
+	<package name="package" namespace="/member" extends="struts-default">
+		<result-types>
+			<result-type name="Orderimage"
+				class="result.OrderImageBytesResult" />
+				<!-- 圖片用結果 -->
+			<result-type class="org.apache.struts2.json.JSONResult"
+				name="json"></result-type>
+		</result-types>
+		<action name="neworder" class="orderAction">
+			<result name="mealKindLists" type="json">
+				<param name="root">mealKindlist</param>
+			</result>
+			<result name="specificMeal" type="json">
+				<param name="root">mealBeanlist</param>
+			</result>
+			<result name="Image" type="Orderimage">
+			</result>
+			<result name="special" type="json">
+				<param name="root">specialPriceBean</param>
+			</result>
+			<result name="meals" type="json">
+				<param name="root">mealBeanlist</param>
+			</result>
+			<result name="newOrder"></result>
+			<result name="selectAllShops" type="json">
+				<param name="root">sbeanlist</param>
+			</result>
+			<result name="ShopImage" type="Orderimage"></result>
+		</action>
+	</package>
+	<package name="login" namespace="/" extends="struts-default">
+		<action name="login" class="loginAction">
+			<result name="res">/index.jsp</result>
+			<result name="success" type="redirect">/owner/selectmeal.jsp</result>
+			<result name="message"></result>
+		</action>
+		<action name="logout" class="loginAction" method="logout" >
+			<result name="input">/index.jsp</result>
+			<result name="success" type="redirect">/index.jsp</result>
+		</action>
+		<action name="adminlogin" class="loginAction" method="adminLogin">
+			<result name="admin" type="redirect">/admin/checkad.jsp</result>
+			<result name="erradmin">/adminindex.jsp</result>
+		</action>
+		<action name="adminlogout" class="loginAction" method="adminLogout">
+			<result name="input">/adminindex.jsp</result>
+			<result name="logout" type="redirect">/adminindex.jsp</result>
+		</action>
+	</package>
+	<package name="admin" namespace="/admin" extends="json-default">
+		<action name="adAction" class="advertisementAction">
+			<result name="AD" type="json"></result>
+		</action>
+	</package>
+</struts>

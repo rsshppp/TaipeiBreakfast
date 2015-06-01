@@ -34,6 +34,12 @@
 tr{
  height:20px;
 }
+div img {
+max-width:100px;
+width:100px;
+width:expression(document.body.clientWidth>100?"100px":"auto");
+overflow:hidden;
+}
 </style>
 		
 <script>
@@ -237,11 +243,11 @@ tr{
 						</table>
 
 						<div style="text-align: center; margin: 50px auto;">
-							<span style="text-align: center; position: relative; left: -200px;">
-								<input type="submit" value="更新">
+							<span style="position: relative; left: -200px;">
+								<input type="submit" value="更新" class="btn btn-info btn-sm">
 							</span> 
-							<span style="text-align: center; color: red; position: relative; left: -100px;">
-								<input type="reset" value="清空重填">
+							<span style="position: relative; left: -100px;">
+								<input type="reset" value="清空重填" class="btn btn-danger btn-sm" >
 							</span>
 						</div>
 <!-- 			<div id="imgout" class="col-md-1" style="width:20px; height:20px; top: 150px; right:10%"></div> -->

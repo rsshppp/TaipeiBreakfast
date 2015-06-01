@@ -156,8 +156,8 @@ tr{
 		</table>
 		
 	<div style="text-align: center; margin: 50px auto;">
-		<span style="text-align: center; position: relative; left:-200px;">
-			<input type="submit" value="刪除帳號">
+		<span style="position: relative; left:-200px;">
+			<input type="submit" value="刪除帳號" class="btn btn-danger btn-sm" >
 		</span>
 	</div>
 		

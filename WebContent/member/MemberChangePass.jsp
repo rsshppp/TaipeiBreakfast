@@ -170,10 +170,10 @@ tr{
 
 						<div style="text-align: center; margin: 50px auto;">
 							<span style="text-align: center; position: relative; left: -200px;">
-								<input type="submit" value="修改">
+								<input type="submit" value="修改" class="btn btn-info btn-sm">
 							</span> 
 							<span style="text-align: center; color: red; position: relative; left: -100px;">
-								<input type="reset" value="清空重填">
+								<input type="reset" value="清空重填" class="btn btn-danger btn-sm" >
 							</span>
 						</div>
 

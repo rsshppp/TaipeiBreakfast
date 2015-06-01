@@ -31,7 +31,16 @@ tr{
  height:30px;
 } 
 </style>
-		
+
+<style type="text/css">
+div img {
+max-width:100px;
+width:100px;
+width:expression(document.body.clientWidth>100?"100px":"auto");
+overflow:hidden;
+}
+</style>
+
 <script>
     function ProcessFile(e){   
         var file = document.getElementById('imgin').files[0];

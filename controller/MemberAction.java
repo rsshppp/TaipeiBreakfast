@@ -212,7 +212,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				if (t != null) {
 
 					bean.setMemberID(t.getMemberID());
-					bean.setMemberAcc(mf.getMemberEmail());
 					bean.setMemberEmail(mf.getMemberEmail());
 					bean.setMemberLastName(mf.getMemberLastName());
 					bean.setMemberFirstName(mf.getMemberFirstName());
@@ -229,6 +228,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 
 					if (service.updateMember(bean) != null) {
 						errors.put("action", "Update成功");
+						session.setAttribute("user",bean);
 					} else {
 						errors.put("action", "Update fail");
 					}
@@ -254,13 +254,13 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		}else{
 			errors.put("acc", "Please enter email");
 		}
-//		if(mf.getMemberPwd()!=null && mf.getMemberCwd()!=null){
-//			byte[] temp = mf.getMemberPwd().getBytes();
-//			byte[] pass = mf.getMemberCwd().getBytes();
-//			if (!Arrays.equals(temp, pass)) {
-//				errors.put("pwd", "password error");
-//			}
-//		}
+		if(mf.getMemberPwd()!=null && mf.getMemberCwd()!=null){
+			byte[] temp = mf.getMemberPwd().getBytes();
+			byte[] pass = mf.getMemberCwd().getBytes();
+			if (!Arrays.equals(temp, pass)) {
+				errors.put("pwd", "password error");
+			}
+		}
         if (errors!=null && !errors.isEmpty()) {
         	// errors != null &&
 			request.setAttribute("errors", errors);

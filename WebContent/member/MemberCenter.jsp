@@ -139,7 +139,9 @@ tr{
 									<c:if test="${not empty user.memberFirstName }">
 										<h3>Welecome ${user.memberFirstName}</h3>
 									</c:if>
+									<c:if test="${empty user.memberFirstName }">
 										<h3>Welecome </h3>
+									</c:if>
 								</th>
 							</tr>
 						</table>

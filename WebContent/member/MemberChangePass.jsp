@@ -154,11 +154,12 @@ tr{
 								<td><input type="password" name="mf.memberPwd"></td>
 <!-- 								<td><input type="password" name="pass01"></td> -->
 							</tr>
-<!-- 							<tr> -->
-<!-- 								<td>確認密碼 :</td> -->
+							<tr>
+								<td>確認密碼 :</td>
+								<td><input type="password" name="mf.memberCwd"></td>
 <!-- 								<td><input type="password" name="pass02"></td> -->
-<%-- 								<td>${errors.pwd}</td> --%>
-<!-- 							</tr> -->
+								<td>${errors.pwd}</td>
+							</tr>
 
 							<tr>
 								<td></td>

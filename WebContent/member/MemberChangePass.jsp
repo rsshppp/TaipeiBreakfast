@@ -127,13 +127,13 @@ tr{
 			<div class="row">
 				<div class="col-md-2" style="top: 30px">
 					<div class="list-group" id="menu"></div>
-					<a class="list-group-item text-center" href="MemberUpdate.jsp">更新資料</a> 
-					<a class="list-group-item text-center" href="MemberCenter.jsp">會員資料</a> 
-					<a class="list-group-item text-center" href="MemberDelete.jsp">刪除帳號</a> 
-					<a class="list-group-item text-center" href="#">會員功能</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a>
+					<a class="list-group-item text-center" href="<c:url value='../member/MemberUpdate.jsp' />">更新資料</a> 
+					<a class="list-group-item text-center" href="<c:url value='../member/MemberCenter.jsp' />">會員資料</a> 
+					<a class="list-group-item text-center" href="<c:url value='../member/MemberDelete.jsp' />">刪除帳號</a> 
+					<a class="list-group-item text-center" href="#">會員功能</a> 
 				</div>
 				
 				<div class="col-md-10" style="text-align: left; top: 30px;">
@@ -143,12 +143,12 @@ tr{
 							<tr>
 								<th><h3>修改密碼</h3></th>
 							</tr>
-							<tr>
-								<td>Email :</td>
-								<td><input type="text" name="mf.memberEmail"></td>
+<!-- 							<tr> -->
+<!-- 								<td>Email :</td> -->
+<!-- 								<td><input type="text" name="mf.memberEmail"></td> -->
 <!-- 								<td><input type="text" name="email"></td> -->
-								<td>${errors.acc}</td>
-							</tr>
+<%-- 								<td>${errors.acc}</td> --%>
+<!-- 							</tr> -->
 							<tr>
 								<td>密碼 :</td>
 								<td><input type="password" name="mf.memberPwd"></td>

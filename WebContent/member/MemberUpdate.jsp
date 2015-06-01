@@ -151,12 +151,12 @@ tr{
 			<div class="row">
 				<div class="col-md-2" style="top: 30px">
 					<div class="list-group" id="menu"></div>
-					<a class="list-group-item text-center" href="MemberCenter.jsp">會員資料</a> 
-					<a class="list-group-item text-center" href="MemberChangePass.jsp">更改密碼</a> 
-					<a class="list-group-item text-center" href="MemberDelete.jsp">刪除帳號</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a> 
+					<a class="list-group-item text-center" href="<c:url value='../member/MemberCenter.jsp' />">會員資料</a> 
+					<a class="list-group-item text-center" href="<c:url value='../member/MemberChangePass.jsp' />">更改密碼</a> 
+					<a class="list-group-item text-center" href="<c:url value='../member/MemberDelete.jsp' />">刪除帳號</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a>
 				</div>
 				
@@ -170,7 +170,7 @@ tr{
 							<tr>
 								<td>Email :</td>
 <%-- 								<td><input type="text" name="email" value="${sqldata.mail}"></td> --%>
-								<td><input type="text" name="mf.memberEmail" value="${sqldata.mail}"></td>
+								<td><input type="text" name="mf.memberEmail" value="${user.memberEmail}"></td>
 								<td>${errou.acc}${errors.acc}</td>
 							</tr>
 							<tr>
@@ -179,12 +179,12 @@ tr{
 							<tr>
 								<td>姓氏 :</td>
 <%-- 								<td><input type="text" name="first" value="${sqldata.firs}"></td> --%>
-								<td><input type="text" name="mf.memberFirstName" value="${sqldata.firs}"></td>
+								<td><input type="text" name="mf.memberFirstName" value="${user.memberFirstName}"></td>
 							</tr>
 							<tr>
 								<td>名子 :</td>
 <%-- 								<td><input type="text" name="last" value="${sqldata.last}"></td> --%>
-								<td><input type="text" name="mf.memberLastName" value="${sqldata.last}"></td>
+								<td><input type="text" name="mf.memberLastName" value="${user.memberLastName}"></td>
 							</tr>
 
 							<tr>
@@ -193,7 +193,7 @@ tr{
 							<tr>
 								<td>聯絡電話 :</td>
 <%-- 								<td><input type="text" name="tel" value="${sqldata.tel}"></td> --%>
-								<td><input type="text" name="mf.memberTel" value="${sqldata.tel}"></td>
+								<td><input type="text" name="mf.memberTel" value="${user.memberTel}"></td>
 								<td>${errou.tel}${errors.tel}</td>
 							</tr>
 							<tr>
@@ -203,7 +203,7 @@ tr{
 							<tr>
 								<td>手機 :</td>
 <%-- 								<td><input type="text" name="pho" value="${sqldata.pho}"></td> --%>
-								<td><input type="text" name="mf.memberPhone" value="${sqldata.pho}"></td>
+								<td><input type="text" name="mf.memberPhone" value="${user.memberPhone}"></td>
 								<td>${errou.pho}${errors.pho}</td>
 							</tr>
 							<tr>
@@ -213,7 +213,7 @@ tr{
 							<tr>
 								<td>地址 :</td>
 <%-- 								<td><input type="text" name="addr" value="${sqldata.addr}"></td> --%>
-								<td><input type="text" name="mf.memberAddr" value="${sqldata.addr}"></td>
+								<td><input type="text" name="mf.memberAddr" value="${user.memberAddr}"></td>
 							</tr>
 
 							<tr>
@@ -222,7 +222,7 @@ tr{
 							<tr>
 								<td>圖片 :</td>
 <!-- 								<td><input type="file" id="imgin" name="img" accept="image/*"></td> -->
-								<td><input type="file" id="imgin" name="mf.memberImage" accept="image/*"></td>
+								<td><input type="file" id="imgin" name="mf.memberImage" accept="image/*" value="${user.memberImage}"></td>
 							</tr>
 							<tr>
 								<td></td>

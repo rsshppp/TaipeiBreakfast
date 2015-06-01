@@ -30,7 +30,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import form.MealForm;
 import form.MealListForm;
-import form.ShopForm;
+import form.MealShopForm;
 
 public class MealAction extends ActionSupport implements ServletRequestAware{
 	private HttpSession session=ServletActionContext.getRequest().getSession();
@@ -126,10 +126,10 @@ public class MealAction extends ActionSupport implements ServletRequestAware{
 			//ownerBean.setOwnID(Integer.parseInt(request.getParameter("owerID")));
 			List<ShopBean> list=shopService.getShops(ownerBean);
 			Iterator<ShopBean> shopBlist=list.iterator();
-			List<ShopForm> listform=new ArrayList<ShopForm>();
+			List<MealShopForm> listform=new ArrayList<MealShopForm>();
 			while(shopBlist.hasNext()){
 				ShopBean bean=shopBlist.next();
-				ShopForm form=new ShopForm();
+				MealShopForm form=new MealShopForm();
 				System.out.println(bean);
 				if(bean.getShopCondID()==3&&bean.getShopSuspend()==false){
 					form.setShopID(bean.getShopID());
@@ -137,7 +137,7 @@ public class MealAction extends ActionSupport implements ServletRequestAware{
 					listform.add(form);
 				}
 			}
-			Type listType = new TypeToken<List<ShopForm>>() {}.getType();
+			Type listType = new TypeToken<List<MealShopForm>>() {}.getType();
 			redata=gson.toJson(listform,listType);
 			//System.out.println(redata);
 			return "meal";

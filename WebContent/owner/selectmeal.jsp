@@ -10,7 +10,7 @@
 <!-- 確保適當的呈現和觸控縮放效果，加入可視區域(Viewport) -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>賣方範本</title>
+<title>菜單管理</title>
 <!-- Bootstrap -->
 <!-- social icon 使用 -->
 <link
@@ -73,7 +73,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"> <img alt="Brand"
+				<a class="navbar-brand" href="<c:url value='/index' />"> <img alt="Brand"
 					src="<c:url value='/image/proj_icon_2.png'/>"
 					style="max-width: 100px; margin-top: -12px;">
 				</a>
@@ -86,6 +86,7 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<!-- 觸發模態窗 -->
+					
 					
 					<li><a  href="<c:url value="/logout"/>">
 							<span class="glyphicon glyphicon-log-out"></span> 登出
@@ -102,13 +103,13 @@
 				<div class="col-md-2">
 					<div class="list-group" id="menu"></div>
 					
-					<a class="list-group-item text-center" href="<c:url value="/owner/selectmeal.jsp"/>">修改菜單</a> <a
-						class="list-group-item text-center" href="<c:url value="/owner/selectad"/>">申請廣告</a> <a
-						class="list-group-item text-center" href="#">賣方功能</a> <a
-						class="list-group-item text-center" href="#">賣方功能</a> <a
-						class="list-group-item text-center" href="#">賣方功能</a> <a
-						class="list-group-item text-center" href="#">賣方功能</a> <a
-						class="list-group-item text-center" href="#">賣方功能</a>
+					<a class="list-group-item text-center" href="#">店鋪管理</a> <a
+						class="list-group-item text-center" href="<c:url value="/owner/selectmeal"/>">菜單管理</a> <a
+						class="list-group-item text-center" href="<c:url value="/owner/selectad"/>">廣告申請</a> <a
+						class="list-group-item text-center" href="<c:url value="/owner/SpecialPrice"/>">優惠卷管理</a> <a
+						class="list-group-item text-center" href="#">查詢銷售報表</a> <a
+						class="list-group-item text-center" href="#">查詢交易紀錄</a> <a
+						class="list-group-item text-center" href="#">賣家基本資料</a>
 				</div>
 				<div class="col-md-10" style="margin-top: 20px;">
 
@@ -175,7 +176,7 @@
 												if(data.redata!=null){
 												var list = JSON.parse(data.redata);
 												$.each(list,function(i, v) {
-														$('#tby').append("<tr><td><img class='img-thumbnail imgsimple' src='<s:url action='imageAction!getMealImage?imageId="
+														$('#tby').prepend("<tr><td><img class='img-thumbnail imgsimple' src='<s:url action='imageAction!getMealImage?imageId="
 																							+ v.mealID
 																							+ "' />'></td><td>"
 																							+ v.mealName
@@ -299,7 +300,7 @@
 			<div class="row" style="margin-top: 5px">
 				<div class="col-sm-2">餐點名稱:</div>
 				<div class="col-sm-5">
-					<input type="text" name="bean.mealName" value="" />
+					<input type="text" name="bean.mealName" value="" required/>
 				</div>
 			</div>
 			<div class="row" style="margin-top: 5px">
@@ -311,7 +312,7 @@
 			<div class="row" style="margin-top: 5px">
 				<div class="col-sm-2">價格:</div>
 				<div class="col-sm-5">
-					<input type="number" min="0" value="60" name="bean.price" />
+					<input type="number" min="0" value="60" name="bean.price" required/>
 				</div>
 			</div>
 			<div class="row" style="margin-top: 5px">
@@ -332,7 +333,7 @@
 
 	<script>
 	var jsondata = {owerID:1};
-	$.get("/TaipeiBreakFast/owner/mealaction!shoplist", jsondata, 
+	$.get("<c:url value='/owner/mealaction!shoplist' />", jsondata, 
 		function (data) {
 			var list=JSON.parse(data.redata);
 
@@ -343,7 +344,7 @@
        
         var kindlist;
         $.ajax({
-            url: "/TaipeiBreakFast/owner/mealaction!mealKind",
+            url: "<c:url value='/owner/mealaction!mealKind' />",
             data: "",
             type:"POST",
             dataType:'text',
@@ -434,7 +435,7 @@
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								<h4 class="modal-title" id="upModalLabel">新增菜單</h4>
+								<h4 class="modal-title" id="upModalLabel">修改</h4>
 							</div>
 							<div class="modal-body">
 <!-- 							修改餐點動態內碼 -->
@@ -471,7 +472,7 @@
 							<div class="row" style="margin-top: 5px">
 								<div class="col-sm-2">價格:</div>
 								<div class="col-sm-3">
-									<input type="text" id="price" value="60" name="bean.price" />
+									<input type="text" id="price" value="60" name="bean.price" required/>
 								</div>
 							</div>
 							<div class="row" style="margin-top: 5px">
@@ -533,17 +534,19 @@
 													+ list.mealKindID
 													+ "']").prop(
 											'selected', true);
+									if(!$('#check1').is(':checked')){
 									$('#image2').attr(
 											"src",
 											"<s:url action='imageAction!getMealImage?imageId="
 													+ mealID + "' />");
+									}
 									//image=list.mealImage;
 									//byteimage(image);
 								});
 					}
 					$('#select3').change(
 							function() {
-								var file = document.getElementById('file').files[0];
+								var file = document.getElementById('file2').files[0];
 								if (!file) {
 									var ss = $('#select3').val();
 									$('#image2').attr("src",
@@ -553,20 +556,23 @@
 					$('input[name="my-checkbox"]').on(
 							'switchChange.bootstrapSwitch',
 							function(event, state) {
-								$("#file").remove();
+								$("#file2").remove();
 								if (state) {
 									$('#imageChange').val('true');
 									$("#imagediv")
 											.append(
-													'<input type="file" accept="image/*" id="file" name="bean.mealImage" />');
+													'<input type="file" accept="image/*" id="file2" name="bean.mealImage" />');
 									var ss = $('#select3').val();
 									$('#image2').attr(
 											"src",
 											"<s:url action='imageAction!getMealImage?typeId="
 													+ ss + "' />");
+
+								    document.getElementById('file2').addEventListener( 'change' ,ProcessFile2 , false );
+
 								} else {
 									$('#imageChange').val('false');
-									$("#file").remove();
+									$("#file2").remove();
 									$('#image2').attr(
 											"src",
 											"<s:url action='imageAction!getMealImage?imageId="
@@ -589,7 +595,27 @@
 							}
 				        })
 				</script>
-								
+				<script>
+			    function ProcessFile2( e ) {   
+			        var file = document.getElementById('file2').files[0];
+			        console.log(file);
+			        if (file) {
+			            var reader = new FileReader();
+			            reader.onload = function ( event ) {                 
+			                var txt = event.target.result;
+// 			                var img = document.createElement("img");
+// 			                img.id="image1";
+// 			                img.src = txt;
+// 			                document.getElementById("result").appendChild( img );
+			                $('#image2').attr('src',txt);
+			            };
+			        }else{
+			        	
+			            }
+			        reader.readAsDataURL( file );
+			    }
+			    
+			    </script>				
 				
 			</div>
 	</div>

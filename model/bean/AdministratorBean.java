@@ -16,6 +16,14 @@ public class AdministratorBean implements Serializable{
 
 	}
 
+	
+	@Override
+	public String toString() {
+		
+		return "{administratorID:"+administratorID+",administratorAcc:"+administratorAcc+",administratorPwd:"+administratorPwd+",administratorPermissionID:"+administratorPermissionID+"}";
+	}
+
+
 	public Integer getAdministratorID() {
 		return administratorID;
 	}

@@ -44,7 +44,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" href="<c:url value='/index' />">
 						<img alt="Brand" src="../image/proj_icon_2.png" style="max-width:100px; margin-top: -12px;" >
 					</a>
 				</div>
@@ -56,8 +56,8 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<!-- 觸發模態窗 -->
-						<li><a data-toggle="modal" data-target="#myModal" href="#">
-							<span class="glyphicon glyphicon-log-in"></span> 登入 </a>
+						<li><a  href="<c:url value="/logout"/>">
+							<span class="glyphicon glyphicon-log-out"></span> 登出</a>
 						</li>
 					</ul>
 				</div><!--/.nav-collapse -->
@@ -69,15 +69,15 @@
 				<div class="row">
 					<div class="col-md-2">
 						<div class="list-group" id="menu"></div>
-							<a class="list-group-item text-center" href="<c:url value="/owner/selectmeal.jsp"/>">修改菜單</a> 
-							<a class="list-group-item text-center" href="<c:url value="/owner/selectad"/>">申請廣告</a>
-							<a class="list-group-item text-center" href="<c:url value="/owner/SpecialPrice"/>">優惠券功能</a>
-							<a class="list-group-item text-center" href="#">賣方功能</a>
-							<a class="list-group-item text-center" href="#">賣方功能</a>
-							<a class="list-group-item text-center" href="#">賣方功能</a>
-							<a class="list-group-item text-center" href="#">賣方功能</a>
+							<a class="list-group-item text-center" href="#">店鋪管理</a>
+							<a class="list-group-item text-center" href="<c:url value="/owner/selectmeal"/>">菜單管理</a>
+							<a class="list-group-item text-center" href="<c:url value="/owner/selectad"/>">廣告申請</a>
+							<a class="list-group-item text-center" href="<c:url value="/owner/SpecialPrice"/>">優惠卷管理</a>
+							<a class="list-group-item text-center" href="#">查詢銷售報表</a>
+							<a class="list-group-item text-center" href="#">查詢交易紀錄</a>
+							<a class="list-group-item text-center" href="#">賣家基本資料</a>
 					</div>
-					<div class="col-md-10">
+					<div class="col-md-10" style="margin-top: 20px;">
 						<div role="tabpanel">
 
   <!-- Nav tabs -->
@@ -172,7 +172,7 @@
 					</div><!-- /.modal -->
 				</div>
 			</div>
-		</div>
+
 
 		<div class="container marketing">
 			<footer>
@@ -310,7 +310,7 @@
 	//取得特定店家、特定種類的餐點
 	function getMeal(ShopID, mealKindID){
 		console.log(mealKindID);
-		$.getJSON("<c:url value='/member/neworder!queryMealBean?shopID="+ShopID+"&mealKindID="+mealKindID+"' />", function(data){
+		$.getJSON("<c:url value='/owner/neworder!queryMealBean?shopID="+ShopID+"&mealKindID="+mealKindID+"' />", function(data){
 				console.log("getMeal");
 				console.log(data);
 			if(document.getElementById("selectMeal").hasChildNodes()){
@@ -324,7 +324,7 @@
 	}
 	//取得特定店家的餐點及種類
 	function getMealKind(ShopID){
-		$.getJSON("<c:url value='/member/neworder!queryMealKindList?shopID="+ShopID+"' />", function(data){
+		$.getJSON("<c:url value='/owner/neworder!queryMealKindList?shopID="+ShopID+"' />", function(data){
 			console.log("getMealKind");
 			console.log(data);
 			if(data.length!=0){

@@ -62,7 +62,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" href="<c:url value='/index' />">
 						<img alt="Brand" src="<c:url value='/image/proj_icon_2.png'/>" style="max-width:100px; margin-top: -12px;" >
 					</a>
 				</div>
@@ -87,13 +87,13 @@
 				<div class="row">
 					<div class="col-md-2">
 						<div class="list-group" id="menu"></div>
-							<a class="list-group-item text-center" href="<c:url value="/owner/selectmeal"/>">修改菜單</a>
-							<a class="list-group-item text-center" href="<c:url value="/owner/selectad"/>">申請廣告</a>
-							<a class="list-group-item text-center" href="#">賣方功能</a>
-							<a class="list-group-item text-center" href="#">賣方功能</a>
-							<a class="list-group-item text-center" href="#">賣方功能</a>
-							<a class="list-group-item text-center" href="#">賣方功能</a>
-							<a class="list-group-item text-center" href="#">賣方功能</a>
+							<a class="list-group-item text-center" href="#">店鋪管理</a>
+							<a class="list-group-item text-center" href="<c:url value="/owner/selectmeal"/>">菜單管理</a>
+							<a class="list-group-item text-center" href="<c:url value="/owner/selectad"/>">廣告申請</a>
+							<a class="list-group-item text-center" href="<c:url value="/owner/SpecialPrice"/>">優惠卷管理</a>
+							<a class="list-group-item text-center" href="#">查詢銷售報表</a>
+							<a class="list-group-item text-center" href="#">查詢交易紀錄</a>
+							<a class="list-group-item text-center" href="#">賣家基本資料</a>
 					</div>
 					<div class="col-md-10">
 		
@@ -118,7 +118,7 @@
 						var list = JSON.parse(data.redata);
 						console.log(list);
 						$.each(list, function(i, v) {
-							$('#tby').append(
+							$('#tby').prepend(
 									"<tr><td>" + v.shopName + "</td><td>"
 											+ v.title + "</td><td>" + v.context
 											+ "</td><td>" + v.days
@@ -180,27 +180,27 @@
 									<div class="col-sm-3">廣告天數:</div>
 									<div class="col-sm-7">
 										<input type="number" max="30" min="1" name="readform.days"
-											value="1">
+											value="1" required>
 									</div>
 								</div>
 								<div class="row" style="margin-top: 5px">
 									<div class="col-sm-3">廣告title:</div>
 									<div class="col-sm-7">
-										<input type="text" name="readform.title" id="rftitle">
+										<input type="text" name="readform.title" id="rftitle" required>
 									</div>
 								</div>
 								<div class="row" style="margin-top: 5px">
 									<div class="col-sm-3">廣告短文:</div>
 									<div class="col-sm-7">
 										<textarea name="readform.context" rows="4" cols="20"
-											id="txtarea"></textarea>
+											id="txtarea" required></textarea>
 									</div>
 								</div>
 								<div class="row" style="margin-top: 5px">
 									<div class="col-sm-3">廣告圖片:</div>
 									<div class="col-sm-7">
 										<input name="readform.adImage" type="file" accept="image/*"
-											id="file" name="bean.mealImage" />
+											id="file" name="bean.mealImage" required />
 									</div>
 								</div>
 								<div class="row" style="margin-top: 5px">

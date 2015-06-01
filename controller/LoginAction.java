@@ -1,8 +1,5 @@
 package controller;
 
-import java.util.Map;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class LoginAction extends ActionSupport implements ServletRequestAware {
 	private HttpServletRequest request;
-	private String user;
+	private String username;
 	private String password;
 	private OwnerService ownerservice;
 	private AdministratorService adminservice;
@@ -37,13 +34,13 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
 	public void setSuspend(String suspend) {
 		this.suspend = suspend;
 	}
-
-	public String getUser() {
-		return user;
+	
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -60,11 +57,12 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
 	
 	@Override
 	public String execute() throws Exception {
+		suspend=null;
 		OwnerBean bean=null;
-		System.out.println(user);
+		System.out.println(username);
 		System.out.println(password);
-		if(user!=null&&user.trim().length()!=0&&password!=null&&password.trim().length()!=0){
-			bean=ownerservice.login(user, password);
+		if(username!=null&&username.trim().length()!=0&&password!=null&&password.trim().length()!=0){
+			bean=ownerservice.login(username, password);
 		}
 		if(bean!=null&&bean.getOwnSuspend()==false){
 			session.setAttribute("user", bean);
@@ -89,10 +87,10 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
 	 
 	 public String adminLogin(){
 		 AdministratorBean bean=null;
-		System.out.println(user);
+		System.out.println(username);
 		System.out.println(password);
-		if(user!=null&&user.trim().length()!=0&&password!=null&&password.trim().length()!=0){
-			bean=adminservice.login(user, password);
+		if(username!=null&&username.trim().length()!=0&&password!=null&&password.trim().length()!=0){
+			bean=adminservice.login(username, password);
 		}
 		if(bean!=null){
 			session.setAttribute("admin", bean);

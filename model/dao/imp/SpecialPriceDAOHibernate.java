@@ -1,4 +1,4 @@
-package model.dao.imp;
+﻿package model.dao.imp;
 
 import java.sql.Date;
 import java.util.Iterator;
@@ -108,6 +108,15 @@ public class SpecialPriceDAOHibernate implements SpecialPriceDAO {
 				SpecialPriceBean.class);
 		criteria.createCriteria("mealBean").createCriteria("shopBean")
 				.add(Restrictions.eq("OwnID", bean.getOwnID()));
+		return criteria.list();
+	}
+	
+	//查詢所有的優惠券 - Noah
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SpecialPriceBean> queryAllSpecialPrice() {
+		Criteria criteria = this.getSession().createCriteria(SpecialPriceBean.class);
+		
 		return criteria.list();
 	}
 

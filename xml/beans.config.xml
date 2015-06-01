@@ -131,6 +131,7 @@
 		<property name="orderdetail" ref="orderDetailDAO"></property>
 		<property name="mailD" ref="sendMailSMTP"></property>
 		<property name="meal" ref="mealDAO"></property>
+		<property name="own" ref="ownerDAO"></property>
 	</bean>
 		<bean id="transactionHistoryRecordService"
 		class="model.service.TransactionHistoryRecordService">
@@ -164,6 +165,7 @@
 	</bean>
 	<bean id="memberAction" class="controller.MemberAction" scope="prototype">
 		<property name="service" ref="tBService" />
+		<property name="ownser" ref="ownerService" />
 	</bean>
 	
 </beans>

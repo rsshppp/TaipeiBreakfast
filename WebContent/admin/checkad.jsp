@@ -54,10 +54,15 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					
+					<ul class="nav navbar-nav">
+						<li><a href="<c:url value="/admin/intoh.jsp"/>">管理首頁</a></li>
+						<li><a href="<c:url value="/admin/checkad.jsp"/>">審核廣告</a></li>
+						<li><a href="<c:url value="/admin/AllowShop.jsp"/>">審核店鋪</a></li>
+					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<!-- 觸發模態窗 -->
-						
-						<li><a href='<c:url value="/adminlogout"/>'>
+						<li><a>${admin.administratorAcc}</a></li>
+						<li><a href='<c:url value="/adminlogout.action"/>'>
 							<span class="glyphicon glyphicon-log-out"></span> 登出 </a>
 						</li>
 					</ul>
@@ -68,17 +73,6 @@
 		<div id="jumb" class="jumbotron">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-2">
-						<div class="list-group" id="menu"></div>
-						
-							<a class="list-group-item text-center" href="<c:url value="/admin/checkad"/>">審核廣告</a>
-							<a class="list-group-item text-center" href="#">管理者功能</a>
-							<a class="list-group-item text-center" href="#">管理者功能</a>
-							<a class="list-group-item text-center" href="#">管理者功能</a>
-							<a class="list-group-item text-center" href="#">管理者功能</a>
-							<a class="list-group-item text-center" href="#">管理者功能</a>
-							<a class="list-group-item text-center" href="#">管理者功能</a>
-					</div>
 					<div class="col-md-10">
 		
 						<!-- 功能放這邊！！！ -->

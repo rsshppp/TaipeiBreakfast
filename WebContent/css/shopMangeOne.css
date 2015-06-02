@@ -1,0 +1,25 @@
+.st123{
+    width:450px;         /*方塊模型總寬(含margin)*/
+    border-bottom:1px solid #ADADAD;  /*加下broder線*/
+	margin:20px;         /*隔開上下控制項*/
+    padding-bottom: 20px;    /*字隔下方border線開20px空間*/ 
+/* 	border:1px solid red */
+}
+#submit123{
+	width:450px;
+	margin:20px;
+	text-align:center
+}
+.title123{
+	width:100px;
+	float: left;   /*字用此方法可上移,why?*/
+	text-align: right;
+	padding-right:3px;   /*隔開右broder,字往左移*/
+/* 	border:1px solid purple */
+}
+fieldset{
+	width:500px;
+	margin:15px;  /*距頁邊之空白大小*/
+	border:3px solid silver;
+	border-radius:10px
+}

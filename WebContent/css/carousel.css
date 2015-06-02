@@ -1,12 +1,20 @@
-/* GLOBAL STYLES
+﻿/* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 
 body {
-  padding-bottom: 40px;
   color: #5a5a5a;
-  
+  min-height: 500px;
+  margin-bottom: 0px;
 }
+
+#jumb{
+	min-height: 750px;
+	background-color: #E8E8E8;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
 /* 反白顏色 */
 ::selection {
         background: yellow; /* Safari */
@@ -15,6 +23,11 @@ body {
         background: yellow; /* Firefox */
 }
 
+/* 響應式不會左右移(冠勳推薦) */
+.row{
+	margin-left: 0px;
+	margin-right: 0px;
+}
 
 /* 登入視窗之欄位設定 */
 .form-signin {

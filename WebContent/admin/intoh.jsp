@@ -6,22 +6,32 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>審核店鋪</title>
+		<title>管理首頁</title>
 		
-		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-		<link href="<c:url value='/css/carousel.css'/>" rel="stylesheet">
+		<!-- Bootstrap -->
 		<link href="<c:url value='/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet" type="text/css" />
-		<link href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<%-- 		<script type="text/javascript" src="<c:url value='/bootstrap/js/bootstrap.min.js'/>"></script>  --%>
+		
+		<!-- social icon 使用 -->
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		
+		<!-- Custom styles -->
+		<link href="<c:url value='/css/carousel.css'/>" rel="stylesheet">
 		<link rel="icon" href="favicon.ico">
-		<script src="<c:url value='/js/holder.js'/>"></script>
+		
+		<!-- jQuery (Bootstrap 所有外掛均需要使用) -->
 		<script src="<c:url value='/js/jquery.min.js'/>"></script>
 		<script src="<c:url value='/js/jquery.form.js'/>"></script>
-		<script type="text/javascript" src="<c:url value='/bootstrap/js/bootstrap.min.js'/>"></script> 
-<%-- 		<script src="<c:url value='/js/lightbox.min.js'/>"></script>  --%>
-<%-- 		<link href="<c:url value='/css/lightbox.css'/>" rel="stylesheet" type="text/css" /> --%>
-	<%-- <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script> --%>
-<%-- 		<script type="text/javascript" src="<c:url value='/js/jquery.dataTables.min.js'/>"></script> --%>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/table.css'/>" />
+
+		<!-- 依需要參考已編譯外掛版本（如下），或各自獨立的外掛版本 -->
+		<link href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+		<link href="<c:url value='/css/lightbox.css'/>" rel="stylesheet" type="text/css" />
+		<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+		<script src="<c:url value='/js/lightbox.min.js'/>"></script> 
+		<script type="text/javascript" src="<c:url value='/js/jquery.dataTables.min.js'/>"></script>
+
+		<!-- Custom Javascript -->
+		<script src="<c:url value='/js/holder.js'/>"></script>
 
 		<!-- HTML5 shim and Respond.js 讓 IE8 支援 HTML5 元素與媒體查詢 -->
 		<!-- 警告：Respond.js 無法在 file:// 協定下運作 -->

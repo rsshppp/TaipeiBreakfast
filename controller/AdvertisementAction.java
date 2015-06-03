@@ -134,19 +134,20 @@ public class AdvertisementAction extends ActionSupport implements ServletRequest
 		return "AD";
 	}
 	public String checkAD(){
-		//System.out.println(typeID);
+//		System.out.println(typeID);
 			List<AdminADForm> adformlist=new ArrayList<AdminADForm>();
 			AdminADForm adform;
 			Iterator<AdvertisementBean> adlist=advertisementService.selectAllAd().iterator();
 			while(adlist.hasNext()){
 				adform=new AdminADForm();
 				AdvertisementBean adbean=adlist.next();
+//				System.out.println("bean="+adbean);
 				if(adbean.getAdvertisementID()!=1&&(typeID==0||adbean.getAdvertisementStatusID()==typeID)){
 					adform.setAdID(adbean.getAdvertisementID());
 					adform.setOwerID(adbean.getShopBean().getOwnID());
 					adform.setShopName(adbean.getShopBean().getShopName());
 					if(!adbean.getContext().equals("xxx")){
-						//System.out.println("aa:"+adbean.getContext().split("xxx")[0].trim());
+//						System.out.println("aa:"+adbean.getContext().split("xxx")[0].trim());
 						if(adbean.getContext().split("xxx")[0].trim().equals("")){
 							adform.setTitle("廣告申請");
 						}else{

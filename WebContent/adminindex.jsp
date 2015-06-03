@@ -28,7 +28,7 @@
 		<div id="jumb" class="jumbotron">
 			<div class="container">
 				<div class="row">
-					<form class="form-signin" action="adminlogin">
+					<form class="form-signin" action="<c:url value='/adminlogin.action'/>">
 						<h2 class="form-signin-heading text-danger text-center"><strong>台北早餐通管理介面</strong></h2>
 						<label for="inputAdmin1" class="sr-only">帳號</label>
 						<input type="text" name="user" id="inputAdmin1" class="form-control" placeholder="帳號" required autofocus>

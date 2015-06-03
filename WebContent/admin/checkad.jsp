@@ -8,18 +8,29 @@
 		<!-- 確保適當的呈現和觸控縮放效果，加入可視區域(Viewport) -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>賣方範本</title>
+		<title>審核廣告</title>
+		
 		<!-- Bootstrap -->
+		<link href="<c:url value='/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet" type="text/css" />
+<%-- 		<script type="text/javascript" src="<c:url value='/bootstrap/js/bootstrap.min.js'/>"></script>  --%>
 		
 		<!-- social icon 使用 -->
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		
 		<!-- Custom styles -->
 		<link href="<c:url value='/css/carousel.css'/>" rel="stylesheet">
 		<link rel="icon" href="favicon.ico">
 		
 		<!-- jQuery (Bootstrap 所有外掛均需要使用) -->
+		<script src="<c:url value='/js/jquery.min.js'/>"></script>
+		<script src="<c:url value='/js/jquery.form.js'/>"></script>
 
 		<!-- 依需要參考已編譯外掛版本（如下），或各自獨立的外掛版本 -->
+		<link href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+		<link href="<c:url value='/css/lightbox.css'/>" rel="stylesheet" type="text/css" />
+		<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+		<script src="<c:url value='/js/lightbox.min.js'/>"></script> 
+		<script type="text/javascript" src="<c:url value='/js/jquery.dataTables.min.js'/>"></script>
 
 		<!-- Custom Javascript -->
 		<script src="<c:url value='/js/holder.js'/>"></script>
@@ -31,19 +42,6 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		
-		<script src="<c:url value='/js/jquery.min.js'/>"></script>
-		<script src="<c:url value='/js/jquery.form.js'/>"></script>
-		<link href="<c:url value='/bootstrap/css/bootstrap.min.css'/>"
-			rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="<c:url value='/bootstrap/js/bootstrap.min.js'/>"></script> 
-		<script src="<c:url value='/js/lightbox.min.js'/>"></script> 
-		<link href="<c:url value='/css/lightbox.css'/>" rel="stylesheet"
-			type="text/css" />
-		<link href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"
-			rel="stylesheet" type="text/css" />
-		<%-- <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script> --%>
-		<script type="text/javascript" src="<c:url value='/js/jquery.dataTables.min.js'/>">
-		</script>
 	</head>
 	<body>
 		<!-- Fixed navbar -->

@@ -106,8 +106,17 @@ public class AdvertisementAction extends ActionSupport implements ServletRequest
 					if(adbean.getAdvertisementID()!=1){
 					//System.out.println(adbean.getAdvertisementID()+" , "+adbean.getContext());
 						if(!adbean.getContext().equals("xxx")){
-							adform.setTitle(adbean.getContext().split("xxx")[0]);
-							adform.setContext(adbean.getContext().split("xxx")[1]);
+							System.out.println("aa:"+adbean.getContext().split("xxx")[0].trim());
+							if(adbean.getContext().split("xxx")[0].trim().equals("")){
+								adform.setTitle("廣告申請");
+							}else{
+								adform.setTitle(adbean.getContext().split("xxx")[0]);
+							}
+							if(adbean.getContext().split("xxx")[1].trim().equals("")){
+								adform.setContext("廣告申請");
+							}else{
+								adform.setContext(adbean.getContext().split("xxx")[1]);
+							}
 						}else{
 							adform.setTitle("廣告申請");
 							adform.setContext("廣告申請");
@@ -125,7 +134,7 @@ public class AdvertisementAction extends ActionSupport implements ServletRequest
 		return "AD";
 	}
 	public String checkAD(){
-		System.out.println(typeID);
+		//System.out.println(typeID);
 			List<AdminADForm> adformlist=new ArrayList<AdminADForm>();
 			AdminADForm adform;
 			Iterator<AdvertisementBean> adlist=advertisementService.selectAllAd().iterator();
@@ -137,8 +146,17 @@ public class AdvertisementAction extends ActionSupport implements ServletRequest
 					adform.setOwerID(adbean.getShopBean().getOwnID());
 					adform.setShopName(adbean.getShopBean().getShopName());
 					if(!adbean.getContext().equals("xxx")){
-						adform.setTitle(adbean.getContext().split("xxx")[0]);
-						adform.setContext(adbean.getContext().split("xxx")[1]);
+						//System.out.println("aa:"+adbean.getContext().split("xxx")[0].trim());
+						if(adbean.getContext().split("xxx")[0].trim().equals("")){
+							adform.setTitle("廣告申請");
+						}else{
+							adform.setTitle(adbean.getContext().split("xxx")[0]);
+						}
+						if(adbean.getContext().split("xxx")[1].trim().equals("")){
+							adform.setContext("廣告申請");
+						}else{
+							adform.setContext(adbean.getContext().split("xxx")[1]);
+						}
 					}else{
 						adform.setTitle("廣告申請");
 						adform.setContext("廣告申請");

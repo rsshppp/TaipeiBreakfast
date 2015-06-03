@@ -144,7 +144,8 @@ tr{
 <!-- 			</tr>   -->
 			<tr>
 				<td>密碼 :</td>
-				<td><input type="password" name="pass"></td>
+<!-- 				<td><input type="password" name="pass"></td> -->
+				<td><input type="password" name="mf.memberPwd"></td>
 				<td>${errors.pwd}</td>
 			</tr>
 			

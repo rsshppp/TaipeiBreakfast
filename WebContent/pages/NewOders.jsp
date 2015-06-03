@@ -177,7 +177,7 @@ tr{
 						"</div>");
     			})
 				$('#tn').append(
-					"<div id='tnp' onclick='newpage("+(page+1)+")'><p style='text-align:center;'>+</p></div>");
+					"<div id='tnp' onclick='newpage("+(pa+1)+")'><p style='text-align:center;'>+</p></div>");
 				}
 			}
 		)

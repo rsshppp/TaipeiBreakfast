@@ -61,77 +61,9 @@
 					<div class="col-md-10">
 		
 						<!-- 功能放這邊！！！ -->
-						<div style="margin-top: 20px;">
-							<div>
-	<h3>審核店鋪</h3>
-	<form method="post">
-		<table>
-		
-	<thead>
-	<tr>
-		<th>shopID</th>
-		<th>ownID</th>
-		<th>logoImage</th>
-		<th>shopName</th>
-		<th>shopPhone</th>
-		<th>shopCity</th>
-		<th>shopArea</th>
-		<th>shopAddr</th>
-		<th>beginBusinessTime</th>
-		<th>businessTimeNote</th>
-	</tr>
-	</thead>
-	<tbody id="t1">
-		
-	</tbody>
-		</table>
-		${errors.action}
-		</form>
-	</div>
-	
-	<script>
-	var sid;
-	
-    function change(sid){
-    	console.log(1);
-    	$.get("<c:url value='/pe/duAction!allowShop.action'/>?sf.shopID="+sid+"")
-    	window.location = "";
-    }
-    function nota(sid){
-    	console.log(2);
-    	$.get("<c:url value='/pe/duAction!notallowShop.action'/>?sf.shopID="+sid+"")
-    	window.location = "";
-    }
-    
-    $.get("<c:url value='/pe/duAction!shoplist.action'/>",
-		function (data) {
-			var list=JSON.parse(data.redata);
-    		console.log(list);
-    		$.each(list,function(u,i){
-				$('#t1').append("<tr>"+
-					"<td>"+i.shopID+"</td>"+
-					"<td>"+i.ownID+"</td>"+
-					"<td>"+i.logoImage+"</td>"+
-					"<td>"+i.shopName+"</td>"+
-					"<td>"+i.shopPhone+"</td>"+
-					"<td>"+i.shopCity+"</td>"+
-					"<td>"+i.shopArea+"</td>"+
-					"<td>"+i.shopAddr+"</td>"+
-					"<td>"+i.beginBusinessTime+"</td>"+
-					"<td>"+i.businessTimeNote+"</td>"+
-					"<td><input type='button' value='允許' onclick='change("+i.shopID+")' /></td>"+
-					"<td><input type='button' value='不准' onclick='nota("+i.shopID+")' /></td>"+
-					"</tr>");
-        	})
-		}
-	);
-    
-    </script>
-	
-<!-- <br><br> -->
-<%-- <a href="<c:url value=''/>" >後台首頁</a> --%>
+						<div>
+						<h3>登入者:${admin.administratorAcc}</h3>
 						</div>
-						
 						<!-- 功能放這邊！！！ -->
 		
 					</div>

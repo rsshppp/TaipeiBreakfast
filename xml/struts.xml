@@ -27,28 +27,31 @@
 	        <result name="newods" type="json" >/pages/NewOders.jsp</result>
 
 		</action>
-<!-- 		<action name="duActionCP" method="changePassword" class="controller.MemberAction" > -->
-<!-- 		<action name="duAction" method="memberupdate" class="controller.MemberAction" > -->
-<!-- 		<action name="duAction" method="memberinsert" class="controller.MemberAction" > -->
-<!-- 		</action> -->
 	</package>
 	
+	<package name="login" namespace="/" extends="struts-default">
+		<action name="login" class="loginAction">
+			<result name="res">/index.jsp</result>
+			<result name="success" type="redirect">/owner/selectmeal.jsp</result>
+			<result name="message"></result>
+		</action>
+		<action name="logout" class="loginAction" method="logout" >
+			<result name="input">/index.jsp</result>
+			<result name="success" type="redirect">/index.jsp</result>
+		</action>
+		<action name="adminlogin" class="loginAction" method="adminLogin">
+			<result name="admin" type="redirect">/admin/intoh.jsp</result>
+			<result name="erradmin">/adminindex.jsp</result>
+		</action>
+		<action name="adminlogout" class="loginAction" method="adminLogout">
+			<result name="input">/adminindex.jsp</result>
+			<result name="logout" type="redirect">/adminindex.jsp</result>
+		</action>
+	</package>
+	<package name="admin" namespace="/admin" extends="json-default">
+		<action name="adAction" class="advertisementAction">
+			<result name="AD" type="json"></result>
+		</action>
+	</package>
 	
-<!-- 	<constant name="struts.custom.i18n.resources" value="globalMessages" /> -->
-<!-- 	<package name="myPackage" namespace="/myNamespace" extends="struts-default"> -->
-<!-- 		<global-results> -->
-<!-- 			<result name="error">/error.jsp</result> -->
-<!-- 		</global-results> -->
-<!-- 		<global-exception-mappings> -->
-<!-- 			<exception-mapping exception="java.lang.Exception" result="error" /> -->
-<!-- 		</global-exception-mappings> -->
-<!-- 		<action name="myAction" class="com.action.HelloAction" > -->
-<!-- 		<action name="myAction" class="com.action.HelloAction" method="add" > -->
-<!-- 			<result>/hello.jsp</result> -->
-<!-- 			<result name="error">/form.jsp</result> -->
-<!-- 	        <result name="input">/form.jsp</result> -->
-<!-- 			<result type="redirect" >/hello.jsp</result> -->
-<!-- 		</action> -->
-<!-- 	</package> -->
-    
 </struts>

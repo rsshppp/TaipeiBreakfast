@@ -31,7 +31,16 @@ tr{
  height:30px;
 } 
 </style>
-		
+
+<style type="text/css">
+div img {
+max-width:100px;
+width:100px;
+width:expression(document.body.clientWidth>100?"100px":"auto");
+overflow:hidden;
+}
+</style>
+
 <script>
     function ProcessFile(e){   
         var file = document.getElementById('imgin').files[0];
@@ -59,6 +68,12 @@ tr{
         document.getElementById('imgin').addEventListener('change',ProcessFile,false);
     }
     window.addEventListener("DOMContentLoaded",contentLoaded,false);
+    
+    function clearimg(){
+        if (document.getElementById("imgout").hasChildNodes()) {
+            document.getElementById("imgout").removeChild(document.getElementById("imgout").childNodes[0]);
+        }
+    }
 </script>
     
 	<script>
@@ -149,45 +164,47 @@ tr{
 		</div>
 	</nav>
 
-	<div style="text-align: left; margin: 80px 20px 50px 30%;">
+	<div id="jumb" class="jumbotron">
+		<div class="container">
+	<div style="text-align: left; margin-left: 30%; padding: 8px">
 	
 <!-- 	<form action="MemberInsertServlet.controller" method="post"> -->
-	<form action="<c:url value='/pe/duAction!memberInsert.action'/>" method="post" enctype="multipart/form-data">
+	<form action="<c:url value='/pe/duAction!memberInsert.action'/>" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
 		<table>
 			<tr><th><h3>加入會員</h3></th></tr>
 			<tr>
 				<td>Email :</td>
 <!-- 				<td><input type="text" name="email" id="idEmail" onchange="checkmail()"></td> -->
-				<td><input type="text" name="mf.memberEmail" id="idEmail" onchange="checkmail()"></td>
+				<td><input type="text" name="mf.memberEmail" id="idEmail" onchange="checkmail()" class="form-control" ></td>
 				<td>${errors.acc}</td>
 			</tr>
 			<tr>
 				<td>密碼 :</td>
 <!-- 				<td><input type="password" name="pass"></td> -->
-				<td><input type="password" name="mf.memberPwd"></td>
+				<td><input type="password" name="mf.memberPwd" class="form-control" ></td>
 			</tr>
-			<tr>
-				<td> </td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td> </td> -->
+<!-- 			</tr> -->
 			<tr>
 				<td>姓氏 :</td>
 <!-- 				<td><input type="text" name="first"></td> -->
-				<td><input type="text" name="mf.memberFirstName"></td>
+				<td><input type="text" name="mf.memberFirstName" class="form-control" ></td>
 			</tr>
 			<tr>
 				<td>名字 :</td>
 <!-- 				<td><input type="text" name="last"></td> -->
-				<td><input type="text" name="mf.memberLastName"></td>
+				<td><input type="text" name="mf.memberLastName" class="form-control" ></td>
 			</tr>
 			
-			<tr>
-				<td> </td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td> </td> -->
+<!-- 			</tr> -->
 			<!-- 只須手機即可 修改by Steven  
 			<tr>
 				<td>聯絡電話 :</td>
 				<td><input type="text" name="tel"></td>
-				<td><input type="text" name="mf.memberTel"></td>
+				<td><input type="text" name="mf.memberTel" class="form-control" ></td>
 				<td>${erro.tel}</td>
 			</tr>
 			<tr>
@@ -198,23 +215,25 @@ tr{
 			<tr>
 				<td>手機 :</td>
 <!-- 				<td><input type="text" name="pho"></td> -->
-				<td><input type="text" name="mf.memberPhone"></td>
-				<td>${errors.pho}</td>
+				<td><input type="text" name="mf.memberPhone" class="form-control" ></td>
+				<td><c:if test="${empty errors.pho }">例:(0999123456)</c:if>${errors.pho}</td>
 			</tr>
-			<tr>
-				<td></td>
-				<td>例:(0999123456)</td>
-			</tr>
-			<tr>
-				<td> </td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td></td> -->
+<!-- 				<td>例:(0999123456)</td> -->
+<!-- 			</tr> -->
+<!-- 			<tr> -->
+<!-- 				<td> </td> -->
+<!-- 			</tr> -->
 			
 			<tr>
 				<td>地址 :</td>
 <!-- 				<td><input type="text" name="addr"></td> -->
-				<td><input type="text" name="mf.memberAddr"></td>
+				<td><input type="text" name="mf.memberAddr" class="form-control" ></td>
 			</tr>
-			
+<!-- 			<tr> -->
+<!-- 				<td> </td> -->
+<!-- 			</tr> -->
 			<tr>
 				<td>圖片 :</td>
 <!-- 				<td><input type="file" name="img" accept="image/*"></td> -->
@@ -250,15 +269,17 @@ tr{
 // 		}
 		</script>
 	<div style="text-align: center; margin: 50px auto;">
-		<span style="text-align: center; position: relative; left:-200px;">
-			<input type="submit" value="註冊">
+		<span style="position: relative; left:-100px;">
+			<input type="submit" value="註冊" class="btn btn-info btn-sm">
 		</span>
-		<span style="text-align: center; color:red; position: relative; left:-100px;">
-			<input type="reset" value="清空重填">
+		<span style="position: relative; left:-50px;">
+			<input type="reset" value="清空重填" class="btn btn-danger btn-sm" onclick="clearimg()" >
 		</span>
 	</div>
 		
 		</form>
+	</div>
+		</div>
 	</div>
 
 	<div class="container inner">

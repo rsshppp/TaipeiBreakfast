@@ -20,6 +20,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import model.bean.MemberBean;
 import model.bean.OrderSumBean;
+import model.bean.OwnerBean;
 import model.dao.MemberDAO;
 
 public class MemberDAOHibernate implements MemberDAO {
@@ -54,8 +55,10 @@ public class MemberDAOHibernate implements MemberDAO {
 		result.setMemberStatus(bean.getMemberStatus());
 		result.setMemberSuspend(bean.getMemberSuspend());
 
+		Session session = getSession();
+		Transaction tx=session.beginTransaction();
 		try {
-			getSession().save(result);
+			session.save(result);
 		} catch (ConstraintViolationException ex) {
 			System.out.println("Insert Data Error:" + ex.getMessage());
 //			ex.fillInStackTrace();
@@ -63,6 +66,7 @@ public class MemberDAOHibernate implements MemberDAO {
 			System.out.println("Generic Error :" + gex.getMessage());
 		}
 
+		tx.commit();
 		return result;
 	}
 
@@ -70,7 +74,9 @@ public class MemberDAOHibernate implements MemberDAO {
 	@Override
 	public MemberBean updateMember(MemberBean bean) {
 		MemberBean result = null;
-		Criteria criteria = getSession().createCriteria(MemberBean.class)
+		Session session = getSession();
+		Transaction tx=session.beginTransaction();
+		Criteria criteria = session.createCriteria(MemberBean.class)
 				.add(Restrictions.eq("memberID", bean.getMemberID()));
 		Iterator upprod = criteria.list().iterator();
 		MemberBean upper = (MemberBean) upprod.next();
@@ -83,8 +89,9 @@ public class MemberDAOHibernate implements MemberDAO {
 		upper.setMemberAddr(bean.getMemberAddr());
 		upper.setMemberImage(bean.getMemberImage());
 
-		getSession().saveOrUpdate(upper);
+		session.saveOrUpdate(upper);
 		result = upper;
+		tx.commit();
 		return result;
 	}
 
@@ -93,7 +100,9 @@ public class MemberDAOHibernate implements MemberDAO {
 	public boolean selectMemberByAcc(String mail) {
 		boolean result = false;
 		if(mail!=null){
-			Query query = getSession().createQuery(
+			Session session=getSession();
+			Transaction tx=session.beginTransaction();
+			Query query = session.createQuery(
 						"from MemberBean where memberAcc like:acc or memberEmail like:acc");
 		query.setString("acc", mail+"@%");
 		Iterator list = query.list().iterator();
@@ -102,6 +111,7 @@ public class MemberDAOHibernate implements MemberDAO {
 				System.out.println(b.getMemberEmail());
 				result = true;
 			}
+			tx.commit();
 		}
 		return result;
 	}
@@ -111,9 +121,11 @@ public class MemberDAOHibernate implements MemberDAO {
 	public MemberBean selectMemberByMail(String mail) {
 		MemberBean result = null;
 		if(mail!=null){
-			Query query = getSession().createQuery(
-							"from MemberBean where memberAcc like:acc or memberEmail like:acc");
-			query.setString("acc", mail);
+			System.out.println("I am in MemberDAOHibernate");
+			Session session=getSession();
+			Query query = session.createQuery(
+							"from MemberBean where memberAcc like:acc");
+			query.setString("acc", mail);			
 			Iterator list = query.list().iterator();
 			if (list.hasNext()) {
 				MemberBean b = (MemberBean) list.next();
@@ -128,7 +140,9 @@ public class MemberDAOHibernate implements MemberDAO {
 	@Override
 	public MemberBean selectMember(int MemberID) {
 		MemberBean result = null;
-		Query query = getSession().createQuery(
+		Session session=getSession();
+		Transaction tx=session.beginTransaction();
+		Query query = session.createQuery(
 				"from MemberBean where memberID=:MemberID ");
 		query.setInteger("MemberID", MemberID);
 		MemberBean b = (MemberBean)query.list().iterator().next();
@@ -137,13 +151,15 @@ public class MemberDAOHibernate implements MemberDAO {
 		if (b.getMemberStatus() == true) {
 			result=b;
 		}
+		tx.commit();
 		return result;
 	}
 
 	// (-.-)*杜
 	// @Override
 	// public List<MemberBean> selectMember() {
-	// Query query =getSession().createQuery("from MemberBean where MemberStatus=:st");
+	// Query query =
+	// getSession().createQuery("from MemberBean where MemberStatus=:st");
 	// query.setInteger("st", 1);
 	// return (List<MemberBean>) query.list();
 	// }
@@ -166,8 +182,8 @@ public class MemberDAOHibernate implements MemberDAO {
 	public boolean changePassword(int MemberID, String memberPwd) {
 		Boolean result = false;
 		
-//		Session session = getSession();
-//		Transaction tx = session.beginTransaction();
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
 //		Criteria criteria = session.createCriteria(MemberBean.class);
 //		criteria.add(Restrictions.eq("MemberID", MemberID));
 //		MemberBean mbean = (MemberBean) criteria.uniqueResult();
@@ -180,12 +196,15 @@ public class MemberDAOHibernate implements MemberDAO {
 //		}
 		//criteria 檢查失敗
 		
-		MemberBean mb = (MemberBean)getSession().get(MemberBean.class, MemberID);
+		MemberBean mb = (MemberBean)session.get(MemberBean.class, MemberID);
+//		MemberBean mb = (MemberBean)getSession().get(MemberBean.class, MemberID);
 		if (mb != null) {
 			mb.setMemberPwd(memberPwd);
 			getSession().saveOrUpdate(mb);
 			result = true;
 		}
+		
+		tx.commit();
 		return result;
 	}
 	
@@ -194,8 +213,8 @@ public class MemberDAOHibernate implements MemberDAO {
 	public Boolean deleteMember(int MemberID) {
 		Boolean result = false;
 		
-//		Session session = getSession();
-//		Transaction tx = session.beginTransaction();
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
 //		Criteria criteria = session.createCriteria(MemberBean.class);
 //		criteria.add(Restrictions.eq("MemberID", MemberID));
 //		Iterator<?> upprod = criteria.list().iterator();
@@ -210,13 +229,16 @@ public class MemberDAOHibernate implements MemberDAO {
 //		}
 		//criteria 檢查失敗
 
-		MemberBean mb = (MemberBean)getSession().get(MemberBean.class, MemberID);
+		MemberBean mb = (MemberBean)session.get(MemberBean.class, MemberID);
+//		MemberBean mb = (MemberBean)getSession().get(MemberBean.class, MemberID);
 		if (mb != null) {
 			// update MemberStatus
 			mb.setMemberStatus(false);
 			getSession().saveOrUpdate(mb);
 			result = true;
 		}
+		
+		tx.commit();
 		return result;
 	}
 
@@ -225,8 +247,8 @@ public class MemberDAOHibernate implements MemberDAO {
 	public Boolean rebornMember(int MemberID) {
 		Boolean result = false;
 		
-//		Session session = getSession();
-//		Transaction tx = session.beginTransaction();
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
 //		Criteria criteria = session.createCriteria(MemberBean.class);
 //		criteria.add(Restrictions.eq("MemberID", MemberID));
 //		Iterator<?> upprod = criteria.list().iterator();
@@ -242,13 +264,16 @@ public class MemberDAOHibernate implements MemberDAO {
 //		}
 		//criteria 檢查失敗
 
-		MemberBean mb = (MemberBean)getSession().get(MemberBean.class, MemberID);
+		MemberBean mb = (MemberBean)session.get(MemberBean.class, MemberID);
+//		MemberBean mb = (MemberBean)getSession().get(MemberBean.class, MemberID);
 		if (mb != null) {
 			// update MemberStatus 後台 & 測試 用
 			mb.setMemberStatus(true);
 			getSession().saveOrUpdate(mb);
 			result = true;
 		}
+		
+		tx.commit();
 		return result;
 	}
 
@@ -287,4 +312,21 @@ public class MemberDAOHibernate implements MemberDAO {
 
 		return true;
 	}
+	
+	//停權<==>復權 by Steven
+	@Override
+	public boolean suspendOrCancel(String memberAcc) {
+		MemberBean bean=this.selectMemberByMail(memberAcc);
+		if(bean!=null){
+			if(bean.getMemberSuspend()==false){
+				bean.setMemberSuspend(true);
+			}else{
+				bean.setMemberSuspend(false);
+			}
+			
+			return true;
+		}
+		return false;
+	}
+	
 }

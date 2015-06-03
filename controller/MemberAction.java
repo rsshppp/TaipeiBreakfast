@@ -94,7 +94,6 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	
 	
 	public String memberInsert() {
-
 		if (mf.getMemberEmail() != null && mf.getMemberEmail().length() != 0) {
 	        //mail 型態驗證
 	        String[] mailStyle = mf.getMemberEmail().split("@");
@@ -173,27 +172,29 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	}
 	
 	public String memberUpdate() {
-
-    	System.out.println(mf.getMemberEmail());
+		MemberBean be=(MemberBean)session.getAttribute("user");
+		System.out.println(be.getMemberEmail());
+//    	System.out.println(mf.getMemberEmail());
 		if (mf.getMemberEmail() != null && mf.getMemberEmail().length() != 0) {
+//			if (mf.getMemberEmail() != null && mf.getMemberEmail().length() != 0) {
 			System.out.println("Action mail pass");
 		}else{
 			errors.put("acc", "Please enter email");
 		}
 		int tel = 0;
-		if (mf.getMemberTel() != null && mf.getMemberTel().length() != 0) {
-			tel = convert.convertInt(mf.getMemberTel());
-			if (tel == -1000) {
-				errors.put("tel", "Tel must be integer");
-			}
-		}
-		int pho = 0;
-		if (mf.getMemberPhone() != null && mf.getMemberPhone().length() != 0) {
-			pho = convert.convertInt(mf.getMemberPhone());
-			if (pho == -1000) {
-				errors.put("pho", "Phone must be integer");
-			}
-		}
+//		if (mf.getMemberTel() != null && mf.getMemberTel().length() != 0) {
+//			tel = convert.convertInt(mf.getMemberTel());
+//			if (tel == -1000) {
+//				errors.put("tel", "Tel must be integer");
+//			}
+//		}
+//		int pho = 0;
+//		if (mf.getMemberPhone() != null && mf.getMemberPhone().length() != 0) {
+//			pho = convert.convertInt(mf.getMemberPhone());
+//			if (pho == -1000) {
+//				errors.put("pho", "Phone must be integer");
+//			}
+//		}
         if (errors!=null && !errors.isEmpty()) {
         	// errors != null &&
 			request.setAttribute("errors", errors);
@@ -205,12 +206,13 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			byte[] image;
 			if (mf != null) {
 				System.out.println("in:" + mf);
-				String[] mailStyle = mf.getMemberEmail().split("@");
+				String[] mailStyle = be.getMemberEmail().split("@");
+//				String[] mailStyle = mf.getMemberEmail().split("@");
 				MemberBean t = service.selectMemberE(mailStyle[0]);
 				if (t != null) {
 
 					bean.setMemberID(t.getMemberID());
-					bean.setMemberAcc(mf.getMemberEmail());
+					bean.setMemberAcc(t.getMemberAcc());
 					bean.setMemberEmail(mf.getMemberEmail());
 					bean.setMemberLastName(mf.getMemberLastName());
 					bean.setMemberFirstName(mf.getMemberFirstName());
@@ -227,6 +229,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 
 					if (service.updateMember(bean) != null) {
 						errors.put("action", "Update成功");
+						session.setAttribute("user",bean);
 					} else {
 						errors.put("action", "Update fail");
 					}
@@ -244,18 +247,21 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	}
 
 	public String changePassword() {
-		if (mf.getMemberEmail() != null && mf.getMemberEmail().length() != 0) {
-			System.out.println("Action mail pass");
+		MemberBean be=(MemberBean)session.getAttribute("user");
+		if (be.getMemberEmail() != null && be.getMemberEmail().length() != 0) {
+//			if (mf.getMemberEmail() != null && mf.getMemberEmail().length() != 0) {
+				System.out.println("Action mail pass");
+//			}
 		}else{
 			errors.put("acc", "Please enter email");
 		}
-//		if(mf.getMemberPwd()!=null && mf.getMemberCwd()!=null){
-//			byte[] temp = mf.getMemberPwd().getBytes();
-//			byte[] pass = mf.getMemberCwd().getBytes();
-//			if (!Arrays.equals(temp, pass)) {
-//				errors.put("pwd", "password error");
-//			}
-//		}
+		if(mf.getMemberPwd()!=null && mf.getMemberCwd()!=null){
+			byte[] temp = mf.getMemberPwd().getBytes();
+			byte[] pass = mf.getMemberCwd().getBytes();
+			if (!Arrays.equals(temp, pass)) {
+				errors.put("pwd", "password error");
+			}
+		}
         if (errors!=null && !errors.isEmpty()) {
         	// errors != null &&
 			request.setAttribute("errors", errors);
@@ -265,7 +271,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		try{
 			if (mf != null) {
 				System.out.println("change:" + mf);
-				MemberBean t = service.selectMemberE(mf.getMemberEmail().split("@")[0]);
+				MemberBean t = service.selectMemberE(be.getMemberEmail().split("@")[0]);
 				System.out.println("t= "+t);
 				if (t != null) {
 					if (service.changePassword(t.getMemberID(),t.getMemberPwd(),mf.getMemberPwd()) != false) {
@@ -287,7 +293,9 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	}
 
 	public String deleteMember() {
-		if (mf.getMemberEmail() != null && mf.getMemberEmail().length() != 0) {
+		MemberBean be=(MemberBean)session.getAttribute("user");
+		if (be.getMemberEmail() != null && be.getMemberEmail().length() != 0) {
+//		if (mf.getMemberEmail() != null && mf.getMemberEmail().length() != 0) {
 			System.out.println("Action mail pass");
 		}else{
 			errors.put("acc", "Please enter email");
@@ -299,24 +307,26 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		try{
 			if (mf != null) {
 				System.out.println("delete :" + mf);
-				MemberBean t = service.selectMemberE(mf.getMemberEmail().split("@")[0]);
+				MemberBean t = service.selectMemberE(be.getMemberEmail().split("@")[0]);
 				if (t != null) {
-//					byte[] temp = mf.getMemberPwd().getBytes();
-//					byte[] pass = t.getMemberPwd().getBytes();
-//					if (!Arrays.equals(temp, pass)) {
-//						errors.put("pwd", "password error");
-//					}
-//					if (errors != null && !errors.isEmpty()) {
-//						// errors != null &&
-//						return "memberdelete";
-//					} else {
+					byte[] temp = mf.getMemberPwd().getBytes();
+					byte[] pass = t.getMemberPwd().getBytes();
+					if (!Arrays.equals(temp, pass)) {
+						errors.put("pwd", "password error");
+					}
+					if (errors != null && !errors.isEmpty()) {
+						// errors != null &&
+						return "memberdelete";
+					} else {
 						if (service.deleteMember(t.getMemberID()) != false) {
 							errors.put("action", "刪除成功");
+							session.removeAttribute("user");
+							session.removeAttribute("type");
 							return "index";
 						} else {
 							errors.put("action", "Delete fail");
 						}
-//					}
+					}
 				}else{
 					errors.put("action", "無此mail");
 				}

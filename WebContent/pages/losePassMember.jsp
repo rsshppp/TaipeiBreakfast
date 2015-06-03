@@ -142,7 +142,6 @@ tr{
 <!-- 				<td><input type="text" name="first"></td> -->
 <%-- 				<td>${errors.first}</td> --%>
 <!-- 			</tr>   -->
-			
 			<tr>
 				<td></td>
 				<td>${errors.action}</td>
@@ -151,11 +150,11 @@ tr{
 		</table>
 		
 	<div style="text-align: center; margin: 50px auto;">
-		<span style="text-align: center; position: relative; left:-200px;">
-			<input type="submit" value="確認">
+		<span style="position: relative; left:-200px;">
+			<input type="submit" value="確認" class="btn btn-info btn-sm">
 		</span>
-		<span style="text-align: center; color:red; position: relative; left:-100px;">
-			<input type="reset" value="清空重填">
+		<span style="position: relative; left:-100px;">
+			<input type="reset" value="清空重填" class="btn btn-danger btn-sm" >
 		</span>
 	</div>
 		

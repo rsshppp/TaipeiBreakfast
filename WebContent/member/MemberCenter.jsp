@@ -123,23 +123,25 @@ tr{
 			<div class="row">
 				<div class="col-md-2" style="top: 30px">
 					<div class="list-group" id="menu"></div>
-					<a class="list-group-item text-center" href="MemberUpdate.jsp">更新資料</a> 
-					<a class="list-group-item text-center" href="MemberChangePass.jsp">更改密碼</a> 
-					<a class="list-group-item text-center" href="MemberDelete.jsp">刪除帳號</a> 
-					<a class="list-group-item text-center" href="#">會員功能</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a>
+					<a class="list-group-item text-center" href="<c:url value='../member/MemberUpdate.jsp' />">更新資料</a> 
+					<a class="list-group-item text-center" href="<c:url value='../member/MemberChangePass.jsp' />">更改密碼</a> 
+					<a class="list-group-item text-center" href="<c:url value='../member/MemberDelete.jsp' />">刪除帳號</a> 
+					<a class="list-group-item text-center" href="#">會員功能</a> 
 				</div>
 				<div class="col-md-10" style="text-align: left; top: 30px;">
 
 						<table>
 							<tr>
 								<th>						
-									<c:if test="${not empty select }">
-										<h3>Welecome ${select}</h3>
+									<c:if test="${not empty user.memberFirstName }">
+										<h3>Welecome ${user.memberFirstName}</h3>
 									</c:if>
+									<c:if test="${empty user.memberFirstName }">
 										<h3>Welecome </h3>
+									</c:if>
 								</th>
 							</tr>
 						</table>

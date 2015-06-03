@@ -7,7 +7,7 @@ public class MemberForm implements Serializable {
 
 	private String memberAcc;
 	private String memberPwd;
-//	private String memberCwd;
+	private String memberCwd;
 	private String memberLastName;
 	private String memberFirstName;
 	private String memberPhone;
@@ -37,12 +37,12 @@ public class MemberForm implements Serializable {
 	public void setMemberPwd(String memberPwd) {
 		this.memberPwd = memberPwd;
 	}
-//	public String getMemberCwd() {
-//		return memberCwd;
-//	}
-//	public void setMemberCwd(String memberCwd) {
-//		this.memberCwd = memberCwd;
-//	}
+	public String getMemberCwd() {
+		return memberCwd;
+	}
+	public void setMemberCwd(String memberCwd) {
+		this.memberCwd = memberCwd;
+	}
 	public String getMemberLastName() {
 		return memberLastName;
 	}

@@ -122,12 +122,12 @@ tr{
 			<div class="row">
 				<div class="col-md-2" style="top: 30px">
 					<div class="list-group" id="menu"></div>
-					<a class="list-group-item text-center" href="MemberUpdate.jsp">更新資料</a> 
-					<a class="list-group-item text-center" href="MemberChangePass.jsp">更改密碼</a> 
-					<a class="list-group-item text-center" href="MemberCenter.jsp">會員資料</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a> 
+					<a class="list-group-item text-center" href="<c:url value='../member/MemberUpdate.jsp' />">更新資料</a> 
+					<a class="list-group-item text-center" href="<c:url value='../member/MemberChangePass.jsp' />">更改密碼</a> 
+					<a class="list-group-item text-center" href="<c:url value='../member/MemberCenter.jsp' />">會員資料</a> 
 					<a class="list-group-item text-center" href="#">會員功能</a>
 				</div>
 				<div class="col-md-10" style="text-align: left; top: 30px;">
@@ -137,16 +137,16 @@ tr{
 		<table>
 			<tr><th><h3>刪除帳號</h3></th></tr>
 			<tr>
-				<td>Email :</td>
+<!-- 				<td>Email :</td> -->
 <!-- 				<td><input type="text" name="email"></td> -->
-				<td><input type="text" name="mf.memberEmail"></td>
-				<td>${errors.acc}</td>
-			</tr>  
-<!-- 			<tr> -->
-<!-- 				<td>密碼 :</td> -->
-<!-- 				<td><input type="password" name="pass"></td> -->
-<%-- 				<td>${errors.pwd}</td> --%>
-<!-- 			</tr> -->
+<!-- 				<td><input type="text" name="mf.memberEmail"></td> -->
+<%-- 				<td>${errors.acc}</td> --%>
+<!-- 			</tr>   -->
+			<tr>
+				<td>密碼 :</td>
+				<td><input type="password" name="pass"></td>
+				<td>${errors.pwd}</td>
+			</tr>
 			
 			<tr>
 				<td></td>
@@ -156,8 +156,8 @@ tr{
 		</table>
 		
 	<div style="text-align: center; margin: 50px auto;">
-		<span style="text-align: center; position: relative; left:-200px;">
-			<input type="submit" value="刪除帳號">
+		<span style="position: relative; left:-200px;">
+			<input type="submit" value="刪除帳號" class="btn btn-danger btn-sm" >
 		</span>
 	</div>
 		

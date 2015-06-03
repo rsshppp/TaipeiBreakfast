@@ -26,4 +26,7 @@ public interface MemberDAO {
 	
 	//會員使用優惠 - Noah
 	public abstract boolean useSpecialPrice(Integer memberID);
+	
+	//停權<=>復權 by Steven
+	public abstract boolean suspendOrCancel(String memberAcc);
 }

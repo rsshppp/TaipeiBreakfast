@@ -169,14 +169,16 @@ public class OrderAction {
 		while(iterator.hasNext()){
 			//將MealImage設為Null加快傳輸，建立新的Bean存入查詢到Bean的資料
 			MealBean temp = (MealBean) iterator.next();
-			MealBean newbean = new MealBean();
-			newbean.setMealID(temp.getMealID());
-			newbean.setMealKindID(temp.getMealKindID());
-			newbean.setMealName(temp.getMealName());
-			newbean.setMealStatus(temp.getMealStatus());
-			newbean.setPrice(temp.getPrice());
-			newbean.setShopID(temp.getShopID());
-			mealBeanlist.add(newbean);
+			if(temp.getMealStatus()==true){
+				MealBean newbean = new MealBean();
+				newbean.setMealID(temp.getMealID());
+				newbean.setMealKindID(temp.getMealKindID());
+				newbean.setMealName(temp.getMealName());
+				newbean.setMealStatus(temp.getMealStatus());
+				newbean.setPrice(temp.getPrice());
+				newbean.setShopID(temp.getShopID());
+				mealBeanlist.add(newbean);
+			}
 		}
 		System.out.println(mealBeanlist);
 		Long l1=System.currentTimeMillis();
@@ -186,7 +188,11 @@ public class OrderAction {
 	
 	//選出圖片資料
 	public String queryMealImage(){
-		imageByte =orderSumService.queryMealImage(mealID);
+		if(orderSumService.queryMealImage(mealID) !=null){
+			imageByte = orderSumService.queryMealImage(mealID);
+		}else{
+			imageByte = mealService.selectMealByMealID(mealID).getMealKindListBean().getDefaultImage();
+		}
 		//編碼
 //		final Base64.Encoder encoder = Base64.getEncoder();
 //		encodedText = encoder.encodeToString(b);
@@ -216,12 +222,14 @@ public class OrderAction {
 		mealBeanlist = new ArrayList<MealBean>();
 		while(iterator.hasNext()){
 			MealBean mbean = (MealBean) iterator.next();
-			temp = new MealBean();
-			temp.setMealID(mbean.getMealID());
-			temp.setMealName(mbean.getMealName());
-			temp.setPrice(mbean.getPrice());
-			temp.setShopID(mbean.getShopID());
-			mealBeanlist.add(temp);
+			if(mbean.getMealStatus()==true){
+				temp = new MealBean();
+				temp.setMealID(mbean.getMealID());
+				temp.setMealName(mbean.getMealName());
+				temp.setPrice(mbean.getPrice());
+				temp.setShopID(mbean.getShopID());
+				mealBeanlist.add(temp);
+			}
 		}
 		return "meals";
 	}
@@ -275,18 +283,19 @@ public class OrderAction {
 		
 		while(iterator.hasNext()){
 			ShopBean sbean = (ShopBean) iterator.next();
-			sbeani = new ShopBeanInfo();
-			sbeani.setShopID(sbean.getShopID());
-			sbeani.setShopAddr(sbean.getShopAddr());
-			sbeani.setShopArea(sbean.getShopArea());
-			sbeani.setShopCity(sbean.getShopCity());
-			sbeani.setShopName(sbean.getShopName());
-			sbeani.setShopPhone(sbean.getShopPhone());
-			sbeani.setBeginBusinessTime(sbean.getBeginBusinessTime());
-			sbeani.setEndBusinessTime(sbean.getEndBusinessTime());
-			sbeanlist.add(sbeani);
+			if(sbean.getShopSuspend() ==false&&sbean.getShopCondID()==3){
+				sbeani = new ShopBeanInfo();
+				sbeani.setShopID(sbean.getShopID());
+				sbeani.setShopAddr(sbean.getShopAddr());
+				sbeani.setShopArea(sbean.getShopArea());
+				sbeani.setShopCity(sbean.getShopCity());
+				sbeani.setShopName(sbean.getShopName());
+				sbeani.setShopPhone(sbean.getShopPhone());
+				sbeani.setBeginBusinessTime(sbean.getBeginBusinessTime());
+				sbeani.setEndBusinessTime(sbean.getEndBusinessTime());
+				sbeanlist.add(sbeani);
+			}
 		}
-		
 		return "selectAllShops";
 	}
 	

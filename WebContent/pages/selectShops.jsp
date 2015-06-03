@@ -33,6 +33,12 @@
 tr{
  height:20px;
 }
+div img {
+max-width:100px;
+width:100px;
+width:expression(document.body.clientWidth>100?"100px":"auto");
+overflow:hidden;
+}
 </style>
 		
 	<script>
@@ -126,19 +132,16 @@ tr{
 	<div id="jumb" class="jumbotron">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-10" style="text-align: left; top: 30px;">
-
+				<div class="col-md-10" style="text-align: left; top: 30px; left: 10%">
 		<table>
-		
 	<thead>
 	<tr>
-		<th>logoImage</th>
-		<th>shopName</th>
-		<th>shopCity</th>
-		<th>shopArea</th>
-		<th>beginBusinessTime</th>
-		<th>businessTimeNote</th>
-		
+		<th>logo</th>
+		<th>店鋪名稱</th>
+		<th>所在城市</th>
+		<th>所在區域</th>
+		<th>開店時間</th>
+		<th>備註</th>
 	</tr>
 	</thead>
 	<tbody id="ts">

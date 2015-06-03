@@ -2,34 +2,27 @@
 table {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
-	width: 480px;
+	width: 100%;
 	text-align: left;
-	border-collapse: collapse;
 	position: relative;
+  border-spacing: 2px;
+  border-color: grey;
 }
 
 th {
-	font-size: 13px;
-	font-weight: normal;
+	font-size: 14px;
 	padding: 8px;
-	background: #b9c9fe;
-	border-top: 4px solid #aabcfe;
-	border-bottom: 1px solid #fff;
-	color: #039;
+	border-bottom: 1px solid #111;
 }
 
 td {
 	padding: 8px;
-	background: #e8edff; 
-	border-bottom: 1px solid #fff;
-	color: #669;
 	border-top: 1px solid transparent;
 	vertical-align:top;
 }
 
 tr:hover td {
-	background: #d0dafd;
-	color: #339;
+	background: #d0d0d0;
 }
 
 

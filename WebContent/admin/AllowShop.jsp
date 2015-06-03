@@ -20,8 +20,8 @@
 		<script src="<c:url value='/js/jquery.form.js'/>"></script>
 		<script type="text/javascript" src="<c:url value='/bootstrap/js/bootstrap.min.js'/>"></script> 
 		<script src="<c:url value='/js/lightbox.min.js'/>"></script> 
-<!-- 		<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script> -->
-<%-- 		<script type="text/javascript" src="<c:url value='/js/jquery.dataTables.min.js'/>"></script> --%>
+		<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="<c:url value='/js/jquery.dataTables.min.js'/>"></script>
 
 		<!-- HTML5 shim and Respond.js 讓 IE8 支援 HTML5 元素與媒體查詢 -->
 		<!-- 警告：Respond.js 無法在 file:// 協定下運作 -->
@@ -65,11 +65,11 @@
 							<div>
 	<h3>審核店鋪</h3>
 	<form method="post">
-		<table id="shmenu" style="width: 100%;">
+		<table id="shmenu">
 		
 	<thead>
 	<tr>
-		<th><span>店鋪編號</span></th>
+		<th>店鋪編號</th>
 		<th>所有者ID</th>
 		<th>logo</th>
 		<th>店鋪名稱</th>
@@ -149,8 +149,6 @@
     
     </script>
 	
-<!-- <br><br> -->
-<%-- <a href="<c:url value=''/>" >後台首頁</a> --%>
 						</div>
 						
 						<!-- 功能放這邊！！！ -->

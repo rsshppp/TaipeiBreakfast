@@ -9,7 +9,7 @@
 		<title>審核店鋪</title>
 		
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-		<link href="<c:url value='/css/carousel.css'/>" rel="stylesheet">
+		<link href="<c:url value='/css/carousel.css'/>" rel="stylesheet" />
 		<link href="<c:url value='/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet" type="text/css" />
 		<link href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 		<link rel="icon" href="favicon.ico">
@@ -108,10 +108,16 @@
 			var list=JSON.parse(data.redata);
     		console.log(list);
     		$.each(list,function(u,i){
+        		var imm;
+        		if(i.logoImage!=null){
+        			imm="<c:url value='/pe/duAction!shopImage?shopID="+i.shopID+"' />";
+        		}else{
+        			imm="../image/proj_icon_2.png";
+        		}
 				$('#t1').append("<tr>"+
 					"<td>"+i.shopID+"</td>"+
 					"<td>"+i.ownID+"</td>"+
-					"<td style='width: 20px; height: 20px;'>"+i.logoImage+"</td>"+
+					"<td><img src="+imm+" style='width: 20px; height: 20px;' /></td>"+
 					"<td>"+i.shopName+"</td>"+
 					"<td>"+i.shopPhone+"</td>"+
 					"<td>"+i.shopCity+"</td>"+
@@ -123,27 +129,6 @@
 					"<td><input type='button' value='不准' onclick='nota("+i.shopID+")' /></td>"+
 					"</tr>");
         	});
-//     		$('#shmenu').DataTable({
-// 			    "iDisplayLength": 7,
-// 			    "aLengthMenu": [[7, 10, 20, -1], [7, 10, 20, "All"]],
-// 			    "oLanguage":{
-// 			    "sProcessing": "處理中...",
-// 			      "sLengthMenu": "一頁顯示 _MENU_ 筆記錄",
-// 			      "sZeroRecords": "無符合資料",
-// 			      "sInfo": "目前顯示：_START_ 至 _END_, 總筆數：_TOTAL_",
-// 			      "sInfoEmpty": "無任何資料",
-// 			      "sInfoFiltered": "(關鍵字總筆數 _MAX_)",
-// 			      "sInfoPostFix": "",
-// 			      "sSearch": "關鍵字",
-// 			      "sUrl": "",
-// 			      "oPaginate": {
-// 			          "sFirst":    "首頁",
-// 			          "sPrevious": "上頁",
-// 			          "sNext":     "下頁",
-// 			          "sLast":     "末頁"
-// 			      }
-// 			    }
-// 			});
 		}
 	);
     

@@ -9,6 +9,10 @@
 	<constant name="struts.objectFactory" value="spring" />
 	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
 	<package name="du" namespace="/pe" extends="json-default">
+		<result-types>
+			<result-type name="imageResult"
+				class="misc.MemberImageResult" />
+		</result-types>
 		<global-results>
 	        <result name="index">/pages/turn.jsp</result>
 			<result name="input">/errors/error.jsp</result>
@@ -25,7 +29,7 @@
 	        <result name="allowshop" type="json" >/pages/AllowShop.jsp</result>
 	        <result name="selects">/pages/selectShops.jsp</result>
 	        <result name="newods" type="json" >/pages/NewOders.jsp</result>
-
+	        <result name="imageee" type="imageResult"></result>
 		</action>
 	</package>
 	

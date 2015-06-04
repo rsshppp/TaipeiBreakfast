@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -11,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.lang.reflect.Type;
 
+import javafx.scene.image.Image;
+
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +29,7 @@ import model.misc.convert;
 import model.service.OwnerService;
 import model.service.TBService;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
@@ -51,7 +57,10 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	private String redata;
 	private String keyword;
 	private Integer page;
-
+	private byte[] image;
+	private byte[] imageInByte;
+	private Integer shopID;
+	
 	public MemberForm getMf() {
 		return mf;
 	}
@@ -82,6 +91,21 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	public void setPage(Integer page) {
 		this.page = page;
 	}
+	public void setShopID(Integer shopID) {
+		this.shopID = shopID;
+	}
+	public byte[] getImage() {
+		return image;
+	}
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+	public byte[] getImageInByte() {
+		return imageInByte;
+	}
+	public void setImageInByte(byte[] imageInByte) {
+		this.imageInByte = imageInByte;
+	}
 	public void setOsf(OderSumForm osf) {
 		this.osf = osf;
 	}
@@ -92,6 +116,16 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		this.owf = owf;
 	}
 	
+	public String getImgType() {
+		return "image/*";
+	}
+	public String shopImage(){
+		if (shopID != null) {
+			ShopBean bean=service.selectSByID(shopID);
+			image = bean.getLogoImage();
+		}
+		return "imageee";
+	}
 	
 	public String memberInsert() {
 		if (mf.getMemberEmail() != null && mf.getMemberEmail().length() != 0) {
@@ -130,9 +164,8 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		
 		try{
 		MemberBean bean=new MemberBean();
-		byte[] image;
 		if(mf!=null){	
-			System.out.println("in:"+mf);
+//			System.out.println("in:"+mf);
 
 			bean.setMemberAcc(mf.getMemberEmail());
 			bean.setMemberEmail(mf.getMemberEmail());
@@ -147,7 +180,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				convert ftb=new convert();
 				image=ftb.loadFile(file);
 				bean.setMemberImage(image);
-				System.out.println(image);
+//				System.out.println(image);
 				errors.put("img", gson.toJson(image));
 			}
 			bean.setMemberStatus(true);
@@ -163,7 +196,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			}
 		}
 		redata=gson.toJson(errors);
-		System.out.println(redata);
+//		System.out.println(redata);
 			request.setAttribute("errors", errors);
 			return "memberinsert";
 		}catch(IOException e){
@@ -173,7 +206,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	
 	public String memberUpdate() {
 		MemberBean be=(MemberBean)session.getAttribute("user");
-		System.out.println(be.getMemberEmail());
+//		System.out.println(be.getMemberEmail());
 //    	System.out.println(mf.getMemberEmail());
 		if (mf.getMemberEmail() != null && mf.getMemberEmail().length() != 0) {
 //			if (mf.getMemberEmail() != null && mf.getMemberEmail().length() != 0) {
@@ -203,9 +236,8 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
         
 		try{
 			MemberBean bean = new MemberBean();
-			byte[] image;
 			if (mf != null) {
-				System.out.println("in:" + mf);
+//				System.out.println("in:" + mf);
 				String[] mailStyle = be.getMemberEmail().split("@");
 //				String[] mailStyle = mf.getMemberEmail().split("@");
 				MemberBean t = service.selectMemberE(mailStyle[0]);
@@ -234,7 +266,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 						errors.put("action", "Update fail");
 					}
 					redata = gson.toJson(errors);
-					System.out.println(redata);
+//					System.out.println(redata);
 				}else{
 					errors.put("action", "無此mail");
 				}
@@ -270,9 +302,9 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
         
 		try{
 			if (mf != null) {
-				System.out.println("change:" + mf);
+//				System.out.println("change:" + mf);
 				MemberBean t = service.selectMemberE(be.getMemberEmail().split("@")[0]);
-				System.out.println("t= "+t);
+//				System.out.println("t= "+t);
 				if (t != null) {
 					if (service.changePassword(t.getMemberID(),t.getMemberPwd(),mf.getMemberPwd()) != false) {
 						errors.put("action", "修改成功");
@@ -284,7 +316,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				}
 			}
 			redata = gson.toJson(errors);
-			System.out.println(redata);
+//			System.out.println(redata);
 			request.setAttribute("errors", errors);
 			return "memberchangepass";
 		}catch(Exception e){
@@ -306,7 +338,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		}
 		try{
 			if (mf != null) {
-				System.out.println("delete :" + mf);
+//				System.out.println("delete :" + mf);
 				MemberBean t = service.selectMemberE(be.getMemberEmail().split("@")[0]);
 				if (t != null) {
 					byte[] temp = mf.getMemberPwd().getBytes();
@@ -332,7 +364,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				}
 			}
 			redata = gson.toJson(errors);
-			System.out.println(redata);
+//			System.out.println(redata);
 			return "memberdelete";
 		}catch(Exception e){
 			return "error";
@@ -351,7 +383,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		}
 		try{
 			if (mf != null) {
-				System.out.println("lose :" + mf);
+//				System.out.println("lose :" + mf);
 				MemberBean t = service.selectMemberE(mf.getMemberEmail().split("@")[0]);
 				if (t != null) {
 //					if(mf.getMemberFirstName().equals(t.getMemberFirstName())){
@@ -364,7 +396,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 //				}
 			}
 			redata = gson.toJson(errors);
-			System.out.println(redata);
+//			System.out.println(redata);
 			request.setAttribute("errors", errors);
 			return "losepass";
 		}catch(Exception e){
@@ -373,7 +405,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	}
 
 	public String losePassOwner() {
-		System.out.println(owf.getOwnAcc());
+//		System.out.println(owf.getOwnAcc());
 		if (owf.getOwnAcc() != null && owf.getOwnAcc().length() != 0) {
 			if (owf.getOwnEmail() != null && owf.getOwnEmail().length() != 0) {
 			System.out.println("Action mail pass");
@@ -389,10 +421,10 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 		}
 		try{
 			if (owf != null) {
-				System.out.println("lose :" + owf);
+//				System.out.println("lose :" + owf);
 				OwnerBean t = ownser.select(owf.getOwnAcc());
 				if (t != null) {
-					System.out.println("t="+t.getOwnEmail());
+//					System.out.println("t="+t.getOwnEmail());
 					//if(t.getOwnEmail.equals(owf.getOwnEmail())){
 					service.losepassown(t.getOwnID());
 					errors.put("action", "已幫您變更密碼,請前往電子郵件信箱收信");
@@ -402,7 +434,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				}
 			}
 			redata = gson.toJson(errors);
-			System.out.println(redata);
+//			System.out.println(redata);
 			request.setAttribute("errors", errors);
 			return "losepassown";
 		}catch(Exception e){
@@ -411,7 +443,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	}
 
 	public String shoplist() {
-		System.out.println("slist");
+//		System.out.println("slist");
 		try{
 			List<ShopBean> list=service.selectAllowShop();
 			Iterator<ShopBean> shopBlist=list.iterator();
@@ -433,7 +465,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			Type listType = new TypeToken<List<ShopForm>>(){}.getType();
 //			redata = gson.toJson(errors);
 			redata=gson.toJson(listform,listType);
-			System.out.println("re="+redata);
+//			System.out.println("re="+redata);
 //			errors.put("action", redata);
 //			request.setAttribute("errors", errors);
 			return "allowshop";
@@ -456,7 +488,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				errors.put("action", "Ooooooooooooops");
 			}
 			redata = gson.toJson(errors);
-			System.out.println(redata);
+//			System.out.println(redata);
 			return "allowshop";
 		}catch(Exception e){
 			return "error";
@@ -477,7 +509,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				errors.put("action", "Ooooooooooooops");
 			}
 			redata = gson.toJson(errors);
-			System.out.println(redata);
+//			System.out.println(redata);
 			return "allowshop";
 		}catch(Exception e){
 			return "error";
@@ -486,7 +518,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 
 	public String selectShopArea() {
 		try{
-			System.out.println(1+":"+sf.getShopArea());
+//			System.out.println(1+":"+sf.getShopArea());
 			if (sf.getShopArea()!= null && sf.getShopArea().length()!= 0) {
 				List<ShopBean> list=service.selectSByArea(sf.getShopArea());
 				Iterator<ShopBean> shopBlist=list.iterator();
@@ -504,7 +536,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				errors.put("action", "area=null");
 				redata = gson.toJson(errors);
 			}
-			System.out.println(redata+","+errors);
+//			System.out.println(redata+","+errors);
 			return "searea";
 		}catch(Exception e){
 			return "error";
@@ -512,9 +544,8 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	}
 
 	public String selectShop() {
-//		byte[] image;
 		try{
-			System.out.println(11+":"+sf.getShopID()+":"+keyword+":"+sf.getShopArea());
+//			System.out.println(11+":"+sf.getShopID()+":"+keyword+":"+sf.getShopArea());
 			if (sf.getShopID() != null && sf.getShopID() != 0) {
 				ShopBean bean=service.selectSByID(sf.getShopID());
 				errors.put("action", "s by id");
@@ -523,23 +554,14 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			} else {
 				if(keyword!=null && keyword.length()!=0){
 					List<ShopBean> list=service.selectSByKeyword(keyword, sf.getShopArea());
-					System.out.println(13+":"+list);
+//					System.out.println(13+":"+list);
 					Iterator<ShopBean> shopBlist=list.iterator();
 					List<ShopForm> listform=new ArrayList<ShopForm>();
 					while (shopBlist.hasNext()) {
 						ShopBean bean = shopBlist.next();
 						ShopForm form = new ShopForm();
 						form.setShopID(bean.getShopID());
-//						if(bean.getLogoImage()!=null){
-//							image=bean.getLogoImage();
-//							convert ftb=new convert();
-//							File file=ftb.encodeFileToBase64Binary(image);
-//							form.setLogoImage(file);
-//							errors.put("img", gson.toJson(image));
-//						}else{
-//							使用預設圖片
-//						}
-//						將byte[]轉成img (施工中)
+						form.setLogoImage(bean.getLogoImage());
 						form.setShopName(bean.getShopName());
 						form.setShopCity(bean.getShopCity());
 						form.setShopArea(bean.getShopArea());
@@ -552,23 +574,14 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 					errors.put("action", "s by keyword");
 				}else{
 					List<ShopBean> list=service.selectSByArea(sf.getShopArea());
-					System.out.println(14+":"+list);
+//					System.out.println(14+":"+list);
 					Iterator<ShopBean> shopBlist=list.iterator();
 					List<ShopForm> listform=new ArrayList<ShopForm>();
 					while (shopBlist.hasNext()) {
 						ShopBean bean = shopBlist.next();
 						ShopForm form = new ShopForm();
 						form.setShopID(bean.getShopID());
-//						if(bean.getLogoImage()!=null){
-//							image=bean.getLogoImage();
-//							convert ftb=new convert();
-//							File file=ftb.encodeFileToBase64Binary(image);
-//							form.setLogoImage(file);
-//							errors.put("img", gson.toJson(image));
-//						}else{
-//							使用預設圖片
-//						}
-//						將byte[]轉成img (施工中)
+						form.setLogoImage(bean.getLogoImage());
 						form.setShopName(bean.getShopName());
 						form.setShopCity(bean.getShopCity());
 						form.setShopArea(bean.getShopArea());
@@ -582,19 +595,20 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				}
 			}
 			errors.put("re", redata);
-			System.out.println(redata+":"+errors);
+//			System.out.println(redata+":"+errors);
 			request.setAttribute("re", redata);
 			return "selects";
 		}catch(Exception e){
+			e.printStackTrace();
 			return "error";
 		}
 	}
 	
 	public String newoders0(){
-		System.out.println("n01:"+page);
+//		System.out.println("n01:"+page);
 		try{
 			List<OrderSumBean> list=service.selectOrdersByTime(page);
-			System.out.println("n02:"+list);
+//			System.out.println("n02:"+list);
 			Iterator<OrderSumBean> oblist=list.iterator();
 			List<OderSumForm> listform=new ArrayList<OderSumForm>();
 			while (oblist.hasNext()) {
@@ -607,7 +621,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 			}
 			Type listType = new TypeToken<List<ShopForm>>(){}.getType();
 			redata=gson.toJson(listform,listType);
-			System.out.println(redata);
+//			System.out.println(redata);
 			return "newods";
 		}catch(Exception e){
 			return "error";
@@ -615,7 +629,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 	}
 	
 	public String newoderDetail(){
-		System.out.println("d1:"+osf.getOrderSumID());
+//		System.out.println("d1:"+osf.getOrderSumID());
 		try{
 			if(osf.getOrderSumID()!=0 && osf.getOrderSumID()!=null){
 				List<OrderDetailBean> list = service.selectOrderDetail(osf.getOrderSumID());
@@ -631,7 +645,7 @@ public class MemberAction extends ActionSupport implements ServletRequestAware{
 				}
 				Type listType = new TypeToken<List<ShopForm>>() {}.getType();
 				redata = gson.toJson(listform, listType);
-				System.out.println(redata);
+//				System.out.println(redata);
 			}
 			return "newods";
 		} catch (Exception e) {
